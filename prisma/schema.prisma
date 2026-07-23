@@ -1,0 +1,102 @@
+// Prisma schema — using SQLite for zero-setup local development.
+// To switch to PostgreSQL: change provider to "postgresql" and set DATABASE_URL.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Doctors ───────────────────────────────────────────────────────────
+model Doctor {
+  id             Int           @id @default(autoincrement())
+  name           String
+  slug           String        @unique
+  specialty      String
+  qualifications String        // e.g. "MBBS, MD, DM Cardiology"
+  experience     Int           // years
+  bio            String
+  imageUrl       String        @default("")
+  phone          String        @default("")
+  email          String        @default("")
+  available      Boolean       @default(true)
+  createdAt      DateTime      @default(now())
+  appointments   Appointment[]
+
+  @@map("doctors")
+}
+
+// ─── Centres of Excellence ─────────────────────────────────────────────
+model Centre {
+  id          Int      @id @default(autoincrement())
+  name        String
+  slug        String   @unique
+  description String
+  icon        String   @default("Heart")  // lucide icon name
+  services    String   // JSON array stored as string
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  @@map("centres")
+}
+
+// ─── Appointments ──────────────────────────────────────────────────────
+model Appointment {
+  id            Int               @id @default(autoincrement())
+  refNumber     String            @unique // e.g. HW-2026-0001
+  patientName   String
+  patientPhone  String
+  patientEmail  String
+  reason        String
+  appointmentDate DateTime
+  timeSlot      String            // e.g. "10:00 AM"
+  status        AppointmentStatus @default(PENDING)
+  notes         String            @default("")
+  doctorId      Int?
+  doctor        Doctor?           @relation(fields: [doctorId], references: [id])
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  @@map("appointments")
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+// ─── Contact Messages ─────────────────────────────────────────────────
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String   @default("")
+  subject   String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("contact_messages")
+}
+
+// ─── Admin Users ──────────────────────────────────────────────────────
+model AdminUser {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         AdminRole @default(STAFF)
+  createdAt    DateTime  @default(now())
+
+  @@map("admin_users")
+}
+
+enum AdminRole {
+  SUPER_ADMIN
+  STAFF
+}
