@@ -1,322 +1,302 @@
 "use client";
 
 import { Canvas, useFrame, useThree, useLoader } from "@react-three/fiber";
-import { Float, OrbitControls } from "@react-three/drei";
-import { useRef, Suspense, useState } from "react";
+import { Float, OrbitControls, Stars } from "@react-three/drei";
+import { useEffect, useMemo, useRef, useState, use, Suspense } from "react";
 import * as THREE from "three";
 import { TextureLoader } from "three";
+import gsap from "gsap";
+import { latLngToVec3, type GeoFeatureCollection } from "@/lib/geo";
+import { createEarthMaterial } from "@/components/earth/earthMaterial";
+import RegionHighlight, { type RegionHandles } from "@/components/earth/RegionHighlight";
 
-/* ── Ranchi, Jharkhand ── */
-const RANCHI_LAT = 23.3441;
-const RANCHI_LNG = 85.3096;
+const EARTH_R = 1.52;
 
-function latLngToVec3(lat: number, lng: number, r = 1.52): THREE.Vector3 {
-  const phi   = (90 - lat)  * (Math.PI / 180);
-  const theta = (lng + 180) * (Math.PI / 180);
-  return new THREE.Vector3(
-    -r * Math.sin(phi) * Math.cos(theta),
-     r * Math.cos(phi),
-     r * Math.sin(phi) * Math.sin(theta)
-  );
-}
+const INDIA = { lat: 20.5937, lng: 78.9629 };
+const JHARKHAND = { lat: 23.6102, lng: 85.2799 };
+const RANCHI = { lat: 23.3441, lng: 85.3096 };
 
-/* ─────────── Animation cycle timing (seconds) ─────────── */
 /*
- *  0 ──── 5.5  : ORIENT   – globe rotates to face India
- *  5.5 ── 8.5  : INDIA    – camera zooms to India view
- *  8.5 ── 11.5 : JHARKHAND – camera zooms to Jharkhand
- * 11.5 ── 14.0 : RANCHI   – camera zooms to Ranchi (pin focus)
- * 14.0 ── 44.0 : HOLD     – 30 s halt at Ranchi
- * 44.0 ── 49.0 : RESET    – zoom out, globe rotates back
- * 49.0 ── 64.0 : FREE     – normal orbit (15 s)  → then loop
+ * latLngToVec3's equirectangular parameterization puts longitude -90°
+ * (not 0°) at the point facing +Z (the camera) when unrotated, so the
+ * Y-rotation needed to bring a given longitude to face the camera needs
+ * a matching -90° offset. Without it, every target ends up centering
+ * (lng - 90°) instead of lng — e.g. India (78.96°E) would center on
+ * West Africa (-11°) rather than India itself.
  */
-const T_ORIENT = 5.5;
-const T_INDIA  = 8.5;
-const T_JK     = 11.5;
-const T_RANCHI = 14.0;
-const T_HOLD   = 44.0;   // 14.0 + 30 s
-const T_RESET  = 49.0;   // 44.0 + 5 s zoom-out
-const T_CYCLE  = 64.0;   // 49.0 + 15 s free orbit
+function rotationTarget(lat: number, lng: number) {
+  return { y: -(lng * Math.PI) / 180 - Math.PI / 2, x: (lat * Math.PI) / 180 };
+}
+const ROT_INDIA = rotationTarget(INDIA.lat, INDIA.lng);
+const ROT_JK = rotationTarget(JHARKHAND.lat, JHARKHAND.lng);
+const ROT_RANCHI = rotationTarget(RANCHI.lat, RANCHI.lng);
 
-/* ─── Camera distances (z) and field-of-view at each zoom stage ───
- *
- * The dual Z+FOV approach creates the Google Earth telephoto effect:
- *  – Z moves camera closer so the globe gets nearer
- *  – Narrowing FOV makes the visible portion of the globe smaller
- *  – Combined: a specific region (India → JK → Ranchi) fills the circle
- *
- * Visual math: visible half-height at globe center = Z × tan(FOV/2)
- *   World  : 6.2 × tan(21°) = 2.38  → whole globe (r=1.52) fits with space
- *   India  : 4.5 × tan(13°) = 1.04  → globe edge beyond viewport, India fills
- *   JK     : 3.2 × tan(8°)  = 0.45  → east-India/Jharkhand region fills view
- *   Ranchi : 2.5 × tan(5°)  = 0.22  → Ranchi city-scale fills the circle
- */
-const Z_FAR    = 6.2;  const FOV_FAR    = 42;
-const Z_INDIA  = 4.5;  const FOV_INDIA  = 26;
-const Z_JK     = 3.2;  const FOV_JK     = 16;
-const Z_RANCHI = 2.5;  const FOV_RANCHI = 10;
+/* Camera distance (z) + field-of-view per stage — dual Z+FOV telephoto effect */
+const CAM = {
+  space: { z: 6.2, fov: 42 },
+  asia: { z: 5.3, fov: 33 },
+  india: { z: 4.5, fov: 26 },
+  jharkhand: { z: 3.2, fov: 16 },
+  ranchi: { z: 2.5, fov: 10 },
+  satellite: { z: 2.15, fov: 7 },
+};
 
-/* Globe orientation targets (Ranchi-facing) */
-const TARGET_Y = -(RANCHI_LNG * Math.PI) / 180;
-const TARGET_X =  (RANCHI_LAT * Math.PI) / 180 * 0.38;
+const SUN_DIRECTION = new THREE.Vector3(1, 0.35, 0.6).normalize();
 
-function easeInOut(t: number) {
-  t = Math.max(0, Math.min(1, t));
-  return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+const geoCache = new Map<string, Promise<GeoFeatureCollection>>();
+function loadGeoJSON(url: string): Promise<GeoFeatureCollection> {
+  if (!geoCache.has(url)) geoCache.set(url, fetch(url).then((r) => r.json()));
+  return geoCache.get(url)!;
 }
 
-/* Map elapsed→stage index */
-function getStage(t: number) {
-  if (t < T_ORIENT) return 0;
-  if (t < T_INDIA)  return 1;
-  if (t < T_JK)     return 2;
-  if (t < T_RANCHI) return 3;
-  if (t < T_HOLD)   return 4;
-  if (t < T_RESET)  return 5;
-  return 6;
+/* ─── Camera + globe timeline (GSAP) ───────────────────────────────────
+ * Stage 1 Space (0-2s)      – Earth from space, stars, slow rotation
+ * Stage 2 Asia (2-4s)       – camera flies toward Asia, globe turns to face it
+ * Stage 3 India (4-6s)      – zoom in, India glows cyan, rest of globe dims
+ * Stage 4 Jharkhand (6-8s)  – India rotates further, Jharkhand boundary glows
+ * Stage 5 Ranchi (8-10s)    – tight zoom, Jharkhand fills view, Ranchi pin appears
+ * Stage 6 Satellite (10-12s)– last zoom, grading shifts toward a satellite-photo look
+ * Hold (12-15s) → Reset (15-18s) → brief pause → loop
+ * ──────────────────────────────────────────────────────────────────── */
+function useOrbTimeline(opts: {
+  camera: THREE.PerspectiveCamera;
+  globeGroup: THREE.Group;
+  india: RegionHandles | null;
+  jharkhand: RegionHandles | null;
+  pin: THREE.Group | null;
+  shaderState: { dim: number; sat: number };
+  setLabel: (l: string) => void;
+}) {
+  useEffect(() => {
+    const { camera, globeGroup, india, jharkhand, pin, shaderState, setLabel } = opts;
+    if (!india || !jharkhand || !pin) return;
+
+    camera.position.set(0, 0, CAM.space.z);
+    camera.fov = CAM.space.fov;
+    camera.updateProjectionMatrix();
+    globeGroup.rotation.set(0, 0, 0);
+    pin.scale.setScalar(0);
+
+    const applyFov = () => camera.updateProjectionMatrix();
+
+    const tl = gsap.timeline({ repeat: -1, defaults: { ease: "power2.inOut" } });
+
+    tl.call(() => setLabel(""), [], 0)
+      // Stage 1 — space
+      .to(camera, { fov: CAM.space.fov, duration: 2, onUpdate: applyFov }, 0)
+      .to(camera.position, { z: CAM.space.z, duration: 2 }, 0)
+
+      // Stage 2 — fly toward Asia
+      .call(() => setLabel("Asia"), [], 2)
+      .to(camera, { fov: CAM.asia.fov, duration: 2, onUpdate: applyFov }, 2)
+      .to(camera.position, { z: CAM.asia.z, duration: 2 }, 2)
+      .to(globeGroup.rotation, { y: ROT_INDIA.y, x: ROT_INDIA.x, duration: 2 }, 2)
+
+      // Stage 3 — zoom to India, highlight + dim rest of globe
+      .call(() => setLabel("India"), [], 4)
+      .to(camera, { fov: CAM.india.fov, duration: 2, onUpdate: applyFov }, 4)
+      .to(camera.position, { z: CAM.india.z, duration: 2 }, 4)
+      .to(shaderState, { dim: 0.4, duration: 1.6 }, 4.2)
+      .to(india.fillMaterial, { opacity: 0.55, duration: 1.2 }, 4.3)
+      .to(india.outlineMaterial, { opacity: 0.9, duration: 1.2 }, 4.3)
+
+      // Stage 4 — India rotates, camera moves toward Jharkhand, state glows
+      .call(() => setLabel("Jharkhand"), [], 6)
+      .to(camera, { fov: CAM.jharkhand.fov, duration: 2, onUpdate: applyFov }, 6)
+      .to(camera.position, { z: CAM.jharkhand.z, duration: 2 }, 6)
+      .to(globeGroup.rotation, { y: ROT_JK.y, x: ROT_JK.x, duration: 2 }, 6)
+      .to(india.fillMaterial, { opacity: 0.12, duration: 1 }, 6)
+      .to(india.outlineMaterial, { opacity: 0.25, duration: 1 }, 6)
+      .to(jharkhand.fillMaterial, { opacity: 0.75, duration: 1.4 }, 6.4)
+      .to(jharkhand.outlineMaterial, { opacity: 1, duration: 1.4 }, 6.4)
+
+      // Stage 5 — zoom further, Jharkhand fills view, Ranchi marker appears
+      .call(() => setLabel("Ranchi"), [], 8)
+      .to(camera, { fov: CAM.ranchi.fov, duration: 2, onUpdate: applyFov }, 8)
+      .to(camera.position, { z: CAM.ranchi.z, duration: 2 }, 8)
+      .to(globeGroup.rotation, { y: ROT_RANCHI.y, x: ROT_RANCHI.x, duration: 2 }, 8)
+      .to(pin.scale, { x: 1, y: 1, z: 1, duration: 0.9, ease: "back.out(2)" }, 9)
+
+      // Stage 6 — last zoom, morph toward a satellite-photo grade
+      .call(() => setLabel("Ranchi, Jharkhand"), [], 10.4)
+      .to(camera, { fov: CAM.satellite.fov, duration: 2, onUpdate: applyFov }, 10)
+      .to(camera.position, { z: CAM.satellite.z, duration: 2 }, 10)
+      .to(shaderState, { sat: 1, duration: 2 }, 10)
+
+      // Hold at Hopewell/Ranchi — 12 to 15s (nothing new, pin pulses via useFrame)
+
+      // Reset — zoom out, rotate back to neutral, fade everything out
+      .call(() => setLabel(""), [], 15)
+      .to(camera, { fov: CAM.space.fov, duration: 3, onUpdate: applyFov }, 15)
+      .to(camera.position, { z: CAM.space.z, duration: 3 }, 15)
+      .to(globeGroup.rotation, { y: 0, x: 0, duration: 3 }, 15)
+      .to(shaderState, { sat: 0, dim: 0, duration: 1.6 }, 15)
+      .to(
+        [india.fillMaterial, jharkhand.fillMaterial],
+        { opacity: 0, duration: 1.2 },
+        15
+      )
+      .to(
+        [india.outlineMaterial, jharkhand.outlineMaterial],
+        { opacity: 0, duration: 1.2 },
+        15
+      )
+      .to(pin.scale, { x: 0, y: 0, z: 0, duration: 1, ease: "power2.in" }, 15)
+
+      // brief pause before the loop restarts
+      .to({}, { duration: 1.5 }, 18.5);
+
+    return () => {
+      tl.kill();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [opts.india, opts.jharkhand, opts.pin]);
 }
 
-const STAGE_LABELS = [
-  "",                   // 0 ORIENT
-  "India",              // 1
-  "Jharkhand",          // 2
-  "Ranchi, Jharkhand",  // 3
-  "Ranchi, Jharkhand",  // 4 HOLD
-  "",                   // 5 RESET
-  "",                   // 6 FREE
-];
+/* ─── Ranchi / Hopewell marker ─── */
+function RanchiMarker({ onReady }: { onReady: (group: THREE.Group) => void }) {
+  const groupRef = useRef<THREE.Group>(null);
+  const glowRef = useRef<THREE.Mesh>(null);
+  const pos = latLngToVec3(RANCHI.lat, RANCHI.lng, EARTH_R + 0.004);
 
-/* ─── Camera controller ─── */
-function CameraZoom({ setLabel }: { setLabel: (l: string) => void }) {
-  const { camera } = useThree();
-  const elapsed   = useRef(0);
-  const lastStage = useRef(-1);
+  useEffect(() => {
+    if (groupRef.current) onReady(groupRef.current);
+  }, [onReady]);
 
-  useFrame((_, delta) => {
-    elapsed.current += delta;
-    const t = elapsed.current % T_CYCLE;
-
-    /* Stage-change → update label */
-    const stage = getStage(t);
-    if (stage !== lastStage.current) {
-      lastStage.current = stage;
-      setLabel(STAGE_LABELS[stage]);
+  useFrame((state) => {
+    if (glowRef.current) {
+      glowRef.current.scale.setScalar(1 + 0.4 * Math.sin(state.clock.elapsedTime * 3));
     }
-
-    /*
-     * Animate BOTH camera z-distance AND field-of-view.
-     * Narrowing FOV while moving closer = telephoto zoom-in.
-     * Widening FOV while pulling back  = zoom-out reset.
-     */
-    let z = Z_FAR, cy = 0, fov = FOV_FAR;
-    const cam = camera as THREE.PerspectiveCamera;
-
-    if (t < T_ORIENT) {
-      z = Z_FAR; cy = 0; fov = FOV_FAR;
-
-    } else if (t < T_INDIA) {
-      const p = easeInOut((t - T_ORIENT) / (T_INDIA - T_ORIENT));
-      z   = THREE.MathUtils.lerp(Z_FAR,    Z_INDIA,   p);
-      cy  = THREE.MathUtils.lerp(0,         0.12,      p);
-      fov = THREE.MathUtils.lerp(FOV_FAR,  FOV_INDIA, p);
-
-    } else if (t < T_JK) {
-      const p = easeInOut((t - T_INDIA) / (T_JK - T_INDIA));
-      z   = THREE.MathUtils.lerp(Z_INDIA,  Z_JK,   p);
-      cy  = THREE.MathUtils.lerp(0.12,     0.22,   p);
-      fov = THREE.MathUtils.lerp(FOV_INDIA, FOV_JK, p);
-
-    } else if (t < T_RANCHI) {
-      const p = easeInOut((t - T_JK) / (T_RANCHI - T_JK));
-      z   = THREE.MathUtils.lerp(Z_JK,    Z_RANCHI,   p);
-      cy  = THREE.MathUtils.lerp(0.22,    0.30,        p);
-      fov = THREE.MathUtils.lerp(FOV_JK,  FOV_RANCHI,  p);
-
-    } else if (t < T_HOLD) {
-      z = Z_RANCHI; cy = 0.30; fov = FOV_RANCHI;  // HOLD
-
-    } else if (t < T_RESET) {
-      const p = easeInOut((t - T_HOLD) / (T_RESET - T_HOLD));
-      z   = THREE.MathUtils.lerp(Z_RANCHI, Z_FAR,    p);
-      cy  = THREE.MathUtils.lerp(0.30,     0,         p);
-      fov = THREE.MathUtils.lerp(FOV_RANCHI, FOV_FAR, p);
-
-    } else {
-      z = Z_FAR; cy = 0; fov = FOV_FAR;            // FREE orbit
-    }
-
-    camera.position.z = z;
-    camera.position.y = cy;
-    cam.fov = fov;
-    cam.updateProjectionMatrix();
-    camera.lookAt(0, 0, 0);
   });
 
-  return null;
+  /* EARTH_R (1.52 units) represents Earth's real radius (~6371km), so 1 unit
+     ≈ 4191km. Sized so the dot reads as Ranchi city (~4km) rather than a
+     state-scale blob at the tight final-zoom stage. */
+  return (
+    <group ref={groupRef} position={pos} scale={0}>
+      <mesh>
+        <sphereGeometry args={[0.001, 12, 12]} />
+        <meshBasicMaterial color="#ff3355" />
+      </mesh>
+      <mesh ref={glowRef}>
+        <sphereGeometry args={[0.0022, 12, 12]} />
+        <meshBasicMaterial color="#ff3355" transparent opacity={0.3} />
+      </mesh>
+    </group>
+  );
 }
 
-/* ─── Earth globe mesh ─── */
-function GlobeCore() {
-  const groupRef      = useRef<THREE.Group>(null);
-  const ringRef       = useRef<THREE.Mesh>(null);
-  const pinSolidRef   = useRef<THREE.Mesh>(null);
-  const pinGlowRef    = useRef<THREE.Mesh>(null);
+/* ─── Globe: textured Earth + clouds + atmosphere + highlights + rings ─── */
+function Scene({ setLabel }: { setLabel: (l: string) => void }) {
+  const { camera } = useThree();
+  const groupRef = useRef<THREE.Group>(null);
+  const cloudsRef = useRef<THREE.Mesh>(null);
+  const ringRef = useRef<THREE.Mesh>(null);
 
-  /* Continuity across cycle restarts */
-  const elapsed       = useRef(0);
-  const lastCycleT    = useRef(0);
-  const cycleStartRotY = useRef(0); // globe's y-rotation at each cycle start
+  const [dayTex, nightTex, normalTex, specularTex, cloudsTex] = useLoader(TextureLoader, [
+    "/textures/earth/day_8k.jpg",
+    "/textures/earth/night_8k.jpg",
+    "/textures/earth/normal_8k.jpg",
+    "/textures/earth/specular_8k.jpg",
+    "/textures/earth/clouds_8k.jpg",
+  ]);
+  dayTex.colorSpace = THREE.SRGBColorSpace;
+  nightTex.colorSpace = THREE.SRGBColorSpace;
 
-  const earthTex = useLoader(
-    TextureLoader,
-    "https://cdn.jsdelivr.net/npm/three-globe/example/img/earth-blue-marble.jpg"
+  const indiaGeo = use(loadGeoJSON("/data/india.geojson"));
+  const jharkhandGeo = use(loadGeoJSON("/data/jharkhand.geojson"));
+
+  const { material: earthMaterial, getUniforms } = useMemo(
+    () =>
+      createEarthMaterial({
+        day: dayTex,
+        night: nightTex,
+        normal: normalTex,
+        specular: specularTex,
+      }),
+    [dayTex, nightTex, normalTex, specularTex]
   );
-  earthTex.colorSpace = THREE.SRGBColorSpace;
 
-  const specTex = useLoader(
-    TextureLoader,
-    "https://cdn.jsdelivr.net/npm/three-globe/example/img/earth-water.png"
-  );
+  const [india, setIndia] = useState<RegionHandles | null>(null);
+  const [jharkhand, setJharkhand] = useState<RegionHandles | null>(null);
+  const [pin, setPin] = useState<THREE.Group | null>(null);
+  const shaderState = useRef({ dim: 0, sat: 0 }).current;
 
-  const pinPos  = latLngToVec3(RANCHI_LAT, RANCHI_LNG, 1.555);
-  const glowPos = latLngToVec3(RANCHI_LAT, RANCHI_LNG, 1.545);
+  useOrbTimeline({
+    camera: camera as THREE.PerspectiveCamera,
+    globeGroup: groupRef.current as THREE.Group,
+    india,
+    jharkhand,
+    pin,
+    shaderState,
+    setLabel,
+  });
 
-  useFrame((state, delta) => {
-    elapsed.current += delta;
-    const t = elapsed.current % T_CYCLE;
-
-    /* Detect cycle boundary — capture rotation so orient phase starts from it */
-    if (t < lastCycleT.current - T_CYCLE / 2) {
-      cycleStartRotY.current = groupRef.current?.rotation.y ?? 0;
+  useFrame((_, delta) => {
+    const u = getUniforms();
+    if (u) {
+      u.dimFactor.value = shaderState.dim;
+      u.satelliteBlend.value = shaderState.sat;
+      u.uSunDirection.value.copy(SUN_DIRECTION);
     }
-    lastCycleT.current = t;
-
-    if (!groupRef.current) return;
-
-    /* Globe rotation */
-    let ry: number, rx: number;
-
-    if (t < T_ORIENT) {
-      /* Smoothly orient from wherever the globe was → face Ranchi */
-      const p = easeInOut(t / T_ORIENT);
-      ry = THREE.MathUtils.lerp(cycleStartRotY.current, TARGET_Y, p);
-      rx = THREE.MathUtils.lerp(0, TARGET_X, p);
-
-    } else if (t < T_HOLD) {
-      /* Locked on Ranchi during all zoom stages + hold */
-      ry = TARGET_Y;
-      rx = TARGET_X;
-
-    } else if (t < T_RESET) {
-      /* Smoothly rotate back to neutral */
-      const p = easeInOut((t - T_HOLD) / (T_RESET - T_HOLD));
-      ry = THREE.MathUtils.lerp(TARGET_Y, 0, p);
-      rx = THREE.MathUtils.lerp(TARGET_X, 0, p);
-
-    } else {
-      /* Free orbit — computed from start of free phase to avoid accumulation */
-      ry = (t - T_RESET) * 0.08;
-      rx = 0;
-    }
-
-    groupRef.current.rotation.y = ry;
-    groupRef.current.rotation.x = rx;
-
-    /* Rings spin always */
+    if (cloudsRef.current) cloudsRef.current.rotation.y += delta * 0.03;
     if (ringRef.current) ringRef.current.rotation.z -= delta * 0.15;
-
-    /* Pin: solid dot visible during zoom+hold; glow pulses only during hold */
-    const inFocus = t >= T_JK && t < T_HOLD;
-    const holding = t >= T_RANCHI && t < T_HOLD;
-
-    if (pinSolidRef.current)  pinSolidRef.current.visible  = inFocus;
-    if (pinGlowRef.current) {
-      pinGlowRef.current.visible = inFocus;
-      if (holding) {
-        pinGlowRef.current.scale.setScalar(
-          1 + 0.45 * Math.sin(state.clock.elapsedTime * 3.0)
-        );
-      } else {
-        pinGlowRef.current.scale.setScalar(1);
-      }
-    }
   });
 
   return (
     <group ref={groupRef}>
-      <Float speed={1.2} rotationIntensity={0.10} floatIntensity={0.45}>
-
-        {/* ── Satellite-textured Earth ── */}
+      <Float speed={1.1} rotationIntensity={0.08} floatIntensity={0.35}>
+        {/* Earth */}
         <mesh>
-          <sphereGeometry args={[1.52, 72, 72]} />
+          <sphereGeometry args={[EARTH_R, 96, 96]} />
+          <primitive object={earthMaterial} attach="material" />
+        </mesh>
+
+        {/* Clouds */}
+        <mesh ref={cloudsRef}>
+          <sphereGeometry args={[EARTH_R * 1.008, 64, 64]} />
           <meshStandardMaterial
-            map={earthTex}
-            roughnessMap={specTex}
-            roughness={0.82}
-            metalness={0.04}
-          />
-        </mesh>
-
-        {/* ── Thin glass shimmer shell ── */}
-        <mesh>
-          <sphereGeometry args={[1.538, 48, 48]} />
-          <meshPhysicalMaterial
-            color="#9af5f0"
+            map={cloudsTex}
+            alphaMap={cloudsTex}
             transparent
-            opacity={0.055}
-            roughness={0}
-            transmission={0.7}
-            thickness={0.5}
+            opacity={0.55}
+            depthWrite={false}
           />
         </mesh>
 
-        {/* ── Atmosphere halo ── */}
+        {/* Atmosphere halo */}
         <mesh>
-          <sphereGeometry args={[1.68, 32, 32]} />
-          <meshBasicMaterial
-            color="#57e6e6"
-            transparent
-            opacity={0.05}
-            side={THREE.BackSide}
-          />
+          <sphereGeometry args={[EARTH_R * 1.1, 32, 32]} />
+          <meshBasicMaterial color="#57e6e6" transparent opacity={0.06} side={THREE.BackSide} />
         </mesh>
 
-        {/* ── Orbital ring A ── */}
+        {/* Orbital rings (decorative, matches site's futuristic aesthetic) */}
         <mesh ref={ringRef} rotation={[1.1, 0.3, 0]}>
-          <torusGeometry args={[2.05, 0.018, 12, 160]} />
-          <meshBasicMaterial color="#0ca8ad" transparent opacity={0.65} />
+          <torusGeometry args={[2.05, 0.016, 12, 160]} />
+          <meshBasicMaterial color="#0ca8ad" transparent opacity={0.55} />
         </mesh>
-
-        {/* ── Orbital ring B ── */}
         <mesh rotation={[0.25, 1.2, 0.2]}>
-          <torusGeometry args={[2.28, 0.009, 10, 160]} />
-          <meshBasicMaterial color="#2ecbd0" transparent opacity={0.35} />
+          <torusGeometry args={[2.28, 0.008, 10, 160]} />
+          <meshBasicMaterial color="#2ecbd0" transparent opacity={0.3} />
         </mesh>
 
-        {/* ── Ranchi solid pin dot ── */}
-        <mesh ref={pinSolidRef} position={pinPos} visible={false}>
-          <sphereGeometry args={[0.036, 12, 12]} />
-          <meshBasicMaterial color="#ff3355" />
-        </mesh>
-
-        {/* ── Ranchi pulsing glow ── */}
-        <mesh ref={pinGlowRef} position={glowPos} visible={false}>
-          <sphereGeometry args={[0.078, 12, 12]} />
-          <meshBasicMaterial color="#ff3355" transparent opacity={0.28} />
-        </mesh>
-
+        <RegionHighlight geojson={indiaGeo} radius={EARTH_R + 0.006} color="#57e6e6" onReady={setIndia} />
+        <RegionHighlight geojson={jharkhandGeo} radius={EARTH_R + 0.012} color="#8ef7ea" onReady={setJharkhand} />
+        <RanchiMarker onReady={setPin} />
       </Float>
     </group>
   );
 }
 
-/* Wireframe placeholder while textures download */
+/* Wireframe placeholder while textures/geo data download */
 function GlobeFallback() {
   const ref = useRef<THREE.Mesh>(null);
-  useFrame((_, d) => { if (ref.current) ref.current.rotation.y += d * 0.12; });
+  useFrame((_, d) => {
+    if (ref.current) ref.current.rotation.y += d * 0.12;
+  });
   return (
     <mesh ref={ref}>
-      <icosahedronGeometry args={[1.52, 4]} />
+      <icosahedronGeometry args={[EARTH_R, 4]} />
       <meshStandardMaterial color="#083242" wireframe transparent opacity={0.28} />
     </mesh>
   );
@@ -327,17 +307,8 @@ export default function HeroOrb() {
   const [label, setLabel] = useState("");
 
   return (
-    /*
-     * Outer div centers the globe in the panel.
-     * Inner div: height:100% + aspect-ratio:1 → always a perfect square.
-     * rounded-full + overflow-hidden clips WebGL canvas to a circle.
-     */
     <div className="absolute inset-0 flex items-center justify-center">
-      <div
-        className="relative rounded-full overflow-hidden"
-        style={{ height: "100%", aspectRatio: "1 / 1" }}
-      >
-        {/* ── Location label pill (India / Jharkhand / Ranchi) ── */}
+      <div className="relative rounded-full overflow-hidden" style={{ height: "100%", aspectRatio: "1 / 1" }}>
         {label && (
           <div
             key={label}
@@ -365,20 +336,24 @@ export default function HeroOrb() {
         )}
 
         <Canvas
-          camera={{ position: [0, 0, Z_FAR], fov: 42 }}
+          camera={{ position: [0, 0, CAM.space.z], fov: CAM.space.fov }}
           dpr={[1, 1.5]}
           gl={{ alpha: true }}
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
         >
-          <ambientLight intensity={1.6} />
-          <directionalLight position={[5, 5, 5]}   intensity={2.6} color="#ffffff" />
-          <directionalLight position={[-5, 2, -2]}  intensity={0.6} color="#b9fff4" />
-          <pointLight       position={[-4, -2, 2]}  intensity={14}  color="#58eee7" />
+          <ambientLight intensity={1.3} />
+          <directionalLight
+            position={[SUN_DIRECTION.x * 5, SUN_DIRECTION.y * 5, SUN_DIRECTION.z * 5]}
+            intensity={2.4}
+            color="#ffffff"
+          />
+          <directionalLight position={[-5, 2, -2]} intensity={0.5} color="#b9fff4" />
+          <pointLight position={[-4, -2, 2]} intensity={12} color="#58eee7" />
 
-          <CameraZoom setLabel={setLabel} />
+          <Stars radius={90} depth={40} count={3000} factor={2.2} saturation={0} fade speed={0.4} />
 
           <Suspense fallback={<GlobeFallback />}>
-            <GlobeCore />
+            <Scene setLabel={setLabel} />
           </Suspense>
 
           <OrbitControls enableZoom={false} enablePan={false} autoRotate={false} />

@@ -8,7 +8,7 @@ import Link from "next/link";
 const links = [
   { label: "Centres",          href: "/centres" },
   { label: "Doctors",          href: "/doctors" },
-  { label: "Patient Services", href: "/contact" },
+  { label: "Patient Services", href: "/services" },
   { label: "Contact",          href: "/contact" },
 ];
 

@@ -1,15 +1,10 @@
-import path from "path";
+import { config as loadEnv } from "dotenv";
 import { defineConfig } from "prisma/config";
 
-const dbPath = path.resolve(process.cwd(), "prisma", "dev.db");
-const dbUrl  = `file:${dbPath}`;
-
-// Make DATABASE_URL available to the schema
-process.env.DATABASE_URL = dbUrl;
+// Prisma's config file disables its own automatic .env loading, so load
+// .env.local explicitly (Next.js's convention) to get DATABASE_URL etc.
+loadEnv({ path: ".env.local" });
 
 export default defineConfig({
   schema: "prisma/schema.prisma",
-  datasource: {
-    url: dbUrl,
-  },
 });

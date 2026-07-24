@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, HeartPulse, ShieldCheck, Sparkles } from "lucide-react";
 import Link from "next/link";
-import HeroOrb from "./HeroOrb";
+import HeroVideo from "./HeroVideo";
 
 export default function Hero() {
   return (
@@ -60,7 +60,7 @@ export default function Hero() {
           transition={{ duration: 1, delay: .1 }}
           className="relative min-h-[500px] overflow-visible"
         >
-          <HeroOrb />
+          <HeroVideo />
 
           {/*
            * Cardiac Command — centered on the LEFT arc of the globe.

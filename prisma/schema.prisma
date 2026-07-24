@@ -1,12 +1,12 @@
-// Prisma schema — using SQLite for zero-setup local development.
-// To switch to PostgreSQL: change provider to "postgresql" and set DATABASE_URL.
+// Prisma schema — PostgreSQL (Neon), required for deployment on Vercel's
+// serverless functions (no persistent local filesystem for a SQLite file).
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
