@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const FROM = process.env.SMTP_FROM ?? "Hopewell Hospital <noreply@hopewellhospital.in>";
-const HOSPITAL_EMAIL = process.env.HOSPITAL_EMAIL ?? "admin@hopewellhospital.in";
+const HOSPITAL_EMAIL = process.env.HOSPITAL_EMAIL ?? "info@hopewellhospital.in";
 const emailEnabled = !!(process.env.SMTP_USER && process.env.SMTP_PASS);
 
 /* ── Send helper ── */

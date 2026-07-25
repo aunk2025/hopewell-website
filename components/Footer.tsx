@@ -1,4 +1,4 @@
-import { ArrowUpRight, Facebook, Instagram, Linkedin, MapPin, Phone } from "lucide-react";
+import { ArrowUpRight, Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -14,7 +14,7 @@ export default function Footer() {
         <div>
           <h3 className="font-black">Explore</h3>
           <div className="mt-5 grid gap-3 text-sm text-slate-500">
-            {["Centres of Excellence", "Doctors", "Patient Services", "Health Packages", "Careers"].map(x =>
+            {["Doctors", "Services", "Health Packages", "Careers"].map(x =>
               <a href="#" key={x} className="hover:text-ink">{x}</a>
             )}
           </div>
@@ -24,6 +24,7 @@ export default function Footer() {
           <div className="mt-5 space-y-4 text-sm text-slate-500">
             <div className="flex gap-3"><MapPin size={18} className="shrink-0 text-teal-700" /> Ranchi, Jharkhand, India</div>
             <a href="tel:+917281990530" className="flex gap-3"><Phone size={18} className="text-teal-700" /> +91 72819 90530</a>
+            <a href="mailto:info@hopewellhospital.in" className="flex gap-3"><Mail size={18} className="shrink-0 text-teal-700" /> info@hopewellhospital.in</a>
           </div>
         </div>
         <div>

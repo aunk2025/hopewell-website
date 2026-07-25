@@ -87,7 +87,7 @@ export default function Hero() {
            * right-[-125px] shifts it so exactly half (125px) hangs outside.
            */}
           <div className="dark-glass floating-slow absolute z-20 w-[250px] rounded-3xl p-5 text-white shadow-glass"
-            style={{ right: "-125px", bottom: "12%", transform: "translateY(50%)" }}>
+            style={{ right: "-125px", bottom: "9%", transform: "translateY(50%)" }}>
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-[.16em] text-cyan">Patient Journey</span>
               <ShieldCheck size={19} className="text-cyan" />

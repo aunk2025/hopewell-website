@@ -14,6 +14,7 @@ export default function HeroVideo() {
           loop
           playsInline
           className="absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: "68% center" }}
         />
       </div>
     </div>

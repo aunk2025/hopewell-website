@@ -6,7 +6,7 @@ import { ArrowUpRight, Baby, Bone, HeartPulse, ScanHeart, ShieldPlus, Stethoscop
 const centres = [
   { icon: HeartPulse, name: "Cardiac Sciences", text: "Integrated cardiology, cardiac diagnostics and critical cardiac support.", stat: "24×7" },
   { icon: ScanHeart, name: "Surgical Excellence", text: "Precision-led general, laparoscopic and gastrointestinal surgery.", stat: "Advanced OT" },
-  { icon: Bone, name: "Orthopaedics", text: "Joint preservation, trauma care and advanced mobility restoration.", stat: "Mobility" },
+  { icon: Bone, name: "Orthopaedics", text: "Joint preservation, trauma care and advanced mobility restoration.", stat: "Mobility", href: "/services/orthopaedics" },
   { icon: Baby, name: "Mother & Child", text: "Sensitive obstetric, gynaecological, paediatric and newborn care.", stat: "Family care" },
   { icon: ShieldPlus, name: "Critical Care", text: "Continuous monitoring, rapid escalation and specialist-led intensive care.", stat: "ICU" },
   { icon: Stethoscope, name: "Emergency Medicine", text: "Rapid assessment and coordinated response when every minute matters.", stat: "Always on" },
@@ -33,15 +33,17 @@ export default function Centres() {
         <div className="grid gap-5 sm:grid-cols-2">
           {centres.map((centre, index) => {
             const Icon = centre.icon;
+            const Wrapper = centre.href ? motion.a : motion.article;
             return (
-              <motion.article
+              <Wrapper
                 key={centre.name}
+                {...(centre.href ? { href: centre.href, target: "_blank", rel: "noopener noreferrer" } : {})}
                 initial={{ opacity: 0, y: 26 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: .25 }}
                 transition={{ delay: index * .06 }}
                 whileHover={{ y: -7, rotateX: 2, rotateY: index % 2 ? -2 : 2 }}
-                className="glass group relative min-h-[285px] overflow-hidden rounded-[2rem] p-6 shadow-glass [transform-style:preserve-3d]"
+                className={`glass group relative min-h-[285px] overflow-hidden rounded-[2rem] p-6 shadow-glass [transform-style:preserve-3d] ${centre.href ? "block cursor-pointer" : ""}`}
               >
                 <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-cyan/15 blur-2xl transition group-hover:bg-cyan/30" />
                 <div className="relative flex h-full flex-col">
@@ -62,7 +64,7 @@ export default function Centres() {
                     </span>
                   </div>
                 </div>
-              </motion.article>
+              </Wrapper>
             );
           })}
         </div>
