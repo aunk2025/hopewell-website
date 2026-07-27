@@ -52,7 +52,7 @@ export default function Navbar() {
             <a href="tel:+917281990530" className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white">
               <Phone size={17} />
             </a>
-            <Link href="/appointment" className="flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5">
+            <Link href="/appointment" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5">
               <CalendarDays size={16} />
               Book Appointment
             </Link>
@@ -67,7 +67,7 @@ export default function Navbar() {
           <div className="border-t border-slate-200 bg-white px-5 py-5 lg:hidden">
             <div className="grid gap-4">
               {links.map((link) => <Link key={link.label} href={link.href} className="font-semibold">{link.label}</Link>)}
-              <Link href="/appointment" className="rounded-xl bg-ink px-4 py-3 text-center font-bold text-white">Book Appointment</Link>
+              <Link href="/appointment" target="_blank" rel="noopener noreferrer" className="rounded-xl bg-ink px-4 py-3 text-center font-bold text-white">Book Appointment</Link>
             </div>
           </div>
         )}

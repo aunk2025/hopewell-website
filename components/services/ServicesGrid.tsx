@@ -162,6 +162,8 @@ function ServiceModal({ service, onClose }: { service: Service; onClose: () => v
 
         <a
           href="/appointment"
+          target="_blank"
+          rel="noopener noreferrer"
           className="mt-8 flex items-center justify-center gap-2 rounded-2xl bg-ink py-3.5 text-sm font-bold text-white transition hover:bg-teal-900"
         >
           Book an Appointment

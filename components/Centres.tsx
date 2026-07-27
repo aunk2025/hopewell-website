@@ -1,15 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Baby, Bone, HeartPulse, ScanHeart, ShieldPlus, Stethoscope } from "lucide-react";
+import { ArrowUpRight, Baby, Bone, Dna, Ear, HeartPulse, ScanHeart, ShieldPlus, Stethoscope } from "lucide-react";
 
 const centres = [
-  { icon: HeartPulse, name: "Cardiac Sciences", text: "Integrated cardiology, cardiac diagnostics and critical cardiac support.", stat: "24×7" },
-  { icon: ScanHeart, name: "Surgical Excellence", text: "Precision-led general, laparoscopic and gastrointestinal surgery.", stat: "Advanced OT" },
-  { icon: Bone, name: "Orthopaedics", text: "Joint preservation, trauma care and advanced mobility restoration.", stat: "Mobility", href: "/services/orthopaedics" },
-  { icon: Baby, name: "Mother & Child", text: "Sensitive obstetric, gynaecological, paediatric and newborn care.", stat: "Family care" },
-  { icon: ShieldPlus, name: "Critical Care", text: "Continuous monitoring, rapid escalation and specialist-led intensive care.", stat: "ICU" },
-  { icon: Stethoscope, name: "Emergency Medicine", text: "Rapid assessment and coordinated response when every minute matters.", stat: "Always on" },
+  { icon: HeartPulse, name: "Cardiac Sciences", text: "Integrated cardiology, cardiac diagnostics and critical cardiac support.", stat: "24×7", image: "/cardiacservices.jfif" },
+  { icon: ScanHeart, name: "Surgical Excellence", text: "Precision-led general, laparoscopic and gastrointestinal surgery.", stat: "Advanced OT", image: "/surgerieslable.jpg" },
+  { icon: Bone, name: "Orthopaedics", text: "Joint preservation, trauma care and advanced mobility restoration.", stat: "Mobility", href: "/services/orthopaedics", image: "/ortholable.jfif" },
+  { icon: Baby, name: "Mother & Child", text: "Sensitive obstetric, gynaecological, paediatric and newborn care.", stat: "Family care", image: "/motherchild.jfif" },
+  { icon: ShieldPlus, name: "Critical Care", text: "Continuous monitoring, rapid escalation and specialist-led intensive care.", stat: "ICU", image: "/criticalcare.jfif" },
+  { icon: Stethoscope, name: "Emergency Medicine", text: "Rapid assessment and coordinated response when every minute matters.", stat: "Always on", image: "/emergency.jfif" },
+  { icon: Dna, name: "IVF", text: "Personalized fertility evaluation and assisted reproduction for couples building their family.", stat: "Fertility care", image: "/IVF-Steps.png" },
+  { icon: Ear, name: "ENT", text: "Comprehensive ear, nose and throat diagnostics, treatment and surgical care.", stat: "Head & neck", image: "/ent.jfif" },
 ];
 
 export default function Centres() {
@@ -48,9 +50,15 @@ export default function Centres() {
                 <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-cyan/15 blur-2xl transition group-hover:bg-cyan/30" />
                 <div className="relative flex h-full flex-col">
                   <div className="flex items-start justify-between">
-                    <div className="grid h-14 w-14 place-items-center rounded-2xl bg-ink text-cyan shadow-glow">
-                      <Icon size={25} />
-                    </div>
+                    {centre.image ? (
+                      <div className="h-14 w-14 overflow-hidden rounded-2xl shadow-glow">
+                        <img src={centre.image} alt={centre.name} className="h-full w-full object-cover" />
+                      </div>
+                    ) : (
+                      <div className="grid h-14 w-14 place-items-center rounded-2xl bg-ink text-cyan shadow-glow">
+                        <Icon size={25} />
+                      </div>
+                    )}
                     <span className="rounded-full border border-slate-200 bg-white/70 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-slate-500">
                       {centre.stat}
                     </span>

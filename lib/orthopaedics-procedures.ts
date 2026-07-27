@@ -8,6 +8,7 @@ export type Procedure = {
   sections?: ProcedureSection[];
   timeline?: TimelinePhase[];
   backgroundImage?: string;
+  backgroundPosition?: string;
 };
 
 export const procedures: Procedure[] = [
@@ -136,6 +137,7 @@ export const procedures: Procedure[] = [
     name: "Shoulder Arthroscopy",
     overview:
       "A minimally invasive keyhole procedure used to diagnose and treat shoulder joint problems using a small camera and instruments inserted through tiny incisions.",
+    backgroundImage: "/shoulderarthroscopy.jfif",
     sections: [
       {
         title: "Who Needs It",
@@ -190,6 +192,7 @@ export const procedures: Procedure[] = [
     name: "Bankart's Repair",
     overview:
       "A surgical procedure to repair a torn labrum in the shoulder, most often performed after repeated shoulder dislocations, to restore joint stability.",
+    backgroundImage: "/bankartrepair.jfif",
     sections: [
       {
         title: "Who Needs It",
@@ -240,6 +243,7 @@ export const procedures: Procedure[] = [
     name: "ACL Reconstruction",
     overview:
       "Reconstructive surgery to replace a torn anterior cruciate ligament (ACL) in the knee, commonly needed after sports-related injuries, to restore knee stability.",
+    backgroundImage: "/aclreconstruction.jfif",
     sections: [
       {
         title: "Who Needs It",
@@ -290,6 +294,8 @@ export const procedures: Procedure[] = [
     name: "PCL Reconstruction",
     overview:
       "Reconstructive surgery to repair a torn posterior cruciate ligament (PCL), restoring stability and function to the knee joint.",
+    backgroundImage: "/pclreconstruction.jfif",
+    backgroundPosition: "center 40%",
     sections: [
       {
         title: "Who Needs It",
@@ -340,6 +346,8 @@ export const procedures: Procedure[] = [
     name: "Meniscus Repair & Reconstruction",
     overview:
       "Surgical repair or reconstruction of the meniscus, the cartilage cushion in the knee, to relieve pain and restore normal joint mechanics after injury.",
+    backgroundImage: "/miniscus%20repair.jfif",
+    backgroundPosition: "center 40%",
     sections: [
       {
         title: "Who Needs It",
@@ -390,6 +398,8 @@ export const procedures: Procedure[] = [
     name: "Trigger Finger Release",
     overview:
       "A procedure to release a tendon that has become stuck, restoring smooth finger movement and relieving the catching or locking sensation of a trigger finger.",
+    backgroundImage: "/triggerfinger.jfif",
+    backgroundPosition: "center",
     sections: [
       {
         title: "Who Needs It",
@@ -440,6 +450,7 @@ export const procedures: Procedure[] = [
     name: "Spine Surgery",
     overview:
       "Surgical treatment for conditions affecting the spine, including disc problems, spinal stenosis and instability, aimed at relieving pain and restoring function.",
+    backgroundImage: "/spinesurgery.jfif",
     sections: [
       {
         title: "Who Needs It",
@@ -482,6 +493,57 @@ export const procedures: Procedure[] = [
         phase: "Months 3 to 6",
         title: "Return to Normal Activity",
         text: "Most patients resume daily activities and, where appropriate, work and exercise, with fusion procedures typically requiring a longer recovery than minimally invasive techniques.",
+      },
+    ],
+  },
+  {
+    slug: "trauma-fracture",
+    name: "Trauma & Fracture Care",
+    overview:
+      "Emergency and planned orthopaedic care for fractures, dislocations and traumatic injuries, aimed at restoring bone alignment, stability and function as quickly and safely as possible.",
+    backgroundImage: "/trauma%20care.jfif",
+    sections: [
+      {
+        title: "Who Needs It",
+        text: "Anyone who has suffered a broken bone, joint dislocation or traumatic injury from a fall, accident or sports activity, ranging from minor fractures that can be managed conservatively to complex, multi-bone trauma requiring urgent surgical fixation.",
+      },
+      {
+        title: "How It's Performed",
+        text: "Treatment depends on the type and severity of the injury. Simple fractures may be treated with casting or splinting to allow natural healing, while more complex or displaced fractures often require surgery to realign the bone and fix it in place using plates, screws, rods or external fixators.",
+      },
+      {
+        title: "Preparing for Treatment",
+        text: "In an emergency, treatment begins immediately with pain relief, imaging such as X-rays or a CT scan, and stabilisation of the injury. For planned procedures, patients are assessed and counselled on the surgical plan and expected recovery before admission.",
+      },
+      {
+        title: "Benefits",
+        text: "Prompt, well-aligned fracture treatment reduces pain, restores mobility, lowers the risk of long-term deformity or joint stiffness, and helps patients return to their normal activities as quickly as safely possible.",
+      },
+      {
+        title: "Risks & Complications",
+        variant: "warning",
+        text: "As with any injury or surgery, trauma care carries some risk, including infection, delayed or incomplete healing, stiffness in nearby joints, or the need for further surgery in complex cases. Your treating team will explain the risks specific to your injury.",
+      },
+      {
+        title: "Life After Treatment",
+        text: "Most patients regain good function of the injured limb or joint, with recovery time depending on the severity of the injury, the treatment method used, and how closely rehabilitation guidance is followed.",
+      },
+    ],
+    timeline: [
+      {
+        phase: "First Few Days",
+        title: "Stabilisation & Pain Control",
+        text: "The injury is stabilised with a cast, splint or surgical fixation, and pain is managed while initial swelling and inflammation settle.",
+      },
+      {
+        phase: "Weeks 2 to 6",
+        title: "Healing & Guided Movement",
+        text: "The fracture continues to heal under regular review, with controlled movement or physiotherapy introduced as advised to prevent stiffness in nearby joints.",
+      },
+      {
+        phase: "Months 2 to 4+",
+        title: "Strengthening & Return to Activity",
+        text: "As the bone consolidates, strengthening exercises and a gradual return to normal activity, sport or work follow, with timelines varying based on the specific fracture and treatment.",
       },
     ],
   },

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, IndianRupee } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getProcedure, procedures } from "@/lib/orthopaedics-procedures";
@@ -30,7 +30,7 @@ export default async function ProcedurePage({ params }: { params: Promise<{ proc
         procedure.backgroundImage
           ? {
               backgroundImage: `linear-gradient(rgba(237,249,248,.4), rgba(237,249,248,.4)), url(${procedure.backgroundImage})`,
-              backgroundPosition: "center 25%",
+              backgroundPosition: procedure.backgroundPosition ?? "center 25%",
             }
           : undefined
       }
@@ -46,7 +46,7 @@ export default async function ProcedurePage({ params }: { params: Promise<{ proc
           {procedure.name}
         </h1>
         <p
-          className="mb-10 text-lg leading-8 text-slate-800"
+          className="mb-10 text-lg font-bold leading-8 text-slate-800"
           style={{ textShadow: "0 1px 8px rgba(255,255,255,.8)" }}
         >
           {procedure.overview}
@@ -70,6 +70,14 @@ export default async function ProcedurePage({ params }: { params: Promise<{ proc
                 </div>
               )
             )}
+
+            <div className="rounded-3xl border border-teal-200 bg-teal-50 p-7">
+              <div className="mb-1 flex items-center gap-2">
+                <IndianRupee size={18} className="text-teal-700" />
+                <h2 className="text-lg font-black text-teal-800">Price Range</h2>
+              </div>
+              <p className="text-sm leading-6 text-teal-900/80">Price on Consultation</p>
+            </div>
 
             {procedure.timeline && (
               <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
@@ -105,6 +113,8 @@ export default async function ProcedurePage({ params }: { params: Promise<{ proc
 
         <a
           href="/appointment"
+          target="_blank"
+          rel="noopener noreferrer"
           className="mt-10 flex items-center justify-center gap-2 rounded-2xl bg-ink py-4 text-sm font-bold text-white transition hover:bg-teal-900"
         >
           Book an Appointment

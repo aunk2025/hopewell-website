@@ -1,44 +1,59 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Bone, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { procedures } from "@/lib/orthopaedics-procedures";
 
 const keyServices = [
   {
     category: "Joint Replacement Surgeries",
-    items: ["Total Knee Replacement (TKR)", "Unicondylar Knee replacement (UKA)", "Total Hip Replacement (THR)"],
+    items: [
+      { label: "Total Knee Replacement (TKR)", href: "/services/orthopaedics/tkr" },
+      { label: "Unicondylar Knee replacement (UKA)", href: "/services/orthopaedics/tkr" },
+      { label: "Total Hip Replacement (THR)", href: "/services/orthopaedics/thr" },
+    ],
   },
   {
     category: "Arthroscopy & Sports Injury Care",
     items: [
-      "Shoulder Arthroscopy",
-      "Bankart's Repair",
-      "ACL Reconstruction",
-      "PCL Reconstruction",
-      "Meniscus Repair and Reconstruction",
-      "MCL and LCL reconstruction",
-      "MPFL reconstruction",
-      "Rotator Cuff Repair",
+      { label: "Shoulder Arthroscopy", href: "/services/orthopaedics/shoulder-arthroscopy" },
+      { label: "Bankart's Repair", href: "/services/orthopaedics/bankart-repair" },
+      { label: "ACL Reconstruction", href: "/services/orthopaedics/acl-reconstruction" },
+      { label: "PCL Reconstruction", href: "/services/orthopaedics/pcl-reconstruction" },
+      { label: "Meniscus Repair and Reconstruction", href: "/services/orthopaedics/meniscus-repair" },
+      { label: "MCL and LCL reconstruction", href: "/services/orthopaedics/acl-reconstruction" },
+      { label: "MPFL reconstruction", href: "/services/orthopaedics/pcl-reconstruction" },
+      { label: "Rotator Cuff Repair", href: "/services/orthopaedics/shoulder-arthroscopy" },
     ],
   },
   {
     category: "Spine Surgery",
     items: [
-      "Minimally Invasive Spine Surgery (MISS)",
-      "Discectomy",
-      "Laminectomy",
-      "Spinal Fusion",
-      "Kyphoplasty / Vertebroplasty",
-      "Slip Disc Treatment",
+      { label: "Minimally Invasive Spine Surgery (MISS)", href: "/services/orthopaedics/spine-surgery" },
+      { label: "Discectomy", href: "/services/orthopaedics/spine-surgery" },
+      { label: "Laminectomy", href: "/services/orthopaedics/spine-surgery" },
+      { label: "Spinal Fusion", href: "/services/orthopaedics/spine-surgery" },
+      { label: "Kyphoplasty / Vertebroplasty", href: "/services/orthopaedics/spine-surgery" },
+      { label: "Slip Disc Treatment", href: "/services/orthopaedics/spine-surgery" },
     ],
   },
   {
     category: "Trauma & Fracture Care",
-    items: ["Emergency trauma care", "Fracture management", "Head injury management", "Joint dislocation management"],
+    items: [
+      { label: "Emergency trauma care", href: "/services/orthopaedics/trauma-fracture" },
+      { label: "Fracture management", href: "/services/orthopaedics/trauma-fracture" },
+      { label: "Head injury management", href: "/services/orthopaedics/trauma-fracture" },
+      { label: "Joint dislocation management", href: "/services/orthopaedics/trauma-fracture" },
+    ],
   },
   {
     category: "Hand & Wrist Conditions",
-    items: ["Trigger Finger Release", "Carpal Tunnel Syndrome", "Tenosynovitis", "Tendon injuries", "Small-joint arthritis"],
+    items: [
+      { label: "Trigger Finger Release", href: "/services/orthopaedics/trigger-finger-release" },
+      { label: "Carpal Tunnel Syndrome", href: "/services/orthopaedics/trigger-finger-release" },
+      { label: "Tenosynovitis", href: "/services/orthopaedics/trigger-finger-release" },
+      { label: "Tendon injuries", href: "/services/orthopaedics/trigger-finger-release" },
+      { label: "Small-joint arthritis", href: "/services/orthopaedics/trigger-finger-release" },
+    ],
   },
 ];
 
@@ -80,7 +95,7 @@ export default function OrthopaedicsPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-4 py-2 text-sm font-semibold text-violet-800 transition hover:bg-violet-100 hover:border-violet-300"
             >
-              <Bone size={14} />
+              <img src="/orthoinsidelables.jfif" alt="" className="h-4 w-4 rounded-full object-cover" />
               {p.name}
             </a>
           ))}
@@ -97,12 +112,27 @@ export default function OrthopaedicsPage() {
             <div key={group.category} className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
               <h3 className="mb-4 text-lg font-black text-ink">{group.category}</h3>
               <ul className="space-y-2.5">
-                {group.items.map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-sm text-slate-600">
-                    <ChevronRight size={14} className="shrink-0 text-violet-600" />
-                    {item}
-                  </li>
-                ))}
+                {group.items.map((item) => {
+                  const label = typeof item === "string" ? item : item.label;
+                  const href = typeof item === "string" ? undefined : item.href;
+                  return (
+                    <li key={label} className="flex items-center gap-2 text-sm text-slate-600">
+                      <ChevronRight size={14} className="shrink-0 text-violet-600" />
+                      {href ? (
+                        <a
+                          href={href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-semibold text-violet-800 underline decoration-violet-300 underline-offset-2 hover:text-violet-900"
+                        >
+                          {label}
+                        </a>
+                      ) : (
+                        label
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}

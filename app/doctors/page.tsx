@@ -113,6 +113,8 @@ function DoctorModal({ doc, onClose }: { doc: Doctor; onClose: () => void }) {
         <p className="mt-5 text-sm leading-7 text-slate-600">{doc.bio}</p>
         <a
           href="/appointment"
+          target="_blank"
+          rel="noopener noreferrer"
           className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#061822] py-3.5 text-sm font-bold text-white transition hover:bg-teal-900"
         >
           Book Appointment with Dr. {doc.name.split(" ").pop()}
