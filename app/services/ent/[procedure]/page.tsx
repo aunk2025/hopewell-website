@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { AlertTriangle, IndianRupee } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { getProcedure, procedures } from "@/lib/orthopaedics-procedures";
+import { getProcedure, procedures } from "@/lib/ent-procedures";
 
 export function generateStaticParams() {
   return procedures.map((p) => ({ procedure: p.slug }));
@@ -11,14 +11,14 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ procedure: string }> }) {
   const { procedure: slug } = await params;
   const procedure = getProcedure(slug);
-  if (!procedure) return { title: "Orthopaedics | Hopewell Hospital Ranchi" };
+  if (!procedure) return { title: "ENT | Hopewell Hospital Ranchi" };
   return {
     title: `${procedure.name} | Hopewell Hospital Ranchi`,
     description: procedure.overview,
   };
 }
 
-export default async function ProcedurePage({ params }: { params: Promise<{ procedure: string }> }) {
+export default async function EntProcedurePage({ params }: { params: Promise<{ procedure: string }> }) {
   const { procedure: slug } = await params;
   const procedure = getProcedure(slug);
   if (!procedure) notFound();
@@ -29,7 +29,7 @@ export default async function ProcedurePage({ params }: { params: Promise<{ proc
       style={
         procedure.backgroundImage
           ? {
-              backgroundImage: `linear-gradient(rgba(237,249,248,.4), rgba(237,249,248,.4)), url(${procedure.backgroundImage})`,
+              backgroundImage: `linear-gradient(rgba(0,0,0,.15), rgba(0,0,0,.15)), url(${procedure.backgroundImage})`,
               backgroundPosition: procedure.backgroundPosition ?? "center 25%",
             }
           : undefined
@@ -38,7 +38,7 @@ export default async function ProcedurePage({ params }: { params: Promise<{ proc
       <Navbar />
 
       <section className="mx-auto max-w-4xl px-5 py-16 lg:px-8 lg:py-20">
-        <div className="section-kicker mb-4">Orthopaedics</div>
+        <div className="section-kicker mb-4">ENT</div>
         <h1
           className="mb-6 text-4xl font-black tracking-[-.03em] text-black sm:text-5xl"
           style={{ textShadow: "0 2px 12px rgba(255,255,255,.8), 0 1px 2px rgba(255,255,255,.9)" }}
@@ -112,7 +112,7 @@ export default async function ProcedurePage({ params }: { params: Promise<{ proc
         )}
 
         <a
-          href="/appointment?specialty=Orthopaedics"
+          href="/appointment?specialty=ENT"
           target="_blank"
           rel="noopener noreferrer"
           className="mt-10 flex items-center justify-center gap-2 rounded-2xl bg-ink py-4 text-sm font-bold text-white transition hover:bg-teal-900"

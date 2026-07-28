@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { Suspense, useState, useEffect, useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useForm } from "react-hook-form";
@@ -31,6 +32,17 @@ const TIME_SLOTS = [
 const STEPS = ["Doctor & Date", "Patient Details", "Confirm"];
 
 export default function AppointmentPage() {
+  return (
+    <Suspense fallback={null}>
+      <AppointmentForm />
+    </Suspense>
+  );
+}
+
+function AppointmentForm() {
+  const searchParams = useSearchParams();
+  const specialtyFilter = searchParams.get("specialty");
+
   const [step, setStep] = useState(0);
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [refNumber, setRefNumber] = useState("");
@@ -44,6 +56,10 @@ export default function AppointmentPage() {
   useEffect(() => {
     fetch("/api/doctors").then((r) => r.json()).then(({ doctors }) => setDoctors(doctors));
   }, []);
+
+  const visibleDoctors = specialtyFilter
+    ? doctors.filter((d) => d.specialty.toLowerCase() === specialtyFilter.toLowerCase())
+    : doctors;
 
   const selectedDoctorId = watch("doctorId");
   const selectedDate = watch("appointmentDate");
@@ -147,8 +163,13 @@ export default function AppointmentPage() {
             <div className="space-y-6">
               {/* Doctor selection */}
               <div className="rounded-3xl border border-white/60 bg-white/80 p-6 backdrop-blur-xl">
-                <h2 className="mb-4 font-black text-[#061822]">Select Doctor (Optional)</h2>
-                <div className="grid gap-3 sm:grid-cols-2">
+                <h2 className="mb-1 font-black text-[#061822]">Select Doctor (Optional)</h2>
+                {specialtyFilter && (
+                  <p className="mb-4 text-xs font-semibold text-teal-700">
+                    Showing {specialtyFilter} specialists
+                  </p>
+                )}
+                <div className={`grid gap-3 sm:grid-cols-2 ${specialtyFilter ? "" : "mt-4"}`}>
                   <button
                     type="button"
                     onClick={() => setValue("doctorId", undefined)}
@@ -157,7 +178,7 @@ export default function AppointmentPage() {
                     <div className="font-bold">Any Available Doctor</div>
                     <div className="text-slate-500">We'll assign the best match</div>
                   </button>
-                  {doctors.map((d) => (
+                  {visibleDoctors.map((d) => (
                     <button
                       key={d.id}
                       type="button"

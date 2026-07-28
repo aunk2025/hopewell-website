@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { Plus, RefreshCw, X, EyeOff, Eye } from "lucide-react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { Plus, RefreshCw, X, EyeOff, Eye, Upload, Camera as CameraIcon, User, Pencil } from "lucide-react";
 
 type Doctor = {
   id: number;
@@ -37,6 +37,30 @@ function slugify(name: string) {
     .replace(/(^-|-$)/g, "");
 }
 
+/* Downscale an image (from a File or a video frame) to a max dimension and
+   return it as a JPEG data URL, so photos stay small enough to store as text
+   in the database — the site has no writable file storage in production. */
+function resizeImageToDataUrl(source: HTMLImageElement | HTMLVideoElement, maxDim = 640): string {
+  const width = "videoWidth" in source ? source.videoWidth : source.naturalWidth;
+  const height = "videoWidth" in source ? source.videoHeight : source.naturalHeight;
+  const scale = Math.min(1, maxDim / Math.max(width, height));
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(width * scale);
+  canvas.height = Math.round(height * scale);
+  const ctx = canvas.getContext("2d")!;
+  ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
+  return canvas.toDataURL("image/jpeg", 0.85);
+}
+
+function fileToImage(file: File): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const img = new window.Image();
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = URL.createObjectURL(file);
+  });
+}
+
 export default function DoctorsAdmin() {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [loading, setLoading] = useState(true);
@@ -45,6 +69,12 @@ export default function DoctorsAdmin() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [togglingId, setTogglingId] = useState<number | null>(null);
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [showCamera, setShowCamera] = useState(false);
+  const [cameraError, setCameraError] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -56,6 +86,10 @@ export default function DoctorsAdmin() {
 
   useEffect(() => { load(); }, [load]);
 
+  useEffect(() => {
+    return () => { streamRef.current?.getTracks().forEach((t) => t.stop()); };
+  }, []);
+
   function updateField(key: keyof typeof emptyForm, value: string) {
     setForm((f) => ({
       ...f,
@@ -64,26 +98,89 @@ export default function DoctorsAdmin() {
     }));
   }
 
-  async function addDoctor(e: React.FormEvent) {
+  async function saveDoctor(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
     setError("");
     try {
       const res = await fetch("/api/doctors", {
-        method: "POST",
+        method: editingId ? "PATCH" : "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, experience: Number(form.experience) }),
+        body: JSON.stringify({
+          ...(editingId ? { id: editingId } : {}),
+          ...form,
+          experience: Number(form.experience),
+        }),
       });
       const json = await res.json();
-      if (!res.ok) throw new Error(json.error ?? "Failed to add doctor");
-      setForm(emptyForm);
-      setShowForm(false);
+      if (!res.ok) throw new Error(json.error ?? "Failed to save doctor");
+      cancelForm();
       await load();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
       setSaving(false);
     }
+  }
+
+  function startEdit(doc: Doctor) {
+    setEditingId(doc.id);
+    setForm({
+      name: doc.name,
+      slug: doc.slug,
+      specialty: doc.specialty,
+      qualifications: doc.qualifications,
+      experience: String(doc.experience),
+      bio: doc.bio,
+      imageUrl: doc.imageUrl,
+      phone: doc.phone,
+      email: doc.email,
+    });
+    setError("");
+    setShowForm(true);
+  }
+
+  function cancelForm() {
+    setEditingId(null);
+    setForm(emptyForm);
+    setShowForm(false);
+    setError("");
+  }
+
+  async function handleFileSelect(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    try {
+      const img = await fileToImage(file);
+      updateField("imageUrl", resizeImageToDataUrl(img));
+    } catch {
+      setError("Couldn't read that image. Please try a different file.");
+    }
+  }
+
+  async function openCamera() {
+    setCameraError("");
+    setShowCamera(true);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+      streamRef.current = stream;
+      if (videoRef.current) videoRef.current.srcObject = stream;
+    } catch {
+      setCameraError("Couldn't access the camera. Check browser permissions and try again.");
+    }
+  }
+
+  function closeCamera() {
+    streamRef.current?.getTracks().forEach((t) => t.stop());
+    streamRef.current = null;
+    setShowCamera(false);
+  }
+
+  function capturePhoto() {
+    if (!videoRef.current) return;
+    updateField("imageUrl", resizeImageToDataUrl(videoRef.current));
+    closeCamera();
   }
 
   async function toggleAvailable(doc: Doctor) {
@@ -114,7 +211,7 @@ export default function DoctorsAdmin() {
             <RefreshCw size={14} /> Refresh
           </button>
           <button
-            onClick={() => setShowForm((v) => !v)}
+            onClick={() => (showForm ? cancelForm() : setShowForm(true))}
             className="flex items-center gap-2 rounded-xl bg-[#061822] px-4 py-2 text-sm font-semibold text-white hover:bg-teal-900"
           >
             {showForm ? <X size={14} /> : <Plus size={14} />}
@@ -124,7 +221,8 @@ export default function DoctorsAdmin() {
       </div>
 
       {showForm && (
-        <form onSubmit={addDoctor} className="mb-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <form onSubmit={saveDoctor} className="mb-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h2 className="mb-4 font-black text-[#061822]">{editingId ? "Edit Doctor" : "Add Doctor"}</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-500">Full Name *</label>
@@ -152,9 +250,46 @@ export default function DoctorsAdmin() {
                 className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-teal-400" placeholder="MBBS, MD" />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-500">Image URL</label>
-              <input value={form.imageUrl} onChange={(e) => updateField("imageUrl", e.target.value)}
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-teal-400" placeholder="https://…" />
+              <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-500">Photo</label>
+              <div className="flex items-center gap-3">
+                <div className="grid h-14 w-14 shrink-0 place-items-center overflow-hidden rounded-full border border-slate-200 bg-slate-50">
+                  {form.imageUrl ? (
+                    <img src={form.imageUrl} alt="" className="h-full w-full object-cover" />
+                  ) : (
+                    <User size={20} className="text-slate-300" />
+                  )}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50"
+                >
+                  <Upload size={13} /> Upload
+                </button>
+                <button
+                  type="button"
+                  onClick={openCamera}
+                  className="flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50"
+                >
+                  <CameraIcon size={13} /> Camera
+                </button>
+                {form.imageUrl && (
+                  <button
+                    type="button"
+                    onClick={() => updateField("imageUrl", "")}
+                    className="text-xs font-semibold text-red-500 hover:underline"
+                  >
+                    Remove
+                  </button>
+                )}
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileSelect}
+                  className="hidden"
+                />
+              </div>
             </div>
             <div>
               <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-500">Phone</label>
@@ -174,7 +309,7 @@ export default function DoctorsAdmin() {
           </div>
           {error && <p className="mt-4 rounded-lg bg-red-50 px-4 py-2 text-sm text-red-600">{error}</p>}
           <button type="submit" disabled={saving} className="mt-4 rounded-xl bg-teal-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-teal-700 disabled:opacity-60">
-            {saving ? "Saving…" : "Save Doctor"}
+            {saving ? "Saving…" : editingId ? "Update Doctor" : "Save Doctor"}
           </button>
         </form>
       )}
@@ -216,14 +351,22 @@ export default function DoctorsAdmin() {
                       </span>
                     </td>
                     <td className="px-4 py-4">
-                      <button
-                        onClick={() => toggleAvailable(d)}
-                        disabled={togglingId === d.id}
-                        className="flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-50 disabled:opacity-50"
-                      >
-                        {d.available ? <EyeOff size={12} /> : <Eye size={12} />}
-                        {d.available ? "Deactivate" : "Activate"}
-                      </button>
+                      <div className="flex flex-wrap gap-2">
+                        <button
+                          onClick={() => startEdit(d)}
+                          className="flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-50"
+                        >
+                          <Pencil size={12} /> Edit
+                        </button>
+                        <button
+                          onClick={() => toggleAvailable(d)}
+                          disabled={togglingId === d.id}
+                          className="flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-50 disabled:opacity-50"
+                        >
+                          {d.available ? <EyeOff size={12} /> : <Eye size={12} />}
+                          {d.available ? "Deactivate" : "Activate"}
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))
@@ -232,6 +375,34 @@ export default function DoctorsAdmin() {
           </table>
         </div>
       </div>
+
+      {showCamera && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+          <div className="w-full max-w-sm rounded-2xl bg-white p-5 shadow-xl">
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="font-black text-[#061822]">Take Photo</h2>
+              <button type="button" onClick={closeCamera} className="grid h-8 w-8 place-items-center rounded-full text-slate-400 hover:bg-slate-100">
+                <X size={16} />
+              </button>
+            </div>
+            {cameraError ? (
+              <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{cameraError}</p>
+            ) : (
+              <video ref={videoRef} autoPlay playsInline muted className="aspect-square w-full rounded-xl bg-slate-900 object-cover" />
+            )}
+            <div className="mt-4 flex gap-2">
+              <button type="button" onClick={closeCamera} className="flex-1 rounded-xl border border-slate-200 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50">
+                Cancel
+              </button>
+              {!cameraError && (
+                <button type="button" onClick={capturePhoto} className="flex-1 rounded-xl bg-teal-600 py-2.5 text-sm font-bold text-white hover:bg-teal-700">
+                  Capture
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

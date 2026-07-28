@@ -4,14 +4,14 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Baby, Bone, Dna, Ear, HeartPulse, ScanHeart, ShieldPlus, Stethoscope } from "lucide-react";
 
 const centres = [
-  { icon: HeartPulse, name: "Cardiac Sciences", text: "Integrated cardiology, cardiac diagnostics and critical cardiac support.", stat: "24×7", image: "/cardiacservices.jfif" },
-  { icon: ScanHeart, name: "Surgical Excellence", text: "Precision-led general, laparoscopic and gastrointestinal surgery.", stat: "Advanced OT", image: "/surgerieslable.jpg" },
+  { icon: HeartPulse, name: "Cardiac Sciences", text: "Integrated cardiology, cardiac diagnostics and critical cardiac support.", stat: "24×7", href: "/services/cardiac", image: "/cardiacservices.jfif" },
+  { icon: ScanHeart, name: "Surgical Excellence", text: "Precision-led general, laparoscopic and gastrointestinal surgery.", stat: "Advanced OT", href: "/services/surgeries", image: "/surgerieslable.jpg" },
   { icon: Bone, name: "Orthopaedics", text: "Joint preservation, trauma care and advanced mobility restoration.", stat: "Mobility", href: "/services/orthopaedics", image: "/ortholable.jfif" },
-  { icon: Baby, name: "Mother & Child", text: "Sensitive obstetric, gynaecological, paediatric and newborn care.", stat: "Family care", image: "/motherchild.jfif" },
-  { icon: ShieldPlus, name: "Critical Care", text: "Continuous monitoring, rapid escalation and specialist-led intensive care.", stat: "ICU", image: "/criticalcare.jfif" },
-  { icon: Stethoscope, name: "Emergency Medicine", text: "Rapid assessment and coordinated response when every minute matters.", stat: "Always on", image: "/emergency.jfif" },
-  { icon: Dna, name: "IVF", text: "Personalized fertility evaluation and assisted reproduction for couples building their family.", stat: "Fertility care", image: "/IVF-Steps.png" },
-  { icon: Ear, name: "ENT", text: "Comprehensive ear, nose and throat diagnostics, treatment and surgical care.", stat: "Head & neck", image: "/ent.jfif" },
+  { icon: Baby, name: "Mother & Child", text: "Sensitive obstetric, gynaecological, paediatric and newborn care.", stat: "Family care", href: "/services/motherchild", image: "/motherchild.jfif" },
+  { icon: ShieldPlus, name: "Critical Care", text: "Continuous monitoring, rapid escalation and specialist-led intensive care.", stat: "ICU", href: "/services/icu", image: "/criticalcare.jfif" },
+  { icon: Stethoscope, name: "Emergency Medicine", text: "Rapid assessment and coordinated response when every minute matters.", stat: "Always on", href: "/services/emergencymedicine", image: "/emergency.jfif" },
+  { icon: Dna, name: "IVF", text: "Personalized fertility evaluation and assisted reproduction for couples building their family.", stat: "Fertility care", href: "/services/ivf", image: "/IVF-Steps.png" },
+  { icon: Ear, name: "ENT", text: "Comprehensive ear, nose and throat diagnostics, treatment and surgical care.", stat: "Head & neck", href: "/services/ent", image: "/ent.jfif" },
 ];
 
 export default function Centres() {
