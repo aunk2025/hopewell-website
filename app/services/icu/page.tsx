@@ -34,7 +34,7 @@ export default function IcuPage() {
 
       {/* Hero banner */}
       <section
-        className="relative flex h-72 flex-col items-center justify-center bg-cover px-5 text-center sm:h-96"
+        className="relative flex h-80 flex-col items-center justify-center bg-cover px-5 text-center sm:h-[30rem]"
         style={{ backgroundImage: "url(/icu1.jfif)", backgroundPosition: "center 45%" }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-[#061822]/88 via-[#061822]/72 to-[#061822]/88" />

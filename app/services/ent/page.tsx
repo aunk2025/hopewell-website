@@ -68,7 +68,7 @@ export default function EntPage() {
 
       {/* Hero banner */}
       <section
-        className="relative flex h-72 flex-col items-center justify-center bg-contain bg-center bg-no-repeat bg-[#061822] px-5 text-center sm:h-96"
+        className="relative flex h-80 flex-col items-center justify-center bg-contain bg-center bg-no-repeat bg-[#061822] px-5 text-center sm:h-[30rem]"
         style={{ backgroundImage: "url(/entbanner.jfif)" }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-[#061822]/70 via-[#061822]/50 to-[#061822]/70" />

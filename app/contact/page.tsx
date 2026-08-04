@@ -77,11 +77,11 @@ export default function ContactPage() {
               <h2 className="mb-4 font-black text-[#061822]">Hospital Address</h2>
               <div className="flex gap-3 text-sm text-slate-600">
                 <MapPin size={18} className="mt-0.5 shrink-0 text-teal-600" />
-                <p>Hopewell Hospital<br />1st Floor, Noor Tower, Karbala Chowk<br />Ranchi, Jharkhand — 834001</p>
+                <p>New Hopewell Hospital<br />Hazari Baug Road<br />Tharpakna<br />Ranchi, Jharkhand — 834001</p>
               </div>
-              <a href="mailto:info@hopewellhospital.in" className="mt-4 flex items-center gap-3 text-sm font-semibold text-teal-700 hover:underline">
+              <a href="mailto:hopewellranchi@gmail.com" className="mt-4 flex items-center gap-3 text-sm font-semibold text-teal-700 hover:underline">
                 <Mail size={18} className="shrink-0" />
-                info@hopewellhospital.in
+                hopewellranchi@gmail.com
               </a>
             </div>
 

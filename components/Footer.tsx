@@ -22,9 +22,9 @@ export default function Footer() {
         <div>
           <h3 className="font-black">Contact</h3>
           <div className="mt-5 space-y-4 text-sm text-slate-500">
-            <div className="flex gap-3"><MapPin size={18} className="shrink-0 text-teal-700" /> Ranchi, Jharkhand, India</div>
+            <div className="flex gap-3"><MapPin size={18} className="shrink-0 text-teal-700" /> New Hopewell Hospital, Hazari Baug Road, Tharpakna, Ranchi, Jharkhand 834001</div>
             <a href="tel:+917281990530" className="flex gap-3"><Phone size={18} className="text-teal-700" /> +91 72819 90530</a>
-            <a href="mailto:info@hopewellhospital.in" className="flex gap-3"><Mail size={18} className="shrink-0 text-teal-700" /> info@hopewellhospital.in</a>
+            <a href="mailto:hopewellranchi@gmail.com" className="flex gap-3"><Mail size={18} className="shrink-0 text-teal-700" /> hopewellranchi@gmail.com</a>
           </div>
         </div>
         <div>
@@ -38,7 +38,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-slate-100 px-5 py-5 text-center text-xs text-slate-400">
-        Concept frontend for Hopewell Hospital. Replace placeholder doctors and operational data before production launch.
+        © {new Date().getFullYear()} Hopewell Hospital, Ranchi. All rights reserved.
       </div>
     </footer>
   );
