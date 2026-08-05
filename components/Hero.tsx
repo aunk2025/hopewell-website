@@ -63,11 +63,11 @@ export default function Hero() {
           <HeroVideo />
 
           {/*
-           * Cardiac Command — centered on the LEFT arc of the globe.
-           * left-[-115px] shifts it so exactly half (115px) hangs outside.
+           * Cardiac Command — sits above the globe on mobile; on the LEFT arc
+           * of the globe from lg upward, where left-[-115px] shifts it so
+           * exactly half (115px) hangs outside.
            */}
-          <div className="glass floating absolute z-20 w-[230px] rounded-3xl p-4 shadow-glass"
-            style={{ left: "-115px", top: "38%", transform: "translateY(-50%)" }}>
+          <div className="glass floating absolute left-1/2 top-0 z-20 w-[230px] -translate-x-1/2 -translate-y-1/2 rounded-3xl p-4 shadow-glass lg:left-[-115px] lg:top-[38%] lg:translate-x-0">
             <div className="flex items-center gap-3">
               <div className="grid h-11 w-11 place-items-center rounded-2xl bg-cyan/20 text-teal-800">
                 <HeartPulse size={21} />
@@ -83,11 +83,11 @@ export default function Hero() {
           </div>
 
           {/*
-           * Patient Journey — centered on the RIGHT arc of the globe.
-           * right-[-125px] shifts it so exactly half (125px) hangs outside.
+           * Patient Journey — sits below the globe on mobile; on the RIGHT
+           * arc of the globe from lg upward, where right-[-125px] shifts it
+           * so exactly half (125px) hangs outside.
            */}
-          <div className="dark-glass floating-slow absolute z-20 w-[250px] rounded-3xl p-5 text-white shadow-glass"
-            style={{ right: "-125px", bottom: "9%", transform: "translateY(50%)" }}>
+          <div className="dark-glass floating-slow absolute bottom-0 left-1/2 z-20 w-[250px] -translate-x-1/2 translate-y-[85%] rounded-3xl p-5 text-white shadow-glass lg:left-auto lg:right-[-125px] lg:bottom-[9%] lg:translate-x-0 lg:translate-y-1/2">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-[.16em] text-cyan">Patient Journey</span>
               <ShieldCheck size={19} className="text-cyan" />

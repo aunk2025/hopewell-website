@@ -19,7 +19,7 @@ export default function Journey() {
             Why Hopewell Hospital
           </div>
           <h2 className="text-balance mt-6 text-4xl font-bold tracking-[-.02em] text-ink sm:text-5xl">
-            Advanced infrastructure, built for trusted care.
+            Advanced infrastructure, built with trusted care.
           </h2>
           <p className="mx-auto mt-5 max-w-xl leading-7 text-slate-500">
             From diagnostics to surgery to intensive care, every facility is in-house and

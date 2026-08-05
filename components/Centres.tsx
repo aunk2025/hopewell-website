@@ -5,14 +5,14 @@ import { ArrowUpRight, Baby, Bone, Dna, Ear, HeartPulse, ScanHeart, ShieldPlus, 
 import { geist } from "@/lib/fonts";
 
 const centres = [
-  { icon: HeartPulse, name: "Cardiac Sciences", text: "Integrated cardiology, cardiac diagnostics and critical cardiac support.", stat: "24×7", href: "/services/cardiac", image: "/cardiacservices.jfif" },
-  { icon: ScanHeart, name: "Surgical Excellence", text: "Precision-led general, laparoscopic and gastrointestinal surgery.", stat: "Advanced OT", href: "/services/surgeries", image: "/surgerieslable.jpg" },
-  { icon: Bone, name: "Orthopaedics", text: "Joint preservation, trauma care and advanced mobility restoration.", stat: "Mobility", href: "/services/orthopaedics", image: "/ortholable.jfif" },
-  { icon: Baby, name: "Mother & Child", text: "Sensitive obstetric, gynaecological, paediatric and newborn care.", stat: "Family care", href: "/services/motherchild", image: "/motherchild.jfif" },
-  { icon: ShieldPlus, name: "Critical Care", text: "Continuous monitoring, rapid escalation and specialist-led intensive care.", stat: "ICU", href: "/services/icu", image: "/criticalcare.jfif" },
-  { icon: Stethoscope, name: "Emergency Medicine", text: "Rapid assessment and coordinated response when every minute matters.", stat: "Always on", href: "/services/emergencymedicine", image: "/emergency.jfif" },
-  { icon: Dna, name: "IVF", text: "Personalized fertility evaluation and assisted reproduction for couples building their family.", stat: "Fertility care", href: "/services/ivf", image: "/IVF-Steps.png" },
-  { icon: Ear, name: "ENT", text: "Comprehensive ear, nose and throat diagnostics, treatment and surgical care.", stat: "Head & neck", href: "/services/ent", image: "/ent.jfif" },
+  { icon: HeartPulse, name: "Cardiac Sciences", text: "Integrated cardiology, cardiac diagnostics and critical cardiac support.", stat: "24×7", href: "/services/cardiac", image: "/cardiac.png" },
+  { icon: ScanHeart, name: "Surgical Excellence", text: "Precision-led general, laparoscopic and gastrointestinal surgery.", stat: "Advanced OT", href: "/services/surgeries", image: "/surgical.png" },
+  { icon: Bone, name: "Orthopaedics", text: "Joint preservation, trauma care and advanced mobility restoration.", stat: "Mobility", href: "/services/orthopaedics", image: "/ortho.png" },
+  { icon: Baby, name: "Mother & Child", text: "Sensitive obstetric, gynaecological, paediatric and newborn care.", stat: "Family care", href: "/services/motherchild", image: "/mother%20&%20child.png" },
+  { icon: ShieldPlus, name: "Critical Care", text: "Continuous monitoring, rapid escalation and specialist-led intensive care.", stat: "ICU", href: "/services/icu", image: "/criticalcare.png" },
+  { icon: Stethoscope, name: "Emergency Medicine", text: "Rapid assessment and coordinated response when every minute matters.", stat: "Always on", href: "/services/emergencymedicine", image: "/emergencycare.png" },
+  { icon: Dna, name: "IVF", text: "Personalized fertility evaluation and assisted reproduction for couples building their family.", stat: "Fertility care", href: "/services/ivf", image: "/ivf.png" },
+  { icon: Ear, name: "ENT", text: "Comprehensive ear, nose and throat diagnostics, treatment and surgical care.", stat: "Head & neck", href: "/services/ent", image: "/ent.png" },
 ];
 
 export default function Centres() {
@@ -37,10 +37,6 @@ export default function Centres() {
             <Wrapper
               key={centre.name}
               {...(centre.href ? { href: centre.href, target: "_blank", rel: "noopener noreferrer" } : {})}
-              initial={{ opacity: 0, y: 26 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: .25 }}
-              transition={{ delay: index * .06 }}
               whileHover={{ y: -7, rotateX: 2, rotateY: index % 2 ? -2 : 2 }}
               className={`glass group relative flex min-h-[270px] flex-col overflow-hidden rounded-[2rem] p-6 shadow-glass [transform-style:preserve-3d] ${centre.href ? "cursor-pointer" : ""}`}
             >
