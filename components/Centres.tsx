@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight, Baby, Bone, Dna, Ear, HeartPulse, ScanHeart, ShieldPlus, Stethoscope } from "lucide-react";
+import { geist } from "@/lib/fonts";
 
 const centres = [
   { icon: HeartPulse, name: "Cardiac Sciences", text: "Integrated cardiology, cardiac diagnostics and critical cardiac support.", stat: "24×7", href: "/services/cardiac", image: "/cardiacservices.jfif" },
@@ -17,65 +18,66 @@ const centres = [
 export default function Centres() {
   return (
     <section id="centres" className="mx-auto max-w-7xl px-5 py-28 lg:px-8">
-      <div className="grid gap-10 lg:grid-cols-[.72fr_1.28fr]">
-        <div className="lg:sticky lg:top-32 lg:self-start">
-          <div className="section-kicker">Centres of Excellence</div>
-          <h2 className="text-balance mt-5 text-4xl font-black tracking-[-.045em] sm:text-5xl">
-            Specialized care, connected as one intelligent system.
-          </h2>
-          <p className="mt-6 max-w-md leading-7 text-slate-600">
-            Instead of making patients navigate departments, Hopewell connects expertise,
-            diagnostics, critical care and recovery around the patient.
-          </p>
-          <a href="#" className="mt-8 inline-flex items-center gap-2 font-bold text-teal-800">
-            View all specialities <ArrowUpRight size={17} />
-          </a>
-        </div>
+      <div className="mx-auto max-w-2xl text-center">
+        <div className="section-kicker before:content-none !text-base">Centres of Excellence</div>
+        <h2 className={`${geist.className} text-balance mt-5 text-4xl font-black tracking-[-.045em] sm:text-5xl`}>
+          Specialized care, connected as one intelligent system.
+        </h2>
+        <p className="mx-auto mt-6 max-w-md leading-7 text-slate-600">
+          Instead of making patients navigate departments, Hopewell connects expertise,
+          diagnostics, critical care and recovery around the patient.
+        </p>
+      </div>
 
-        <div className="grid gap-5 sm:grid-cols-2">
-          {centres.map((centre, index) => {
-            const Icon = centre.icon;
-            const Wrapper = centre.href ? motion.a : motion.article;
-            return (
-              <Wrapper
-                key={centre.name}
-                {...(centre.href ? { href: centre.href, target: "_blank", rel: "noopener noreferrer" } : {})}
-                initial={{ opacity: 0, y: 26 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: .25 }}
-                transition={{ delay: index * .06 }}
-                whileHover={{ y: -7, rotateX: 2, rotateY: index % 2 ? -2 : 2 }}
-                className={`glass group relative min-h-[285px] overflow-hidden rounded-[2rem] p-6 shadow-glass [transform-style:preserve-3d] ${centre.href ? "block cursor-pointer" : ""}`}
-              >
-                <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-cyan/15 blur-2xl transition group-hover:bg-cyan/30" />
-                <div className="relative flex h-full flex-col">
-                  <div className="flex items-start justify-between">
-                    {centre.image ? (
-                      <div className="h-14 w-14 overflow-hidden rounded-2xl shadow-glow">
-                        <img src={centre.image} alt={centre.name} className="h-full w-full object-cover" />
-                      </div>
-                    ) : (
-                      <div className="grid h-14 w-14 place-items-center rounded-2xl bg-ink text-cyan shadow-glow">
-                        <Icon size={25} />
-                      </div>
-                    )}
-                    <span className="rounded-full border border-slate-200 bg-white/70 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-slate-500">
-                      {centre.stat}
-                    </span>
-                  </div>
-                  <h3 className="mt-10 text-2xl font-black tracking-tight">{centre.name}</h3>
-                  <p className="mt-3 leading-7 text-slate-600">{centre.text}</p>
-                  <div className="mt-auto flex items-center justify-between pt-7">
-                    <span className="text-sm font-bold">Explore centre</span>
-                    <span className="grid h-10 w-10 place-items-center rounded-full border border-slate-200 transition group-hover:rotate-45 group-hover:bg-ink group-hover:text-white">
-                      <ArrowUpRight size={16} />
-                    </span>
-                  </div>
+      <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {centres.map((centre, index) => {
+          const Icon = centre.icon;
+          const Wrapper = centre.href ? motion.a : motion.article;
+          return (
+            <Wrapper
+              key={centre.name}
+              {...(centre.href ? { href: centre.href, target: "_blank", rel: "noopener noreferrer" } : {})}
+              initial={{ opacity: 0, y: 26 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: .25 }}
+              transition={{ delay: index * .06 }}
+              whileHover={{ y: -7, rotateX: 2, rotateY: index % 2 ? -2 : 2 }}
+              className={`glass group relative flex min-h-[270px] flex-col overflow-hidden rounded-[2rem] p-6 shadow-glass [transform-style:preserve-3d] ${centre.href ? "cursor-pointer" : ""}`}
+            >
+              <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-cyan/15 blur-2xl transition group-hover:bg-cyan/30" />
+              <div className="relative flex h-full flex-col">
+                <div className="flex items-start justify-between">
+                  {centre.image ? (
+                    <div className="h-14 w-14 overflow-hidden rounded-2xl shadow-glow">
+                      <img src={centre.image} alt={centre.name} className="h-full w-full object-cover" />
+                    </div>
+                  ) : (
+                    <div className="grid h-14 w-14 place-items-center rounded-2xl bg-ink text-cyan shadow-glow">
+                      <Icon size={25} />
+                    </div>
+                  )}
+                  <span className="rounded-full border border-slate-200 bg-white/70 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-slate-500">
+                    {centre.stat}
+                  </span>
                 </div>
-              </Wrapper>
-            );
-          })}
-        </div>
+                <h3 className="mt-8 text-lg font-black tracking-tight">{centre.name}</h3>
+                <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-600">{centre.text}</p>
+                <div className="mt-auto flex items-center justify-between pt-6">
+                  <span className="text-sm font-bold">Explore centre</span>
+                  <span className="grid h-9 w-9 place-items-center rounded-full border border-slate-200 transition group-hover:rotate-45 group-hover:bg-ink group-hover:text-white">
+                    <ArrowUpRight size={15} />
+                  </span>
+                </div>
+              </div>
+            </Wrapper>
+          );
+        })}
+      </div>
+
+      <div className="mt-10 text-center">
+        <a href="/services" className="inline-flex items-center gap-2 font-bold text-teal-800">
+          View all specialities <ArrowUpRight size={17} />
+        </a>
       </div>
     </section>
   );

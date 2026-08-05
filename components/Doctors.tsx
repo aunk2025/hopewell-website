@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { ArrowUpRight, Search } from "lucide-react";
+import { geist } from "@/lib/fonts";
 
 type Doctor = {
   id: number;
@@ -59,46 +60,40 @@ export default function Doctors() {
 
   return (
     <section className="mx-auto max-w-7xl px-5 py-28 lg:px-8">
-      <div className="flex flex-col justify-between gap-7 lg:flex-row lg:items-end">
-        <div>
-          <div className="section-kicker">Find a Doctor</div>
-          <h2 className="text-balance mt-5 max-w-2xl text-4xl font-black tracking-[-.045em] sm:text-5xl">
-            Expertise made easier to discover.
-          </h2>
-        </div>
-        <label className="glass flex min-w-0 items-center gap-3 rounded-full px-5 py-4 lg:w-[360px]">
-          <Search size={19} className="text-slate-400" />
-          <span className="sr-only">Search doctors</span>
-          <input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search by doctor or speciality"
-            className="w-full bg-transparent text-sm outline-none placeholder:text-slate-400" />
-        </label>
+      <div className="mx-auto max-w-2xl text-center">
+        <div className="section-kicker before:content-none !text-base">Find a Doctor</div>
+        <h2 className={`${geist.className} text-balance mt-5 text-4xl font-black tracking-[-.045em] sm:text-5xl`}>
+          Expertise made easier to discover.
+        </h2>
       </div>
+      <label className="glass mx-auto mt-8 flex max-w-[420px] items-center gap-3 rounded-full px-5 py-4">
+        <Search size={19} className="text-slate-400" />
+        <span className="sr-only">Search doctors</span>
+        <input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search by doctor or speciality"
+          className={`${geist.className} w-full bg-transparent text-sm outline-none placeholder:text-slate-400`} />
+      </label>
 
       <div className="mt-12 grid gap-5 md:grid-cols-3">
         {visible.map((doctor) => (
-          <article key={doctor.id} className="group relative overflow-hidden rounded-[2rem] bg-white p-5 shadow-glass">
-            <div className="relative grid aspect-[4/4.4] place-items-center overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#dffbfa] via-white to-[#cceef3]">
+          <article key={doctor.id} className="group relative flex flex-col items-center overflow-hidden rounded-[2rem] bg-white p-7 text-center shadow-glass">
+            <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-full bg-gradient-to-br from-[#dffbfa] to-[#cceef3] shadow-glow">
               {doctor.imageUrl ? (
                 <img src={doctor.imageUrl} alt={doctor.name} className="h-full w-full object-cover" />
               ) : (
-                <>
-                  <div className="absolute h-56 w-56 rounded-full border border-teal-700/10" />
-                  <div className="absolute h-40 w-40 rounded-full border border-teal-700/15" />
-                  <div className="text-6xl font-black tracking-[-.08em] text-teal-900/70">{initials(doctor.name)}</div>
-                </>
+                <div className="grid h-full w-full place-items-center text-3xl font-black tracking-[-.05em] text-teal-900/70">
+                  {initials(doctor.name)}
+                </div>
               )}
-              <span className="absolute left-4 top-4 rounded-full bg-white/80 px-3 py-1 text-[10px] font-black uppercase tracking-widest">
-                Available
-              </span>
             </div>
-            <div className="px-1 pb-1 pt-5">
-              <div className="text-xs font-bold uppercase tracking-[.13em] text-teal-700">{doctor.specialty}</div>
-              <h3 className="mt-2 text-xl font-black">{doctor.name}</h3>
-              <p className="mt-1 text-sm text-slate-500">{doctor.qualifications}</p>
-              <a href="/doctors" className="mt-5 flex w-full items-center justify-between rounded-full bg-slate-100 px-4 py-3 text-sm font-bold transition group-hover:bg-ink group-hover:text-white">
-                View Profile <ArrowUpRight size={16} />
-              </a>
-            </div>
+            <span className="mt-4 flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-teal-700">
+              <span className="h-1.5 w-1.5 rounded-full bg-teal-500" /> Available
+            </span>
+            <h3 className="mt-2 text-xl font-black">{doctor.name}</h3>
+            <div className="mt-1 text-xs font-bold uppercase tracking-[.1em] text-slate-400">{doctor.specialty}</div>
+            <p className="mt-2 text-sm text-slate-500">{doctor.qualifications}</p>
+            <a href="/doctors" className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-slate-100 px-4 py-3 text-sm font-bold transition group-hover:bg-ink group-hover:text-white">
+              View Profile <ArrowUpRight size={16} />
+            </a>
           </article>
         ))}
       </div>
