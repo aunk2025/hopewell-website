@@ -25,7 +25,7 @@ export default function ServicesPage() {
       <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
         <div className="grid gap-10 lg:grid-cols-[1.2fr_.8fr] lg:items-center">
           <div>
-            <div className="section-kicker mb-5">Patient Services</div>
+            <div className="section-kicker mb-5 before:content-none">Patient Services</div>
             <h1 className="text-balance text-5xl font-black leading-[1.02] tracking-[-.045em] text-ink sm:text-6xl">
               Healthcare.
               <span className="block bg-gradient-to-r from-teal-700 via-cyan-600 to-sky-600 bg-clip-text text-transparent">

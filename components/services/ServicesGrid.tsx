@@ -22,6 +22,7 @@ type Service = {
   color: string;
   bgColor: string;
   image?: string;
+  imagePadding?: string;
   description?: string;
   details?: ServiceDetail[];
   href?: string;
@@ -31,16 +32,18 @@ const services: Service[] = [
   {
     icon: HeartPulse,
     name: "Cardiac Sciences",
+    image: "/cardiac.png",
     items: ["Cardiology", "Angioplasty", "Heart Failure Clinic"],
     color: "#ef4444",
     bgColor: "rgba(239,68,68,.08)",
+    href: "/services/cardiac",
   },
   {
     icon: Stethoscope,
     name: "GI Surgery",
     description:
       "Keyhole procedures across general and gastrointestinal surgery, with smaller incisions, less pain, and a quicker return home than open surgery.",
-    image: "/services/laparoscopic-surgery.png",
+    image: "/surgical.png",
     items: ["Laparoscopic Surgery", "Bariatric Surgery", "Colo-Rectal Surgery"],
     color: "#0ca8ad",
     bgColor: "rgba(12,168,173,.08)",
@@ -70,6 +73,8 @@ const services: Service[] = [
     name: "Women & Child Care",
     description:
       "Comprehensive maternity and gynaecological care, from prenatal counselling and high-risk pregnancy management to fertility treatment and family planning.",
+    image: "/mother%20&%20child.png",
+    imagePadding: "p-1",
     items: ["Maternity", "NICU", "Paediatrics"],
     color: "#ec4899",
     bgColor: "rgba(236,72,153,.08)",
@@ -101,6 +106,7 @@ const services: Service[] = [
     name: "Orthopaedics",
     description:
       "Comprehensive bone, joint and spine care, from sports injuries and fractures to joint replacement and long-term mobility restoration.",
+    image: "/ortho.png",
     items: ["Joint Replacement", "Sports Injuries", "Trauma Care"],
     color: "#8b5cf6",
     bgColor: "rgba(139,92,246,.08)",
@@ -109,6 +115,7 @@ const services: Service[] = [
   {
     icon: Brain,
     name: "Neurosciences",
+    image: "/neuro.png",
     items: ["Stroke Care", "Neurology", "Neurosurgery"],
     color: "#3b82f6",
     bgColor: "rgba(59,130,246,.08)",
@@ -116,6 +123,7 @@ const services: Service[] = [
   {
     icon: Microscope,
     name: "Diagnostics",
+    image: "/diagnostics.png",
     items: ["CT Scan", "Pathology", "Digital Imaging"],
     color: "#10b981",
     bgColor: "rgba(16,185,129,.08)",
@@ -178,7 +186,7 @@ export default function ServicesGrid() {
 
   return (
     <section className="mx-auto max-w-7xl px-5 pb-24 lg:px-8">
-      <div className="section-kicker mb-4">Centres of Excellence</div>
+      <div className="section-kicker mb-4 before:content-none">Centres of Excellence</div>
       <h2 className="mb-3 text-4xl font-black tracking-[-.03em] text-ink">
         Specialised care, close to home.
       </h2>
@@ -200,21 +208,23 @@ export default function ServicesGrid() {
           const cardContent = (
             <>
               {s.image && (
-                <div className="h-40 w-full overflow-hidden bg-slate-50">
+                <div className="h-40 w-full overflow-hidden">
                   <img
                     src={s.image}
                     alt={s.name}
-                    className="h-full w-full object-contain p-4 transition duration-300 group-hover:scale-105"
+                    className={`h-full w-full object-contain ${s.imagePadding ?? "p-4"} transition duration-300 group-hover:scale-105`}
                   />
                 </div>
               )}
               <div className="p-7">
-                <div
-                  className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl"
-                  style={{ background: s.bgColor }}
-                >
-                  <Icon size={26} style={{ color: s.color }} />
-                </div>
+                {!s.image && (
+                  <div
+                    className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl"
+                    style={{ background: s.bgColor }}
+                  >
+                    <Icon size={26} style={{ color: s.color }} />
+                  </div>
+                )}
                 <h3 className="mb-2 text-xl font-black text-ink">{s.name}</h3>
                 {s.description && (
                   <p className="mb-4 text-sm leading-6 text-slate-500">{s.description}</p>

@@ -67,7 +67,7 @@ export default function Hero() {
            * of the globe from lg upward, where left-[-115px] shifts it so
            * exactly half (115px) hangs outside.
            */}
-          <div className="glass floating absolute left-1/2 top-0 z-20 w-[230px] -translate-x-1/2 -translate-y-1/2 rounded-3xl p-4 shadow-glass lg:left-[-115px] lg:top-[38%] lg:translate-x-0">
+          <div className="glass floating absolute left-1/2 top-0 z-20 w-[230px] max-w-[calc(100vw-2.5rem)] -translate-x-1/2 -translate-y-1/2 rounded-3xl p-4 shadow-glass lg:left-[-115px] lg:top-[38%] lg:max-w-none lg:translate-x-0">
             <div className="flex items-center gap-3">
               <div className="grid h-11 w-11 place-items-center rounded-2xl bg-cyan/20 text-teal-800">
                 <HeartPulse size={21} />
@@ -87,7 +87,7 @@ export default function Hero() {
            * arc of the globe from lg upward, where right-[-125px] shifts it
            * so exactly half (125px) hangs outside.
            */}
-          <div className="dark-glass floating-slow absolute bottom-0 left-1/2 z-20 w-[250px] -translate-x-1/2 translate-y-[85%] rounded-3xl p-5 text-white shadow-glass lg:left-auto lg:right-[-125px] lg:bottom-[9%] lg:translate-x-0 lg:translate-y-1/2">
+          <div className="dark-glass floating-slow absolute bottom-0 left-[42%] z-20 w-[250px] max-w-[calc(100vw-2.5rem)] -translate-x-1/2 translate-y-[100%] rounded-3xl p-5 text-white shadow-glass lg:left-auto lg:right-[-125px] lg:bottom-[9%] lg:max-w-none lg:translate-x-0 lg:translate-y-1/2">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-[.16em] text-cyan">Patient Journey</span>
               <ShieldCheck size={19} className="text-cyan" />

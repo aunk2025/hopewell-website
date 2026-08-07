@@ -71,7 +71,7 @@ export default function Centres() {
       </div>
 
       <div className="mt-10 text-center">
-        <a href="/services" className="inline-flex items-center gap-2 font-bold text-teal-800">
+        <a href="/services" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-bold text-teal-800">
           View all specialities <ArrowUpRight size={17} />
         </a>
       </div>

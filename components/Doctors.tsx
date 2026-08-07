@@ -35,8 +35,9 @@ export default function Doctors() {
 
   useEffect(() => {
     fetch("/api/doctors")
-      .then((r) => r.json())
-      .then(({ doctors }) => setDoctors(doctors ?? []));
+      .then((r) => (r.ok ? r.json() : { doctors: [] }))
+      .then(({ doctors }) => setDoctors(doctors ?? []))
+      .catch(() => setDoctors([]));
   }, []);
 
   const ordered = useMemo(() => {

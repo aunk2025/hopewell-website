@@ -134,8 +134,9 @@ export default function DoctorsPage() {
 
   useEffect(() => {
     fetch("/api/doctors")
-      .then((r) => r.json())
-      .then(({ doctors }) => { setDoctors(doctors); setFiltered(doctors); })
+      .then((r) => (r.ok ? r.json() : { doctors: [] }))
+      .then(({ doctors }) => { setDoctors(doctors ?? []); setFiltered(doctors ?? []); })
+      .catch(() => { setDoctors([]); setFiltered([]); })
       .finally(() => setLoading(false));
   }, []);
 

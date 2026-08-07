@@ -42,7 +42,13 @@ export default function Navbar() {
 
           <nav className="hidden items-center gap-7 lg:flex">
             {links.map((link) => (
-              <Link key={link.label} href={link.href} className="text-sm font-semibold text-slate-700 transition hover:text-black">
+              <Link
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-semibold text-slate-700 transition hover:text-black"
+              >
                 {link.label}
               </Link>
             ))}
@@ -66,7 +72,17 @@ export default function Navbar() {
         {open && (
           <div className="border-t border-slate-200 bg-white px-5 py-5 lg:hidden">
             <div className="grid gap-4">
-              {links.map((link) => <Link key={link.label} href={link.href} className="font-semibold">{link.label}</Link>)}
+              {links.map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold"
+                >
+                  {link.label}
+                </Link>
+              ))}
               <Link href="/appointment" target="_blank" rel="noopener noreferrer" className="rounded-xl bg-ink px-4 py-3 text-center font-bold text-white">Book Appointment</Link>
             </div>
           </div>

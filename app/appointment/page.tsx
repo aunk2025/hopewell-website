@@ -54,7 +54,10 @@ function AppointmentForm() {
   });
 
   useEffect(() => {
-    fetch("/api/doctors").then((r) => r.json()).then(({ doctors }) => setDoctors(doctors));
+    fetch("/api/doctors")
+      .then((r) => (r.ok ? r.json() : { doctors: [] }))
+      .then(({ doctors }) => setDoctors(doctors ?? []))
+      .catch(() => setDoctors([]));
   }, []);
 
   const visibleDoctors = specialtyFilter

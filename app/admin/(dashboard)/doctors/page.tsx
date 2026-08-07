@@ -78,9 +78,13 @@ export default function DoctorsAdmin() {
 
   const load = useCallback(async () => {
     setLoading(true);
-    const res = await fetch("/api/doctors");
-    const { doctors } = await res.json();
-    setDoctors(doctors ?? []);
+    try {
+      const res = await fetch("/api/doctors");
+      const { doctors } = res.ok ? await res.json() : { doctors: [] };
+      setDoctors(doctors ?? []);
+    } catch {
+      setDoctors([]);
+    }
     setLoading(false);
   }, []);
 

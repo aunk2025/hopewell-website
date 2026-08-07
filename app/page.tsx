@@ -4,7 +4,7 @@ import TrustRail from "@/components/TrustRail";
 import Centres from "@/components/Centres";
 import Journey from "@/components/Journey";
 import Doctors from "@/components/Doctors";
-import Intelligence from "@/components/Intelligence";
+import Reviews from "@/components/Reviews";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
       <Centres />
       <Journey />
       <Doctors />
-      <Intelligence />
+      <Reviews />
       <Footer />
     </main>
   );
