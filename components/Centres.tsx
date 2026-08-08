@@ -1,11 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Baby, Bone, Dna, Ear, HeartPulse, ScanHeart, ShieldPlus, Stethoscope } from "lucide-react";
+import { ArrowUpRight, Baby, Bone, Brain, Dna, Ear, ScanHeart, ShieldPlus, Stethoscope } from "lucide-react";
 import { geist } from "@/lib/fonts";
 
 const centres = [
-  { icon: HeartPulse, name: "Cardiac Sciences", text: "Integrated cardiology, cardiac diagnostics and critical cardiac support.", stat: "24×7", href: "/services/cardiac", image: "/cardiac.png" },
+  { icon: Brain, name: "Neurosciences", text: "Comprehensive stroke care, neurology and neurosurgery services.", stat: "Brain & Spine", href: "/services/neurosciences", image: "/neuro.png" },
   { icon: ScanHeart, name: "Surgical Excellence", text: "Precision-led general, laparoscopic and gastrointestinal surgery.", stat: "Advanced OT", href: "/services/surgeries", image: "/surgical.png" },
   { icon: Bone, name: "Orthopaedics", text: "Joint preservation, trauma care and advanced mobility restoration.", stat: "Mobility", href: "/services/orthopaedics", image: "/ortho.png" },
   { icon: Baby, name: "Mother & Child", text: "Sensitive obstetric, gynaecological, paediatric and newborn care.", stat: "Family care", href: "/services/motherchild", image: "/mother%20&%20child.png" },
@@ -44,12 +44,12 @@ export default function Centres() {
               <div className="relative flex h-full flex-col">
                 <div className="flex items-start justify-between">
                   {centre.image ? (
-                    <div className="h-14 w-14 overflow-hidden rounded-2xl shadow-glow">
-                      <img src={centre.image} alt={centre.name} className="h-full w-full object-cover" />
+                    <div className="h-24 w-24 overflow-hidden rounded-2xl bg-teal-50 shadow-glow">
+                      <img src={centre.image} alt={centre.name} className="h-full w-full object-cover mix-blend-multiply" />
                     </div>
                   ) : (
-                    <div className="grid h-14 w-14 place-items-center rounded-2xl bg-ink text-cyan shadow-glow">
-                      <Icon size={25} />
+                    <div className="grid h-24 w-24 place-items-center rounded-2xl bg-ink text-cyan shadow-glow">
+                      <Icon size={36} />
                     </div>
                   )}
                   <span className="rounded-full border border-slate-200 bg-white/70 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-slate-500">
