@@ -73,14 +73,16 @@ enum AppointmentStatus {
 
 // ─── Contact Messages ─────────────────────────────────────────────────
 model ContactMessage {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String
-  phone     String   @default("")
-  subject   String
-  message   String
-  read      Boolean  @default(false)
-  createdAt DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  name        String
+  phone       String   @default("")
+  email       String?
+  enquiryType String   @default("General Enquiry")
+  department  String?
+  preferredAt String?
+  message     String
+  read        Boolean  @default(false)
+  createdAt   DateTime @default(now())
 
   @@map("contact_messages")
 }
