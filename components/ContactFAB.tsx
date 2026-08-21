@@ -1,11 +1,19 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Phone } from "lucide-react";
+import { Phone, MessageCircle, Send, X } from "lucide-react";
 
 const PHONE_NUMBER = "+917281990530";
 const WHATSAPP_NUMBER = "917281990530";
 const WHATSAPP_MESSAGE = "Hi, I'd like to know more about Hopewell Hospital.";
+
+type ChatMessage = { role: "user" | "assistant"; content: string };
+
+const GREETING: ChatMessage = {
+  role: "assistant",
+  content: "Hi! I'm the Hopewell Hospital assistant. Ask me about our services, doctors, or how to book an appointment.",
+};
 
 function WhatsAppIcon() {
   return (
@@ -17,10 +25,103 @@ function WhatsAppIcon() {
 
 export default function ContactFAB() {
   const pathname = usePathname();
+  const [chatOpen, setChatOpen] = useState(false);
+  const [messages, setMessages] = useState<ChatMessage[]>([GREETING]);
+  const [input, setInput] = useState("");
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
+  const endRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, chatOpen]);
+
   if (pathname?.startsWith("/admin")) return null;
 
+  async function send() {
+    const text = input.trim();
+    if (!text || sending) return;
+    setError("");
+    setInput("");
+    const next = [...messages, { role: "user" as const, content: text }];
+    setMessages(next);
+    setSending(true);
+    try {
+      const res = await fetch("/api/chatbot", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: next.filter((m) => m !== GREETING) }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error ?? "Something went wrong");
+      setMessages((m) => [...m, { role: "assistant", content: json.reply }]);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setSending(false);
+    }
+  }
+
   return (
-    <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3">
+    <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end gap-3">
+      {chatOpen && (
+        <div className="absolute bottom-full right-0 mb-3 flex h-[480px] w-[340px] flex-col overflow-hidden rounded-3xl border border-teal-700 bg-white shadow-2xl">
+          <div className="flex items-center gap-2.5 bg-ink px-5 py-4 text-white">
+            <div className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white">
+              <img src="/hopewell%20logo%201.jpeg" alt="" className="h-6 w-6 object-contain" />
+            </div>
+            <div className="flex-1">
+              <div className="text-sm font-black">Hopewell Assistant</div>
+              <div className="text-[11px] text-white/50">Ask about services & doctors</div>
+            </div>
+            <button type="button" onClick={() => setChatOpen(false)} aria-label="Close chat" className="grid h-8 w-8 place-items-center rounded-full text-white/60 hover:bg-white/10 hover:text-white">
+              <X size={16} />
+            </button>
+          </div>
+
+          <div className="flex-1 space-y-3 overflow-y-auto p-4">
+            {messages.map((m, i) => (
+              <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+                <div
+                  className={`max-w-[85%] whitespace-pre-wrap rounded-2xl px-4 py-2.5 text-sm leading-6 ${
+                    m.role === "user" ? "bg-ink text-white" : "bg-slate-100 text-slate-700"
+                  }`}
+                >
+                  {m.content}
+                </div>
+              </div>
+            ))}
+            {sending && (
+              <div className="flex justify-start">
+                <div className="rounded-2xl bg-slate-100 px-4 py-2.5 text-sm text-slate-400">Typing…</div>
+              </div>
+            )}
+            {error && <p className="text-center text-xs text-red-500">{error}</p>}
+            <div ref={endRef} />
+          </div>
+
+          <form
+            onSubmit={(e) => { e.preventDefault(); send(); }}
+            className="flex items-center gap-2 border-t border-slate-200 p-3"
+          >
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Type your question…"
+              className="flex-1 rounded-full border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-teal-400"
+            />
+            <button
+              type="submit"
+              disabled={sending || !input.trim()}
+              aria-label="Send"
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-ink text-white transition disabled:opacity-40"
+            >
+              <Send size={16} />
+            </button>
+          </form>
+        </div>
+      )}
+
       <a
         href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`}
         target="_blank"
@@ -30,6 +131,16 @@ export default function ContactFAB() {
       >
         <WhatsAppIcon />
       </a>
+
+      <button
+        type="button"
+        onClick={() => setChatOpen((v) => !v)}
+        aria-label={chatOpen ? "Close chat" : "Open chat"}
+        className="grid h-14 w-14 place-items-center rounded-full bg-ink text-white shadow-glass transition hover:-translate-y-1 hover:shadow-xl"
+      >
+        {chatOpen ? <X size={22} /> : <MessageCircle size={22} />}
+      </button>
+
       <a
         href={`tel:${PHONE_NUMBER}`}
         aria-label="Call Hopewell Hospital"

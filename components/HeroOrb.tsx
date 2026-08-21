@@ -267,21 +267,21 @@ function Scene({ setLabel }: { setLabel: (l: string) => void }) {
         {/* Atmosphere halo */}
         <mesh>
           <sphereGeometry args={[EARTH_R * 1.1, 32, 32]} />
-          <meshBasicMaterial color="#57e6e6" transparent opacity={0.06} side={THREE.BackSide} />
+          <meshBasicMaterial color="#c8b6a6" transparent opacity={0.06} side={THREE.BackSide} />
         </mesh>
 
         {/* Orbital rings (decorative, matches site's futuristic aesthetic) */}
         <mesh ref={ringRef} rotation={[1.1, 0.3, 0]}>
           <torusGeometry args={[2.05, 0.016, 12, 160]} />
-          <meshBasicMaterial color="#0ca8ad" transparent opacity={0.55} />
+          <meshBasicMaterial color="#a4907c" transparent opacity={0.55} />
         </mesh>
         <mesh rotation={[0.25, 1.2, 0.2]}>
           <torusGeometry args={[2.28, 0.008, 10, 160]} />
-          <meshBasicMaterial color="#2ecbd0" transparent opacity={0.3} />
+          <meshBasicMaterial color="#c8b6a6" transparent opacity={0.3} />
         </mesh>
 
-        <RegionHighlight geojson={indiaGeo} radius={EARTH_R + 0.006} color="#57e6e6" onReady={setIndia} />
-        <RegionHighlight geojson={jharkhandGeo} radius={EARTH_R + 0.012} color="#8ef7ea" onReady={setJharkhand} />
+        <RegionHighlight geojson={indiaGeo} radius={EARTH_R + 0.006} color="#c8b6a6" onReady={setIndia} />
+        <RegionHighlight geojson={jharkhandGeo} radius={EARTH_R + 0.012} color="#f1dec9" onReady={setJharkhand} />
         <RanchiMarker onReady={setPin} />
       </Float>
     </group>
@@ -297,7 +297,7 @@ function GlobeFallback() {
   return (
     <mesh ref={ref}>
       <icosahedronGeometry args={[EARTH_R, 4]} />
-      <meshStandardMaterial color="#083242" wireframe transparent opacity={0.28} />
+      <meshStandardMaterial color="#3a2f24" wireframe transparent opacity={0.28} />
     </mesh>
   );
 }
@@ -320,7 +320,7 @@ export default function HeroOrb() {
               background: "rgba(6,24,34,.78)",
               border: "1px solid rgba(87,230,230,.42)",
               backdropFilter: "blur(14px)",
-              color: "#57e6e6",
+              color: "#c8b6a6",
               fontSize: ".7rem",
               fontWeight: 800,
               letterSpacing: ".18em",
@@ -347,8 +347,8 @@ export default function HeroOrb() {
             intensity={2.4}
             color="#ffffff"
           />
-          <directionalLight position={[-5, 2, -2]} intensity={0.5} color="#b9fff4" />
-          <pointLight position={[-4, -2, 2]} intensity={12} color="#58eee7" />
+          <directionalLight position={[-5, 2, -2]} intensity={0.5} color="#f1dec9" />
+          <pointLight position={[-4, -2, 2]} intensity={12} color="#c8b6a6" />
 
           <Stars radius={90} depth={40} count={3000} factor={2.2} saturation={0} fade speed={0.4} />
 

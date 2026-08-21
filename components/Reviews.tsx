@@ -89,7 +89,7 @@ export default function Reviews() {
         {visible.map((r) => (
           <div
             key={r.name}
-            className="glass flex w-[320px] shrink-0 snap-start flex-col rounded-[2rem] p-6 shadow-glass"
+            className="glass flex w-[320px] shrink-0 snap-start flex-col rounded-[2rem] border border-teal-700 p-6 shadow-glass transition hover:-translate-y-1 hover:shadow-glow"
           >
             <Quote className="text-cyan" size={22} />
             <p className="mt-4 line-clamp-6 flex-1 text-sm leading-6 text-slate-600">{r.text}</p>

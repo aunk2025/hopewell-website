@@ -27,7 +27,7 @@ export default async function AdminDashboard() {
 
   return (
     <div className="p-8">
-      <h1 className="mb-2 text-2xl font-black text-[#061822]">Dashboard</h1>
+      <h1 className="mb-2 text-2xl font-black text-[#2a2119]">Dashboard</h1>
       <p className="mb-8 text-sm text-slate-500">
         {format(new Date(), "EEEE, d MMMM yyyy")}
       </p>
@@ -39,7 +39,7 @@ export default async function AdminDashboard() {
             <div className={`mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl ${bg}`}>
               <Icon size={20} className={color} />
             </div>
-            <div className="text-3xl font-black text-[#061822]">{value}</div>
+            <div className="text-3xl font-black text-[#2a2119]">{value}</div>
             <div className="mt-1 text-sm text-slate-500">{label}</div>
           </div>
         ))}
@@ -48,7 +48,7 @@ export default async function AdminDashboard() {
       {/* Recent Appointments */}
       <div className="rounded-2xl border border-slate-200 bg-white shadow-sm">
         <div className="flex items-center justify-between border-b border-slate-100 px-6 py-4">
-          <h2 className="font-black text-[#061822]">Recent Appointments</h2>
+          <h2 className="font-black text-[#2a2119]">Recent Appointments</h2>
           <Link href="/admin/appointments" className="text-sm font-semibold text-teal-600 hover:underline">
             View All →
           </Link>
@@ -57,7 +57,7 @@ export default async function AdminDashboard() {
           {recent.map((a) => (
             <div key={a.id} className="flex items-center justify-between px-6 py-4">
               <div>
-                <div className="font-semibold text-[#061822]">{a.patientName}</div>
+                <div className="font-semibold text-[#2a2119]">{a.patientName}</div>
                 <div className="text-xs text-slate-500">
                   {a.doctor?.name ?? "Any Doctor"} · {format(a.appointmentDate, "d MMM yyyy")} · {a.timeSlot}
                 </div>

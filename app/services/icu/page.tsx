@@ -29,7 +29,7 @@ export const metadata = {
 
 export default function IcuPage() {
   return (
-    <main className="min-h-screen bg-[#edf9f8]">
+    <main className="min-h-screen bg-[#faf5ef]">
       <Navbar />
 
       {/* Hero banner */}
@@ -37,7 +37,7 @@ export default function IcuPage() {
         className="relative flex h-80 flex-col items-center justify-center bg-cover px-5 text-center sm:h-[30rem]"
         style={{ backgroundImage: "url(/icu1.jfif)", backgroundPosition: "center 45%" }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-[#061822]/88 via-[#061822]/72 to-[#061822]/88" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#2a2119]/88 via-[#2a2119]/72 to-[#2a2119]/88" />
         <h1 className="relative text-4xl font-black tracking-[-.03em] text-black sm:text-6xl">
           ICU / Critical Care
         </h1>
@@ -52,7 +52,7 @@ export default function IcuPage() {
 
         <div className="grid gap-6 sm:grid-cols-2">
           {keyServices.map((group) => (
-            <div key={group.category} className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
+            <div key={group.category} className="rounded-3xl border border-teal-700 bg-white p-7 shadow-sm">
               <h3 className="mb-4 text-lg font-black text-ink">{group.category}</h3>
               <ul className="space-y-2.5">
                 {group.items.map((item) => (

@@ -1,18 +1,48 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Baby, Bone, Brain, Dna, Ear, ScanHeart, ShieldPlus, Stethoscope } from "lucide-react";
+import { ArrowUpRight, Baby, Bone, ChevronRight, Dna, ScanHeart } from "lucide-react";
 import { geist } from "@/lib/fonts";
 
+const surgeryItems = [
+  "Gallbladder Surgery",
+  "Hernia Surgery",
+  "Appendix Surgery",
+  "Laser Piles Treatment",
+  "Fistula Treatment",
+  "Fissure Treatment",
+  "ERCP",
+  "GI Surgery",
+  "Colorectal Surgery",
+  "Varicose Vein Treatment",
+];
+
+const orthoItems = [
+  "Knee Replacement",
+  "Hip Replacement",
+  "Arthroscopy",
+  "ACL Reconstruction",
+  "Fracture Surgery",
+  "Sports Injury Treatment",
+  "Spine Procedures",
+];
+
+const ivfItems = [
+  "IVF",
+  "Infertility Treatment",
+  "Laparoscopic Gynaecology",
+  "Hysterectomy",
+  "Fibroid Treatment",
+  "High-Risk Pregnancy",
+];
+
+const paediatricItems = ["Newborn Care", "NICU", "Child Immunization", "Paediatric Emergency"];
+
 const centres = [
-  { icon: Brain, name: "Neurosciences", text: "Comprehensive stroke care, neurology and neurosurgery services.", stat: "Brain & Spine", href: "/services/neurosciences", image: "/neuro.png" },
-  { icon: ScanHeart, name: "Surgical Excellence", text: "Precision-led general, laparoscopic and gastrointestinal surgery.", stat: "Advanced OT", href: "/services/surgeries", image: "/surgical.png" },
-  { icon: Bone, name: "Orthopaedics", text: "Joint preservation, trauma care and advanced mobility restoration.", stat: "Mobility", href: "/services/orthopaedics", image: "/ortho.png" },
-  { icon: Baby, name: "Mother & Child", text: "Sensitive obstetric, gynaecological, paediatric and newborn care.", stat: "Family care", href: "/services/motherchild", image: "/mother%20&%20child.png" },
-  { icon: ShieldPlus, name: "Critical Care", text: "Continuous monitoring, rapid escalation and specialist-led intensive care.", stat: "ICU", href: "/services/icu", image: "/criticalcare.png" },
-  { icon: Stethoscope, name: "Emergency Medicine", text: "Rapid assessment and coordinated response when every minute matters.", stat: "Always on", href: "/services/emergencymedicine", image: "/emergencycare.png" },
-  { icon: Dna, name: "IVF", text: "Personalized fertility evaluation and assisted reproduction for couples building their family.", stat: "Fertility care", href: "/services/ivf", image: "/ivf.png" },
-  { icon: Ear, name: "ENT", text: "Comprehensive ear, nose and throat diagnostics, treatment and surgical care.", stat: "Head & neck", href: "/services/ent", image: "/ent.png" },
+  { icon: ScanHeart, name: "General, GI & Laparoscopic Surgery", text: "Precision-led general, laparoscopic and gastrointestinal surgery.", items: surgeryItems, stat: "Advanced OT", href: "/services#surgeries", image: "/GI%20surgery.png" },
+  { icon: Dna, name: "IVF, Gynaecology & Women's Health", text: "Personalized fertility evaluation, gynaecological care and assisted reproduction.", items: ivfItems, stat: "Fertility care", href: "/services#ivf", image: "/ivfhome.png" },
+  { icon: Baby, name: "Paediatrics & Neonatology", text: "Sensitive newborn, infant and child care, including NICU support.", items: paediatricItems, stat: "Paediatric care", href: "/services#motherchild", image: "/paed%20nd%20neo%20new.png" },
+  { icon: Bone, name: "Orthopaedics & Joint Replacement", text: "Joint preservation, trauma care and advanced mobility restoration.", items: orthoItems, stat: "Mobility", href: "/services#orthopaedics", image: "/orthopaedicsnew.png" },
 ];
 
 export default function Centres() {
@@ -38,14 +68,14 @@ export default function Centres() {
               key={centre.name}
               {...(centre.href ? { href: centre.href, target: "_blank", rel: "noopener noreferrer" } : {})}
               whileHover={{ y: -7, rotateX: 2, rotateY: index % 2 ? -2 : 2 }}
-              className={`glass group relative flex min-h-[270px] flex-col overflow-hidden rounded-[2rem] p-6 shadow-glass [transform-style:preserve-3d] ${centre.href ? "cursor-pointer" : ""}`}
+              className={`glass group relative flex min-h-[270px] flex-col overflow-hidden rounded-[2rem] border border-teal-700 p-6 shadow-glass [transform-style:preserve-3d] ${centre.href ? "cursor-pointer" : ""}`}
             >
               <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-cyan/15 blur-2xl transition group-hover:bg-cyan/30" />
               <div className="relative flex h-full flex-col">
                 <div className="flex items-start justify-between">
                   {centre.image ? (
-                    <div className="h-24 w-24 overflow-hidden rounded-2xl bg-teal-50 shadow-glow">
-                      <img src={centre.image} alt={centre.name} className="h-full w-full object-cover mix-blend-multiply" />
+                    <div className="h-24 w-24">
+                      <img src={centre.image} alt={centre.name} className="h-full w-full object-contain" />
                     </div>
                   ) : (
                     <div className="grid h-24 w-24 place-items-center rounded-2xl bg-ink text-cyan shadow-glow">
@@ -57,7 +87,18 @@ export default function Centres() {
                   </span>
                 </div>
                 <h3 className="mt-8 text-lg font-black tracking-tight">{centre.name}</h3>
-                <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-600">{centre.text}</p>
+                {centre.items ? (
+                  <ul className="mt-3 grid grid-cols-1 gap-x-3 gap-y-1.5">
+                    {centre.items.map((item) => (
+                      <li key={item} className="flex items-center gap-1.5 text-xs leading-5 text-slate-600">
+                        <ChevronRight size={12} className="shrink-0 text-teal-700" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-600">{centre.text}</p>
+                )}
                 <div className="mt-auto flex items-center justify-between pt-6">
                   <span className="text-sm font-bold">Explore centre</span>
                   <span className="grid h-9 w-9 place-items-center rounded-full border border-slate-200 transition group-hover:rotate-45 group-hover:bg-ink group-hover:text-white">

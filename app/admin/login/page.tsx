@@ -32,7 +32,7 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#061822] px-4">
+    <div className="flex min-h-screen items-center justify-center bg-[#2a2119] px-4">
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="mb-8 text-center">

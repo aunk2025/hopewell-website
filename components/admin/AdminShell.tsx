@@ -16,7 +16,7 @@ export default function AdminShell({ email, children }: { email: string; childre
   return (
     <div className="flex min-h-screen bg-slate-100">
       {open && (
-        <aside className="flex w-64 shrink-0 flex-col border-r border-slate-200 bg-[#061822]">
+        <aside className="flex w-64 shrink-0 flex-col border-r border-slate-200 bg-[#2a2119]">
           <div className="flex items-center justify-between border-b border-white/10 px-6 py-5">
             <div>
               <div className="text-base font-black tracking-wide text-white">HOPEWELL</div>

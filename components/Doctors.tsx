@@ -13,7 +13,7 @@ type Doctor = {
 };
 
 /* Doctors whose names match these (in order) are pinned to the front of the list. */
-const FEATURED_NAMES = ["neha ali", "shahbaz alam"];
+const FEATURED_NAMES = ["neha ali", "shahbaz alam", "md arif tauheed"];
 
 function initials(name: string) {
   return name
@@ -76,8 +76,8 @@ export default function Doctors() {
 
       <div className="mt-12 grid gap-5 md:grid-cols-3">
         {visible.map((doctor) => (
-          <article key={doctor.id} className="group relative flex flex-col items-center overflow-hidden rounded-[2rem] bg-white p-7 text-center shadow-glass">
-            <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-full bg-gradient-to-br from-[#dffbfa] to-[#cceef3] shadow-glow">
+          <article key={doctor.id} className="group relative flex flex-col items-center overflow-hidden rounded-[2rem] border border-teal-700 bg-white p-7 text-center shadow-glass transition hover:-translate-y-1 hover:shadow-xl">
+            <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-full bg-gradient-to-br from-[#f8ede0] to-[#e4cbb0] shadow-glow">
               {doctor.imageUrl ? (
                 <img src={doctor.imageUrl} alt={doctor.name} className="h-full w-full object-cover" />
               ) : (

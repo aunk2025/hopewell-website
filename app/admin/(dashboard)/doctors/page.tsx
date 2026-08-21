@@ -209,14 +209,14 @@ export default function DoctorsAdmin() {
   return (
     <div className="p-8">
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-black text-[#061822]">Doctors</h1>
+        <h1 className="text-2xl font-black text-[#2a2119]">Doctors</h1>
         <div className="flex gap-2">
           <button onClick={load} className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50">
             <RefreshCw size={14} /> Refresh
           </button>
           <button
             onClick={() => (showForm ? cancelForm() : setShowForm(true))}
-            className="flex items-center gap-2 rounded-xl bg-[#061822] px-4 py-2 text-sm font-semibold text-white hover:bg-teal-900"
+            className="flex items-center gap-2 rounded-xl bg-[#2a2119] px-4 py-2 text-sm font-semibold text-white hover:bg-teal-900"
           >
             {showForm ? <X size={14} /> : <Plus size={14} />}
             {showForm ? "Cancel" : "Add Doctor"}
@@ -226,7 +226,7 @@ export default function DoctorsAdmin() {
 
       {showForm && (
         <form onSubmit={saveDoctor} className="mb-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="mb-4 font-black text-[#061822]">{editingId ? "Edit Doctor" : "Add Doctor"}</h2>
+          <h2 className="mb-4 font-black text-[#2a2119]">{editingId ? "Edit Doctor" : "Add Doctor"}</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-500">Full Name *</label>
@@ -342,7 +342,7 @@ export default function DoctorsAdmin() {
               ) : (
                 doctors.map((d) => (
                   <tr key={d.id} className="hover:bg-slate-50">
-                    <td className="px-4 py-4 font-semibold text-[#061822]">{d.name}</td>
+                    <td className="px-4 py-4 font-semibold text-[#2a2119]">{d.name}</td>
                     <td className="px-4 py-4 text-slate-600">{d.specialty}</td>
                     <td className="px-4 py-4 text-slate-600">{d.experience}+ yrs</td>
                     <td className="px-4 py-4">
@@ -384,7 +384,7 @@ export default function DoctorsAdmin() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
           <div className="w-full max-w-sm rounded-2xl bg-white p-5 shadow-xl">
             <div className="mb-3 flex items-center justify-between">
-              <h2 className="font-black text-[#061822]">Take Photo</h2>
+              <h2 className="font-black text-[#2a2119]">Take Photo</h2>
               <button type="button" onClick={closeCamera} className="grid h-8 w-8 place-items-center rounded-full text-slate-400 hover:bg-slate-100">
                 <X size={16} />
               </button>

@@ -57,7 +57,7 @@ export default function AppointmentsAdmin() {
   return (
     <div className="p-8">
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-black text-[#061822]">Appointments</h1>
+        <h1 className="text-2xl font-black text-[#2a2119]">Appointments</h1>
         <button onClick={load} className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50">
           <RefreshCw size={14} /> Refresh
         </button>
@@ -69,7 +69,7 @@ export default function AppointmentsAdmin() {
           <button
             key={s}
             onClick={() => setStatus(s)}
-            className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold transition ${status === s ? "bg-[#061822] text-white" : "bg-white text-slate-600 border border-slate-200 hover:border-slate-300"}`}
+            className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold transition ${status === s ? "bg-[#2a2119] text-white" : "bg-white text-slate-600 border border-slate-200 hover:border-slate-300"}`}
           >
             <Filter size={11} /> {s}
           </button>
@@ -106,7 +106,7 @@ export default function AppointmentsAdmin() {
                 appointments.map((a) => (
                   <tr key={a.id} className="hover:bg-slate-50">
                     <td className="px-4 py-4 font-mono text-xs text-slate-400">{a.refNumber}</td>
-                    <td className="px-4 py-4 font-semibold text-[#061822]">{a.patientName}</td>
+                    <td className="px-4 py-4 font-semibold text-[#2a2119]">{a.patientName}</td>
                     <td className="px-4 py-4">
                       <div className="text-xs text-slate-500">{a.patientPhone}</div>
                       <div className="text-xs text-slate-400">{a.patientEmail}</div>

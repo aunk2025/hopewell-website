@@ -115,14 +115,14 @@ export const metadata = {
 
 export default function CentresPage() {
   return (
-    <main className="min-h-screen bg-[#edf9f8]">
+    <main className="min-h-screen bg-[#faf5ef]">
       <Navbar />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-[#061822] py-24 text-white">
+      <section className="relative overflow-hidden bg-[#2a2119] py-24 text-white">
         <div className="absolute inset-0 bg-gradient-to-br from-teal-900/30 via-transparent to-sky-900/20" />
         <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-          <p className="section-kicker mb-4" style={{ color: "#57e6e6" }}>
+          <p className="section-kicker mb-4" style={{ color: "#c8b6a6" }}>
             Clinical Excellence
           </p>
           <h1 className="text-5xl font-black leading-tight tracking-tight sm:text-6xl">
@@ -155,7 +155,7 @@ export default function CentresPage() {
                 <div className="mb-1 text-xs font-bold uppercase tracking-widest text-slate-400">
                   {c.tagline}
                 </div>
-                <h2 className="mb-3 text-xl font-black text-[#061822]">{c.name}</h2>
+                <h2 className="mb-3 text-xl font-black text-[#2a2119]">{c.name}</h2>
                 <p className="mb-5 text-sm leading-7 text-slate-600">{c.description}</p>
                 <ul className="space-y-2">
                   {c.services.map((s) => (

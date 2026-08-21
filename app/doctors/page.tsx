@@ -37,7 +37,7 @@ function DoctorCard({ doc, onClick }: { doc: Doctor; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="group w-full rounded-3xl border border-white/60 bg-white/70 p-6 text-left shadow-sm backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:shadow-lg"
+      className="group w-full rounded-3xl border border-teal-700 bg-white/70 p-6 text-left shadow-sm backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:shadow-lg"
     >
       <div className="mb-5 flex items-center gap-4">
         {doc.imageUrl ? (
@@ -55,7 +55,7 @@ function DoctorCard({ doc, onClick }: { doc: Doctor; onClick: () => void }) {
           <div className="text-[10px] font-bold uppercase tracking-widest text-teal-700">
             {doc.specialty}
           </div>
-          <h3 className="mt-0.5 text-lg font-black text-[#061822]">{doc.name}</h3>
+          <h3 className="mt-0.5 text-lg font-black text-[#2a2119]">{doc.name}</h3>
         </div>
       </div>
       <p className="line-clamp-2 text-sm leading-6 text-slate-600">{doc.bio}</p>
@@ -98,7 +98,7 @@ function DoctorModal({ doc, onClose }: { doc: Doctor; onClose: () => void }) {
           )}
           <div>
             <div className="text-xs font-bold uppercase tracking-widest text-teal-700">{doc.specialty}</div>
-            <h2 className="mt-1 text-2xl font-black text-[#061822]">{doc.name}</h2>
+            <h2 className="mt-1 text-2xl font-black text-[#2a2119]">{doc.name}</h2>
             <div className="mt-1 text-sm text-slate-500">{doc.qualifications}</div>
           </div>
         </div>
@@ -115,7 +115,7 @@ function DoctorModal({ doc, onClose }: { doc: Doctor; onClose: () => void }) {
           href="/appointment"
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#061822] py-3.5 text-sm font-bold text-white transition hover:bg-teal-900"
+          className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#2a2119] py-3.5 text-sm font-bold text-white transition hover:bg-teal-900"
         >
           Book Appointment with Dr. {doc.name.split(" ").pop()}
         </a>
@@ -148,11 +148,11 @@ export default function DoctorsPage() {
   }, [specialty, search, doctors]);
 
   return (
-    <main className="min-h-screen bg-[#edf9f8]">
+    <main className="min-h-screen bg-[#faf5ef]">
       <Navbar />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-[#061822] py-20 text-white">
+      <section className="relative overflow-hidden bg-[#2a2119] py-20 text-white">
         <div className="absolute inset-0 bg-gradient-to-br from-teal-900/30 via-transparent to-sky-900/20" />
         <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
           <p className="mb-4 text-xs font-bold uppercase tracking-widest text-cyan-400">Meet Our Team</p>
@@ -181,7 +181,7 @@ export default function DoctorsPage() {
               <button
                 key={s}
                 onClick={() => setSpecialty(s)}
-                className={`rounded-full px-4 py-2 text-xs font-bold transition ${specialty === s ? "bg-[#061822] text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"}`}
+                className={`rounded-full px-4 py-2 text-xs font-bold transition ${specialty === s ? "bg-[#2a2119] text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"}`}
               >
                 {s}
               </button>

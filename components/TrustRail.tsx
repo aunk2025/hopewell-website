@@ -15,7 +15,7 @@ export default function TrustRail() {
         {items.map(([Icon, label]) => {
           const I = Icon as typeof Activity;
           return (
-            <div key={label as string} className="flex items-center gap-3 rounded-2xl border border-white/5 px-3 py-3">
+            <div key={label as string} className="flex items-center gap-3 rounded-2xl border border-white/5 px-3 py-3 transition hover:border-cyan/40 hover:bg-white/5">
               <I className="text-cyan" size={20} />
               <span className="text-sm font-semibold">{label as string}</span>
             </div>

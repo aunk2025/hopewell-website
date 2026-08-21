@@ -6,10 +6,11 @@ import { Menu, X, Phone, CalendarDays } from "lucide-react";
 import Link from "next/link";
 
 const links = [
-  { label: "Home",     href: "/" },
-  { label: "Doctors",  href: "/doctors" },
-  { label: "Services", href: "/services" },
-  { label: "Contact",  href: "/contact" },
+  { label: "Home",            href: "/" },
+  { label: "Doctors",         href: "/doctors" },
+  { label: "Services",        href: "/services" },
+  { label: "Health Packages", href: "/health-packages" },
+  { label: "Contact",         href: "/contact" },
 ];
 
 
@@ -30,14 +31,8 @@ export default function Navbar() {
 
       <header className="sticky top-0 z-50 border-b border-white/50 bg-white/70 backdrop-blur-2xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-          <Link href="/" className="group flex items-center gap-3">
-            <img src="/logo-how.png" alt="Hopewell Hospital" className="h-16 w-16 object-contain" />
-            <div>
-              <div className="text-base font-black tracking-[.08em]">HOPEWELL</div>
-              <div className="text-[10px] font-semibold uppercase tracking-[.2em] text-slate-500">
-                Hospital • Ranchi
-              </div>
-            </div>
+          <Link href="/" className="group flex items-center">
+            <img src="/hopewell%20logo%202.jpeg" alt="Hopewell Hospital" className="h-24 w-auto object-contain" />
           </Link>
 
           <nav className="hidden items-center gap-7 lg:flex">

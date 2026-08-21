@@ -137,7 +137,7 @@ export default function EarthView() {
             border: "1px solid rgba(87,230,230,.38)",
             backdropFilter: "blur(12px)",
             animation: "fadeUp .45s ease forwards",
-            color: "#57e6e6",
+            color: "#c8b6a6",
             fontSize: ".72rem",
             fontWeight: 800,
             letterSpacing: ".18em",
@@ -171,7 +171,7 @@ export default function EarthView() {
           <span
             className="absolute h-3 w-3 rounded-full"
             style={{
-              background: "#57e6e6",
+              background: "#c8b6a6",
               boxShadow: "0 0 12px 4px rgba(87,230,230,.7)",
             }}
           />
@@ -180,15 +180,15 @@ export default function EarthView() {
 
       {/* ── Loading skeleton ── */}
       {!isReady && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-[2rem] bg-[#061822]">
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-[2rem] bg-[#2a2119]">
           <div
             className="h-16 w-16 rounded-full border-4 border-cyan-400/30"
             style={{
-              borderTopColor: "#57e6e6",
+              borderTopColor: "#c8b6a6",
               animation: "spin 1s linear infinite",
             }}
           />
-          <p style={{ color: "#57e6e6", fontSize: ".78rem", letterSpacing: ".14em" }}>
+          <p style={{ color: "#c8b6a6", fontSize: ".78rem", letterSpacing: ".14em" }}>
             LOADING EARTH VIEW…
           </p>
         </div>

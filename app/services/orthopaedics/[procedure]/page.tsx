@@ -2,14 +2,24 @@ import { notFound } from "next/navigation";
 import { AlertTriangle, IndianRupee } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ProcedurePageTemplate from "@/components/services/ProcedurePageTemplate";
 import { getProcedure, procedures } from "@/lib/orthopaedics-procedures";
+import { getOrthoProcedure, orthoProcedures } from "@/lib/ortho-procedures";
 
 export function generateStaticParams() {
-  return procedures.map((p) => ({ procedure: p.slug }));
+  const richSlugs = new Set(orthoProcedures.map((p) => p.slug));
+  const legacyOnly = procedures.filter((p) => !richSlugs.has(p.slug));
+  return [...orthoProcedures, ...legacyOnly].map((p) => ({ procedure: p.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ procedure: string }> }) {
   const { procedure: slug } = await params;
+
+  const rich = getOrthoProcedure(slug);
+  if (rich) {
+    return { title: `${rich.title} | Hopewell Hospital Ranchi`, description: rich.metaDescription };
+  }
+
   const procedure = getProcedure(slug);
   if (!procedure) return { title: "Orthopaedics | Hopewell Hospital Ranchi" };
   return {
@@ -20,12 +30,24 @@ export async function generateMetadata({ params }: { params: Promise<{ procedure
 
 export default async function ProcedurePage({ params }: { params: Promise<{ procedure: string }> }) {
   const { procedure: slug } = await params;
+
+  const rich = getOrthoProcedure(slug);
+  if (rich) {
+    return (
+      <ProcedurePageTemplate
+        procedure={rich}
+        categoryHref="/services"
+        consultationLabel="Book Orthopaedic Consultation"
+      />
+    );
+  }
+
   const procedure = getProcedure(slug);
   if (!procedure) notFound();
 
   return (
     <main
-      className={`min-h-screen ${procedure.backgroundImage ? "bg-cover bg-fixed" : "bg-[#edf9f8]"}`}
+      className={`min-h-screen ${procedure.backgroundImage ? "bg-cover bg-fixed" : "bg-[#faf5ef]"}`}
       style={
         procedure.backgroundImage
           ? {
@@ -64,7 +86,7 @@ export default async function ProcedurePage({ params }: { params: Promise<{ proc
                   <p className="text-sm leading-6 text-amber-900/80">{s.text}</p>
                 </div>
               ) : (
-                <div key={s.title} className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
+                <div key={s.title} className="rounded-3xl border border-teal-700 bg-white p-7 shadow-sm">
                   <h2 className="mb-2 text-lg font-black text-ink">{s.title}</h2>
                   <p className="text-sm leading-6 text-slate-600">{s.text}</p>
                 </div>
@@ -80,7 +102,7 @@ export default async function ProcedurePage({ params }: { params: Promise<{ proc
             </div>
 
             {procedure.timeline && (
-              <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
+              <div className="rounded-3xl border border-teal-700 bg-white p-7 shadow-sm">
                 <h2 className="mb-5 text-lg font-black text-ink">Recovery Timeline</h2>
                 <div className="space-y-4">
                   {procedure.timeline.map((t, i) => (
@@ -105,7 +127,7 @@ export default async function ProcedurePage({ params }: { params: Promise<{ proc
             )}
           </div>
         ) : (
-          <div className="rounded-3xl border border-slate-200 bg-white p-7 text-sm text-slate-500 shadow-sm">
+          <div className="rounded-3xl border border-teal-700 bg-white p-7 text-sm text-slate-500 shadow-sm">
             More detailed information about this procedure is on the way. In the meantime, call
             us or book an appointment to speak with a specialist directly.
           </div>

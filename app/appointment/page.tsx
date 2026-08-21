@@ -108,23 +108,23 @@ function AppointmentForm() {
   /* Success screen */
   if (step === 3) {
     return (
-      <main className="min-h-screen bg-[#edf9f8]">
+      <main className="min-h-screen bg-[#faf5ef]">
         <Navbar />
         <div className="flex min-h-[70vh] items-center justify-center px-5">
           <div className="w-full max-w-md rounded-3xl border border-white/60 bg-white/80 p-10 text-center shadow-xl backdrop-blur-xl">
             <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-teal-100">
               <CheckCircle size={36} className="text-teal-600" />
             </div>
-            <h1 className="text-2xl font-black text-[#061822]">Appointment Booked!</h1>
+            <h1 className="text-2xl font-black text-[#2a2119]">Appointment Booked!</h1>
             <p className="mt-2 text-slate-500">Your booking reference number is:</p>
-            <div className="my-4 rounded-2xl bg-[#061822] px-6 py-3 text-2xl font-black tracking-widest text-cyan-400">
+            <div className="my-4 rounded-2xl bg-[#2a2119] px-6 py-3 text-2xl font-black tracking-widest text-cyan-400">
               {refNumber}
             </div>
             <p className="text-sm text-slate-500">
               A confirmation has been sent to <strong>{getValues("patientEmail")}</strong>.
               Please arrive 15 minutes before your scheduled time.
             </p>
-            <a href="/" className="mt-6 inline-block rounded-full bg-[#061822] px-8 py-3 font-bold text-white hover:-translate-y-0.5 transition">
+            <a href="/" className="mt-6 inline-block rounded-full bg-[#2a2119] px-8 py-3 font-bold text-white hover:-translate-y-0.5 transition">
               Back to Home
             </a>
           </div>
@@ -135,11 +135,11 @@ function AppointmentForm() {
   }
 
   return (
-    <main className="min-h-screen bg-[#edf9f8]">
+    <main className="min-h-screen bg-[#faf5ef]">
       <Navbar />
 
       {/* Hero */}
-      <section className="bg-[#061822] py-16 text-white">
+      <section className="bg-[#2a2119] py-16 text-white">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <h1 className="text-4xl font-black sm:text-5xl">Book an Appointment</h1>
           <p className="mt-3 text-white/60">Choose your doctor, date, and time in just a few steps.</p>
@@ -151,10 +151,10 @@ function AppointmentForm() {
         <div className="mb-10 flex items-center gap-2">
           {STEPS.map((s, i) => (
             <div key={s} className="flex items-center gap-2">
-              <div className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold transition ${i <= step ? "bg-[#061822] text-white" : "bg-slate-200 text-slate-500"}`}>
+              <div className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold transition ${i <= step ? "bg-[#2a2119] text-white" : "bg-slate-200 text-slate-500"}`}>
                 {i + 1}
               </div>
-              <span className={`hidden text-sm sm:block ${i === step ? "font-bold text-[#061822]" : "text-slate-400"}`}>{s}</span>
+              <span className={`hidden text-sm sm:block ${i === step ? "font-bold text-[#2a2119]" : "text-slate-400"}`}>{s}</span>
               {i < STEPS.length - 1 && <ChevronRight size={14} className="text-slate-300 mx-1" />}
             </div>
           ))}
@@ -166,7 +166,7 @@ function AppointmentForm() {
             <div className="space-y-6">
               {/* Doctor selection */}
               <div className="rounded-3xl border border-white/60 bg-white/80 p-6 backdrop-blur-xl">
-                <h2 className="mb-1 font-black text-[#061822]">Select Doctor (Optional)</h2>
+                <h2 className="mb-1 font-black text-[#2a2119]">Select Doctor (Optional)</h2>
                 {specialtyFilter && (
                   <p className="mb-4 text-xs font-semibold text-teal-700">
                     Showing {specialtyFilter} specialists
@@ -197,7 +197,7 @@ function AppointmentForm() {
 
               {/* Date selection */}
               <div className="rounded-3xl border border-white/60 bg-white/80 p-6 backdrop-blur-xl">
-                <h2 className="mb-4 flex items-center gap-2 font-black text-[#061822]">
+                <h2 className="mb-4 flex items-center gap-2 font-black text-[#2a2119]">
                   <CalendarDays size={18} /> Select Date
                 </h2>
                 <div className="grid grid-cols-4 gap-2 sm:grid-cols-6">
@@ -220,7 +220,7 @@ function AppointmentForm() {
               {/* Time slot */}
               {selectedDate && (
                 <div className="rounded-3xl border border-white/60 bg-white/80 p-6 backdrop-blur-xl">
-                  <h2 className="mb-4 flex items-center gap-2 font-black text-[#061822]">
+                  <h2 className="mb-4 flex items-center gap-2 font-black text-[#2a2119]">
                     <Clock size={18} /> Select Time
                   </h2>
                   <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
@@ -243,7 +243,7 @@ function AppointmentForm() {
                 type="button"
                 onClick={() => setStep(1)}
                 disabled={!selectedDate || !selectedSlot}
-                className="flex w-full items-center justify-center gap-2 rounded-full bg-[#061822] py-4 font-bold text-white transition hover:-translate-y-0.5 disabled:opacity-40"
+                className="flex w-full items-center justify-center gap-2 rounded-full bg-[#2a2119] py-4 font-bold text-white transition hover:-translate-y-0.5 disabled:opacity-40"
               >
                 Continue to Patient Details <ChevronRight size={18} />
               </button>
@@ -254,7 +254,7 @@ function AppointmentForm() {
           {step === 1 && (
             <div className="space-y-6">
               <div className="rounded-3xl border border-white/60 bg-white/80 p-6 backdrop-blur-xl">
-                <h2 className="mb-5 font-black text-[#061822]">Patient Information</h2>
+                <h2 className="mb-5 font-black text-[#2a2119]">Patient Information</h2>
                 <div className="space-y-4">
                   {[
                     { name: "patientName",  label: "Full Name",    icon: User,     type: "text",  placeholder: "Your full name" },
@@ -302,7 +302,7 @@ function AppointmentForm() {
                     const valid = await trigger(["patientName", "patientPhone", "patientEmail", "reason"]);
                     if (valid) setStep(2);
                   }}
-                  className="flex flex-[2] items-center justify-center gap-2 rounded-full bg-[#061822] py-4 font-bold text-white transition hover:-translate-y-0.5"
+                  className="flex flex-[2] items-center justify-center gap-2 rounded-full bg-[#2a2119] py-4 font-bold text-white transition hover:-translate-y-0.5"
                 >
                   Review Booking <ChevronRight size={18} />
                 </button>
@@ -314,7 +314,7 @@ function AppointmentForm() {
           {step === 2 && (
             <div className="space-y-6">
               <div className="rounded-3xl border border-white/60 bg-white/80 p-6 backdrop-blur-xl">
-                <h2 className="mb-5 font-black text-[#061822]">Confirm Your Booking</h2>
+                <h2 className="mb-5 font-black text-[#2a2119]">Confirm Your Booking</h2>
                 <dl className="space-y-3 text-sm">
                   {[
                     ["Doctor",   selectedDoctor?.name ?? "Any Available Doctor"],
@@ -327,7 +327,7 @@ function AppointmentForm() {
                   ].map(([k, v]) => (
                     <div key={k} className="flex items-start gap-3 rounded-xl bg-slate-50 px-4 py-2.5">
                       <dt className="w-16 shrink-0 font-bold text-slate-500">{k}</dt>
-                      <dd className="font-semibold text-[#061822]">{v}</dd>
+                      <dd className="font-semibold text-[#2a2119]">{v}</dd>
                     </div>
                   ))}
                 </dl>

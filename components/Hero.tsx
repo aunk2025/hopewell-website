@@ -46,7 +46,7 @@ export default function Hero() {
               ["70", "Advanced Beds"],
               ["8+", "Specialty Centres"],
             ].map(([value, label]) => (
-              <div key={label} className="glass rounded-2xl p-4">
+              <div key={label} className="glass rounded-2xl p-4 transition hover:-translate-y-1 hover:border-teal-300 hover:shadow-glow">
                 <div className="text-2xl font-black">{value}</div>
                 <div className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">{label}</div>
               </div>
