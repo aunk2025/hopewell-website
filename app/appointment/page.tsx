@@ -117,7 +117,7 @@ function AppointmentForm() {
             </div>
             <h1 className="text-2xl font-black text-[#2a2119]">Appointment Booked!</h1>
             <p className="mt-2 text-slate-500">Your booking reference number is:</p>
-            <div className="my-4 rounded-2xl bg-[#2a2119] px-6 py-3 text-2xl font-black tracking-widest text-cyan-400">
+            <div className="my-4 rounded-2xl bg-[#2a2119] px-6 py-3 text-2xl font-black tracking-widest text-teal-400">
               {refNumber}
             </div>
             <p className="text-sm text-slate-500">

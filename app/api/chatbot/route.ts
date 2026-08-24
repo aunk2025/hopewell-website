@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import Anthropic from "@anthropic-ai/sdk";
+import { ApiError, GoogleGenAI } from "@google/genai";
 import { z } from "zod";
 import { buildSiteContext } from "@/lib/chatbot-context";
 
@@ -16,8 +16,11 @@ const bodySchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
+  const apiKey = process.env.GEMINI_API_KEY;
+  // Treat an unset OR still-placeholder key as "not configured" — a bare
+  // truthy check lets ".env.local"'s literal placeholder string through,
+  // which then fails at the real API call instead of with a clear message.
+  if (!apiKey || apiKey.startsWith("your-")) {
     return NextResponse.json(
       { error: "Chat assistant is not configured yet. Please call the hospital directly at +91 72819 90530." },
       { status: 503 }
@@ -30,22 +33,33 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const [system, anthropic] = await Promise.all([
+    const [system, ai] = await Promise.all([
       buildSiteContext(),
-      Promise.resolve(new Anthropic({ apiKey })),
+      Promise.resolve(new GoogleGenAI({ apiKey })),
     ]);
 
-    const response = await anthropic.messages.create({
-      model: "claude-sonnet-5",
-      max_tokens: 500,
-      system,
-      messages: parsed.data.messages,
+    // Gemini uses "model" (not "assistant") for the assistant's turns.
+    const contents = parsed.data.messages.map((m) => ({
+      role: m.role === "assistant" ? ("model" as const) : ("user" as const),
+      parts: [{ text: m.content }],
+    }));
+
+    const response = await ai.models.generateContent({
+      model: "gemini-3.6-flash",
+      contents,
+      config: {
+        systemInstruction: system,
+        maxOutputTokens: 1024,
+      },
     });
 
-    const reply = response.content.find((b) => b.type === "text")?.text ?? "";
-    return NextResponse.json({ reply });
+    return NextResponse.json({ reply: response.text ?? "" });
   } catch (err) {
-    console.error("Chatbot error:", err);
+    if (err instanceof ApiError) {
+      console.error("Chatbot error (Gemini API):", err.status, err.message);
+    } else {
+      console.error("Chatbot error:", err);
+    }
     return NextResponse.json(
       { error: "Something went wrong. Please try again or call +91 72819 90530." },
       { status: 500 }

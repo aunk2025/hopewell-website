@@ -182,7 +182,7 @@ export default function EarthView() {
       {!isReady && (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-[2rem] bg-[#2a2119]">
           <div
-            className="h-16 w-16 rounded-full border-4 border-cyan-400/30"
+            className="h-16 w-16 rounded-full border-4 border-teal-400/30"
             style={{
               borderTopColor: "#c8b6a6",
               animation: "spin 1s linear infinite",

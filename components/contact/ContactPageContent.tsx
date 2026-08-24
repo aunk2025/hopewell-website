@@ -138,6 +138,7 @@ export default function ContactPageContent() {
       if (!res.ok) throw new Error("Request failed");
       setStatus("success");
       reset(DEFAULT_VALUES);
+      scrollToMap();
     } catch {
       setStatus("error");
     }

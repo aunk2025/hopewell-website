@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { LayoutDashboard, CalendarDays, Users, LogOut, Menu, X } from "lucide-react";
+import { LayoutDashboard, CalendarDays, Users, Inbox, LogOut, Menu, X } from "lucide-react";
 
 const navItems = [
   { href: "/admin",              label: "Dashboard",    icon: LayoutDashboard },
   { href: "/admin/appointments", label: "Appointments", icon: CalendarDays },
+  { href: "/admin/enquiries",    label: "Enquiries",    icon: Inbox },
   { href: "/admin/doctors",      label: "Doctors",      icon: Users },
 ];
 

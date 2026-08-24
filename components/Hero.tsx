@@ -20,7 +20,7 @@ export default function Hero() {
 
           <h1 className="text-balance max-w-3xl text-5xl font-black leading-[.98] tracking-[-.055em] text-ink sm:text-6xl lg:text-7xl">
             Human care.
-            <span className="block bg-gradient-to-r from-teal-700 via-cyan-600 to-sky-600 bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-teal-700 via-teal-600 to-sky-600 bg-clip-text text-transparent">
               Engineered for tomorrow.
             </span>
           </h1>

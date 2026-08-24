@@ -155,3 +155,39 @@ export async function sendContactEnquiryEmail(data: {
     `,
   });
 }
+
+/* ── Contact enquiry acknowledgement → patient/user ──
+ * Only sent when the enquirer gave an email address (it's optional on the
+ * form). Purely a courtesy notice — no PII beyond what they submitted. */
+export async function sendContactAcknowledgement(data: {
+  name: string;
+  email: string;
+  enquiryType: string;
+}) {
+  await send({
+    to: data.email,
+    subject: "We've received your enquiry — Hopewell Hospital",
+    html: `
+      <div style="font-family:sans-serif;max-width:540px;margin:auto;background:#faf5ef;border:1px solid #f1dec9;border-radius:12px;overflow:hidden;">
+        <div style="background:#2a2119;padding:24px 32px;">
+          <h1 style="color:#c8b6a6;margin:0;font-size:20px;font-weight:900;letter-spacing:.08em;">HOPEWELL HOSPITAL</h1>
+          <p style="color:#fff;margin:4px 0 0;font-size:12px;opacity:.6;">Ranchi, Jharkhand</p>
+        </div>
+        <div style="padding:32px;">
+          <p style="color:#475569;">Dear <strong>${escapeHtml(data.name)}</strong>,</p>
+          <p style="color:#475569;line-height:1.7;">
+            Thank you for contacting Hopewell Hospital. Our executives will get in touch with
+            you shortly.
+          </p>
+          <p style="color:#94a3b8;font-size:13px;margin-top:20px;">
+            Enquiry type: ${escapeHtml(data.enquiryType)}
+          </p>
+          <p style="color:#475569;font-size:14px;margin-top:24px;">
+            For urgent medical emergencies, please call <strong>+91 72819 90530</strong> directly
+            instead of waiting for a reply to this enquiry.
+          </p>
+        </div>
+      </div>
+    `,
+  });
+}

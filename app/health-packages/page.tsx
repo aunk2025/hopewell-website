@@ -1,39 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CheckCircle2, IndianRupee } from "lucide-react";
-
-const packages = [
-  {
-    name: "Basic Health Checkup",
-    text: "A foundational screening for general wellness, ideal for a routine annual checkup.",
-    items: ["Complete Blood Count", "Blood Sugar (Fasting)", "Lipid Profile", "Urine Routine", "BMI & Vitals"],
-  },
-  {
-    name: "Executive Health Checkup",
-    text: "A comprehensive screening for working professionals, covering major organ systems.",
-    items: ["Full Body Blood Panel", "ECG", "Chest X-Ray", "Ultrasound Abdomen", "Physician Consultation"],
-  },
-  {
-    name: "Cardiac Health Checkup",
-    text: "Focused screening for heart health and early detection of cardiac risk factors.",
-    items: ["ECG & Echocardiography", "Lipid Profile", "Blood Sugar", "Cardiologist Consultation", "Stress Test (TMT)"],
-  },
-  {
-    name: "Women's Wellness Package",
-    text: "A screening package tailored to women's health across every life stage.",
-    items: ["Complete Blood Count", "Thyroid Profile", "Pap Smear", "Ultrasound Pelvis", "Gynaecologist Consultation"],
-  },
-  {
-    name: "Senior Citizen Checkup",
-    text: "A thorough screening designed for the health needs of older adults.",
-    items: ["Full Body Blood Panel", "ECG & Echocardiography", "Bone Density Screening", "Eye & Ear Checkup", "Physician Consultation"],
-  },
-  {
-    name: "Diabetes Screening Package",
-    text: "Focused evaluation for diagnosing and monitoring diabetes and related risk factors.",
-    items: ["Blood Sugar (Fasting & PP)", "HbA1c", "Kidney Function Test", "Lipid Profile", "Physician Consultation"],
-  },
-];
+import { HEALTH_PACKAGES } from "@/lib/health-packages";
 
 export const metadata = {
   title: "Health Packages | Hopewell Hospital Ranchi",
@@ -58,7 +26,7 @@ export default function HealthPackagesPage() {
 
       <section className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {packages.map((pkg) => (
+          {HEALTH_PACKAGES.map((pkg) => (
             <div key={pkg.name} className="flex flex-col rounded-3xl border border-teal-700 bg-white p-7 shadow-sm">
               <h3 className="mb-2 text-lg font-black text-ink">{pkg.name}</h3>
               <p className="mb-4 text-sm leading-6 text-slate-600">{pkg.text}</p>

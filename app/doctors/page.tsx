@@ -47,7 +47,7 @@ function DoctorCard({ doc, onClick }: { doc: Doctor; onClick: () => void }) {
             className="h-16 w-16 rounded-2xl object-cover"
           />
         ) : (
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-600 to-cyan-500 text-xl font-black text-white">
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-600 to-teal-500 text-xl font-black text-white">
             {initials}
           </div>
         )}
@@ -92,7 +92,7 @@ function DoctorModal({ doc, onClose }: { doc: Doctor; onClose: () => void }) {
           {doc.imageUrl ? (
             <img src={doc.imageUrl} alt={doc.name} className="h-20 w-20 rounded-2xl object-cover" />
           ) : (
-            <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-600 to-cyan-500 text-2xl font-black text-white">
+            <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-600 to-teal-500 text-2xl font-black text-white">
               {initials}
             </div>
           )}
@@ -155,7 +155,7 @@ export default function DoctorsPage() {
       <section className="relative overflow-hidden bg-[#2a2119] py-20 text-white">
         <div className="absolute inset-0 bg-gradient-to-br from-teal-900/30 via-transparent to-sky-900/20" />
         <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-          <p className="mb-4 text-xs font-bold uppercase tracking-widest text-cyan-400">Meet Our Team</p>
+          <p className="mb-4 text-xs font-bold uppercase tracking-widest text-teal-400">Meet Our Team</p>
           <h1 className="text-5xl font-black leading-tight sm:text-6xl">Our Specialists</h1>
           <p className="mt-4 max-w-xl text-lg text-white/60 leading-8">
             Internationally trained, locally committed — our doctors bring global expertise to Ranchi.

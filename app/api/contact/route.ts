@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
-import { sendContactEnquiryEmail } from "@/lib/email";
+import { sendContactAcknowledgement, sendContactEnquiryEmail } from "@/lib/email";
 import { ENQUIRY_TYPES } from "@/lib/contact-config";
+import { auth } from "@/lib/auth";
 
 const schema = z.object({
   name: z.string().trim().min(2, "Name is too short").max(100),
@@ -57,6 +58,16 @@ export async function POST(req: NextRequest) {
       message: body.message,
     });
 
+    // Courtesy acknowledgement back to the enquirer — only when they gave
+    // an email address, since it's an optional field on the form.
+    if (body.email) {
+      void sendContactAcknowledgement({
+        name: body.name,
+        email: body.email,
+        enquiryType: body.enquiryType,
+      });
+    }
+
     return NextResponse.json({ success: true, id: record.id }, { status: 201 });
   } catch (err) {
     if (err instanceof z.ZodError) {
@@ -65,4 +76,48 @@ export async function POST(req: NextRequest) {
     console.error("[contact POST]", err);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
+}
+
+/* ─────────────────────────────────────────────────────────────────── */
+/* GET /api/contact — admin: list all enquiries (requires auth)        */
+/* ─────────────────────────────────────────────────────────────────── */
+export async function GET(req: NextRequest) {
+  const session = await auth();
+  if (!session?.user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { searchParams } = new URL(req.url);
+  const enquiryType = searchParams.get("enquiryType");
+  const page = Math.max(1, Number(searchParams.get("page") ?? 1));
+  const limit = 20;
+
+  const where = enquiryType && enquiryType !== "ALL" ? { enquiryType } : {};
+
+  const [enquiries, total] = await Promise.all([
+    prisma.contactMessage.findMany({
+      where,
+      orderBy: { createdAt: "desc" },
+      skip: (page - 1) * limit,
+      take: limit,
+    }),
+    prisma.contactMessage.count({ where }),
+  ]);
+
+  return NextResponse.json({ enquiries, total, page, pages: Math.ceil(total / limit) });
+}
+
+/* ─────────────────────────────────────────────────────────────────── */
+/* PATCH /api/contact — admin: mark an enquiry read/unread             */
+/* ─────────────────────────────────────────────────────────────────── */
+export async function PATCH(req: NextRequest) {
+  const session = await auth();
+  if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const { id, read } = await req.json();
+  const updated = await prisma.contactMessage.update({
+    where: { id: Number(id) },
+    data: { read: !!read },
+  });
+  return NextResponse.json({ success: true, enquiry: updated });
 }
