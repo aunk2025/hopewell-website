@@ -167,7 +167,7 @@ export default function ProcedurePageTemplate({
                   Book Appointment
                 </a>
                 <a
-                  href="tel:+917281990530"
+                  href="tel:+919199666246"
                   className="rounded-full border border-white/30 px-6 py-3.5 text-sm font-bold text-white transition hover:-translate-y-0.5"
                 >
                   Call Hospital

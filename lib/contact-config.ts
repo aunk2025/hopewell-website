@@ -8,7 +8,7 @@
 export const SITE_URL = "https://www.hopewellhospital.in";
 
 // The 24×7 number already used site-wide (Navbar top bar, Footer).
-export const EMERGENCY_PHONE = "+917281990530";
+export const EMERGENCY_PHONE = "+919199666246";
 
 // TODO: replace with a dedicated ambulance line once the hospital assigns
 // one — until then this intentionally reuses the main emergency number

@@ -24,8 +24,8 @@ export default function Navbar() {
         <span className="mx-2 text-cyan">•</span>
         Ranchi, Jharkhand
         <span className="mx-2 text-cyan">•</span>
-        <a href="tel:+917281990530" className="underline decoration-cyan/60 underline-offset-4">
-          +91 72819 90530
+        <a href="tel:+919199666246" className="underline decoration-cyan/60 underline-offset-4">
+          +91 91996 66246
         </a>
       </div>
 
@@ -50,7 +50,7 @@ export default function Navbar() {
           </nav>
 
           <div className="hidden items-center gap-3 lg:flex">
-            <a href="tel:+917281990530" className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white">
+            <a href="tel:+919199666246" className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white">
               <Phone size={17} />
             </a>
             <Link href="/appointment" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5">

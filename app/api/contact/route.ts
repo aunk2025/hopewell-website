@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import { sendContactAcknowledgement, sendContactEnquiryEmail } from "@/lib/email";
+import { appendEnquiryToSheet } from "@/lib/google-sheets";
+import { sendContactWhatsAppAlert } from "@/lib/whatsapp";
 import { ENQUIRY_TYPES } from "@/lib/contact-config";
 import { auth } from "@/lib/auth";
 
@@ -55,6 +57,23 @@ export async function POST(req: NextRequest) {
       enquiryType: body.enquiryType,
       department: body.department || undefined,
       preferredAt: body.preferredAt || undefined,
+      message: body.message,
+    });
+
+    void appendEnquiryToSheet({
+      name: body.name,
+      phone: body.phone,
+      email: body.email || undefined,
+      enquiryType: body.enquiryType,
+      department: body.department || undefined,
+      preferredAt: body.preferredAt || undefined,
+      message: body.message,
+    });
+
+    void sendContactWhatsAppAlert({
+      name: body.name,
+      phone: body.phone,
+      enquiryType: body.enquiryType,
       message: body.message,
     });
 

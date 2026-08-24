@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
   // which then fails at the real API call instead of with a clear message.
   if (!apiKey || apiKey.startsWith("your-")) {
     return NextResponse.json(
-      { error: "Chat assistant is not configured yet. Please call the hospital directly at +91 72819 90530." },
+      { error: "Chat assistant is not configured yet. Please call the hospital directly at +91 91996 66246." },
       { status: 503 }
     );
   }
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
       console.error("Chatbot error:", err);
     }
     return NextResponse.json(
-      { error: "Something went wrong. Please try again or call +91 72819 90530." },
+      { error: "Something went wrong. Please try again or call +91 91996 66246." },
       { status: 500 }
     );
   }

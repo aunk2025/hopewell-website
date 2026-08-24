@@ -1,7 +1,7 @@
 import { ArrowUpRight, Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
 
 // Same number used by the WhatsApp chat button in components/ContactFAB.tsx.
-const WHATSAPP_NUMBER = "917281990530";
+const WHATSAPP_NUMBER = "919199666246";
 const WHATSAPP_MESSAGE = "Hi, I'd like to know more about Hopewell Hospital.";
 
 function WhatsAppIcon({ size = 17 }: { size?: number }) {
@@ -96,7 +96,7 @@ export default function Footer() {
           <h3 className="font-black text-white">Contact</h3>
           <div className="mt-5 space-y-4 text-sm">
             <div className="flex gap-3"><MapPin size={18} className="shrink-0 text-cyan" /> New Hopewell Hospital, Hazari Baug Road, Tharpakna, Ranchi, Jharkhand 834001</div>
-            <a href="tel:+917281990530" className="flex gap-3 transition hover:text-white"><Phone size={18} className="shrink-0 text-cyan" /> +91 72819 90530</a>
+            <a href="tel:+919199666246" className="flex gap-3 transition hover:text-white"><Phone size={18} className="shrink-0 text-cyan" /> +91 91996 66246</a>
             <a href="mailto:hopewellranchi@gmail.com" className="flex gap-3 transition hover:text-white"><Mail size={18} className="shrink-0 text-cyan" /> hopewellranchi@gmail.com</a>
           </div>
           <a href="https://maps.google.com/?q=New+Hopewell+Hospital+Hazari+Baug+Road+Tharpakna+Ranchi" target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-cyan">

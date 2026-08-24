@@ -61,7 +61,7 @@ export async function sendAppointmentConfirmation(data: {
             <tr><td style="padding:12px 16px;background:#faf5ef;font-weight:700;color:#624133;">Time</td><td style="padding:12px 16px;">${data.timeSlot}</td></tr>
           </table>
           <p style="color:#475569;font-size:14px;">Please arrive 15 minutes before your scheduled time. Carry a valid ID and any previous medical records.</p>
-          <p style="color:#475569;font-size:14px;"><strong>Emergency:</strong> +91 72819 90530</p>
+          <p style="color:#475569;font-size:14px;"><strong>Emergency:</strong> +91 91996 66246</p>
         </div>
       </div>
     `,
@@ -183,7 +183,7 @@ export async function sendContactAcknowledgement(data: {
             Enquiry type: ${escapeHtml(data.enquiryType)}
           </p>
           <p style="color:#475569;font-size:14px;margin-top:24px;">
-            For urgent medical emergencies, please call <strong>+91 72819 90530</strong> directly
+            For urgent medical emergencies, please call <strong>+91 91996 66246</strong> directly
             instead of waiting for a reply to this enquiry.
           </p>
         </div>

@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Phone, MessageCircle, Send, X } from "lucide-react";
 
-const PHONE_NUMBER = "+917281990530";
-const WHATSAPP_NUMBER = "917281990530";
+const PHONE_NUMBER = "+919199666246";
+const WHATSAPP_NUMBER = "919199666246";
 const WHATSAPP_MESSAGE = "Hi, I'd like to know more about Hopewell Hospital.";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
