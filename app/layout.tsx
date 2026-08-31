@@ -31,6 +31,10 @@ export const metadata: Metadata = {
     description: DEFAULT_DESCRIPTION,
     images: [DEFAULT_OG_IMAGE],
   },
+  // Google Search Console site-ownership verification.
+  verification: {
+    google: "Vv0APWnjMKxJrGoo69WXah3MyAkIE9LdYG2XLHKPCrs",
+  },
 };
 
 export default function RootLayout({
