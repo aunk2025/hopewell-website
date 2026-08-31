@@ -1,7 +1,7 @@
 // AUTO-GENERATED from procedure page content provided by the client.
 // See lib/procedure-content.ts for the shared block/section/page schema.
 // Doctor placeholder ("Dr XXX") in the source files was resolved to the
-// live Orthopaedics specialist (Dr. Mohit Prasad) already in the database.
+// live Orthopaedics specialist (Dr. Ashish Paal) already in the database.
 
 import type { ContentBlock, ContentSection, ProcedurePage } from "./procedure-content";
 
@@ -13,7 +13,7 @@ export const orthoProcedures: OrthoProcedure[] = [
   {
     slug: "knee-replacement",
     title: "Knee Replacement in Ranchi",
-    metaDescription: "Learn about knee replacement in Ranchi at Hopewell Hospital, including indications, total and partial knee replacement, preparation, implants, surgery, hospital stay, physiotherapy, recovery, risks, cost guidance and consultation with Dr. Mohit Prasad.",
+    metaDescription: "Learn about knee replacement in Ranchi at Hopewell Hospital, including indications, total and partial knee replacement, preparation, implants, surgery, hospital stay, physiotherapy, recovery, risks, cost guidance and consultation with Dr. Ashish Paal.",
     category: "Orthopaedics & Joint Replacement",
     eyebrow: "Orthopaedics & Joint Replacement",
     heroTitle: "Knee Replacement in Ranchi",
@@ -21,7 +21,7 @@ export const orthoProcedures: OrthoProcedure[] = [
     heroCardKicker: "Joint replacement pathway",
     heroCardTitle: "Knee Replacement at Hopewell",
     heroCardText: "Clinical evaluation, X-ray planning, medical fitness, implant selection, surgery, pain management, early mobilisation and structured physiotherapy in one coordinated pathway.",
-    doctorName: "Dr. Mohit Prasad",
+    doctorName: "Dr. Ashish Paal",
     doctorSpecialtyMini: "Orthopaedics & Joint Replacement",
     heroTags: ["Total knee replacement", "Partial knee replacement", "Early mobilisation", "Physiotherapy support"],
     facts: [{ label: "Procedure", value: "Knee Replacement" }, { label: "Type", value: "Total / Partial" }, { label: "Anaesthesia*", value: "Spinal / General" }, { label: "Procedure Time*", value: "1–2 Hours" }, { label: "Hospital Stay*", value: "2–5 Days" }, { label: "Walking*", value: "Usually Early" }],
@@ -70,18 +70,18 @@ export const orthoProcedures: OrthoProcedure[] = [
       { kind: "grid", items: [{ title: "Joint replacement pathway", text: "Pre-operative assessment, surgery and rehabilitation are coordinated in one programme." }, { title: "Early mobilisation", text: "Walking and physiotherapy begin early when medically safe." }, { title: "Implant planning", text: "Implant selection is matched to the patient's anatomy and clinical need." }, { title: "Anaesthesia & critical care backup", text: "Structured peri-operative monitoring for older or medically complex patients." }, { title: "Physiotherapy & rehabilitation", text: "Recovery planning continues beyond the operating theatre." }, { title: "Insurance assistance", text: "Support for cashless, TPA and eligible government scheme processes." }] }
     ] },
     { id: "doctor", kicker: "Doctor", heading: "Meet the joint replacement specialist", blocks: [
-      { kind: "doctor", name: "Dr. Mohit Prasad", specialty: "Orthopaedics & Joint Replacement • Hopewell Hospital, Ranchi", focus: "Clinical focus may include knee replacement, hip replacement, arthritis care, joint preservation and orthopaedic surgery." }
+      { kind: "doctor", name: "Dr. Ashish Paal", specialty: "Orthopaedics & Joint Replacement • Hopewell Hospital, Ranchi", focus: "Clinical focus may include knee replacement, hip replacement, arthritis care, joint preservation and orthopaedic surgery." }
     ] },
     { id: "faq", kicker: "FAQs", heading: "Frequently asked questions", blocks: [
       { kind: "faq", items: [{ q: "When should I consider knee replacement?", a: "Knee replacement is usually considered when severe arthritis causes persistent pain and disability despite appropriate non-surgical treatment." }, { q: "How soon can I walk after surgery?", a: "Many patients begin standing or walking with support within a day of surgery, depending on medical condition and surgeon/physiotherapist advice." }, { q: "How long does a knee implant last?", a: "Modern implants can last many years, but longevity varies with age, activity, body weight, implant design, alignment and other factors." }, { q: "Is knee replacement very painful?", a: "Pain is expected after surgery but is managed using a combination of anaesthesia techniques, medicines and rehabilitation. Pain usually improves progressively during recovery." }, { q: "Can both knees be replaced at the same time?", a: "Bilateral knee replacement may be appropriate for selected patients, but medical fitness and rehabilitation capacity must be carefully assessed." }, { q: "When can I return to normal activities?", a: "Basic routine activities improve over several weeks, while strength, endurance and confidence may continue improving for several months." }] }
     ] }
     ],
-    finalCta: { heading: "Severe knee pain affecting your daily life?", text: "Book an orthopaedic consultation with Dr. Mohit Prasad to understand whether physiotherapy, injections, partial replacement or total knee replacement is appropriate." },
+    finalCta: { heading: "Severe knee pain affecting your daily life?", text: "Book an orthopaedic consultation with Dr. Ashish Paal to understand whether physiotherapy, injections, partial replacement or total knee replacement is appropriate." },
   },
   {
     slug: "hip-replacement",
     title: "Hip Replacement in Ranchi",
-    metaDescription: "Learn about hip replacement in Ranchi at Hopewell Hospital, including indications, total and partial hip replacement, preparation, implants, surgery, hospital stay, physiotherapy, recovery, precautions, risks, cost guidance and consultation with Dr. Mohit Prasad.",
+    metaDescription: "Learn about hip replacement in Ranchi at Hopewell Hospital, including indications, total and partial hip replacement, preparation, implants, surgery, hospital stay, physiotherapy, recovery, precautions, risks, cost guidance and consultation with Dr. Ashish Paal.",
     category: "Orthopaedics & Joint Replacement",
     eyebrow: "Orthopaedics & Joint Replacement",
     heroTitle: "Hip Replacement in Ranchi",
@@ -89,7 +89,7 @@ export const orthoProcedures: OrthoProcedure[] = [
     heroCardKicker: "Joint replacement pathway",
     heroCardTitle: "Hip Replacement at Hopewell",
     heroCardText: "Clinical evaluation, X-ray planning, medical fitness, implant selection, surgery, pain management, early mobilisation and structured physiotherapy in one coordinated pathway.",
-    doctorName: "Dr. Mohit Prasad",
+    doctorName: "Dr. Ashish Paal",
     doctorSpecialtyMini: "Orthopaedics & Joint Replacement",
     heroTags: ["Total hip replacement", "Partial hip replacement", "Early mobilisation", "Rehabilitation support"],
     facts: [{ label: "Procedure", value: "Hip Replacement" }, { label: "Type", value: "Total / Partial" }, { label: "Anaesthesia*", value: "Spinal / General" }, { label: "Procedure Time*", value: "1–2 Hours" }, { label: "Hospital Stay*", value: "2–5 Days" }, { label: "Walking*", value: "Usually Early" }],
@@ -142,18 +142,18 @@ export const orthoProcedures: OrthoProcedure[] = [
       { kind: "grid", items: [{ title: "Joint replacement pathway", text: "Pre-operative assessment, surgery and rehabilitation are coordinated in one programme." }, { title: "Early mobilisation", text: "Walking and physiotherapy begin early when medically safe." }, { title: "Implant planning", text: "Implant selection is matched to anatomy, bone quality and clinical need." }, { title: "Anaesthesia & critical care backup", text: "Structured peri-operative monitoring for older or medically complex patients." }, { title: "Physiotherapy & rehabilitation", text: "Recovery planning continues beyond the operating theatre." }, { title: "Insurance assistance", text: "Support for cashless, TPA and eligible government scheme processes." }] }
     ] },
     { id: "doctor", kicker: "Doctor", heading: "Meet the joint replacement specialist", blocks: [
-      { kind: "doctor", name: "Dr. Mohit Prasad", specialty: "Orthopaedics & Joint Replacement • Hopewell Hospital, Ranchi", focus: "Clinical focus may include hip replacement, knee replacement, arthritis care, fracture management, joint preservation and orthopaedic surgery." }
+      { kind: "doctor", name: "Dr. Ashish Paal", specialty: "Orthopaedics & Joint Replacement • Hopewell Hospital, Ranchi", focus: "Clinical focus may include hip replacement, knee replacement, arthritis care, fracture management, joint preservation and orthopaedic surgery." }
     ] },
     { id: "faq", kicker: "FAQs", heading: "Frequently asked questions", blocks: [
       { kind: "faq", items: [{ q: "When should I consider hip replacement?", a: "Hip replacement is usually considered when severe hip pain and stiffness continue despite appropriate non-surgical treatment and significantly affect daily life." }, { q: "How soon can I walk after surgery?", a: "Many patients begin standing or walking with support within a day of surgery, depending on medical condition and physiotherapy advice." }, { q: "How long does a hip implant last?", a: "Modern implants can last many years, but longevity varies with age, activity, body weight, implant design, positioning and other factors." }, { q: "What is the difference between total and partial hip replacement?", a: "Total hip replacement replaces both the femoral head and socket, while partial replacement usually replaces only the femoral side and is commonly used in selected fracture cases." }, { q: "Can hip replacement dislocate?", a: "Dislocation is a recognised complication, especially in the early recovery period. Surgical technique, implant positioning and following post-operative precautions help reduce risk." }, { q: "When can I return to normal activities?", a: "Many routine activities improve over several weeks, while strength and confidence may continue improving for several months." }] }
     ] }
     ],
-    finalCta: { heading: "Hip pain limiting your walking and independence?", text: "Book an orthopaedic consultation with Dr. Mohit Prasad to understand whether physiotherapy, joint-preserving care, partial replacement or total hip replacement is appropriate." },
+    finalCta: { heading: "Hip pain limiting your walking and independence?", text: "Book an orthopaedic consultation with Dr. Ashish Paal to understand whether physiotherapy, joint-preserving care, partial replacement or total hip replacement is appropriate." },
   },
   {
     slug: "arthroscopy",
     title: "Arthroscopy in Ranchi",
-    metaDescription: "Learn about arthroscopy in Ranchi at Hopewell Hospital, including knee and shoulder arthroscopy, diagnostic and therapeutic uses, preparation, anaesthesia, procedure steps, rehabilitation, recovery, risks, cost guidance and consultation with Dr. Mohit Prasad.",
+    metaDescription: "Learn about arthroscopy in Ranchi at Hopewell Hospital, including knee and shoulder arthroscopy, diagnostic and therapeutic uses, preparation, anaesthesia, procedure steps, rehabilitation, recovery, risks, cost guidance and consultation with Dr. Ashish Paal.",
     category: "Orthopaedics & Joint Replacement",
     eyebrow: "Orthopaedics & Sports Medicine",
     heroTitle: "Arthroscopy in Ranchi",
@@ -161,7 +161,7 @@ export const orthoProcedures: OrthoProcedure[] = [
     heroCardKicker: "Minimally invasive joint surgery",
     heroCardTitle: "Arthroscopy at Hopewell",
     heroCardText: "Clinical assessment, MRI/X-ray review, anaesthesia, keyhole joint surgery, day-care or short-stay observation and structured rehabilitation in one coordinated pathway.",
-    doctorName: "Dr. Mohit Prasad",
+    doctorName: "Dr. Ashish Paal",
     doctorSpecialtyMini: "Orthopaedics & Sports Medicine",
     heroTags: ["Knee arthroscopy", "Shoulder arthroscopy", "Sports injury care", "Rehabilitation support"],
     facts: [{ label: "Procedure", value: "Arthroscopy" }, { label: "Approach", value: "Keyhole Surgery" }, { label: "Anaesthesia*", value: "Regional / General" }, { label: "Procedure Time*", value: "30–120 Min" }, { label: "Hospital Stay*", value: "Day Care / Short Stay" }, { label: "Recovery*", value: "Depends on Repair" }],
@@ -207,18 +207,18 @@ export const orthoProcedures: OrthoProcedure[] = [
       { kind: "grid", items: [{ title: "Sports medicine integration", text: "Injury evaluation, surgery and rehabilitation can be coordinated in one pathway." }, { title: "Minimally invasive approach", text: "Keyhole techniques are used when appropriate to reduce surgical trauma." }, { title: "MRI-guided planning", text: "Imaging and clinical findings are reviewed before surgery." }, { title: "Implant & graft planning", text: "Anchors, grafts and repair techniques are selected according to the injury." }, { title: "Physiotherapy support", text: "Rehabilitation is integrated into treatment rather than treated as an afterthought." }, { title: "Insurance assistance", text: "Support for cashless, TPA and eligible government scheme processes." }] }
     ] },
     { id: "doctor", kicker: "Doctor", heading: "Meet the arthroscopy specialist", blocks: [
-      { kind: "doctor", name: "Dr. Mohit Prasad", specialty: "Orthopaedics & Sports Medicine • Hopewell Hospital, Ranchi", focus: "Clinical focus may include arthroscopy, sports injuries, ligament reconstruction, meniscus surgery, shoulder surgery and joint preservation." }
+      { kind: "doctor", name: "Dr. Ashish Paal", specialty: "Orthopaedics & Sports Medicine • Hopewell Hospital, Ranchi", focus: "Clinical focus may include arthroscopy, sports injuries, ligament reconstruction, meniscus surgery, shoulder surgery and joint preservation." }
     ] },
     { id: "faq", kicker: "FAQs", heading: "Frequently asked questions", blocks: [
       { kind: "faq", items: [{ q: "Is arthroscopy the same as open surgery?", a: "No. Arthroscopy uses a small camera and instruments inserted through small incisions, while open surgery uses a larger incision to access the joint." }, { q: "Can arthroscopy treat every knee problem?", a: "No. Arthroscopy is useful for selected meniscus, ligament, loose-body and cartilage problems, but it is not appropriate for every cause of knee pain or advanced arthritis." }, { q: "How soon can I go home after arthroscopy?", a: "Many arthroscopic procedures are done as day care or short stay, but this depends on the repair, anaesthesia and patient condition." }, { q: "How long does recovery take?", a: "Recovery ranges from days or weeks for minor procedures to several months for ligament or tendon reconstruction." }, { q: "Will I need physiotherapy?", a: "Yes, physiotherapy is important after many arthroscopic procedures, especially repairs and reconstructions." }, { q: "Can athletes return to sports after arthroscopy?", a: "Many athletes return successfully, but timing depends on the injury, repair, strength, stability and rehabilitation progress." }] }
     ] }
     ],
-    finalCta: { heading: "Joint pain, locking or a sports injury?", text: "Book an orthopaedic consultation with Dr. Mohit Prasad to understand whether physiotherapy, imaging, injection therapy or arthroscopy is appropriate." },
+    finalCta: { heading: "Joint pain, locking or a sports injury?", text: "Book an orthopaedic consultation with Dr. Ashish Paal to understand whether physiotherapy, imaging, injection therapy or arthroscopy is appropriate." },
   },
   {
     slug: "acl-reconstruction",
     title: "ACL Reconstruction in Ranchi",
-    metaDescription: "Learn about ACL reconstruction in Ranchi at Hopewell Hospital, including ACL injury symptoms, MRI diagnosis, who needs surgery, graft options, arthroscopic reconstruction, preparation, physiotherapy, return to sport, risks, cost guidance and consultation with Dr. Mohit Prasad.",
+    metaDescription: "Learn about ACL reconstruction in Ranchi at Hopewell Hospital, including ACL injury symptoms, MRI diagnosis, who needs surgery, graft options, arthroscopic reconstruction, preparation, physiotherapy, return to sport, risks, cost guidance and consultation with Dr. Ashish Paal.",
     category: "Orthopaedics & Joint Replacement",
     eyebrow: "Sports Medicine & Arthroscopy",
     heroTitle: "ACL Reconstruction in Ranchi",
@@ -226,7 +226,7 @@ export const orthoProcedures: OrthoProcedure[] = [
     heroCardKicker: "Return-to-function pathway",
     heroCardTitle: "ACL Reconstruction at Hopewell",
     heroCardText: "Clinical examination, MRI review, prehabilitation, graft planning, arthroscopic reconstruction and milestone-based rehabilitation in one coordinated sports medicine pathway.",
-    doctorName: "Dr. Mohit Prasad",
+    doctorName: "Dr. Ashish Paal",
     doctorSpecialtyMini: "Orthopaedics, Arthroscopy & Sports Medicine",
     heroTags: ["Arthroscopic ACL surgery", "Graft planning", "Sports rehabilitation", "Return-to-play testing"],
     facts: [{ label: "Injury", value: "ACL Tear" }, { label: "Diagnosis", value: "Exam + MRI" }, { label: "Approach", value: "Arthroscopic" }, { label: "Anaesthesia*", value: "Regional / General" }, { label: "Hospital Stay*", value: "Day Care / 1–2 Days" }, { label: "Return to Sport*", value: "Often 9–12+ Months" }],
@@ -276,18 +276,18 @@ export const orthoProcedures: OrthoProcedure[] = [
       { kind: "grid", items: [{ title: "Sports injury pathway", text: "Evaluation, surgery and rehabilitation are coordinated from injury to return to sport." }, { title: "Arthroscopic technique", text: "Minimally invasive reconstruction is used for suitable ACL injuries." }, { title: "Graft planning", text: "Graft choice is individualised according to age, sport and clinical need." }, { title: "Meniscus preservation", text: "Associated meniscus tears can be assessed and repaired when appropriate." }, { title: "Rehabilitation integration", text: "Physiotherapy is built into the treatment pathway from the beginning." }, { title: "Return-to-play assessment", text: "Sport clearance is based on functional milestones rather than a date alone." }] }
     ] },
     { id: "doctor", kicker: "Doctor", heading: "Meet the sports injury specialist", blocks: [
-      { kind: "doctor", name: "Dr. Mohit Prasad", specialty: "Orthopaedics, Arthroscopy & Sports Medicine • Hopewell Hospital, Ranchi", focus: "Clinical focus may include ACL reconstruction, arthroscopy, meniscus surgery, sports injuries, ligament reconstruction and joint preservation." }
+      { kind: "doctor", name: "Dr. Ashish Paal", specialty: "Orthopaedics, Arthroscopy & Sports Medicine • Hopewell Hospital, Ranchi", focus: "Clinical focus may include ACL reconstruction, arthroscopy, meniscus surgery, sports injuries, ligament reconstruction and joint preservation." }
     ] },
     { id: "faq", kicker: "FAQs", heading: "Frequently asked questions", blocks: [
       { kind: "faq", items: [{ q: "Does every ACL tear need surgery?", a: "No. Some low-demand patients can function well with rehabilitation and activity modification. Surgery is commonly considered when instability persists or return to pivoting sport is important." }, { q: "Can the ACL heal on its own?", a: "Complete ACL tears often do not restore normal ligament function on their own. Some partial injuries may be managed without reconstruction depending on stability and activity goals." }, { q: "Which graft is best for ACL reconstruction?", a: "There is no single best graft for everyone. Hamstring, patellar tendon, quadriceps tendon and selected allografts each have advantages and disadvantages." }, { q: "How soon can I walk after ACL surgery?", a: "Many patients begin walking with support early after surgery, though restrictions vary if a meniscus repair or additional procedure was performed." }, { q: "When can I return to running?", a: "Running is usually introduced only after adequate strength, movement control and healing milestones are achieved, often several months after surgery." }, { q: "When can I return to football or cricket?", a: "Pivoting and cutting sports often require around 9–12 months or longer, with return based on objective strength and functional testing." }] }
     ] }
     ],
-    finalCta: { heading: "Knee giving way after a sports injury?", text: "Book an orthopaedic sports medicine consultation with Dr. Mohit Prasad to review your MRI and understand whether rehabilitation or ACL reconstruction is appropriate." },
+    finalCta: { heading: "Knee giving way after a sports injury?", text: "Book an orthopaedic sports medicine consultation with Dr. Ashish Paal to review your MRI and understand whether rehabilitation or ACL reconstruction is appropriate." },
   },
   {
     slug: "fracture-surgery",
     title: "Fracture Surgery in Ranchi",
-    metaDescription: "Learn about fracture surgery in Ranchi at Hopewell Hospital, including when fractures need surgery, X-ray and CT diagnosis, plates, screws, nails, preparation, surgery, hospital stay, weight-bearing, physiotherapy, healing, risks, cost guidance and consultation with Dr. Mohit Prasad.",
+    metaDescription: "Learn about fracture surgery in Ranchi at Hopewell Hospital, including when fractures need surgery, X-ray and CT diagnosis, plates, screws, nails, preparation, surgery, hospital stay, weight-bearing, physiotherapy, healing, risks, cost guidance and consultation with Dr. Ashish Paal.",
     category: "Orthopaedics & Joint Replacement",
     eyebrow: "Orthopaedic Trauma & Fracture Care",
     heroTitle: "Fracture Surgery in Ranchi",
@@ -295,7 +295,7 @@ export const orthoProcedures: OrthoProcedure[] = [
     heroCardKicker: "Trauma-to-rehabilitation pathway",
     heroCardTitle: "Fracture Surgery at Hopewell",
     heroCardText: "Emergency assessment, X-ray/CT imaging, fracture stabilisation, fixation planning, surgery, pain management, wound care and structured rehabilitation in one coordinated orthopaedic pathway.",
-    doctorName: "Dr. Mohit Prasad",
+    doctorName: "Dr. Ashish Paal",
     doctorSpecialtyMini: "Orthopaedics & Trauma Surgery",
     heroTags: ["Plates & screws", "Intramedullary nails", "Joint fracture fixation", "Rehabilitation support"],
     facts: [{ label: "Condition", value: "Bone Fracture" }, { label: "Diagnosis", value: "X-ray ± CT" }, { label: "Treatment", value: "Fixation / Stabilisation" }, { label: "Anaesthesia*", value: "Regional / General" }, { label: "Hospital Stay*", value: "Varies by Injury" }, { label: "Weight Bearing*", value: "As Advised" }],
@@ -347,18 +347,18 @@ export const orthoProcedures: OrthoProcedure[] = [
       { kind: "grid", items: [{ title: "Trauma-to-rehab pathway", text: "Emergency stabilisation, fixation and rehabilitation are coordinated in one orthopaedic programme." }, { title: "Imaging-supported planning", text: "X-ray and CT can be integrated into fracture decision-making." }, { title: "Multiple fixation options", text: "Plates, screws, nails and external fixation can be selected according to fracture need." }, { title: "Anaesthesia & critical care backup", text: "Support for elderly, high-risk or polytrauma patients when required." }, { title: "Physiotherapy support", text: "Mobility and strength recovery begin as early as medically safe." }, { title: "Insurance assistance", text: "Support for cashless, TPA and eligible government scheme processes." }] }
     ] },
     { id: "doctor", kicker: "Doctor", heading: "Meet the fracture & trauma specialist", blocks: [
-      { kind: "doctor", name: "Dr. Mohit Prasad", specialty: "Orthopaedics & Trauma Surgery • Hopewell Hospital, Ranchi", focus: "Clinical focus may include fracture fixation, trauma surgery, joint injuries, orthopaedic emergencies and rehabilitation." }
+      { kind: "doctor", name: "Dr. Ashish Paal", specialty: "Orthopaedics & Trauma Surgery • Hopewell Hospital, Ranchi", focus: "Clinical focus may include fracture fixation, trauma surgery, joint injuries, orthopaedic emergencies and rehabilitation." }
     ] },
     { id: "faq", kicker: "FAQs", heading: "Frequently asked questions", blocks: [
       { kind: "faq", items: [{ q: "Does every fracture need surgery?", a: "No. Many stable fractures heal well in a cast or splint. Surgery is generally considered when alignment, stability, joint involvement or soft-tissue injury makes conservative care unsuitable." }, { q: "Will plates and screws stay inside permanently?", a: "Often yes. Routine removal is not necessary in most adults unless the implant causes symptoms, infection or there is another clinical reason." }, { q: "How soon can I walk after fracture surgery?", a: "This depends completely on the fracture and fixation. Some patients walk early with support, while others must protect the limb for several weeks." }, { q: "How long does bone healing take?", a: "Many fractures heal substantially within 6–12 weeks, but complex injuries can take longer. Functional recovery may continue for months." }, { q: "What is non-union?", a: "Non-union means the fracture has not healed adequately over the expected period. Smoking, infection, poor blood supply and severe injury can increase the risk." }, { q: "Can fracture implants break?", a: "Implant failure is uncommon when healing progresses normally, but it can occur if the fracture does not unite, excessive load is applied too early or the injury is highly complex." }] }
     ] }
     ],
-    finalCta: { heading: "Have a fracture that may need surgery?", text: "Book an orthopaedic consultation with Dr. Mohit Prasad to review your X-rays or CT and understand whether casting, fixation or another treatment is appropriate." },
+    finalCta: { heading: "Have a fracture that may need surgery?", text: "Book an orthopaedic consultation with Dr. Ashish Paal to review your X-rays or CT and understand whether casting, fixation or another treatment is appropriate." },
   },
   {
     slug: "sports-injury-treatment",
     title: "Sports Injury Treatment in Ranchi",
-    metaDescription: "Learn about sports injury treatment in Ranchi at Hopewell Hospital, including acute and overuse injuries, diagnosis, physiotherapy, injections, arthroscopy, ligament and tendon repair, rehabilitation, return to sport, prevention, cost guidance and consultation with Dr. Mohit Prasad.",
+    metaDescription: "Learn about sports injury treatment in Ranchi at Hopewell Hospital, including acute and overuse injuries, diagnosis, physiotherapy, injections, arthroscopy, ligament and tendon repair, rehabilitation, return to sport, prevention, cost guidance and consultation with Dr. Ashish Paal.",
     category: "Orthopaedics & Joint Replacement",
     eyebrow: "Sports Medicine & Rehabilitation",
     heroTitle: "Sports Injury Treatment in Ranchi",
@@ -366,7 +366,7 @@ export const orthoProcedures: OrthoProcedure[] = [
     heroCardKicker: "From injury to return-to-play",
     heroCardTitle: "Sports Injury Care at Hopewell",
     heroCardText: "Clinical assessment, imaging, conservative treatment, sports physiotherapy, arthroscopic surgery where required and milestone-based return-to-play planning.",
-    doctorName: "Dr. Mohit Prasad",
+    doctorName: "Dr. Ashish Paal",
     doctorSpecialtyMini: "Orthopaedics, Arthroscopy & Sports Medicine",
     heroTags: ["Ligament injuries", "Muscle & tendon injuries", "Arthroscopy", "Return-to-sport rehab"],
     facts: [{ label: "Care Type", value: "Sports Injury" }, { label: "Diagnosis", value: "Exam + Imaging" }, { label: "Treatment", value: "Non-Surgical / Surgical" }, { label: "Rehab", value: "Sport-Specific" }, { label: "Surgery*", value: "When Indicated" }, { label: "Return to Sport", value: "Criteria-Based" }],
@@ -412,18 +412,18 @@ export const orthoProcedures: OrthoProcedure[] = [
       { kind: "grid", items: [{ title: "Sports medicine pathway", text: "Diagnosis, treatment and rehabilitation are coordinated around return to function." }, { title: "Arthroscopy capability", text: "Minimally invasive surgical options are available when structural repair is needed." }, { title: "Imaging-supported decisions", text: "MRI, X-ray and clinical findings guide treatment rather than symptoms alone." }, { title: "Rehabilitation integration", text: "Physiotherapy is built into the treatment plan from the start." }, { title: "Return-to-sport testing", text: "Clearance can be based on strength, movement and functional milestones." }, { title: "Injury prevention focus", text: "Patients are guided on reducing recurrence and improving performance safely." }] }
     ] },
     { id: "doctor", kicker: "Doctor", heading: "Meet the sports injury specialist", blocks: [
-      { kind: "doctor", name: "Dr. Mohit Prasad", specialty: "Orthopaedics, Arthroscopy & Sports Medicine • Hopewell Hospital, Ranchi", focus: "Clinical focus may include sports injuries, arthroscopy, ACL reconstruction, meniscus surgery, shoulder injuries and ligament or tendon repair." }
+      { kind: "doctor", name: "Dr. Ashish Paal", specialty: "Orthopaedics, Arthroscopy & Sports Medicine • Hopewell Hospital, Ranchi", focus: "Clinical focus may include sports injuries, arthroscopy, ACL reconstruction, meniscus surgery, shoulder injuries and ligament or tendon repair." }
     ] },
     { id: "faq", kicker: "FAQs", heading: "Frequently asked questions", blocks: [
       { kind: "faq", items: [{ q: "Do all sports injuries need an MRI?", a: "No. Many injuries can be diagnosed clinically or with X-ray or ultrasound. MRI is useful when ligament, meniscus, tendon or cartilage injury is suspected." }, { q: "When should I see a sports injury specialist?", a: "Persistent pain, repeated swelling, joint instability, inability to bear weight, locking, major weakness or recurrent injury are good reasons to seek specialist assessment." }, { q: "Can most sports injuries be treated without surgery?", a: "Yes. Many muscle, tendon, joint and overuse injuries improve with appropriate rehabilitation and load management." }, { q: "When is arthroscopy needed?", a: "Arthroscopy may be considered when there is a structural injury such as a repairable meniscus tear, ligament instability or selected shoulder and cartilage problems." }, { q: "How long before I can return to sport?", a: "It depends on the injury. Minor injuries may recover in weeks, while ACL reconstruction or tendon repair may require many months." }, { q: "Can sports injuries recur?", a: "Yes. Incomplete rehabilitation, poor movement control, rapid training-load increases and returning too early can increase recurrence risk." }] }
     ] }
     ],
-    finalCta: { heading: "Injured while playing or training?", text: "Book a sports medicine consultation with Dr. Mohit Prasad to understand whether you need physiotherapy, imaging, injection therapy, arthroscopy or surgical repair." },
+    finalCta: { heading: "Injured while playing or training?", text: "Book a sports medicine consultation with Dr. Ashish Paal to understand whether you need physiotherapy, imaging, injection therapy, arthroscopy or surgical repair." },
   },
   {
     slug: "spine-surgery",
     title: "Spine Surgery in Ranchi",
-    metaDescription: "Learn about spine surgery in Ranchi at Hopewell Hospital, including slip disc, spinal stenosis, decompression, discectomy, spinal fusion, minimally invasive spine surgery, preparation, recovery, rehabilitation, risks, cost guidance and consultation with Dr. Mohit Prasad.",
+    metaDescription: "Learn about spine surgery in Ranchi at Hopewell Hospital, including slip disc, spinal stenosis, decompression, discectomy, spinal fusion, minimally invasive spine surgery, preparation, recovery, rehabilitation, risks, cost guidance and consultation with Dr. Ashish Paal.",
     category: "Orthopaedics & Joint Replacement",
     eyebrow: "Spine Surgery & Rehabilitation",
     heroTitle: "Spine Surgery in Ranchi",
@@ -431,7 +431,7 @@ export const orthoProcedures: OrthoProcedure[] = [
     heroCardKicker: "Diagnosis before surgery",
     heroCardTitle: "Spine Surgery at Hopewell",
     heroCardText: "Clinical assessment, MRI/CT review, conservative-treatment review, surgical planning, decompression or stabilisation where indicated, pain control and structured rehabilitation.",
-    doctorName: "Dr. Mohit Prasad",
+    doctorName: "Dr. Ashish Paal",
     doctorSpecialtyMini: "Spine Surgery & Orthopaedics",
     heroTags: ["Slip disc surgery", "Spinal decompression", "Spinal fusion", "Minimally invasive options"],
     facts: [{ label: "Speciality", value: "Spine Surgery" }, { label: "Diagnosis", value: "MRI / CT / X-ray" }, { label: "Approach", value: "Open / Minimally Invasive" }, { label: "Anaesthesia*", value: "Usually General" }, { label: "Hospital Stay*", value: "1–5+ Days" }, { label: "Recovery*", value: "Depends on Procedure" }],
@@ -477,13 +477,13 @@ export const orthoProcedures: OrthoProcedure[] = [
       { kind: "grid", items: [{ title: "Imaging-led planning", text: "MRI, CT and clinical findings are integrated before surgery is advised." }, { title: "Minimally invasive options", text: "Smaller-incision techniques are considered where clinically suitable." }, { title: "Neurological monitoring", text: "Motor and sensory function are documented before and after surgery." }, { title: "Critical care backup", text: "Support is available for complex or medically high-risk cases." }, { title: "Rehabilitation integration", text: "Physiotherapy and functional recovery are part of the treatment pathway." }, { title: "Insurance assistance", text: "Support for cashless, TPA and eligible government scheme processes." }] }
     ] },
     { id: "doctor", kicker: "Doctor", heading: "Meet the spine specialist", blocks: [
-      { kind: "doctor", name: "Dr. Mohit Prasad", specialty: "Spine Surgery & Orthopaedics • Hopewell Hospital, Ranchi", focus: "Clinical focus may include slip disc, spinal stenosis, decompression, spinal fusion, minimally invasive spine surgery and spinal trauma." }
+      { kind: "doctor", name: "Dr. Ashish Paal", specialty: "Spine Surgery & Orthopaedics • Hopewell Hospital, Ranchi", focus: "Clinical focus may include slip disc, spinal stenosis, decompression, spinal fusion, minimally invasive spine surgery and spinal trauma." }
     ] },
     { id: "faq", kicker: "FAQs", heading: "Frequently asked questions", blocks: [
       { kind: "faq", items: [{ q: "Does every slip disc need surgery?", a: "No. Many disc herniations improve with medicines, physiotherapy and time. Surgery is considered when severe symptoms persist or there is significant neurological deficit." }, { q: "When is spine surgery urgent?", a: "New bladder or bowel dysfunction, saddle numbness or rapidly progressive weakness can require urgent assessment and sometimes emergency surgery." }, { q: "What is spinal fusion?", a: "Spinal fusion stabilises two or more vertebrae using bone graft and, often, screws, rods or cages. It is used when instability or deformity needs correction." }, { q: "How soon can I walk after spine surgery?", a: "Many patients begin walking within a day after surgery, but timing depends on the procedure, neurological condition and surgeon advice." }, { q: "How long before I return to work?", a: "Desk work may resume within a few weeks after simpler procedures, while fusion or physically demanding jobs often require a longer recovery period." }, { q: "Can minimally invasive spine surgery be used for everyone?", a: "No. It is suitable for selected conditions and anatomies. Complex deformity, multilevel disease or other factors may require a conventional approach." }] }
     ] }
     ],
-    finalCta: { heading: "Persistent back pain, sciatica or weakness?", text: "Book a spine consultation with Dr. Mohit Prasad to review your MRI and understand whether physiotherapy, injections, decompression or spinal fusion is appropriate." },
+    finalCta: { heading: "Persistent back pain, sciatica or weakness?", text: "Book a spine consultation with Dr. Ashish Paal to review your MRI and understand whether physiotherapy, injections, decompression or spinal fusion is appropriate." },
   }
 ];
 

@@ -1,8 +1,7 @@
 // AUTO-GENERATED from procedure page content provided by the client.
 // See lib/procedure-content.ts for the shared block/section/page schema.
-// NOTE: doctor name is still the source placeholder ("Dr XXX") — per the
-// client's request (same as ENT/Urology), left as-is until the real
-// Paediatrics specialist's name is supplied.
+// Doctor placeholder ("Dr XXX") in the source files was resolved to the
+// live Paediatrics specialist (Dr. Shakti Das) already in the database.
 
 import type { ContentBlock, ContentSection, ProcedurePage } from "./procedure-content";
 
@@ -14,7 +13,7 @@ export const paedsProcedures: PaedsProcedure[] = [
   {
     slug: "newborn-care",
     title: "Newborn Care in Ranchi",
-    metaDescription: "Newborn care in Ranchi at Hopewell Hospital including routine newborn assessment, breastfeeding support, jaundice monitoring, vaccination, newborn screening, weight checks, danger signs, NICU referral and consultation with Dr XXX.",
+    metaDescription: "Newborn care in Ranchi at Hopewell Hospital including routine newborn assessment, breastfeeding support, jaundice monitoring, vaccination, newborn screening, weight checks, danger signs, NICU referral and consultation with Dr. Shakti Das.",
     category: "Paediatrics & Neonatology",
     eyebrow: "Paediatrics & Neonatology",
     heroTitle: "Newborn Care in Ranchi",
@@ -22,7 +21,7 @@ export const paedsProcedures: PaedsProcedure[] = [
     heroCardKicker: "From first breath to first follow-up",
     heroCardTitle: "Newborn Care at Hopewell",
     heroCardText: "Birth-room assessment, temperature and feeding support, newborn examination, jaundice screening, vaccination, discharge counselling and structured follow-up with neonatal escalation when required.",
-    doctorName: "Dr XXX",
+    doctorName: "Dr. Shakti Das",
     doctorSpecialtyMini: "Paediatrics & Neonatology",
     heroTags: ["Newborn examination", "Breastfeeding support", "Jaundice care", "NICU backup"],
     facts: [{ label: "Age Group", value: "Birth to 28 Days" }, { label: "First Check", value: "At Birth" }, { label: "Feeding", value: "Breastfeeding Support" }, { label: "Screening", value: "Jaundice + Newborn Tests" }, { label: "Vaccines", value: "As Per Schedule" }, { label: "Escalation", value: "NICU When Needed" }],
@@ -73,18 +72,18 @@ export const paedsProcedures: PaedsProcedure[] = [
       { kind: "grid", items: [{ title: "Mother & child pathway", text: "Delivery, newborn assessment and paediatric follow-up are coordinated in one care pathway." }, { title: "Neonatal backup", text: "Babies needing closer observation can be escalated quickly to neonatal care." }, { title: "Feeding support", text: "Breastfeeding and early nutrition are treated as a core part of newborn care." }, { title: "Jaundice monitoring", text: "Risk assessment, bilirubin testing and phototherapy can be coordinated when required." }, { title: "Screening & vaccination", text: "Preventive newborn care is built into the discharge pathway." }, { title: "Parent education", text: "Families receive clear discharge instructions and warning-sign guidance before going home." }] }
     ] },
     { id: "doctor", kicker: "Doctor", heading: "Meet the paediatric & newborn care specialist", blocks: [
-      { kind: "doctor", name: "Dr XXX", specialty: "Paediatrics & Neonatology • Hopewell Hospital, Ranchi", focus: "Clinical focus may include newborn care, neonatal jaundice, feeding support, growth monitoring, newborn screening, premature babies and paediatric follow-up." }
+      { kind: "doctor", name: "Dr. Shakti Das", specialty: "Paediatrics & Neonatology • Hopewell Hospital, Ranchi", focus: "Clinical focus may include newborn care, neonatal jaundice, feeding support, growth monitoring, newborn screening, premature babies and paediatric follow-up." }
     ] },
     { id: "faq", kicker: "FAQs", heading: "Frequently asked questions", blocks: [
       { kind: "faq", items: [{ q: "When should a newborn first see the paediatrician?", a: "The first assessment begins at birth. Follow-up after discharge depends on feeding, jaundice risk, birth weight and clinical condition." }, { q: "Is newborn jaundice normal?", a: "Mild jaundice is common, but some babies need bilirubin testing and treatment. Very early or rapidly increasing jaundice needs prompt assessment." }, { q: "How often should a newborn feed?", a: "Newborns usually feed frequently. The exact pattern varies, but effective latch, swallowing, urine output and weight trend are more important than one fixed number." }, { q: "How do I know if my baby is getting enough milk?", a: "Signs include effective swallowing, improving urine output, appropriate stool pattern, satisfactory weight trend and a baby who appears settled after many feeds." }, { q: "When does a newborn need NICU care?", a: "Prematurity, breathing difficulty, severe jaundice, low blood sugar, suspected infection or other medical instability may require NICU observation or treatment." }, { q: "Which danger signs should never be ignored?", a: "Poor feeding, breathing difficulty, fever or low temperature, severe sleepiness, seizures, green vomiting, worsening jaundice or reduced urine output require prompt medical review." }] }
     ] }
     ],
-    finalCta: { heading: "Need newborn care, feeding support or a baby check-up?", text: "Book a newborn consultation with Dr XXX for examination, feeding review, jaundice assessment, vaccination, screening and early growth monitoring." },
+    finalCta: { heading: "Need newborn care, feeding support or a baby check-up?", text: "Book a newborn consultation with Dr. Shakti Das for examination, feeding review, jaundice assessment, vaccination, screening and early growth monitoring." },
   },
   {
     slug: "nicu",
     title: "NICU in Ranchi | Neonatal Intensive Care",
-    metaDescription: "NICU in Ranchi at Hopewell Hospital for premature, low-birth-weight and medically unstable newborns including respiratory support, jaundice care, feeding support and consultation with Dr XXX.",
+    metaDescription: "NICU in Ranchi at Hopewell Hospital for premature, low-birth-weight and medically unstable newborns including respiratory support, jaundice care, feeding support and consultation with Dr. Shakti Das.",
     category: "Paediatrics & Neonatology",
     eyebrow: "Paediatrics & Neonatology",
     heroTitle: "NICU in Ranchi",
@@ -92,7 +91,7 @@ export const paedsProcedures: PaedsProcedure[] = [
     heroCardKicker: "Hopewell Mother & Child",
     heroCardTitle: "Neonatal Intensive Care",
     heroCardText: "Continuous monitoring, breathing support, feeding support, jaundice management and family-centred neonatal care.",
-    doctorName: "Dr XXX",
+    doctorName: "Dr. Shakti Das",
     doctorSpecialtyMini: "Paediatrics & Neonatology",
     heroTags: ["Prematurity", "Low birth weight", "Respiratory support", "Phototherapy"],
     facts: [{ label: "Unit", value: "NICU" }, { label: "Patients", value: "Newborns" }, { label: "Monitoring", value: "Continuous" }, { label: "Respiratory", value: "Oxygen / CPAP*" }, { label: "Feeding", value: "Breast Milk Support" }, { label: "Follow-Up", value: "Neonatal Clinic" }],
@@ -119,15 +118,15 @@ export const paedsProcedures: PaedsProcedure[] = [
       { kind: "faq", items: [{ q: "Does every premature baby need NICU?", a: "No. Need for NICU depends on gestational age, weight, breathing, feeding and overall stability." }, { q: "Can mothers provide breast milk in NICU?", a: "Yes, expressed breast milk is strongly encouraged when clinically appropriate." }, { q: "How long will a baby stay in NICU?", a: "It depends on the baby's maturity, condition and ability to breathe, feed and maintain temperature safely." }] }
     ] },
     { id: "doctor", kicker: "Doctor", heading: "Meet the paediatric specialist", blocks: [
-      { kind: "doctor", name: "Dr XXX", specialty: "Paediatrics & Neonatology • Hopewell Hospital, Ranchi", focus: "" }
+      { kind: "doctor", name: "Dr. Shakti Das", specialty: "Paediatrics & Neonatology • Hopewell Hospital, Ranchi", focus: "" }
     ] }
     ],
-    finalCta: { heading: "Need paediatric or newborn care?", text: "Book a consultation with Dr XXX at Hopewell Hospital, Ranchi." },
+    finalCta: { heading: "Need paediatric or newborn care?", text: "Book a consultation with Dr. Shakti Das at Hopewell Hospital, Ranchi." },
   },
   {
     slug: "child-immunization",
     title: "Child Immunization in Ranchi",
-    metaDescription: "Child immunization in Ranchi at Hopewell Hospital including vaccination schedule review, catch-up vaccines, preventive paediatrics, vaccine aftercare and consultation with Dr XXX.",
+    metaDescription: "Child immunization in Ranchi at Hopewell Hospital including vaccination schedule review, catch-up vaccines, preventive paediatrics, vaccine aftercare and consultation with Dr. Shakti Das.",
     category: "Paediatrics & Neonatology",
     eyebrow: "Paediatrics & Neonatology",
     heroTitle: "Child Immunization in Ranchi",
@@ -135,7 +134,7 @@ export const paedsProcedures: PaedsProcedure[] = [
     heroCardKicker: "Hopewell Mother & Child",
     heroCardTitle: "Vaccination & Preventive Child Care",
     heroCardText: "Age-appropriate vaccination, catch-up schedules, vaccine counselling and preventive health review in one paediatric visit.",
-    doctorName: "Dr XXX",
+    doctorName: "Dr. Shakti Das",
     doctorSpecialtyMini: "Paediatrics & Neonatology",
     heroTags: ["Vaccination schedule", "Catch-up vaccines", "Preventive paediatrics", "Digital/printed records"],
     facts: [{ label: "Service", value: "Child Immunization" }, { label: "Age", value: "Birth onward" }, { label: "Record", value: "Documented" }, { label: "Catch-Up", value: "Available" }, { label: "Consultation", value: "Paediatric Review" }, { label: "Follow-Up", value: "Next Due Date" }],
@@ -165,15 +164,15 @@ export const paedsProcedures: PaedsProcedure[] = [
       { kind: "faq", items: [{ q: "What if my child missed a vaccine?", a: "A catch-up schedule can usually be created without restarting the entire series." }, { q: "Can vaccines be given during a mild cold?", a: "Often yes, but the paediatrician should assess the child first." }, { q: "Why is vaccine documentation important?", a: "It prevents missed or duplicate doses and helps plan future vaccinations accurately." }] }
     ] },
     { id: "doctor", kicker: "Doctor", heading: "Meet the paediatric specialist", blocks: [
-      { kind: "doctor", name: "Dr XXX", specialty: "Paediatrics & Neonatology • Hopewell Hospital, Ranchi", focus: "" }
+      { kind: "doctor", name: "Dr. Shakti Das", specialty: "Paediatrics & Neonatology • Hopewell Hospital, Ranchi", focus: "" }
     ] }
     ],
-    finalCta: { heading: "Need paediatric or newborn care?", text: "Book a consultation with Dr XXX at Hopewell Hospital, Ranchi." },
+    finalCta: { heading: "Need paediatric or newborn care?", text: "Book a consultation with Dr. Shakti Das at Hopewell Hospital, Ranchi." },
   },
   {
     slug: "paediatric-emergency",
     title: "Paediatric Emergency in Ranchi",
-    metaDescription: "Paediatric emergency care in Ranchi at Hopewell Hospital for fever, breathing difficulty, dehydration, seizures, injuries and acute childhood illness with Dr XXX.",
+    metaDescription: "Paediatric emergency care in Ranchi at Hopewell Hospital for fever, breathing difficulty, dehydration, seizures, injuries and acute childhood illness with Dr. Shakti Das.",
     category: "Paediatrics & Neonatology",
     eyebrow: "Paediatrics & Neonatology",
     heroTitle: "Paediatric Emergency in Ranchi",
@@ -181,7 +180,7 @@ export const paedsProcedures: PaedsProcedure[] = [
     heroCardKicker: "Hopewell Mother & Child",
     heroCardTitle: "Rapid Paediatric Assessment",
     heroCardText: "Triage, stabilisation, targeted investigations and escalation to observation, admission or intensive care when required.",
-    doctorName: "Dr XXX",
+    doctorName: "Dr. Shakti Das",
     doctorSpecialtyMini: "Paediatrics & Neonatology",
     heroTags: ["Fever", "Breathing difficulty", "Seizures", "Injuries"],
     facts: [{ label: "Service", value: "Paediatric Emergency" }, { label: "Priority", value: "Triage First" }, { label: "Age", value: "Infants & Children" }, { label: "Stabilisation", value: "Immediate" }, { label: "Diagnostics", value: "As Needed" }, { label: "Escalation", value: "Admission / ICU" }],
@@ -206,10 +205,10 @@ export const paedsProcedures: PaedsProcedure[] = [
       { kind: "faq", items: [{ q: "When should I bring my child to emergency rather than OPD?", a: "Breathing difficulty, severe lethargy, seizures, major trauma, poisoning, dehydration or sudden deterioration should be assessed urgently." }, { q: "Is high fever alone always dangerous?", a: "The child's age, behaviour, breathing, hydration and associated symptoms matter as much as the temperature itself." }, { q: "Can children be admitted directly from emergency?", a: "Yes, if the child needs observation, IV treatment, oxygen, intensive monitoring or further investigation." }] }
     ] },
     { id: "doctor", kicker: "Doctor", heading: "Meet the paediatric specialist", blocks: [
-      { kind: "doctor", name: "Dr XXX", specialty: "Paediatrics & Neonatology • Hopewell Hospital, Ranchi", focus: "" }
+      { kind: "doctor", name: "Dr. Shakti Das", specialty: "Paediatrics & Neonatology • Hopewell Hospital, Ranchi", focus: "" }
     ] }
     ],
-    finalCta: { heading: "Need paediatric or newborn care?", text: "Book a consultation with Dr XXX at Hopewell Hospital, Ranchi." },
+    finalCta: { heading: "Need paediatric or newborn care?", text: "Book a consultation with Dr. Shakti Das at Hopewell Hospital, Ranchi." },
   }
 ];
 

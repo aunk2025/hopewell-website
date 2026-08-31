@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import { format } from "date-fns";
 import { sendAppointmentConfirmation, sendAppointmentAlert } from "@/lib/email";
+import { appendAppointmentToSheet } from "@/lib/google-sheets";
 import { auth } from "@/lib/auth";
 
 /* ── Validation schema ── */
@@ -67,6 +68,17 @@ export async function POST(req: NextRequest) {
       patientPhone:    data.patientPhone,
       patientEmail:    data.patientEmail,
       refNumber,
+      doctorName,
+      appointmentDate: dateStr,
+      timeSlot:        data.timeSlot,
+      reason:          data.reason,
+    });
+
+    void appendAppointmentToSheet({
+      refNumber,
+      patientName:     data.patientName,
+      patientPhone:    data.patientPhone,
+      patientEmail:    data.patientEmail,
       doctorName,
       appointmentDate: dateStr,
       timeSlot:        data.timeSlot,

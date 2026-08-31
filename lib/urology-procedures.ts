@@ -1,8 +1,7 @@
 // AUTO-GENERATED from procedure page content provided by the client.
 // See lib/procedure-content.ts for the shared block/section/page schema.
-// NOTE: doctor name is still the source placeholder ("Dr XXX") — per the
-// client's request (same as ENT), left as-is until the real Urology
-// specialist's name is supplied.
+// Doctor placeholder ("Dr XXX") in the source files was resolved to the
+// live Urology specialist (Dr. Arvind Kumar Bhagat) already in the database.
 
 import type { ContentBlock, ContentSection, ProcedurePage } from "./procedure-content";
 
@@ -14,7 +13,7 @@ export const urologyProcedures: UrologyProcedure[] = [
   {
     slug: "kidney-stone-treatment",
     title: "Kidney Stone Treatment in Ranchi",
-    metaDescription: "Learn about kidney stone treatment in Ranchi at Hopewell Hospital, including symptoms, CT and ultrasound diagnosis, medicines, ESWL, URS, RIRS, PCNL, stenting, preparation, recovery, prevention, cost guidance and consultation with Dr XXX.",
+    metaDescription: "Learn about kidney stone treatment in Ranchi at Hopewell Hospital, including symptoms, CT and ultrasound diagnosis, medicines, ESWL, URS, RIRS, PCNL, stenting, preparation, recovery, prevention, cost guidance and consultation with Dr. Arvind Kumar Bhagat.",
     category: "Urology",
     eyebrow: "Urology & Endourology",
     heroTitle: "Kidney Stone Treatment in Ranchi",
@@ -22,7 +21,7 @@ export const urologyProcedures: UrologyProcedure[] = [
     heroCardKicker: "Stone care from diagnosis to prevention",
     heroCardTitle: "Kidney Stone Care at Hopewell",
     heroCardText: "Ultrasound/CT evaluation, pain and infection control, procedure selection based on stone size and location, stenting when needed and metabolic prevention advice after treatment.",
-    doctorName: "Dr XXX",
+    doctorName: "Dr. Arvind Kumar Bhagat",
     doctorSpecialtyMini: "Urology & Endourology",
     heroTags: ["URS / Laser", "RIRS", "PCNL", "Stone prevention"],
     facts: [{ label: "Condition", value: "Kidney / Ureter Stone" }, { label: "Diagnosis", value: "USG / CT KUB" }, { label: "Small Stones", value: "May Pass Naturally" }, { label: "Procedures", value: "ESWL / URS / RIRS / PCNL" }, { label: "Hospital Stay*", value: "Day Care to 2–3 Days" }, { label: "Stent*", value: "Sometimes Needed" }],
@@ -66,18 +65,18 @@ export const urologyProcedures: UrologyProcedure[] = [
       { kind: "grid", items: [{ title: "Endourology pathway", text: "Diagnosis, drainage, laser treatment and follow-up can be coordinated in one urology service." }, { title: "Procedure matched to stone", text: "Treatment is selected according to stone size, location and complexity rather than using one technique for everyone." }, { title: "Emergency drainage capability", text: "Obstructed infected systems can be stabilised urgently when required." }, { title: "Minimally invasive options", text: "URS, RIRS and other endoscopic approaches are considered where suitable." }, { title: "Prevention after treatment", text: "Stone analysis and recurrence-reduction advice are incorporated into follow-up." }, { title: "Insurance assistance", text: "Support for cashless, TPA and eligible government scheme processes." }] }
     ] },
     { id: "doctor", kicker: "Doctor", heading: "Meet the urology specialist", blocks: [
-      { kind: "doctor", name: "Dr XXX", specialty: "Urology & Endourology • Hopewell Hospital, Ranchi", focus: "Clinical focus may include kidney stones, ureteroscopy, RIRS, PCNL, urinary obstruction, prostate care and minimally invasive urology." }
+      { kind: "doctor", name: "Dr. Arvind Kumar Bhagat", specialty: "Urology & Endourology • Hopewell Hospital, Ranchi", focus: "Clinical focus may include kidney stones, ureteroscopy, RIRS, PCNL, urinary obstruction, prostate care and minimally invasive urology." }
     ] },
     { id: "faq", kicker: "FAQs", heading: "Frequently asked questions", blocks: [
       { kind: "faq", items: [{ q: "Can kidney stones pass without surgery?", a: "Yes. Many small stones can pass naturally, especially when there is no infection, severe obstruction or uncontrolled pain. Passage depends on stone size and location." }, { q: "When is a kidney stone an emergency?", a: "Fever with an obstructing stone, inability to pass urine, uncontrolled pain, persistent vomiting or obstruction in a single functioning kidney can require urgent treatment." }, { q: "What is the difference between URS and RIRS?", a: "URS commonly treats ureteric stones, while RIRS uses a flexible scope to reach stones inside the kidney through the urinary tract." }, { q: "What is PCNL used for?", a: "PCNL is commonly used for larger, complex or staghorn kidney stones that are unlikely to be cleared efficiently by simpler methods." }, { q: "Why do I need a DJ stent?", a: "A DJ stent keeps urine flowing from kidney to bladder and may be needed after stone treatment or to bypass an obstruction." }, { q: "Can kidney stones come back?", a: "Yes. Recurrence is common in some patients. Hydration, dietary measures and metabolic evaluation can reduce risk." }] }
     ] }
     ],
-    finalCta: { heading: "Kidney stone pain or a stone seen on scan?", text: "Book a urology consultation with Dr XXX to review stone size and location and understand whether observation, medicines, laser treatment, RIRS or PCNL is appropriate." },
+    finalCta: { heading: "Kidney stone pain or a stone seen on scan?", text: "Book a urology consultation with Dr. Arvind Kumar Bhagat to review stone size and location and understand whether observation, medicines, laser treatment, RIRS or PCNL is appropriate." },
   },
   {
     slug: "prostate-surgery",
     title: "Prostate Surgery in Ranchi",
-    metaDescription: "Learn about prostate surgery in Ranchi at Hopewell Hospital, including enlarged prostate (BPH), urinary symptoms, PSA and ultrasound evaluation, TURP, laser prostate surgery, HoLEP where applicable, catheter care, recovery, risks, cost guidance and consultation with Dr XXX.",
+    metaDescription: "Learn about prostate surgery in Ranchi at Hopewell Hospital, including enlarged prostate (BPH), urinary symptoms, PSA and ultrasound evaluation, TURP, laser prostate surgery, HoLEP where applicable, catheter care, recovery, risks, cost guidance and consultation with Dr. Arvind Kumar Bhagat.",
     category: "Urology",
     eyebrow: "Urology & Endourology",
     heroTitle: "Prostate Surgery in Ranchi",
@@ -85,7 +84,7 @@ export const urologyProcedures: UrologyProcedure[] = [
     heroCardKicker: "Prostate care from evaluation to recovery",
     heroCardTitle: "Prostate Surgery at Hopewell",
     heroCardText: "Symptom evaluation, PSA and urine testing, ultrasound/uroflow assessment, medication review, endoscopic surgery where indicated and structured catheter and recovery care.",
-    doctorName: "Dr XXX",
+    doctorName: "Dr. Arvind Kumar Bhagat",
     doctorSpecialtyMini: "Urology & Endourology",
     heroTags: ["TURP", "Laser prostate surgery", "HoLEP*", "Catheter care"],
     facts: [{ label: "Condition", value: "Enlarged Prostate / BPH" }, { label: "Evaluation", value: "PSA + USG + Uroflow" }, { label: "Procedures", value: "TURP / Laser" }, { label: "Anaesthesia*", value: "Spinal / General" }, { label: "Hospital Stay*", value: "1–3 Days" }, { label: "Catheter*", value: "Temporary" }],
@@ -135,18 +134,18 @@ export const urologyProcedures: UrologyProcedure[] = [
       { kind: "grid", items: [{ title: "Endourology pathway", text: "Diagnosis, catheter care, surgery and follow-up are coordinated within one urology service." }, { title: "Procedure matched to prostate size", text: "Treatment is selected according to gland size, symptoms and medical risk." }, { title: "Minimally invasive options", text: "Endoscopic techniques are used where clinically appropriate." }, { title: "Bleeding-risk planning", text: "Medication review and peri-operative planning are important for older or anticoagulated patients." }, { title: "Catheter & voiding support", text: "Postoperative catheter management and trial of void are built into the pathway." }, { title: "Insurance assistance", text: "Support for cashless, TPA and eligible government scheme processes." }] }
     ] },
     { id: "doctor", kicker: "Doctor", heading: "Meet the urology specialist", blocks: [
-      { kind: "doctor", name: "Dr XXX", specialty: "Urology & Endourology • Hopewell Hospital, Ranchi", focus: "Clinical focus may include prostate surgery, TURP, laser prostate treatment, urinary retention, kidney stone surgery and minimally invasive urology." }
+      { kind: "doctor", name: "Dr. Arvind Kumar Bhagat", specialty: "Urology & Endourology • Hopewell Hospital, Ranchi", focus: "Clinical focus may include prostate surgery, TURP, laser prostate treatment, urinary retention, kidney stone surgery and minimally invasive urology." }
     ] },
     { id: "faq", kicker: "FAQs", heading: "Frequently asked questions", blocks: [
       { kind: "faq", items: [{ q: "Does every enlarged prostate need surgery?", a: "No. Many men can be managed with observation or medicines. Surgery is usually considered when symptoms are severe, medicines are ineffective or complications develop." }, { q: "What is TURP?", a: "TURP is an endoscopic operation in which obstructing prostate tissue is removed through the urinary passage to improve urine flow." }, { q: "How long will the catheter stay after surgery?", a: "Catheter duration varies by procedure and bleeding. It is often removed within one to a few days once urine is clear and the surgeon feels it is safe." }, { q: "Will prostate surgery affect sexual function?", a: "Retrograde ejaculation is common after TURP and several other BPH procedures. Erectile function is often preserved, though individual outcomes vary." }, { q: "Can prostate tissue grow back?", a: "Some men may develop recurrent obstruction years later because residual prostate tissue can enlarge over time, though many have durable symptom relief." }, { q: "Is laser surgery better than TURP?", a: "Not always. The best option depends on prostate size, bleeding risk, equipment availability, surgeon expertise and patient factors." }] }
     ] }
     ],
-    finalCta: { heading: "Weak urine flow, night urination or repeated urinary retention?", text: "Book a urology consultation with Dr XXX to review your symptoms, PSA, ultrasound and urine flow and understand whether medicines, TURP or laser prostate surgery is appropriate." },
+    finalCta: { heading: "Weak urine flow, night urination or repeated urinary retention?", text: "Book a urology consultation with Dr. Arvind Kumar Bhagat to review your symptoms, PSA, ultrasound and urine flow and understand whether medicines, TURP or laser prostate surgery is appropriate." },
   },
   {
     slug: "urinary-tract-infection-treatment",
     title: "Urinary Tract Infection Treatment in Ranchi",
-    metaDescription: "Learn about urinary tract infection treatment in Ranchi at Hopewell Hospital, including UTI symptoms, urine tests and culture, recurrent and complicated UTI, treatment, prevention, admission warning signs, cost guidance and consultation with Dr XXX.",
+    metaDescription: "Learn about urinary tract infection treatment in Ranchi at Hopewell Hospital, including UTI symptoms, urine tests and culture, recurrent and complicated UTI, treatment, prevention, admission warning signs, cost guidance and consultation with Dr. Arvind Kumar Bhagat.",
     category: "Urology",
     eyebrow: "Urology & Urinary Infection Care",
     heroTitle: "Urinary Tract Infection Treatment in Ranchi",
@@ -154,7 +153,7 @@ export const urologyProcedures: UrologyProcedure[] = [
     heroCardKicker: "Treat the infection. Find the cause.",
     heroCardTitle: "UTI Care at Hopewell",
     heroCardText: "Urine testing and culture, antibiotic selection, imaging when needed, recurrent-UTI evaluation and management of underlying causes such as stones, obstruction or catheter-related infection.",
-    doctorName: "Dr XXX",
+    doctorName: "Dr. Arvind Kumar Bhagat",
     doctorSpecialtyMini: "Urology & Urinary Infection Care",
     heroTags: ["Urine culture", "Recurrent UTI", "Complicated UTI", "Kidney infection care"],
     facts: [{ label: "Condition", value: "Urinary Tract Infection" }, { label: "Diagnosis", value: "Urine Test ± Culture" }, { label: "Treatment", value: "Targeted Medicines" }, { label: "Imaging*", value: "When Indicated" }, { label: "Admission*", value: "For Complicated Cases" }, { label: "Recurrent UTI", value: "Needs Cause Review" }],
@@ -200,18 +199,18 @@ export const urologyProcedures: UrologyProcedure[] = [
       { kind: "grid", items: [{ title: "Culture-based treatment", text: "Urine culture can guide antibiotic choice in recurrent or complicated infection." }, { title: "Urology evaluation", text: "Underlying stones, obstruction or prostate problems can be investigated when needed." }, { title: "Imaging support", text: "Ultrasound or CT can be used when kidney involvement or blockage is suspected." }, { title: "Emergency drainage pathway", text: "Infected obstruction can be stabilised quickly when required." }, { title: "Recurrent UTI prevention", text: "Follow-up focuses on reducing repeat infections, not just treating each episode." }, { title: "Insurance assistance", text: "Support for eligible admission, TPA and government-scheme processes." }] }
     ] },
     { id: "doctor", kicker: "Doctor", heading: "Meet the urology specialist", blocks: [
-      { kind: "doctor", name: "Dr XXX", specialty: "Urology & Urinary Infection Care • Hopewell Hospital, Ranchi", focus: "Clinical focus may include recurrent UTI, complicated urinary infection, urinary obstruction, kidney stones, prostate problems and endourology." }
+      { kind: "doctor", name: "Dr. Arvind Kumar Bhagat", specialty: "Urology & Urinary Infection Care • Hopewell Hospital, Ranchi", focus: "Clinical focus may include recurrent UTI, complicated urinary infection, urinary obstruction, kidney stones, prostate problems and endourology." }
     ] },
     { id: "faq", kicker: "FAQs", heading: "Frequently asked questions", blocks: [
       { kind: "faq", items: [{ q: "Can a UTI go away without antibiotics?", a: "Some mild urinary symptoms may have causes other than bacterial infection, but a true UTI often requires appropriate antibiotics. The decision depends on symptoms, risk factors and test results." }, { q: "Do I need a urine culture for every UTI?", a: "Not always. Culture is especially important for recurrent, complicated, male, pregnancy-related or treatment-resistant infections." }, { q: "Why do UTIs keep coming back?", a: "Possible causes include incomplete bladder emptying, stones, prostate enlargement, diabetes, catheterisation, anatomical factors or resistant bacteria." }, { q: "Can a UTI affect the kidneys?", a: "Yes. Infection can spread upward to the kidneys and cause fever, flank pain and more severe illness." }, { q: "When is a UTI an emergency?", a: "Fever with obstruction, severe weakness, sepsis, pregnancy, inability to take fluids, acute retention or infection in a single functioning kidney requires prompt assessment." }, { q: "Should recurrent UTI be treated by a urologist?", a: "Yes, especially when infections are frequent, occur in men, are associated with stones or obstruction, or do not respond as expected." }] }
     ] }
     ],
-    finalCta: { heading: "Burning urination, fever or repeated UTI?", text: "Book a urology consultation with Dr XXX to review your symptoms, urine test or culture and understand whether simple treatment or further evaluation is needed." },
+    finalCta: { heading: "Burning urination, fever or repeated UTI?", text: "Book a urology consultation with Dr. Arvind Kumar Bhagat to review your symptoms, urine test or culture and understand whether simple treatment or further evaluation is needed." },
   },
   {
     slug: "kidney-transplant-evaluation",
     title: "Kidney Transplant Evaluation in Ranchi",
-    metaDescription: "Kidney transplant evaluation in Ranchi at Hopewell Hospital including recipient assessment, donor screening, blood group compatibility, HLA and crossmatch planning, infection screening, cardiac fitness, dialysis review, transplant readiness and consultation with Dr XXX.",
+    metaDescription: "Kidney transplant evaluation in Ranchi at Hopewell Hospital including recipient assessment, donor screening, blood group compatibility, HLA and crossmatch planning, infection screening, cardiac fitness, dialysis review, transplant readiness and consultation with Dr. Arvind Kumar Bhagat.",
     category: "Urology",
     eyebrow: "Kidney Care & Transplant Readiness",
     heroTitle: "Kidney Transplant Evaluation in Ranchi",
@@ -219,7 +218,7 @@ export const urologyProcedures: UrologyProcedure[] = [
     heroCardKicker: "Evaluate. Optimise. Prepare.",
     heroCardTitle: "Transplant Readiness at Hopewell",
     heroCardText: "Medical assessment, donor-recipient work-up, risk optimisation, documentation support and coordination with an authorised transplant centre where transplant surgery is indicated.",
-    doctorName: "Dr XXX",
+    doctorName: "Dr. Arvind Kumar Bhagat",
     doctorSpecialtyMini: "Kidney Care, Urology & Transplant Evaluation",
     heroTags: ["Recipient evaluation", "Donor screening", "HLA / crossmatch planning", "Referral coordination"],
     facts: [{ label: "Patient", value: "CKD Stage 5 / ESRD" }, { label: "Donor Review", value: "Living Donor Screening" }, { label: "Compatibility", value: "ABO + HLA + Crossmatch" }, { label: "Fitness", value: "Cardiac + Infection Review" }, { label: "Dialysis", value: "Optimised if Needed" }, { label: "Next Step", value: "Transplant Centre Coordination" }],
@@ -263,13 +262,13 @@ export const urologyProcedures: UrologyProcedure[] = [
       { kind: "grid", items: [{ title: "Structured recipient assessment", text: "Kidney disease, dialysis status, cardiac risk and infection status are reviewed systematically." }, { title: "Donor-readiness pathway", text: "Potential living donors can be screened for compatibility and safety before referral." }, { title: "Multidisciplinary clearance", text: "Cardiology, medicine, urology and other specialist reviews can be coordinated where required." }, { title: "Dialysis optimisation", text: "Patients remain medically supported while transplant work-up is completed." }, { title: "Documentation coordination", text: "Evaluation records can be organised for onward transplant-centre review." }, { title: "Continuity of kidney care", text: "Pre-transplant evaluation and post-referral follow-up can remain integrated with local care." }] }
     ] },
     { id: "doctor", kicker: "Doctor", heading: "Meet the kidney-care specialist", blocks: [
-      { kind: "doctor", name: "Dr XXX", specialty: "Kidney Care, Urology & Transplant Evaluation • Hopewell Hospital, Ranchi", focus: "Clinical focus may include chronic kidney disease, dialysis readiness, transplant evaluation, donor screening, urinary obstruction and urological optimisation before transplant." }
+      { kind: "doctor", name: "Dr. Arvind Kumar Bhagat", specialty: "Kidney Care, Urology & Transplant Evaluation • Hopewell Hospital, Ranchi", focus: "Clinical focus may include chronic kidney disease, dialysis readiness, transplant evaluation, donor screening, urinary obstruction and urological optimisation before transplant." }
     ] },
     { id: "faq", kicker: "FAQs", heading: "Frequently asked questions", blocks: [
       { kind: "faq", items: [{ q: "When should kidney transplant evaluation begin?", a: "Evaluation can begin before dialysis is started when kidney failure is advanced and progressive, or after dialysis has already begun." }, { q: "Does a donor need to have the same blood group?", a: "Compatibility depends on the transplant pathway. Standard ABO-compatible donation is common, while some authorised transplant programmes may offer specialised pathways for selected incompatible pairs." }, { q: "What is a crossmatch test?", a: "Crossmatch testing checks whether the recipient has antibodies that react against the donor's cells. It is a key compatibility test before transplantation." }, { q: "Can someone on dialysis still receive a transplant?", a: "Yes. Many kidney transplant recipients are already on dialysis when they are evaluated and transplanted." }, { q: "Can transplant happen before dialysis is started?", a: "In selected patients, pre-emptive transplantation may be possible when kidney failure is advanced and a suitable donor and authorised transplant pathway are available." }, { q: "Does Hopewell perform kidney transplant surgery?", a: "This page is for transplant evaluation and readiness. Definitive transplant surgery should be undertaken only at a hospital holding the required statutory transplant authorisation. Hopewell can coordinate evaluation and referral according to the patient's pathway." }] }
     ] }
     ],
-    finalCta: { heading: "Advanced kidney disease or already on dialysis?", text: "Book a kidney transplant evaluation with Dr XXX to understand recipient fitness, donor screening, compatibility testing and the next steps toward an authorised transplant programme." },
+    finalCta: { heading: "Advanced kidney disease or already on dialysis?", text: "Book a kidney transplant evaluation with Dr. Arvind Kumar Bhagat to understand recipient fitness, donor screening, compatibility testing and the next steps toward an authorised transplant programme." },
   }
 ];
 

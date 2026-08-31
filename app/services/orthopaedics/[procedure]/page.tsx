@@ -134,7 +134,7 @@ export default async function ProcedurePage({ params }: { params: Promise<{ proc
         )}
 
         <a
-          href="/appointment?specialty=Orthopaedics"
+          href={`/appointment?specialty=${encodeURIComponent("Orthopaedic Surgeon")}`}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-10 flex items-center justify-center gap-2 rounded-2xl bg-ink py-4 text-sm font-bold text-white transition hover:bg-teal-900"
