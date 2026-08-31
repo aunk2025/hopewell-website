@@ -5,7 +5,10 @@
 // TODO items mark values the hospital hasn't provided yet. Fill them in
 // here once available; nothing else needs to change.
 
-export const SITE_URL = "https://www.hopewellhospital.in";
+// Must exactly match the property verified in Google Search Console
+// (scheme + host, no trailing slash) — a mismatch here causes every URL in
+// the sitemap to be rejected with "URL not allowed".
+export const SITE_URL = "https://hopewellgroupofhospital.in";
 
 // The 24×7 number already used site-wide (Navbar top bar, Footer).
 export const EMERGENCY_PHONE = "+919199666246";
