@@ -10,7 +10,7 @@ const DEFAULT_DESCRIPTION =
 // Used as the fallback preview image for any page that doesn't set its own
 // Open Graph image — the hospital's own logo, since no dedicated banner
 // photo exists yet in the project.
-const DEFAULT_OG_IMAGE = "/hopewell%20logo%202.jpeg";
+const DEFAULT_OG_IMAGE = "/hopewell%20logo2.png";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

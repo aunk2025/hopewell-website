@@ -32,7 +32,7 @@ export default function Navbar() {
       <header className="sticky top-0 z-50 border-b border-white/50 bg-white/70 backdrop-blur-2xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
           <Link href="/" className="group flex items-center">
-            <img src="/hopewell%20logo%202.jpeg" alt="Hopewell Hospital" className="h-24 w-auto object-contain" />
+            <img src="/hopewell%20logo2.png" alt="Hopewell Hospital" className="h-24 w-auto object-contain" />
           </Link>
 
           <nav className="hidden items-center gap-7 lg:flex">

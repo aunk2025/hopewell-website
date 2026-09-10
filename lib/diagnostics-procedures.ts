@@ -1,6 +1,6 @@
 // AUTO-GENERATED from procedure page content provided by the client.
 // See lib/procedure-content.ts for the shared block/section/page schema.
-// These 4 pages carry a real hero photo (heroImage/heroImageCaption) instead
+// These pages carry a real hero photo (heroImage/heroImageCaption) instead
 // of a doctor card, since diagnostic tests aren't attributed to one surgeon.
 
 import type { ContentBlock, ContentSection, ProcedurePage } from "./procedure-content";
@@ -61,55 +61,6 @@ export const diagnosticsProcedures: DiagnosticsProcedure[] = [
     ] }
     ],
     finalCta: { heading: "Need a CT Scan?", text: "Book your diagnostic appointment at Hopewell Hospital, Ranchi. Our team will guide you about preparation, prescription requirements and reporting." },
-  },
-  {
-    slug: "mri",
-    title: "MRI in Ranchi",
-    metaDescription: "MRI in Ranchi at Hopewell Hospital for brain, spine, joints, muscles, pelvis and selected vascular imaging without ionising radiation.",
-    category: "Diagnostics",
-    eyebrow: "Diagnostics",
-    heroTitle: "MRI in Ranchi",
-    heroCopy: "High-resolution imaging for the brain, spine, joints, muscles and other soft tissues without ionising radiation.",
-    heroCardKicker: "Hopewell Diagnostics",
-    heroCardTitle: "MRI",
-    heroCardText: "",
-    heroImage: "/diagnostics/mri-realistic.jpg",
-    heroImageCaption: "Illustrative diagnostic-suite visual for website presentation.",
-    doctorName: "",
-    doctorSpecialtyMini: "",
-    heroTags: ["MRI Brain", "MRI Spine", "MRI Knee", "Soft Tissue Imaging"],
-    facts: [{ label: "Test", value: "MRI" }, { label: "Radiation", value: "None" }, { label: "Best For", value: "Soft Tissues" }, { label: "Screening", value: "Implants / Metal" }, { label: "Contrast*", value: "When Needed" }, { label: "Reporting", value: "Digital Ready" }],
-    sections: [
-    { id: "overview", kicker: "Overview", heading: "What is an MRI Scan?", blocks: [
-      { kind: "text", text: "Magnetic Resonance Imaging (MRI) uses a strong magnetic field and radiofrequency signals to create detailed images of the brain, spine, joints, muscles and other soft tissues. MRI does not use ionising radiation." }
-    ] },
-    { id: "who", kicker: "Who May Need It?", heading: "When might your doctor advise MRI?", blocks: [
-      { kind: "bullets", items: ["Brain and neurological evaluation.", "Slip disc, spinal stenosis and nerve compression.", "Knee, shoulder and other joint injuries.", "Ligament, cartilage and muscle injuries.", "Pelvic and selected abdominal conditions.", "Tumour evaluation and follow-up."] }
-    ] },
-    { id: "uses", kicker: "Common MRI Studies", heading: "MRI examinations may include", blocks: [
-      { kind: "grid", items: [{ title: "MRI Brain", text: "Detailed neurological imaging." }, { title: "MRI Spine", text: "Disc, nerves, spinal cord and stenosis evaluation." }, { title: "MRI Knee", text: "Ligaments, meniscus and cartilage." }, { title: "MRI Shoulder", text: "Rotator cuff and soft-tissue assessment." }, { title: "MRI Pelvis", text: "Selected gynaecological, urological and soft-tissue evaluation." }, { title: "MR Angiography*", text: "Selected blood-vessel studies where clinically indicated." }] }
-    ] },
-    { id: "screening", kicker: "MRI Safety Screening", heading: "Tell us about implants or metal", blocks: [
-      { kind: "bullets", items: ["Pacemaker or implanted cardiac device.", "Cochlear implant.", "Neurostimulator or implanted pump.", "Metal clips or other implants.", "History of metallic foreign body, particularly in the eye.", "Pregnancy or significant kidney disease if contrast is being considered."] },
-      { kind: "warning", text: "MRI suitability depends on the exact implant and model. An implant should never be assumed MRI-safe without verification." }
-    ] },
-    { id: "procedure", kicker: "What Happens During MRI?", heading: "The scan process", blocks: [
-      { kind: "timeline", steps: [{ num: "01", title: "Safety screening", text: "Implants, metal and relevant medical history are reviewed." }, { num: "02", title: "Positioning", text: "You lie on the MRI table with the appropriate imaging coil." }, { num: "03", title: "Scanning", text: "The scanner produces loud repetitive sounds; hearing protection is provided." }, { num: "04", title: "Reporting", text: "Images are reviewed after acquisition and correlated with the clinical indication." }] }
-    ] },
-    { id: "comfort", kicker: "Comfort & Claustrophobia", heading: "What if I feel anxious inside the scanner?", blocks: [
-      { kind: "text", text: "Some patients experience claustrophobia. Inform the team in advance so that positioning, reassurance or other appropriate measures can be planned." }
-    ] },
-    { id: "cost", kicker: "Cost Guidance", heading: "MRI cost in Ranchi", blocks: [
-      { kind: "cost", range: "Depends on Body Part & Contrast", note: "Cost varies by region scanned, specialised sequences and whether contrast is required.", insuranceTitle: "Insurance / TPA / Ayushman", insuranceNote: "Coverage depends on medical indication, admission status, policy or scheme rules and empanelment." }
-    ] },
-    { id: "why", kicker: "Why Hopewell", heading: "Why choose Hopewell for MRI?", blocks: [
-      { kind: "grid", items: [{ title: "Integrated clinical pathway", text: "MRI findings can be linked directly to orthopaedic, spine, medicine and surgical care." }, { title: "Patient preparation", text: "Safety and implant screening are built into the workflow." }, { title: "Digital reporting", text: "Designed for efficient access and future patient-portal integration." }] }
-    ] },
-    { id: "faq", kicker: "FAQs", heading: "Frequently asked questions", blocks: [
-      { kind: "faq", items: [{ q: "Does MRI use radiation?", a: "No. MRI uses a magnetic field and radiofrequency signals rather than ionising radiation." }, { q: "Why does MRI make loud sounds?", a: "The sounds are produced by rapid switching of magnetic-field gradients during image acquisition." }, { q: "Can a patient with a pacemaker have MRI?", a: "Some modern devices are MRI-conditional, but eligibility depends on the exact device and protocol. Specialist verification is required." }] }
-    ] }
-    ],
-    finalCta: { heading: "Need a MRI?", text: "Book your diagnostic appointment at Hopewell Hospital, Ranchi. Our team will guide you about preparation, prescription requirements and reporting." },
   },
   {
     slug: "pathology-lab",

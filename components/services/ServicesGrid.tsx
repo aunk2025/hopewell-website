@@ -199,12 +199,11 @@ const services: Service[] = [
     name: "Diagnostics",
     slug: "diagnostics",
     learnMore:
-      "Integrated diagnostic services supporting faster and more accurate clinical decision-making across the hospital. The department includes CT Scan, MRI, Digital X-Ray and Pathology Laboratory, along with diagnostic support for preventive health check-ups. By bringing imaging, laboratory testing and specialist care together, patients can move more efficiently from investigation to diagnosis and treatment.",
+      "Integrated diagnostic services supporting faster and more accurate clinical decision-making across the hospital. The department includes CT Scan, Digital X-Ray and Pathology Laboratory, along with diagnostic support for preventive health check-ups. By bringing imaging, laboratory testing and specialist care together, patients can move more efficiently from investigation to diagnosis and treatment.",
     image: "/diagnostics%20new.png",
     imageScaleClass: "scale-[1.12] group-hover:scale-[1.18]",
     items: [
       { label: "CT Scan", href: "/services/diagnostics/ct-scan" },
-      { label: "MRI", href: "/services/diagnostics/mri" },
       { label: "Pathology Lab", href: "/services/diagnostics/pathology-lab" },
       { label: "Digital X-Ray", href: "/services/diagnostics/digital-xray" },
     ],

@@ -49,7 +49,7 @@ export default function Footer() {
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 md:grid-cols-2 lg:grid-cols-5 lg:px-8">
         <div className="lg:col-span-2">
           <a href="/" className="inline-flex items-center rounded-2xl bg-white/95 px-4 py-3 shadow-glow">
-            <img src="/hopewell%20logo%202.jpeg" alt="Hopewell Hospital" className="h-20 w-auto object-contain" />
+            <img src="/hopewell%20logo2.png" alt="Hopewell Hospital" className="h-20 w-auto object-contain" />
           </a>
           <p className="mt-5 max-w-xs leading-7">
             Advanced cardiac and surgical care designed around safety, coordination and compassion.
