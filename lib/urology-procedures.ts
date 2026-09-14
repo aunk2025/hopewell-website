@@ -13,6 +13,7 @@ export const urologyProcedures: UrologyProcedure[] = [
   {
     slug: "kidney-stone-treatment",
     title: "Kidney Stone Treatment in Ranchi",
+    seoTitle: "Kidney Stone Pain? Advanced Stone Treatment in Ranchi",
     metaDescription: "Learn about kidney stone treatment in Ranchi at Hopewell Hospital, including symptoms, CT and ultrasound diagnosis, medicines, ESWL, URS, RIRS, PCNL, stenting, preparation, recovery, prevention, cost guidance and consultation with Dr. Arvind Kumar Bhagat.",
     category: "Urology",
     eyebrow: "Urology & Endourology",
@@ -210,7 +211,8 @@ export const urologyProcedures: UrologyProcedure[] = [
   {
     slug: "kidney-transplant-evaluation",
     title: "Kidney Transplant Evaluation in Ranchi",
-    metaDescription: "Kidney transplant evaluation in Ranchi at Hopewell Hospital including recipient assessment, donor screening, blood group compatibility, HLA and crossmatch planning, infection screening, cardiac fitness, dialysis review, transplant readiness and consultation with Dr. Arvind Kumar Bhagat.",
+    seoTitle: "Considering a Kidney Transplant? Start Your Evaluation in Ranchi",
+    metaDescription: "Understand recipient assessment, donor screening, compatibility testing and the investigations required before kidney transplantation at Hopewell Ranchi.",
     category: "Urology",
     eyebrow: "Kidney Care & Transplant Readiness",
     heroTitle: "Kidney Transplant Evaluation in Ranchi",

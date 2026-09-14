@@ -57,7 +57,8 @@ export const generalMedicineProcedures: GeneralMedicineProcedure[] = [
   {
     slug: "chronic-disease-management",
     title: "Chronic Disease Management in Ranchi",
-    metaDescription: "Chronic disease management in Ranchi at Hopewell Hospital including diabetes, hypertension, thyroid disease, asthma, COPD, kidney disease and long-term physician follow-up with Dr. MD Arif Tauheed.",
+    seoTitle: "Diabetes, BP or Thyroid? Long-Term Care in Ranchi | Hopewell",
+    metaDescription: "Get structured medical care for diabetes, hypertension, thyroid disorders, asthma and other chronic conditions with monitoring, prevention and follow up.",
     category: "General Medicine",
     eyebrow: "General Medicine",
     heroTitle: "Chronic Disease Management in Ranchi",

@@ -5,9 +5,9 @@ import ContactPageContent from "@/components/contact/ContactPageContent";
 import { EMERGENCY_PHONE, HOSPITAL_ADDRESS_PARTS, SITE_URL } from "@/lib/contact-config";
 
 export const metadata: Metadata = {
-  title: "Contact Hopewell Hospital Ranchi | Appointments, Emergency, TPA & Enquiries",
+  title: "Need an Appointment or Hospital Help? | Hopewell Ranchi",
   description:
-    "Contact Hopewell Hospital Ranchi for appointments, emergency assistance, ambulance, directions, insurance and TPA support, corporate enquiries, careers, feedback and other hospital enquiries.",
+    "Book an appointment, find Hopewell Hospital, get directions or contact us for emergency, ambulance, TPA, insurance, corporate, career and other enquiries.",
 };
 
 export default function ContactPage() {

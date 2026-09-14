@@ -10,7 +10,8 @@ export type IvfProcedure = ProcedurePage;
 export const ivfProcedures: IvfProcedure[] = [
   {
     slug: "ivf-treatment",
-    title: "IVF Treatment in Ranchi",
+    title: "IVF & Fertility Treatment in Ranchi",
+    seoTitle: "Trying to Conceive? IVF & Fertility Treatment in Ranchi",
     metaDescription: "Learn about IVF treatment in Ranchi at Hopewell Hospital, including fertility evaluation, ovarian stimulation, egg retrieval, fertilisation, embryo transfer, cycle timeline, success factors, risks, approximate cost and consultation with Dr Neha Ali.",
     category: "IVF, Gynaecology & Women's Health",
     eyebrow: "IVF & Fertility Care",
@@ -147,7 +148,8 @@ export const ivfProcedures: IvfProcedure[] = [
   {
     slug: "laparoscopic-gynaecology",
     title: "Laparoscopic Gynaecology in Ranchi",
-    metaDescription: "Explore laparoscopic gynaecology in Ranchi at Hopewell Hospital, including ovarian cyst surgery, fibroid surgery, hysterectomy, endometriosis treatment, ectopic pregnancy surgery, fertility-preserving procedures, recovery, cost guidance and consultation with Dr Neha Ali.",
+    seoTitle: "Gynaecological Surgery With Smaller Incisions | Hopewell Ranchi",
+    metaDescription: "Explore laparoscopic treatment for fibroids, ovarian cysts, endometriosis and other gynaecological conditions, including surgery, hospital stay and recovery.",
     category: "IVF, Gynaecology & Women's Health",
     eyebrow: "Gynaecology & Minimally Invasive Surgery",
     heroTitle: "Laparoscopic Gynaecology in Ranchi",

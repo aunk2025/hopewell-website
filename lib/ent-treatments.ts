@@ -13,7 +13,8 @@ export const entTreatments: EntTreatment[] = [
   {
     slug: "tympanoplasty",
     title: "Tympanoplasty in Ranchi",
-    metaDescription: "Learn about tympanoplasty in Ranchi at Hopewell Hospital, including eardrum perforation, chronic ear discharge, hearing loss, diagnosis, grafting, ossicular reconstruction, preparation, recovery, precautions, risks, cost guidance and consultation with Dr XXX.",
+    seoTitle: "Eardrum Hole or Ear Discharge? Tympanoplasty in Ranchi",
+    metaDescription: "Persistent ear discharge or hearing loss may be linked to an eardrum perforation. Learn how tympanoplasty works, preparation, surgery time, recovery and cost.",
     category: "ENT",
     eyebrow: "ENT & Otology",
     heroTitle: "Tympanoplasty in Ranchi",
@@ -77,7 +78,8 @@ export const entTreatments: EntTreatment[] = [
   },
   {
     slug: "fess-sinus-surgery",
-    title: "FESS in Ranchi | Functional Endoscopic Sinus Surgery",
+    title: "FESS Surgery in Ranchi",
+    seoTitle: "Sinus Problems Not Getting Better? FESS Surgery in Ranchi",
     metaDescription: "Learn about Functional Endoscopic Sinus Surgery (FESS) in Ranchi at Hopewell Hospital, including chronic sinusitis, nasal polyps, CT and nasal endoscopy evaluation, preparation, surgery, recovery, nasal care, risks, cost guidance and consultation with Dr XXX.",
     category: "ENT",
     eyebrow: "ENT & Rhinology",

@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ procedure
   const procedure = getPaedsProcedure(slug);
   if (!procedure) return { title: "Paediatrics & Neonatology | Hopewell Hospital Ranchi" };
   return {
-    title: `${procedure.title} | Hopewell Hospital Ranchi`,
+    title: procedure.seoTitle ?? `${procedure.title} | Hopewell Hospital Ranchi`,
     description: procedure.metaDescription,
   };
 }

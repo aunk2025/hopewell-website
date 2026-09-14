@@ -13,6 +13,7 @@ export const orthoProcedures: OrthoProcedure[] = [
   {
     slug: "knee-replacement",
     title: "Knee Replacement in Ranchi",
+    seoTitle: "Knee Pain Limiting Your Life? Knee Replacement in Ranchi",
     metaDescription: "Learn about knee replacement in Ranchi at Hopewell Hospital, including indications, total and partial knee replacement, preparation, implants, surgery, hospital stay, physiotherapy, recovery, risks, cost guidance and consultation with Dr. Ashish Paal.",
     category: "Orthopaedics & Joint Replacement",
     eyebrow: "Orthopaedics & Joint Replacement",

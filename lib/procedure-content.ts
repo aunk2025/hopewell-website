@@ -21,6 +21,11 @@ export type ContentSection = { id: string | null; kicker: string; heading: strin
 export type ProcedurePage = {
   slug: string;
   title: string;
+  // Optional full <title> override — when set, used verbatim instead of
+  // the default "{title} | Hopewell Hospital Ranchi" pattern, for pages
+  // that need a custom SEO title (e.g. a search-intent question hook)
+  // that doesn't fit that suffix.
+  seoTitle?: string;
   metaDescription: string;
   category: string;
   eyebrow: string;

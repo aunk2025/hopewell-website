@@ -65,7 +65,7 @@ export default function ContactFAB() {
   return (
     <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end gap-3">
       {chatOpen && (
-        <div className="absolute bottom-full right-0 mb-3 flex h-[480px] w-[340px] flex-col overflow-hidden rounded-3xl border border-teal-700 bg-white shadow-2xl">
+        <div className="absolute bottom-full right-0 mb-3 flex h-[min(480px,70vh)] w-[340px] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-3xl border border-teal-700 bg-white shadow-2xl">
           <div className="flex items-center gap-2.5 bg-ink px-5 py-4 text-white">
             <div className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white">
               <img src="/hopewell%20logo2.png" alt="" className="h-6 w-6 object-contain" />

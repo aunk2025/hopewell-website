@@ -14,6 +14,7 @@ export const surgeryProcedures: SurgeryProcedure[] = [
   {
     slug: "gallbladder-surgery",
     title: "Laparoscopic Gallbladder Surgery in Ranchi",
+    seoTitle: "Gallstones Causing Pain? Laparoscopic Gallbladder Surgery in Ranchi",
     metaDescription: "Learn about laparoscopic gallbladder surgery in Ranchi, including symptoms, diagnosis, preparation, procedure, hospital stay, recovery, approximate cost, insurance and specialist consultation at Hopewell Hospital.",
     category: "General & Laparoscopic Surgery",
     eyebrow: "General, GI & Laparoscopic Surgery",
@@ -85,6 +86,7 @@ export const surgeryProcedures: SurgeryProcedure[] = [
   {
     slug: "hernia-surgery",
     title: "Hernia Surgery in Ranchi",
+    seoTitle: "Hernia Getting Bigger or Painful? Hernia Surgery in Ranchi",
     metaDescription: "Learn about hernia surgery in Ranchi, including symptoms, diagnosis, open and laparoscopic repair, preparation, hospital stay, recovery, approximate cost, insurance and specialist consultation at Hopewell Hospital.",
     category: "General & Laparoscopic Surgery",
     eyebrow: "General & Laparoscopic Surgery",
@@ -150,7 +152,8 @@ export const surgeryProcedures: SurgeryProcedure[] = [
   {
     slug: "appendix-surgery",
     title: "Appendix Surgery in Ranchi",
-    metaDescription: "Learn about appendix surgery in Ranchi, including appendicitis symptoms, diagnosis, laparoscopic appendectomy, preparation, hospital stay, recovery, approximate cost, insurance and specialist consultation at Hopewell Hospital.",
+    seoTitle: "Severe Appendix Pain? Appendix Surgery in Ranchi | Hopewell",
+    metaDescription: "Sudden right sided abdominal pain may need urgent attention. Understand appendix surgery, diagnosis, laparoscopic treatment, hospital stay, recovery and cost.",
     category: "General & Laparoscopic Surgery",
     eyebrow: "General & Laparoscopic Surgery",
     heroTitle: "Appendix Surgery in Ranchi",
@@ -221,6 +224,7 @@ export const surgeryProcedures: SurgeryProcedure[] = [
   {
     slug: "laser-piles-treatment",
     title: "Laser Piles Treatment in Ranchi",
+    seoTitle: "Piles Pain or Bleeding? Laser Piles Treatment in Ranchi",
     metaDescription: "Learn about laser piles treatment in Ranchi, including haemorrhoid symptoms, diagnosis, conservative care, laser treatment, preparation, recovery, approximate cost, insurance and specialist consultation at Hopewell Hospital.",
     category: "General & Laparoscopic Surgery",
     eyebrow: "Proctology & General Surgery",
@@ -290,6 +294,7 @@ export const surgeryProcedures: SurgeryProcedure[] = [
   {
     slug: "fistula-treatment",
     title: "Fistula Treatment in Ranchi",
+    seoTitle: "Recurrent Pus or Swelling? Fistula Treatment in Ranchi",
     metaDescription: "Learn about anal fistula treatment in Ranchi, including symptoms, diagnosis, MRI evaluation, fistulotomy, seton, laser treatment, preparation, recovery, approximate cost, insurance and specialist consultation at Hopewell Hospital.",
     category: "General Surgery & Proctology",
     eyebrow: "General Surgery & Proctology",
@@ -358,6 +363,7 @@ export const surgeryProcedures: SurgeryProcedure[] = [
   {
     slug: "fissure-treatment",
     title: "Fissure Treatment in Ranchi",
+    seoTitle: "Severe Pain During Stool? Fissure Treatment in Ranchi",
     metaDescription: "Learn about anal fissure treatment in Ranchi, including symptoms, diagnosis, conservative care, Botox, surgery, preparation, recovery, approximate cost, insurance and specialist consultation at Hopewell Hospital.",
     category: "General Surgery & Proctology",
     eyebrow: "General Surgery & Proctology",
@@ -497,7 +503,8 @@ export const surgeryProcedures: SurgeryProcedure[] = [
   {
     slug: "gi-surgery",
     title: "GI Surgery in Ranchi",
-    metaDescription: "Explore GI Surgery in Ranchi at Hopewell Hospital, including gallbladder, hernia, appendix, colorectal, stomach, intestinal and hepatobiliary surgery, preparation, recovery, cost guidance and specialist consultation.",
+    seoTitle: "GI Surgery in Ranchi for Complex Digestive Problems | Hopewell",
+    metaDescription: "Explore surgical treatment for gallbladder, stomach, intestine, colorectal and other GI conditions, including procedures, preparation, recovery and hospital stay.",
     category: "GI Surgery",
     eyebrow: "Centre of Excellence",
     heroTitle: "GI Surgery in Ranchi",
@@ -613,6 +620,7 @@ export const surgeryProcedures: SurgeryProcedure[] = [
   {
     slug: "varicose-vein-treatment",
     title: "Varicose Vein Treatment in Ranchi",
+    seoTitle: "Painful or Swollen Leg Veins? Varicose Vein Treatment in Ranchi",
     metaDescription: "Learn about varicose vein treatment in Ranchi, including symptoms, Doppler diagnosis, endovenous laser treatment, radiofrequency ablation, foam sclerotherapy, preparation, recovery, approximate cost, insurance and specialist consultation at Hopewell Hospital.",
     category: "General, GI & Laparoscopic Surgery",
     eyebrow: "Vascular Surgery",

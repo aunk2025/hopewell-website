@@ -8,11 +8,17 @@ import HeroVideo from "./HeroVideo";
 export default function Hero() {
   return (
     <section className="mesh relative isolate min-h-[820px] overflow-hidden">
-      <div className="absolute left-[-16rem] top-20 h-[36rem] w-[36rem] rounded-full bg-cyan/20 blur-3xl" />
-      <div className="absolute right-[-12rem] top-[-5rem] h-[38rem] w-[38rem] rounded-full bg-sky/70 blur-3xl" />
+      {/* Decorative ambient glows — sized with fixed rem offsets meant to
+          sit mostly off-screen on a wide desktop viewport. On a narrow phone
+          screen those same offsets cover a much larger share of the width,
+          washing the blur directly over the heading/paragraph text (which
+          have no background of their own to shield them). Hidden below lg
+          where they'd otherwise overlap the text instead of framing it. */}
+      <div className="absolute left-[-16rem] top-20 hidden h-[36rem] w-[36rem] rounded-full bg-cyan/20 blur-3xl lg:block" />
+      <div className="absolute right-[-12rem] top-[-5rem] hidden h-[38rem] w-[38rem] rounded-full bg-sky/70 blur-3xl lg:block" />
 
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 pb-24 pt-16 lg:grid-cols-[1.02fr_.98fr] lg:px-8 lg:pb-32 lg:pt-24">
-        <motion.div initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8 }}>
+        <motion.div initial={{ y: 26 }} animate={{ y: 0 }} transition={{ duration: .8 }}>
           <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-cyan/40 bg-white/70 px-4 py-2 text-xs font-bold uppercase tracking-[.18em] text-teal-800 backdrop-blur-xl">
             <Sparkles size={14} />
             The Future of Care in Ranchi
@@ -20,7 +26,7 @@ export default function Hero() {
 
           <h1 className="text-balance max-w-3xl text-5xl font-black leading-[.98] tracking-[-.055em] text-ink sm:text-6xl lg:text-7xl">
             Human care.
-            <span className="block bg-gradient-to-r from-teal-700 via-teal-600 to-sky-600 bg-clip-text text-transparent">
+            <span className="block">
               Engineered for tomorrow.
             </span>
           </h1>
@@ -55,8 +61,8 @@ export default function Hero() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: .92 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ scale: .92 }}
+          animate={{ scale: 1 }}
           transition={{ duration: 1, delay: .1 }}
           className="relative min-h-[500px] overflow-visible"
         >

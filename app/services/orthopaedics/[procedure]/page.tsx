@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ procedure
 
   const rich = getOrthoProcedure(slug);
   if (rich) {
-    return { title: `${rich.title} | Hopewell Hospital Ranchi`, description: rich.metaDescription };
+    return { title: rich.seoTitle ?? `${rich.title} | Hopewell Hospital Ranchi`, description: rich.metaDescription };
   }
 
   const procedure = getProcedure(slug);

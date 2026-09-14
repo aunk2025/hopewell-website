@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import DoctorsPageContent from "@/components/doctors/DoctorsPageContent";
 
 export const metadata: Metadata = {
-  title: "Our Doctors | Hopewell Hospital Ranchi",
+  title: "Find the Right Specialist Doctor in Ranchi | Hopewell",
   description:
-    "Meet Hopewell Hospital's team of specialist doctors in Ranchi, across cardiology, surgery, orthopaedics, urology, paediatrics, gastroenterology, radiology and more.",
+    "Meet Hopewell Hospital's doctors across surgery, IVF & gynaecology, orthopaedics, paediatrics, medicine, ENT, urology and other specialties in Ranchi.",
 };
 
 export default function DoctorsPage() {

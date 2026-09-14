@@ -171,7 +171,8 @@ export const vascularProcedures: VascularProcedure[] = [
   {
     slug: "deep-vein-thrombosis-treatment",
     title: "Deep Vein Thrombosis Treatment in Ranchi",
-    metaDescription: "Deep vein thrombosis treatment in Ranchi at Hopewell Hospital including DVT symptoms, venous Doppler, anticoagulation, thrombectomy or thrombolysis in selected cases and consultation with Dr XXX.",
+    seoTitle: "Sudden Leg Swelling or Pain? DVT Treatment in Ranchi | Hopewell",
+    metaDescription: "DVT can become serious if ignored. Learn about warning signs, Doppler diagnosis, blood thinners and advanced treatment options for deep vein thrombosis.",
     category: "Vascular Surgery",
     eyebrow: "Vascular Surgery",
     heroTitle: "Deep Vein Thrombosis Treatment in Ranchi",
