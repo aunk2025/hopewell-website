@@ -39,6 +39,7 @@ const explore = [
   { label: "Doctors", href: "/doctors" },
   { label: "Services", href: "/services" },
   { label: "Health Packages", href: "/health-packages" },
+  { label: "Blogs", href: "/blog" },
   { label: "Book Appointment", href: "/appointment" },
   { label: "Contact Us", href: "/contact" },
 ];

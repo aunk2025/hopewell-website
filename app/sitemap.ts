@@ -17,6 +17,7 @@ import { spineProcedures } from "@/lib/spine-procedures";
 import { surgeryProcedures } from "@/lib/surgery-procedures";
 import { urologyProcedures } from "@/lib/urology-procedures";
 import { vascularProcedures } from "@/lib/vascular-procedures";
+import { blogPosts } from "@/lib/blog-content";
 
 function mergedSlugs(rich: { slug: string }[], legacy: { slug: string }[]) {
   const richSlugs = new Set(rich.map((p) => p.slug));
@@ -36,6 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/contact",
     "/appointment",
     "/doctors",
+    "/blog",
   ];
 
   const procedureGroups: { basePath: string; slugs: string[] }[] = [
@@ -49,6 +51,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { basePath: "/services/surgeries", slugs: surgeryProcedures.map((p) => p.slug) },
     { basePath: "/services/urology", slugs: urologyProcedures.map((p) => p.slug) },
     { basePath: "/services/vascular-surgery", slugs: vascularProcedures.map((p) => p.slug) },
+    { basePath: "/blog", slugs: blogPosts.map((p) => p.slug) },
   ];
 
   // No page here tracks a real "last updated" date, so `lastModified` is
