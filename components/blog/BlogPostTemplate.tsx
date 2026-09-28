@@ -32,6 +32,15 @@ export default function BlogPostTemplate({ post }: { post: BlogPost }) {
           <Clock size={13} /> {post.readingTime}
         </div>
 
+        {post.heroImage && (
+          <img
+            src={post.heroImage}
+            alt={post.heroImageAlt ?? post.title}
+            title={post.heroImageAlt ?? post.title}
+            className="mt-6 h-56 w-full rounded-[1.5rem] border border-teal-700/30 object-cover sm:h-72"
+          />
+        )}
+
         <div className="mt-6 grid gap-3 rounded-[1.5rem] border border-teal-700 bg-white p-6 shadow-sm sm:p-8">
           {post.quickAnswer.map((p, i) => (
             <p key={i} className="leading-7 text-slate-700">
@@ -48,12 +57,14 @@ export default function BlogPostTemplate({ post }: { post: BlogPost }) {
               <span className="font-bold text-ink">Author:</span> {post.author}
             </span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-slate-600">
-            <BadgeCheck size={16} className="text-teal-700" />
-            <span>
-              <span className="font-bold text-ink">Medical reviewer:</span> {post.reviewer}
-            </span>
-          </div>
+          {post.reviewer && (
+            <div className="flex items-center gap-2 text-sm text-slate-600">
+              <BadgeCheck size={16} className="text-teal-700" />
+              <span>
+                <span className="font-bold text-ink">Medical reviewer:</span> {post.reviewer}
+              </span>
+            </div>
+          )}
         </div>
       </section>
 

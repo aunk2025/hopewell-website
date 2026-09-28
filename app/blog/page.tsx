@@ -33,18 +33,28 @@ export default function BlogIndexPage() {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="group flex flex-col rounded-[1.5rem] border border-teal-700 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-glass sm:p-7"
+              className="group flex flex-col overflow-hidden rounded-[1.5rem] border border-teal-700 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-glass"
             >
-              <div className="section-kicker mb-3 before:content-none">{post.category}</div>
-              <h2 className="text-lg font-black leading-snug text-ink">{post.title}</h2>
-              <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">{post.excerpt}</p>
-              <div className="mt-5 flex items-center justify-between border-t border-teal-700/20 pt-4">
-                <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-slate-400">
-                  <Clock size={12} /> {post.readingTime}
+              {post.heroImage && (
+                <img
+                  src={post.heroImage}
+                  alt={post.heroImageAlt ?? post.title}
+                  title={post.heroImageAlt ?? post.title}
+                  className="h-44 w-full object-cover"
+                />
+              )}
+              <div className="flex flex-1 flex-col p-6 sm:p-7">
+                <div className="section-kicker mb-3 before:content-none">{post.category}</div>
+                <h2 className="text-lg font-black leading-snug text-ink">{post.title}</h2>
+                <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">{post.excerpt}</p>
+                <div className="mt-5 flex items-center justify-between border-t border-teal-700/20 pt-4">
+                  <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-slate-400">
+                    <Clock size={12} /> {post.readingTime}
+                  </div>
+                  <span className="flex items-center gap-1 text-sm font-bold text-teal-800 transition group-hover:gap-2">
+                    Read <ArrowUpRight size={15} />
+                  </span>
                 </div>
-                <span className="flex items-center gap-1 text-sm font-bold text-teal-800 transition group-hover:gap-2">
-                  Read <ArrowUpRight size={15} />
-                </span>
               </div>
             </Link>
           ))}

@@ -54,6 +54,21 @@ export default function Block({ block }: { block: BlogBlock }) {
         </div>
       );
 
+    case "image":
+      return (
+        <figure>
+          <img
+            src={block.src}
+            alt={block.alt}
+            title={block.alt}
+            className="w-full rounded-2xl border border-teal-700/30 object-cover"
+          />
+          {block.caption && (
+            <figcaption className="mt-2 text-center text-xs text-slate-500">{block.caption}</figcaption>
+          )}
+        </figure>
+      );
+
     default:
       return null;
   }

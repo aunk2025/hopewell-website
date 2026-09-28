@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import BlogPostTemplate from "@/components/blog/BlogPostTemplate";
 import { blogPosts, getBlogPost } from "@/lib/blog-content";
-import { SITE_URL } from "@/lib/contact-config";
+import { SITE_URL, DEFAULT_OG_IMAGE } from "@/lib/contact-config";
 
 export function generateStaticParams() {
   return blogPosts.map((p) => ({ slug: p.slug }));
@@ -11,6 +11,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = getBlogPost(slug);
   if (!post) return { title: "Blog | Hopewell Hospital Ranchi" };
+  // Next.js does not merge a page's openGraph/twitter with the parent
+  // layout's, so a post without its own hero image would otherwise show no
+  // preview image at all — fall back to the site-wide default explicitly.
+  const ogImage = post.heroImage ?? DEFAULT_OG_IMAGE;
+  const ogAlt = post.heroImageAlt ?? post.title;
+
   return {
     title: post.seoTitle,
     description: post.metaDescription,
@@ -20,11 +26,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description: post.metaDescription,
       url: `${SITE_URL}/blog/${post.slug}`,
       type: "article",
+      images: [{ url: ogImage, alt: ogAlt }],
     },
     twitter: {
       card: "summary_large_image",
       title: post.seoTitle,
       description: post.metaDescription,
+      images: [ogImage],
     },
   };
 }
@@ -42,7 +50,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         headline: post.title,
         description: post.metaDescription,
         author: { "@type": "Organization", name: post.author },
-        reviewedBy: { "@type": "Person", name: post.reviewer.split(",")[0].split("—")[0].trim() },
+        ...(post.reviewer && {
+          reviewedBy: { "@type": "Person", name: post.reviewer.split(",")[0].split(/[-—]/)[0].trim() },
+        }),
         publisher: { "@type": "Hospital", name: "Hopewell Hospital", url: SITE_URL },
         mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
         about: post.category,

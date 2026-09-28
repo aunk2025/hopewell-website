@@ -9,7 +9,8 @@ export type BlogBlock =
   | { kind: "text"; text: string }
   | { kind: "bullets"; items: string[] }
   | { kind: "subheading"; text: string }
-  | { kind: "table"; rows: { left: string; right: string }[] };
+  | { kind: "table"; rows: { left: string; right: string }[] }
+  | { kind: "image"; src: string; alt: string; caption?: string };
 
 export type BlogSection = { id: string; heading: string; blocks: BlogBlock[] };
 
@@ -22,8 +23,15 @@ export type BlogPost = {
   metaDescription: string;
   category: string;
   author: string;
-  reviewer: string;
+  // Omitted until the named clinician has given documented sign-off on the
+  // article — showing a reviewer credit implies their approval, so this
+  // must not be guessed or invented.
+  reviewer?: string;
   readingTime: string;
+  // Hero image shown at the top of the article. Optional — posts without
+  // one render exactly as before when this is omitted.
+  heroImage?: string;
+  heroImageAlt?: string;
   excerpt: string;
   quickAnswer: string[];
   sections: BlogSection[];
@@ -44,6 +52,8 @@ export const blogPosts: BlogPost[] = [
     author: "Hopewell Hospital Editorial Team",
     reviewer: "Dr Shahbaz Alam, MBBS, MS, General and Laparoscopic Surgeon",
     readingTime: "8–10 min read",
+    heroImage: "/choosing-best-hospital-for-surgery-jharkhand.webp",
+    heroImageAlt: "Choosing the best hospital for surgery in Jharkhand",
     excerpt:
       "The best surgical hospital is not necessarily the biggest or cheapest. Use these 12 checks to compare hospitals, surgeons, safety systems, costs and recovery support in Jharkhand.",
     quickAnswer: [
@@ -72,6 +82,11 @@ export const blogPosts: BlogPost[] = [
           {
             kind: "text",
             text: "The biggest building, the lowest quotation or the most attractive advertisement does not automatically identify the right hospital. The hospital must be suitable for the patient's particular diagnosis, proposed operation and medical condition.",
+          },
+          {
+            kind: "image",
+            src: "/12-checks-before-choosing-surgical-hospital.webp",
+            alt: "12 checks to complete before choosing a surgical hospital",
           },
         ],
       },
@@ -386,6 +401,11 @@ export const blogPosts: BlogPost[] = [
         heading: "Why patients consider Hopewell Hospital in Ranchi",
         blocks: [
           { kind: "text", text: "[Hopewell Hospital, Ranchi](/) is a 70-bed cardiac and surgical hospital located on Hazari Baug Road, Tharpakna, Ranchi. Its care model brings specialist consultation, diagnostics, surgery, emergency care, ICU support and recovery coordination together around the patient." },
+          {
+            kind: "image",
+            src: "/hopewell-coordinated-surgical-care-journey.webp",
+            alt: "Hopewell Hospital's coordinated surgical care journey",
+          },
           { kind: "text", text: "Hopewell's available clinical services include:" },
           {
             kind: "bullets",
@@ -468,6 +488,8 @@ export const blogPosts: BlogPost[] = [
     author: "Hopewell Hospital Editorial Team",
     reviewer: "Dr Shahbaz Alam, MBBS, MS, General and Laparoscopic Surgeon",
     readingTime: "9 min read",
+    heroImage: "/laparoscopic-surgery-ranchi-patient-guide.webp",
+    heroImageAlt: "Laparoscopic surgery in Ranchi patient guide",
     excerpt:
       "Laparoscopic or keyhole surgery uses a camera and specialised instruments through small incisions. Learn which operations may be performed laparoscopically and what patients should expect.",
     quickAnswer: [
@@ -482,6 +504,11 @@ export const blogPosts: BlogPost[] = [
           { kind: "text", text: "Laparoscopic surgery is a minimally invasive technique used to examine or operate inside the abdomen or pelvis." },
           { kind: "text", text: "The surgeon usually makes a few small incisions instead of one larger incision. A thin instrument containing a camera, called a laparoscope, allows the surgical team to view the internal organs on a monitor. Other specialised instruments are passed through additional small openings to perform the procedure." },
           { kind: "text", text: "The number and size of incisions depend on the operation, the patient's condition and the surgeon's planned technique. Laparoscopic surgery may be used for diagnosis, treatment or both." },
+          {
+            kind: "image",
+            src: "/how-laparoscopic-keyhole-surgery-works.webp",
+            alt: "How laparoscopic keyhole surgery works",
+          },
         ],
       },
       {
@@ -516,7 +543,7 @@ export const blogPosts: BlogPost[] = [
               "Surgeon's assessment",
             ],
           },
-          { kind: "text", text: "Not every hernia requires immediate surgery, and not every hernia is suitable for laparoscopic repair. Learn more about [open and laparoscopic hernia surgery in Ranchi](/services/surgeries/hernia-surgery)." },
+          { kind: "text", text: "Not every hernia requires immediate surgery, and not every hernia is suitable for laparoscopic repair. Learn more about [open and laparoscopic hernia surgery in Ranchi](/services/surgeries/hernia-surgery), or read [when a hernia needs surgery and when it is an emergency](/blog/hernia-when-surgery-needed-ranchi)." },
           { kind: "subheading", text: "4. Gastrointestinal surgery" },
           { kind: "text", text: "Selected operations involving the stomach, intestines and colorectal system may be performed laparoscopically. The approach depends on the disease, its location, the extent of surgery required and the patient's condition. Complex gastrointestinal surgery may also require multidisciplinary assessment, nutritional support and postoperative critical-care monitoring. Patients can explore [gastrointestinal and GI surgery at Hopewell Hospital](/services/surgeries/gi-surgery)." },
           { kind: "subheading", text: "5. Gynaecological surgery" },
@@ -535,6 +562,11 @@ export const blogPosts: BlogPost[] = [
             ],
           },
           { kind: "text", text: "The proposed treatment depends on the diagnosis, symptoms, age, fertility plans and clinical findings. Women can read about [laparoscopic gynaecology in Ranchi](/services/ivf/laparoscopic-gynaecology)." },
+          {
+            kind: "image",
+            src: "/common-laparoscopic-surgeries-ranchi.webp",
+            alt: "Common laparoscopic surgeries performed in Ranchi",
+          },
         ],
       },
       {
@@ -887,6 +919,8 @@ export const blogPosts: BlogPost[] = [
     author: "Hopewell Hospital Editorial Team",
     reviewer: "Dr Shahbaz Alam, MBBS, MS, General and Laparoscopic Surgeon",
     readingTime: "9 min read",
+    heroImage: "/gallstones-surgery-ranchi-patient-guide.webp",
+    heroImageAlt: "Gallstones and gallbladder surgery patient guide in Ranchi",
     excerpt:
       "Silent gallstones may not require treatment, but repeated pain, infection, jaundice or pancreatitis require medical assessment. Learn when surgery may be recommended.",
     quickAnswer: [
@@ -977,6 +1011,11 @@ export const blogPosts: BlogPost[] = [
             ],
           },
           { kind: "text", text: "These symptoms may indicate inflammation, infection, bile-duct obstruction, pancreatitis or another urgent condition. For urgent assessment in Ranchi, patients can [contact Hopewell Hospital Emergency Medicine](/services/emergencymedicine). During a life-threatening emergency, call the hospital directly instead of waiting for an online response." },
+          {
+            kind: "image",
+            src: "/gallstones-emergency-warning-signs.webp",
+            alt: "Gallstone emergency warning signs to watch for",
+          },
         ],
       },
       {
@@ -1016,6 +1055,11 @@ export const blogPosts: BlogPost[] = [
             ],
           },
           { kind: "text", text: "Timing depends on the diagnosis and severity. Some patients need planned surgery, while others require urgent admission and treatment." },
+          {
+            kind: "image",
+            src: "/gallstones-monitor-review-surgery-pathway.webp",
+            alt: "Gallstones pathway from monitoring and review to surgery",
+          },
         ],
       },
       {
@@ -1274,6 +1318,8 @@ export const blogPosts: BlogPost[] = [
     author: "Hopewell Hospital Editorial Team",
     reviewer: "Dr Neha Ali — IVF, Gynaecology & Women's Health",
     readingTime: "9 min read",
+    heroImage: "/when-to-consult-ivf-specialist-jharkhand.webp",
+    heroImageAlt: "When to consult an IVF specialist in Jharkhand",
     excerpt:
       "Fertility evaluation may be considered after 12 months of trying below age 35, after six months at 35 or above, and sooner when known concerns exist.",
     quickAnswer: [
@@ -1316,6 +1362,11 @@ export const blogPosts: BlogPost[] = [
             ],
           },
           { kind: "text", text: "These are general recommendations, not rigid rules. Individual medical, reproductive and sexual history can justify earlier assessment." },
+          {
+            kind: "image",
+            src: "/when-to-see-fertility-specialist-guide.webp",
+            alt: "Guide to when you should see a fertility specialist",
+          },
         ],
       },
       {
@@ -1428,6 +1479,11 @@ export const blogPosts: BlogPost[] = [
             ],
           },
           { kind: "text", text: "Some questions may feel personal. Honest information helps the clinician choose relevant investigations and avoid unnecessary tests. Couples should bring previous prescriptions, ultrasound reports, laboratory results, operative records and earlier fertility-treatment documents." },
+          {
+            kind: "image",
+            src: "/fertility-consultation-patient-journey.webp",
+            alt: "A couple's fertility consultation patient journey",
+          },
         ],
       },
       {
@@ -1667,6 +1723,1196 @@ export const blogPosts: BlogPost[] = [
       { label: "IVF Treatment", href: "/services/ivf/ivf-treatment" },
       { label: "Laparoscopic Gynaecology", href: "/services/ivf/laparoscopic-gynaecology" },
       { label: "Fibroid Treatment", href: "/services/ivf/fibroid-treatment" },
+    ],
+  },
+
+  {
+    slug: "knee-arthritis-when-to-consider-knee-replacement-ranchi",
+    title: "Knee Arthritis: When Should You Consider Knee Replacement Surgery?",
+    seoTitle: "Knee Arthritis: When to Consider Knee Replacement",
+    metaDescription:
+      "Learn when knee arthritis may need knee replacement, signs surgery may help, tests, alternatives and recovery at Hopewell Hospital in Ranchi.",
+    category: "Orthopaedics & Joint Replacement",
+    author: "Hopewell Hospital Editorial Team",
+    readingTime: "9 min read",
+    heroImage: "/knee-arthritis-replacement-ranchi-hopewell.webp",
+    heroImageAlt: "Orthopaedic specialist discussing knee arthritis and knee replacement options with an older patient in Ranchi",
+    excerpt:
+      "Persistent knee pain does not automatically mean surgery is needed. Learn the signs that suggest knee replacement may help, what should be tried first and how the decision is made.",
+    quickAnswer: [
+      "Knee replacement is usually considered when arthritis has become severe, pain and stiffness are substantially affecting daily life, and appropriate non-surgical treatment is no longer providing enough relief. The decision should be based on symptoms, function, examination, X-rays, overall health and the patient's goals — not on age or an X-ray alone.",
+      "For people exploring knee arthritis treatment in Ranchi, an orthopaedic consultation can clarify whether continued non-surgical care, an injection, a joint-preserving option, partial knee replacement or total knee replacement is the most appropriate next step.",
+    ],
+    sections: [
+      {
+        id: "when-appropriate",
+        heading: "When may knee replacement be appropriate?",
+        blocks: [
+          { kind: "text", text: "You may be ready to discuss knee replacement surgery in Ranchi when several of the following are present:" },
+          {
+            kind: "bullets",
+            items: [
+              "Knee pain is severe or persistent and limits walking, stairs, work or household activities",
+              "Pain occurs at rest or wakes you at night",
+              "Stiffness and reduced movement are affecting independence",
+              "The knee has developed a progressive bow-leg or knock-knee deformity",
+              "X-rays show advanced joint damage that matches your symptoms",
+              "Medicines, activity changes, physiotherapy, weight management or other suitable treatments have not provided adequate relief",
+              "You understand the benefits, limitations, risks and rehabilitation required after surgery",
+            ],
+          },
+          { kind: "text", text: "No single symptom confirms the need for an operation. A knee specialist must assess the complete clinical picture and discuss what matters most to the patient." },
+          {
+            kind: "image",
+            src: "/when-to-consider-knee-replacement-guide.webp",
+            alt: "Decision guide showing symptoms, non-surgical treatment and orthopaedic assessment before knee replacement",
+          },
+        ],
+      },
+      {
+        id: "what-is-knee-arthritis",
+        heading: "What is knee arthritis?",
+        blocks: [
+          { kind: "text", text: "Arthritis is a condition in which a joint becomes painful, stiff or inflamed. Osteoarthritis is the most common form affecting the knee. It involves progressive damage to cartilage and other joint structures. As the condition advances, the space between the bones may narrow and movement can become painful." },
+          { kind: "text", text: "Other causes of serious knee damage include inflammatory arthritis, previous fractures, ligament injuries, infection-related damage and post-traumatic arthritis. Because knee pain can also arise from the hip, spine, tendons or soft tissues, a correct diagnosis should come before treatment." },
+        ],
+      },
+      {
+        id: "signs-advanced",
+        heading: "Signs that knee arthritis may be becoming advanced",
+        blocks: [
+          { kind: "text", text: "Early knee arthritis may produce discomfort after prolonged walking or activity. More advanced disease may affect mobility, rest and independence." },
+          {
+            kind: "table",
+            rows: [
+              { left: "Pain during short walks", right: "May indicate that symptoms are limiting essential daily movement" },
+              { left: "Difficulty climbing stairs or rising from a chair", right: "Often reflects pain, stiffness and reduced muscle strength" },
+              { left: "Night pain or pain at rest", right: "Suggests that symptoms are no longer limited to strenuous activity" },
+              { left: "Persistent stiffness", right: "Can reduce knee movement and make dressing, bathing or travel difficult" },
+              { left: "Recurrent swelling", right: "May accompany joint irritation, although other causes must be excluded" },
+              { left: "Bow-leg or knock-knee deformity", right: "Can indicate structural progression and altered alignment" },
+              { left: "Increasing use of a stick or support", right: "May show declining confidence, balance or mobility" },
+              { left: "Loss of independence", right: "A major factor when discussing whether the burden of symptoms justifies surgery" },
+            ],
+          },
+          { kind: "text", text: "Symptoms and X-rays do not always progress at the same rate. Some people have marked changes on an X-ray but manageable symptoms; others have substantial pain and disability with less dramatic imaging. Treatment should therefore be personalised." },
+        ],
+      },
+      {
+        id: "xray-decide",
+        heading: "Does an X-ray decide whether you need knee replacement?",
+        blocks: [
+          { kind: "text", text: "No. Weight-bearing X-rays help the orthopaedic surgeon assess joint-space narrowing, bone changes, alignment and which parts of the knee are affected. However, an X-ray is only one part of the decision." },
+          { kind: "text", text: "The surgeon will also consider:" },
+          {
+            kind: "bullets",
+            items: [
+              "Where the pain is located and how long it has been present",
+              "How far you can walk and which activities have become difficult",
+              "Whether pain interferes with sleep",
+              "Knee movement, stability, swelling and deformity",
+              "Whether symptoms could be coming from the hip, back or another condition",
+              "Treatments already tried and how you responded",
+              "Medical conditions that may influence surgery or recovery",
+              "Your expectations and willingness to participate in rehabilitation",
+            ],
+          },
+          { kind: "text", text: "MRI is not required for every person with established knee osteoarthritis. It may be advised when the diagnosis is uncertain or when the surgeon needs additional information for a particular treatment decision." },
+        ],
+      },
+      {
+        id: "before-replacement",
+        heading: "What should usually be tried before knee replacement?",
+        blocks: [
+          { kind: "text", text: "Many patients can manage knee arthritis without surgery, particularly in the earlier stages. The treatment plan depends on symptoms, health, lifestyle and the pattern of joint damage." },
+          { kind: "subheading", text: "Exercise and physiotherapy" },
+          { kind: "text", text: "Appropriate exercise can improve muscle strength, joint movement, balance and confidence. A physiotherapist may recommend quadriceps strengthening, flexibility work, gait training and low-impact activity. Exercises should be selected for the individual rather than copied from an unverified video or social-media post." },
+          { kind: "subheading", text: "Weight management" },
+          { kind: "text", text: "For a patient who is overweight, gradual and medically appropriate weight reduction may decrease the load on the knee and improve mobility. Weight is only one part of assessment and should not be used to dismiss a patient's symptoms." },
+          { kind: "subheading", text: "Medicines and pain-relief strategies" },
+          { kind: "text", text: "Pain medicines or anti-inflammatory medicines may be suitable for some patients, but they can have side effects and interactions. A doctor should advise what is safe, especially for people with kidney disease, ulcers, heart disease, blood-pressure problems or those taking blood thinners." },
+          { kind: "subheading", text: "Walking aids and activity modification" },
+          { kind: "text", text: "A walking stick, supportive footwear, pacing and changes to high-impact activities can reduce strain while helping a person stay active." },
+          { kind: "subheading", text: "Injections" },
+          { kind: "text", text: "An injection may be considered for selected patients to manage symptoms, but suitability and expected benefit vary. Injections do not rebuild worn cartilage and should not be presented as a guaranteed alternative to surgery. When these measures are appropriate but no longer control pain or preserve acceptable function, it may be reasonable to discuss joint replacement." },
+        ],
+      },
+      {
+        id: "waiting-longer",
+        heading: "When waiting longer may not be helpful",
+        blocks: [
+          { kind: "text", text: "There is no universal deadline for knee replacement. However, repeatedly postponing assessment while severe pain, deformity and immobility worsen can lead to muscle weakness, reduced fitness and greater dependence." },
+          { kind: "text", text: "An orthopaedic review is especially useful when:" },
+          {
+            kind: "bullets",
+            items: [
+              "Pain continues despite a structured treatment plan",
+              "Walking distance is steadily decreasing",
+              "Sleep is regularly disturbed",
+              "The leg is becoming visibly deformed",
+              "Work, self-care or family responsibilities are becoming difficult",
+              "The patient is relying on frequent medication without satisfactory relief",
+            ],
+          },
+          { kind: "text", text: "Consulting a surgeon does not commit a patient to surgery. It creates an opportunity to understand the stage of arthritis and compare the available options." },
+        ],
+      },
+      {
+        id: "total-vs-partial",
+        heading: "Total versus partial knee replacement",
+        blocks: [
+          { kind: "text", text: "Knee replacement resurfaces damaged areas of the joint using metal and medical-grade plastic components. The operation may be total or partial." },
+          {
+            kind: "image",
+            src: "/total-vs-partial-knee-replacement.webp",
+            alt: "Simplified comparison of total and partial knee replacement for patient education",
+          },
+          {
+            kind: "table",
+            rows: [
+              { left: "Total knee replacement", right: "Considered when arthritis affects more than one compartment or damage is extensive; damaged surfaces across the knee are replaced" },
+              { left: "Partial knee replacement", right: "Considered when arthritis is confined to one compartment and the remaining structures are suitable; only the affected compartment is replaced, and selection criteria are important" },
+            ],
+          },
+          { kind: "text", text: "A partial replacement is not automatically better because the incision or procedure may be smaller. The correct option depends on the distribution of arthritis, ligament function, deformity, bone quality and the surgeon's assessment. Learn more on Hopewell's [Knee Replacement in Ranchi](/services/orthopaedics/knee-replacement) page." },
+        ],
+      },
+      {
+        id: "evaluation",
+        heading: "What happens during a knee-replacement evaluation?",
+        blocks: [
+          { kind: "text", text: "At the first consultation, the orthopaedic specialist will usually take a detailed history, examine the knee and review or order appropriate X-rays. If surgery is being considered, the discussion should cover:" },
+          {
+            kind: "bullets",
+            items: [
+              "The diagnosis and whether pain is truly arising from the knee",
+              "Reasonable non-surgical and surgical choices",
+              "Expected pain relief and functional goals",
+              "Total versus partial replacement where relevant",
+              "Implant selection based on clinical need rather than marketing claims",
+              "Anaesthesia, hospital stay and pain-control planning",
+              "Possible complications and how risks are reduced",
+              "Rehabilitation, home support and follow-up",
+              "Likely costs and what is included in the estimate",
+            ],
+          },
+          { kind: "text", text: "Patients should bring a list of medicines, previous reports and X-rays, details of allergies and information about existing medical conditions." },
+        ],
+      },
+      {
+        id: "age-factor",
+        heading: "Is age the deciding factor?",
+        blocks: [
+          { kind: "text", text: "There is no single age at which every patient should or should not undergo knee replacement. Symptoms, joint damage, overall health, activity needs and the ability to complete rehabilitation are more useful than age alone." },
+          { kind: "text", text: "Older adults may need careful assessment of heart, lung, kidney, diabetes and medication-related risks. Younger patients may need a detailed discussion about activity expectations and the possibility that an implant could require revision later in life. The decision should be individual and shared between the patient and the clinical team." },
+        ],
+      },
+      {
+        id: "preparing",
+        heading: "Preparing safely for surgery",
+        blocks: [
+          { kind: "text", text: "If knee replacement is advised, preparation may include blood tests, X-rays, anaesthesia assessment and review of medical conditions. Patients may be asked to improve blood-sugar control, stop tobacco use, address active infections, review blood-thinning medicines, strengthen the leg and prepare the home for safe movement." },
+          { kind: "text", text: "Never stop a prescribed medicine — including aspirin or another blood thinner — without instructions from the treating doctor." },
+        ],
+      },
+      {
+        id: "recovery",
+        heading: "Recovery after knee replacement",
+        blocks: [
+          { kind: "text", text: "Recovery is a process, not a single date. Patients are commonly encouraged to begin standing and walking with support early when medically safe. The initial priorities include pain control, safe movement, swelling management, circulation, wound care and prevention of complications." },
+          { kind: "text", text: "Over the following weeks, physiotherapy focuses on knee bending and straightening, muscle strength, balance, walking pattern and gradual return to routine activity. Recovery differs according to pre-operative fitness, age, other illnesses, the type of operation and participation in rehabilitation." },
+          { kind: "text", text: "Patients should follow their own surgeon's instructions rather than comparing their recovery day by day with another person's experience." },
+        ],
+      },
+      {
+        id: "risks",
+        heading: "Risks and realistic expectations",
+        blocks: [
+          { kind: "text", text: "Knee replacement can reduce arthritis pain and improve function in appropriately selected patients, but it cannot make every knee feel exactly like a natural, unaffected joint. Possible complications include infection, blood clots, bleeding, stiffness, persistent pain, nerve or blood-vessel injury, fracture, implant wear or loosening, anaesthesia-related problems and future revision surgery." },
+          { kind: "text", text: "Before giving consent, a patient should understand personal risk factors, reasonable expected benefits, the recovery commitment and alternatives to surgery. No ethical hospital or surgeon should promise a complication-free operation or a guaranteed outcome." },
+        ],
+      },
+      {
+        id: "choosing-hospital",
+        heading: "How to choose a knee replacement hospital in Ranchi",
+        blocks: [
+          { kind: "text", text: "People often search for the “best knee replacement hospital in Ranchi,” but no hospital is the best choice for every person. A safer comparison focuses on transparent, verifiable aspects of care:" },
+          {
+            kind: "bullets",
+            items: [
+              "A qualified orthopaedic and joint-replacement team",
+              "Appropriate imaging and pre-operative assessment",
+              "Anaesthesia and medical support for existing health conditions",
+              "Infection-prevention and patient-safety protocols",
+              "Clear implant and cost counselling",
+              "Pain-management and early-mobilisation planning",
+              "Physiotherapy and rehabilitation support",
+              "Emergency and critical-care backup",
+              "Structured follow-up after discharge",
+            ],
+          },
+          { kind: "text", text: "Hopewell Hospital's [Orthopaedics & Joint Replacement](/services/orthopaedics/knee-replacement) service provides evaluation and coordinated care for arthritis, joint replacement, fractures and sports-related conditions. Its knee-replacement pathway includes clinical assessment, X-ray planning, medical fitness, implant selection, surgery, early mobilisation and physiotherapy support." },
+        ],
+      },
+      {
+        id: "knee-replacement-at-hopewell",
+        heading: "Knee replacement consultation at Hopewell Hospital, Ranchi",
+        blocks: [
+          { kind: "text", text: "[Hopewell Hospital](/) offers knee replacement care in Ranchi under its Orthopaedics & Joint Replacement service, led by [Dr. Ashish Paal](/doctors). To discuss persistent knee pain, arthritis treatment or whether joint replacement is appropriate, [view Hopewell's doctors](/doctors), [book an orthopaedic appointment](/appointment) or [contact Hopewell Hospital](/contact)." },
+          { kind: "text", text: "Hopewell Hospital is located at New Hopewell Hospital, Hazari Baug Road, Tharpakna, Ranchi, Jharkhand 834001." },
+        ],
+      },
+      {
+        id: "final-answer",
+        heading: "Final answer: when should you consider knee replacement?",
+        blocks: [
+          { kind: "text", text: "Knee replacement is usually appropriate when arthritis is advanced, pain and stiffness substantially affect daily life, and suitable non-surgical treatment no longer provides adequate relief. The decision should combine symptoms, function, examination, X-rays, overall health and the patient's own goals rather than age or imaging alone." },
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Does every person with knee arthritis need surgery?", a: "No. Many people manage symptoms with exercise, physiotherapy, weight management, medicines, activity changes or other appropriate treatments. Surgery is generally discussed when pain and loss of function remain substantial despite suitable non-surgical care." },
+      { q: "What is the main sign that it is time to discuss knee replacement?", a: "The most important sign is not an X-ray finding alone. It is persistent knee pain and disability that substantially affect daily life, together with clinical and imaging findings consistent with advanced joint damage." },
+      { q: "Can knee replacement help night pain?", a: "Knee replacement may reduce arthritis-related pain, including night pain, in appropriately selected patients. The surgeon must first confirm that the pain is coming from the knee and discuss realistic expectations." },
+      { q: "Is total knee replacement always required?", a: "No. Some patients do not need surgery, and selected patients with arthritis limited to one compartment may be candidates for partial knee replacement. The decision depends on examination, X-rays, ligaments, alignment and the location of joint damage." },
+      { q: "Can both knees be replaced at the same time?", a: "Simultaneous bilateral knee replacement may be considered in carefully selected patients, but it is not suitable for everyone. The surgeon and anaesthesia team must assess medical fitness, rehabilitation needs and individual risks." },
+      { q: "How soon can a patient walk after knee replacement?", a: "Patients are often encouraged to stand and walk with assistance early after surgery when medically safe. The exact timing and level of support vary by patient and clinical protocol." },
+      { q: "How long does complete recovery take?", a: "Early mobility begins soon after surgery, but improvement in strength, movement and confidence continues over weeks to months. Recovery varies, so the treating team should provide the patient's specific timeline." },
+      { q: "How much does knee replacement cost in Ranchi?", a: "The final cost depends on whether one or both knees are treated, total or partial replacement, implant category, room type, investigations, medicines, anaesthesia, medical conditions, physiotherapy and length of stay. Ask for a written, itemised estimate after clinical evaluation." },
+      { q: "What questions should I ask the knee surgeon?", a: "Ask about the diagnosis, alternatives, why surgery is or is not appropriate, total versus partial replacement, implant choice, personal risks, pain control, expected hospital stay, rehabilitation, follow-up and the complete cost estimate." },
+      { q: "Where can I consult a knee specialist in Ranchi?", a: "Patients can book an orthopaedic consultation at Hopewell Hospital through the appointment page or call the hospital directly." },
+    ],
+    disclaimer:
+      "This article is for general education and does not replace an examination, diagnosis or personalised treatment plan from a qualified medical professional. Sudden severe knee pain after injury, a hot and swollen joint with fever, inability to bear weight, new calf swelling or unexplained breathlessness requires prompt medical assessment.",
+    references: [
+      { title: "American Academy of Orthopaedic Surgeons (AAOS) — Total Knee Replacement", href: "https://orthoinfo.aaos.org/en/treatment/total-knee-replacement/" },
+      { title: "AAOS — Management of Osteoarthritis of the Knee (Non-Arthroplasty) Clinical Practice Guideline", href: "https://www.aaos.org/quality/quality-programs/lower-extremity-programs/osteoarthritis-of-the-knee/" },
+      { title: "NICE — Osteoarthritis in over 16s: diagnosis and management", href: "https://www.nice.org.uk/guidance/ng226" },
+    ],
+    relatedServices: [
+      { label: "Knee Replacement", href: "/services/orthopaedics/knee-replacement" },
+      { label: "Hip Replacement", href: "/services/orthopaedics/hip-replacement" },
+      { label: "Arthroscopy", href: "/services/orthopaedics/arthroscopy" },
+      { label: "ACL Reconstruction", href: "/services/orthopaedics/acl-reconstruction" },
+    ],
+  },
+
+  {
+    slug: "chest-pain-emergency-hospital-ranchi",
+    title: "Chest Pain: When Should You Go to an Emergency Hospital in Ranchi?",
+    seoTitle: "Chest Pain in Ranchi: When Is It an Emergency?",
+    metaDescription:
+      "Know the warning signs of dangerous chest pain, what to do immediately and what to expect during emergency assessment and ICU care in Ranchi.",
+    category: "Emergency & Critical Care",
+    author: "Hopewell Hospital Editorial Team",
+    readingTime: "9 min read",
+    heroImage: "/chest-pain-emergency-hospital-ranchi.webp",
+    heroImageAlt: "Emergency medical team assessing an adult with sudden chest pain at a hospital in Ranchi",
+    excerpt:
+      "Chest pain can come from the heart, lungs, food pipe, muscles or anxiety, and some causes turn dangerous quickly. Learn the warning signs that mean you should not wait.",
+    quickAnswer: [
+      "Treat chest pain as an emergency when it is sudden, severe, pressure-like or accompanied by breathlessness, sweating, nausea, faintness or pain spreading to the arm, shoulder, back, neck or jaw. Call India's emergency number 112 or arrange urgent medical help. Do not drive yourself if a heart attack or another serious condition is possible.",
+      "For people looking for a chest pain emergency hospital in Ranchi, the first priority should be timely assessment, stabilisation and a clear plan based on the patient's condition — not waiting to see whether the pain settles.",
+    ],
+    sections: [
+      {
+        id: "when-emergency",
+        heading: "Quick answer: when is chest pain an emergency?",
+        blocks: [
+          { kind: "text", text: "Seek emergency medical care immediately if chest discomfort:" },
+          {
+            kind: "bullets",
+            items: [
+              "Feels like pressure, squeezing, heaviness, tightness or crushing pain",
+              "Lasts more than a few minutes, returns, or is getting worse",
+              "Spreads to one or both arms, the shoulders, back, neck, jaw or upper abdomen",
+              "Occurs with shortness of breath, cold sweating, nausea, vomiting, dizziness or fainting",
+              "Begins during exertion or occurs at rest in a person with heart-risk factors",
+              "Occurs with a very fast, slow or irregular heartbeat and weakness",
+              "Is accompanied by sudden severe breathlessness, coughing blood or bluish lips",
+              "Follows an injury or is associated with collapse",
+              "Feels like sudden tearing pain moving toward the back",
+            ],
+          },
+          { kind: "text", text: "Do not wait for every symptom to appear. Heart emergencies do not always begin with dramatic pain." },
+          { kind: "text", text: "सीने में अचानक दबाव, जकड़न या दर्द के साथ सांस फूलना, पसीना, उल्टी, चक्कर या हाथ/जबड़े/पीठ में दर्द हो तो इंतजार न करें। 112 पर कॉल करें या तुरंत इमरजेंसी सहायता लें। खुद गाड़ी चलाकर अस्पताल न जाएं।" },
+          {
+            kind: "image",
+            src: "/chest-pain-emergency-warning-signs.webp",
+            alt: "Emergency warning signs of chest pain including pressure, spreading pain, breathlessness, sweating and faintness",
+          },
+        ],
+      },
+      {
+        id: "warning-signs-missed",
+        heading: "Heart-attack warning signs people often miss",
+        blocks: [
+          { kind: "text", text: "Many people expect a heart attack to cause sudden, unbearable left-sided pain. In reality, the discomfort may be mild, build gradually, disappear and return, or feel like gas, acidity or indigestion." },
+          {
+            kind: "table",
+            rows: [
+              { left: "Central chest discomfort", right: "Pressure, squeezing, heaviness, burning, fullness or tightness" },
+              { left: "Pain beyond the chest", right: "Discomfort in an arm, shoulder, neck, jaw, back or upper abdomen" },
+              { left: "Breathing difficulty", right: "Shortness of breath with or without obvious chest pain" },
+              { left: "Autonomic symptoms", right: "Cold sweat, nausea, vomiting, unusual weakness or light-headedness" },
+              { left: "Change in alertness", right: "Fainting, confusion, extreme drowsiness or collapse" },
+              { left: "Palpitations", right: "A racing, pounding or irregular heartbeat with discomfort or weakness" },
+            ],
+          },
+          { kind: "text", text: "Symptoms vary. Some people experience severe pain, while others mainly feel breathless, unusually tired, nauseated or faint." },
+        ],
+      },
+      {
+        id: "different-symptoms",
+        heading: "Can women, older adults and people with diabetes have different symptoms?",
+        blocks: [
+          { kind: "text", text: "Yes. Chest discomfort remains an important symptom, but women may also report breathlessness, nausea, unusual fatigue, back pain or jaw pain. Older adults and people with diabetes may have less typical or less intense pain." },
+          { kind: "text", text: "This does not mean every episode of tiredness or indigestion is a heart attack. It means that new, unexplained symptoms — especially in someone with diabetes, high blood pressure, high cholesterol, smoking history, kidney disease, obesity or previous heart disease — should not be dismissed without assessment." },
+        ],
+      },
+      {
+        id: "not-every-pain",
+        heading: "Is every chest pain a heart attack?",
+        blocks: [
+          { kind: "text", text: "No. Chest pain can have many causes, including:" },
+          {
+            kind: "bullets",
+            items: [
+              "Reduced blood flow to the heart or a heart attack",
+              "Inflammation around the heart",
+              "A blood clot in the lungs",
+              "A collapsed lung, lung infection or inflammation around the lungs",
+              "A problem affecting the body's main artery",
+              "Acidity, reflux or spasm of the food pipe",
+              "Strain or inflammation of chest-wall muscles and ribs",
+              "Shingles",
+              "Panic or anxiety",
+            ],
+          },
+          { kind: "text", text: "The difficulty is that serious and non-serious conditions can feel similar. Pain caused by acidity can resemble heart pain. Anxiety can occur during a heart emergency, and a person with a known anxiety disorder can still develop heart or lung disease. A safe diagnosis requires clinical assessment." },
+        ],
+      },
+      {
+        id: "immediate-steps",
+        heading: "What should you do immediately during sudden chest pain?",
+        blocks: [
+          { kind: "subheading", text: "1. Stop activity and sit safely" },
+          { kind: "text", text: "Ask the person to stop walking, climbing stairs or working. Let them sit in a comfortable position and remain with them." },
+          { kind: "subheading", text: "2. Call for emergency help" },
+          { kind: "text", text: "For severe symptoms, collapse or suspected heart attack, dial 112, India's integrated emergency number, or call an appropriate ambulance service. Give the exact location, symptoms and time of onset." },
+          { kind: "subheading", text: "3. Do not let the patient drive" },
+          { kind: "text", text: "Symptoms can worsen suddenly. An ambulance or another responsible adult is safer than the patient driving alone." },
+          { kind: "subheading", text: "4. Keep useful information ready" },
+          { kind: "text", text: "Note when the symptoms began. Carry the patient's medicine list, allergy information, identity documents and relevant previous reports if these are immediately available. Do not delay departure to search for paperwork." },
+          { kind: "subheading", text: "5. If the person becomes unresponsive" },
+          { kind: "text", text: "If the person is unresponsive and not breathing normally, call 112, begin CPR if trained and use an automated external defibrillator if one is available. Follow the emergency operator's instructions." },
+          {
+            kind: "image",
+            src: "/what-to-do-during-sudden-chest-pain.webp",
+            alt: "Five immediate actions for sudden chest pain: stop activity, call 112, do not drive, note onset time and start CPR if needed",
+          },
+        ],
+      },
+      {
+        id: "what-not-to-do",
+        heading: "What should you not do?",
+        blocks: [
+          {
+            kind: "bullets",
+            items: [
+              "Do not wait for the pain to become unbearable",
+              "Do not assume the pain is only gas, acidity or stress",
+              "Do not keep walking to “test” whether the pain gets worse",
+              "Do not drive yourself when serious symptoms are present",
+              "Do not take someone else's heart medicine",
+              "Do not take food, alcohol or an unprescribed remedy and wait for relief",
+              "Do not delay medical care because the first episode settled",
+            ],
+          },
+          { kind: "text", text: "Medication during suspected heart trouble must be guided by a qualified clinician or emergency professional because the correct treatment depends on the diagnosis, allergies, bleeding risk, blood pressure and medicines already being taken." },
+        ],
+      },
+      {
+        id: "emergency-assessment",
+        heading: "What happens during emergency assessment for chest pain?",
+        blocks: [
+          { kind: "text", text: "The emergency team first looks for immediate threats to breathing, circulation and consciousness. Assessment may include:" },
+          {
+            kind: "bullets",
+            items: [
+              "Rapid triage and a focused history",
+              "Pulse, blood pressure, breathing rate, temperature and oxygen-saturation checks",
+              "Physical examination",
+              "An electrocardiogram, commonly called an ECG",
+              "Blood tests, which may include a cardiac marker such as troponin",
+              "Repeat ECGs or blood tests when clinically required",
+              "Chest X-ray or other imaging for selected patients",
+              "Monitoring, observation, admission, ICU care or transfer depending on the findings",
+            ],
+          },
+          { kind: "text", text: "Not every patient needs every test. The choice and timing depend on symptoms, examination, risk factors and the suspected cause." },
+          { kind: "subheading", text: "Can one normal ECG rule out a heart attack?" },
+          { kind: "text", text: "Not always. An initial ECG can be normal or non-diagnostic in some patients. Doctors interpret it together with symptoms, examination, blood tests and changes over time. If clinical concern remains, repeat testing or observation may be necessary." },
+        ],
+      },
+      {
+        id: "icu-care",
+        heading: "When may ICU care be required?",
+        blocks: [
+          { kind: "text", text: "Some patients with chest pain are stable and can be evaluated without ICU admission. ICU or critical-care monitoring may be considered when there is:" },
+          {
+            kind: "bullets",
+            items: [
+              "Unstable blood pressure or circulation",
+              "Significant breathing difficulty or low oxygen level",
+              "An abnormal heart rhythm requiring close monitoring",
+              "Reduced consciousness or repeated collapse",
+              "Continuing or recurrent symptoms with high-risk findings",
+              "Need for intensive observation or organ support",
+              "Another serious illness identified during assessment",
+            ],
+          },
+          { kind: "text", text: "The decision is based on the patient's condition, not on the word “chest pain” alone." },
+        ],
+      },
+      {
+        id: "treatment-not-onsite",
+        heading: "What if the patient needs treatment not available at the first hospital?",
+        blocks: [
+          { kind: "text", text: "The first hospital still has an important role. Emergency teams can assess the patient, begin clinically appropriate stabilisation, monitor deterioration and determine the next level of care." },
+          { kind: "text", text: "If a required procedure, specialist or facility is not available onsite, the treating team may recommend referral or transfer to an appropriate higher centre. The urgency, destination and transfer method should be decided by the treating clinicians according to the diagnosis and the patient's stability." },
+          { kind: "text", text: "Families should not shift an unstable patient in a private vehicle without medical advice." },
+        ],
+      },
+      {
+        id: "chest-pain-at-hopewell",
+        heading: "Chest-pain emergency and ICU care at Hopewell Hospital, Ranchi",
+        blocks: [
+          { kind: "text", text: "[Hopewell Hospital](/) provides [24×7 Emergency Medicine](/services/emergencymedicine) in Ranchi. Its current chest-pain pathway is focused on:" },
+          {
+            kind: "bullets",
+            items: [
+              "Initial emergency assessment and triage",
+              "Clinically appropriate stabilisation",
+              "Vital-sign and critical-care monitoring",
+              "Diagnostic support as advised by the treating team",
+              "[ICU care](/services/icu) when clinically indicated",
+              "Referral or transfer when a patient needs a specialist service or procedure not available onsite",
+            ],
+          },
+          { kind: "text", text: "This description is deliberately limited to Hopewell's current operational scope. It should not be interpreted as a claim that every cardiac investigation or intervention is available at the hospital." },
+          { kind: "text", text: "For active or severe chest pain, do not use a routine appointment form and wait for a reply. Call 112 or seek immediate emergency assistance. [Contact Hopewell Hospital](/contact) or [get directions](https://maps.google.com/?q=New+Hopewell+Hospital+Hazari+Baug+Road+Tharpakna+Ranchi) for non-emergency planning." },
+          { kind: "text", text: "Hopewell Hospital is located at New Hopewell Hospital, Hazari Baug Road, Tharpakna, Ranchi, Jharkhand 834001." },
+        ],
+      },
+      {
+        id: "choosing-emergency-hospital",
+        heading: "How should you choose an emergency hospital for chest pain in Ranchi?",
+        blocks: [
+          { kind: "text", text: "In a time-sensitive emergency, proximity and the ability to assess and stabilise the patient matter. Useful questions include:" },
+          {
+            kind: "bullets",
+            items: [
+              "Is emergency care available at that time?",
+              "Can the team perform prompt triage and clinical assessment?",
+              "Is ECG and relevant diagnostic support available or arrangeable?",
+              "Can the patient be monitored and admitted to an ICU if needed?",
+              "Is there a defined escalation and transfer pathway if advanced care is required elsewhere?",
+              "Will the family receive clear communication about the working diagnosis and next step?",
+            ],
+          },
+          { kind: "text", text: "Do not choose solely on an advertisement that uses words such as “advanced,” “complete” or “best.” Match the hospital's verified capabilities to the patient's immediate need." },
+        ],
+      },
+      {
+        id: "recurring-mild-pain",
+        heading: "Can recurring mild chest pain wait for a clinic appointment?",
+        blocks: [
+          { kind: "text", text: "Recurring discomfort during walking, climbing stairs or emotional stress may represent angina and needs medical evaluation even if it settles with rest. New, worsening or rest pain should be treated more urgently." },
+          { kind: "text", text: "For non-emergency follow-up and risk-factor management, Hopewell provides [Diabetes & Hypertension Care](/services/general-medicine/diabetes-hypertension-care) and [Preventive Health Check-ups](/services/general-medicine/preventive-health-checkups). These services are not substitutes for emergency assessment during active warning symptoms." },
+        ],
+      },
+      {
+        id: "final-answer",
+        heading: "Final answer: when should you go to an emergency hospital for chest pain?",
+        blocks: [
+          { kind: "text", text: "Treat chest pain as an emergency when it is sudden, severe, pressure-like or spreading, or when it occurs with breathlessness, sweating, nausea, faintness or an irregular heartbeat. Call 112 or seek immediate emergency assistance rather than waiting to see whether it settles, and do not drive yourself when a serious cause is possible." },
+        ],
+      },
+    ],
+    faqs: [
+      { q: "How long should I wait before seeking help for chest pain?", a: "Do not use a fixed waiting period when chest pain is new, severe, pressure-like, recurrent or accompanied by breathlessness, sweating, nausea, faintness or spreading pain. Call 112 or seek emergency care immediately." },
+      { q: "Can gas or acidity feel like heart pain?", a: "Yes. Reflux and other digestive problems can cause burning or pressure, but heart pain can also feel like indigestion. New or unexplained symptoms should not be self-diagnosed, particularly in someone with heart-risk factors." },
+      { q: "Can a heart attack happen without severe chest pain?", a: "Yes. Symptoms may be mild, intermittent or dominated by breathlessness, nausea, sweating, fatigue, jaw pain, back pain or light-headedness." },
+      { q: "Is left-sided chest pain always from the heart?", a: "No. The location alone cannot confirm or exclude a heart problem. Heart-related discomfort may occur in the centre, left side or beyond the chest." },
+      { q: "Should I drive myself to hospital?", a: "No, not when a serious cause is possible. Call 112 or arrange emergency transport. Symptoms can worsen or lead to collapse while driving." },
+      { q: "Can stress or anxiety cause chest pain?", a: "Yes, but anxiety should not be assumed until dangerous causes have been considered. A person with anxiety can also have heart or lung disease." },
+      { q: "What tests may be done for chest pain?", a: "Depending on the situation, clinicians may use an ECG, blood tests such as troponin, chest X-ray and selected additional imaging or monitoring. Not every patient needs every test." },
+      { q: "Does a normal ECG mean there is no heart problem?", a: "Not always. Doctors interpret the ECG together with symptoms, examination and blood tests. Repeat assessment may be required when concern remains." },
+      { q: "Does Hopewell Hospital provide emergency and ICU care for chest-pain patients?", a: "Hopewell provides 24×7 emergency and critical care, initial assessment, stabilisation, monitoring and ICU care when clinically indicated. If a patient needs a service or procedure not available onsite, the treating team may advise or coordinate transfer to an appropriate higher centre." },
+      { q: "What number should I call during a medical emergency in Ranchi?", a: "Dial 112, India's integrated emergency number. Hopewell Hospital can also be contacted directly, but a person with severe symptoms should not delay emergency assistance while waiting for a routine response." },
+    ],
+    disclaimer:
+      "This article is for general education and cannot diagnose chest pain or replace urgent medical assessment. If you or another person currently has chest pain with any warning symptom described above, call 112 or seek emergency help now.",
+    references: [
+      { title: "American Heart Association — Warning Signs of a Heart Attack", href: "https://www.heart.org/en/health-topics/heart-attack/warning-signs-of-a-heart-attack" },
+      { title: "American Heart Association — Angina (Chest Pain)", href: "https://www.heart.org/en/health-topics/heart-attack/angina-chest-pain" },
+      { title: "NHS — Heart attack", href: "https://www.nhs.uk/conditions/heart-attack/" },
+      { title: "Government of India — Emergency Response Support System (Dial 112)", href: "https://www.112.gov.in/" },
+    ],
+    relatedServices: [
+      { label: "24×7 Emergency Medicine", href: "/services/emergencymedicine" },
+      { label: "ICU & Critical Care", href: "/services/icu" },
+      { label: "Diabetes & Hypertension Care", href: "/services/general-medicine/diabetes-hypertension-care" },
+      { label: "Preventive Health Check-ups", href: "/services/general-medicine/preventive-health-checkups" },
+    ],
+  },
+
+  {
+    slug: "kidney-stones-when-surgery-needed-ranchi",
+    title: "Kidney Stones: When Is Surgery Needed and When Can They Pass Naturally?",
+    seoTitle: "Kidney Stones: When Is Surgery Needed? Ranchi Guide",
+    metaDescription:
+      "Learn when kidney stones may pass naturally, warning signs needing urgent care, tests and treatment options from a urologist in Ranchi.",
+    category: "Urology & Kidney Care",
+    author: "Hopewell Hospital Editorial Team",
+    readingTime: "10 min read",
+    heroImage: "/kidney-stone-treatment-ranchi-hopewell.webp",
+    heroImageAlt: "Urologist explaining kidney-stone scan findings and treatment options to a patient in Ranchi",
+    excerpt:
+      "Some kidney stones pass on their own with medical guidance, while others need urgent drainage or a procedure. Learn what decides which path is right.",
+    quickAnswer: [
+      "Kidney-stone pain can begin suddenly and become severe within minutes. Some stones pass in the urine with appropriate medical guidance, while others block urine flow, cause infection, continue to produce pain or require a procedure. The correct decision depends on the stone's size and location, the degree of blockage, symptoms, infection, kidney function and the patient's overall health.",
+      "If you are looking for kidney stone treatment in Ranchi, do not decide from the stone size alone. A urologist should review the symptoms, examination, urine and blood tests, and appropriate imaging before recommending observation, medicine, drainage or stone removal.",
+    ],
+    sections: [
+      {
+        id: "when-procedure-needed",
+        heading: "Quick answer: when may a kidney stone need a procedure?",
+        blocks: [
+          { kind: "text", text: "A kidney-stone procedure may be considered when:" },
+          {
+            kind: "bullets",
+            items: [
+              "The stone is causing blockage with fever or urinary infection",
+              "Pain remains severe or keeps returning despite appropriate treatment",
+              "Vomiting or dehydration prevents safe care at home",
+              "Urine output is very low or has stopped",
+              "Kidney function is worsening",
+              "The patient has one functioning kidney or obstruction affecting both kidneys",
+              "The stone is unlikely to pass or has not progressed during follow-up",
+              "Persistent obstruction may harm the kidney",
+              "Observation is unsuitable because of the patient's clinical condition, occupation, travel needs or informed preference",
+            ],
+          },
+          { kind: "text", text: "An infected, obstructed urinary system is an emergency. The first urgent procedure may be drainage of urine rather than definitive removal of the stone. Stone treatment is usually planned after infection and the patient's condition have been controlled." },
+        ],
+      },
+      {
+        id: "warning-signs",
+        heading: "Kidney-stone warning signs that need urgent medical care",
+        blocks: [
+          { kind: "text", text: "Seek urgent assessment if suspected kidney-stone pain occurs with any of the following:" },
+          {
+            kind: "table",
+            rows: [
+              { left: "Fever, chills or shivering", right: "May indicate infection behind a blockage, which can become life-threatening" },
+              { left: "Severe pain that is not controlled", right: "May require hospital pain relief, imaging or an urgent procedure" },
+              { left: "Repeated vomiting or inability to drink", right: "Can cause dehydration and make oral treatment unsafe" },
+              { left: "Very little urine or inability to pass urine", right: "May indicate serious obstruction or another urinary emergency" },
+              { left: "Confusion, marked weakness, fast breathing or collapse", right: "May indicate severe infection or circulatory instability" },
+              { left: "Pain in a person with one kidney", right: "Obstruction may threaten the only functioning kidney" },
+              { left: "Pregnancy with severe flank pain or urinary symptoms", right: "Requires prompt assessment and pregnancy-appropriate imaging and treatment" },
+              { left: "Known kidney disease with new severe pain", right: "Kidney function and obstruction need careful assessment" },
+            ],
+          },
+          { kind: "text", text: "Do not wait for every symptom to appear. Severe flank pain, visible blood in the urine, fever, persistent vomiting or reduced urine output should not be self-diagnosed at home." },
+          {
+            kind: "image",
+            src: "/kidney-stone-emergency-warning-signs.webp",
+            alt: "Emergency warning signs for kidney stones including fever, uncontrolled pain, vomiting and reduced urine output",
+          },
+        ],
+      },
+      {
+        id: "what-is-kidney-stone",
+        heading: "What is a kidney stone?",
+        blocks: [
+          { kind: "text", text: "A kidney stone is a hard deposit formed from minerals and salts in the urine. Stones may remain inside the kidney without symptoms or move into the ureter, the narrow tube carrying urine from the kidney to the bladder. When a stone obstructs the ureter, it can cause renal colic: intense pain that often comes in waves." },
+          { kind: "text", text: "Kidney stones vary in composition. Common types include calcium-based stones, uric-acid stones, infection-related stones and cystine stones. The stone type can influence prevention, but symptoms and immediate treatment are determined mainly by obstruction, infection, pain, kidney function and the stone's position." },
+        ],
+      },
+      {
+        id: "symptoms",
+        heading: "What do kidney-stone symptoms feel like?",
+        blocks: [
+          { kind: "text", text: "Symptoms may include:" },
+          {
+            kind: "bullets",
+            items: [
+              "Sharp pain in the back or side below the ribs",
+              "Pain moving towards the lower abdomen or groin",
+              "Pain that comes in waves and changes in intensity",
+              "Nausea or vomiting",
+              "Blood in the urine",
+              "Burning or pain while passing urine",
+              "Frequent or urgent urination",
+              "Cloudy or foul-smelling urine",
+              "Difficulty passing urine",
+            ],
+          },
+          { kind: "text", text: "These symptoms are not unique to stones. Appendicitis, gallbladder disease, urinary infection, ovarian conditions, muscle pain and other abdominal problems can feel similar. A clinical assessment is important before assuming the cause." },
+        ],
+      },
+      {
+        id: "pass-naturally",
+        heading: "Can a kidney stone pass naturally?",
+        blocks: [
+          { kind: "text", text: "Yes, selected stones can pass without an operation. The chance depends on several factors:" },
+          {
+            kind: "bullets",
+            items: [
+              "Stone size",
+              "Location in the kidney or ureter",
+              "Shape and anatomy of the urinary tract",
+              "Whether urine flow is blocked",
+              "The degree and duration of symptoms",
+              "Infection, swelling and kidney function",
+              "Previous stone history",
+              "Whether pain and oral fluids can be managed safely",
+            ],
+          },
+          { kind: "text", text: "Smaller stones located farther down the ureter are generally more likely to pass than larger stones higher in the urinary tract. However, no single size guarantees passage or automatically proves that surgery is required. Imaging findings must be interpreted with the patient's condition." },
+          { kind: "text", text: "Observation should be an active plan, not simply “waiting.” It may include prescribed pain relief, medicines for nausea, selected medical expulsive therapy, hydration guidance, instructions to strain the urine, and a defined follow-up plan with repeat assessment or imaging." },
+        ],
+      },
+      {
+        id: "tests",
+        heading: "What tests may be needed for kidney stones?",
+        blocks: [
+          { kind: "subheading", text: "Clinical assessment" },
+          { kind: "text", text: "The clinician asks where the pain began, whether it moves, when it started, whether there is fever or vomiting, urinary symptoms, previous stones, kidney disease, pregnancy possibility, medicines and other medical conditions." },
+          { kind: "subheading", text: "Urine tests" },
+          { kind: "text", text: "Urinalysis can identify blood, signs of infection and other abnormalities. A urine culture may be required when infection is suspected. Blood in the urine can occur with stones, but its absence does not completely exclude a stone." },
+          { kind: "subheading", text: "Blood tests" },
+          { kind: "text", text: "Tests may assess kidney function, infection, hydration and relevant mineral levels. The exact panel depends on the clinical situation." },
+          { kind: "subheading", text: "Imaging" },
+          { kind: "text", text: "Imaging identifies whether a stone is present, its size and location, and whether it is causing obstruction. Ultrasound avoids radiation and is commonly used in selected patients, particularly during pregnancy and in children. A non-contrast CT scan can provide detailed information, but it is not automatically necessary for every patient. The clinician should select imaging according to age, symptoms, pregnancy status, previous imaging and urgency. Patients should bring earlier scans and reports where available, but urgent care should not be delayed to search for documents." },
+        ],
+      },
+      {
+        id: "size-alone",
+        heading: "Does the size alone decide whether surgery is needed?",
+        blocks: [
+          { kind: "text", text: "No. Stone size is important, but it is only one part of the decision. A relatively small stone can become urgent if it causes infection, persistent obstruction, uncontrolled pain or kidney impairment. A larger non-obstructing stone may sometimes be assessed electively depending on its location, symptoms, growth and patient factors." },
+          { kind: "text", text: "A urologist also considers:" },
+          {
+            kind: "bullets",
+            items: [
+              "Kidney versus ureteric location",
+              "Hydronephrosis or swelling of the kidney",
+              "Infection or sepsis risk",
+              "Pain, vomiting and ability to drink",
+              "Kidney function",
+              "One kidney or stones on both sides",
+              "Previous surgery or altered urinary anatomy",
+              "Blood-thinning medicines and anaesthesia risk",
+              "The patient's priorities after informed discussion",
+            ],
+          },
+        ],
+      },
+      {
+        id: "emergency-treatment",
+        heading: "When is kidney-stone treatment an emergency?",
+        blocks: [
+          { kind: "text", text: "The most important emergency is obstruction combined with infection. Bacteria can multiply in urine trapped above the blockage and enter the bloodstream. Antibiotics are important, but an obstructed infected kidney may also need urgent drainage." },
+          { kind: "text", text: "Emergency drainage may be achieved with a ureteric stent placed internally or a nephrostomy tube placed through the skin into the kidney. These procedures relieve pressure and allow infected urine to drain. They are not always the final stone-removal treatment." },
+          { kind: "text", text: "Definitive stone treatment is commonly delayed until infection has been treated and the patient is stable. A person who is unwell with fever, chills, confusion, low blood pressure or breathing difficulty may require close monitoring or ICU care." },
+        ],
+      },
+      {
+        id: "treatment-options",
+        heading: "What treatments are available for kidney stones?",
+        blocks: [
+          { kind: "text", text: "Treatment is personalised. The options below are general educational information and do not confirm that every procedure is available at Hopewell Hospital." },
+          {
+            kind: "image",
+            src: "/kidney-stone-treatment-pathway.webp",
+            alt: "Kidney-stone treatment pathway from assessment and imaging to observation, urgent drainage or a planned procedure",
+          },
+          {
+            kind: "table",
+            rows: [
+              { left: "Observation and medical care", right: "Considered when a selected stone appears likely to pass and there is no infection, threatened kidney function or uncontrolled symptom; requires safety instructions and follow-up rather than open-ended waiting" },
+              { left: "Shock-wave lithotripsy (SWL/ESWL)", right: "Selected kidney or ureteric stones can be broken using externally delivered shock waves; suitability depends on stone position, size, density, body factors and local equipment" },
+              { left: "Ureteroscopy with stone fragmentation or laser", right: "A small telescope is passed through the urinary passage to reach a ureteric or selected kidney stone; a temporary ureteric stent may be placed, and suitability and availability must be confirmed" },
+              { left: "Percutaneous nephrolithotomy (PCNL)", right: "Commonly considered for selected larger or complex kidney stones; uses a small tract through the back and requires appropriate expertise and hospital support" },
+              { left: "Urgent drainage", right: "Used when obstruction is accompanied by infection, threatened kidney function or another urgent concern; drainage may be the first stage, with stone removal occurring later" },
+              { left: "Open or laparoscopic stone surgery", right: "Rarely required in modern practice for selected complex circumstances, used only when less invasive approaches are unsuitable or unavailable" },
+            ],
+          },
+          { kind: "text", text: "The “least invasive” option is not automatically the best option for every stone. The aim is a safe, effective plan suited to the patient and the stone." },
+        ],
+      },
+      {
+        id: "laser-surgery",
+        heading: "What is laser kidney-stone surgery?",
+        blocks: [
+          { kind: "text", text: "“Laser kidney-stone surgery” commonly refers to ureteroscopy in which a thin endoscope is passed through the urethra and bladder into the ureter or kidney. A laser may fragment the stone, and pieces may be removed or allowed to pass." },
+          { kind: "text", text: "There is no skin incision for routine ureteroscopy, but it still involves anaesthesia, instrumentation and possible temporary stent placement. Risks can include infection, bleeding, ureteric injury, residual fragments, need for another procedure and stent-related discomfort. The treating urologist should explain alternatives and the expected plan for the individual patient." },
+          { kind: "text", text: "Do not advertise “laser” as automatically painless, risk-free, incision-free in every case or guaranteed to clear all stones in one sitting." },
+        ],
+      },
+      {
+        id: "ureteric-stent",
+        heading: "What is a ureteric stent, and why may it be needed?",
+        blocks: [
+          { kind: "text", text: "A ureteric stent is a thin flexible tube placed between the kidney and bladder to help urine drain. It may be used to relieve obstruction, support healing after a procedure or protect drainage while swelling settles." },
+          { kind: "text", text: "A stent can cause urinary frequency, urgency, burning, blood in the urine or discomfort in the bladder, side or groin. Patients should receive clear instructions about the removal or change date. A forgotten stent can become encrusted and cause serious complications." },
+          { kind: "text", text: "Seek advice if stent symptoms are severe or occur with fever, inability to pass urine, persistent vomiting or worsening illness." },
+        ],
+      },
+      {
+        id: "home-remedies",
+        heading: "Can home remedies dissolve kidney stones?",
+        blocks: [
+          { kind: "text", text: "Most stones cannot be safely diagnosed or dissolved with a home remedy. Some uric-acid stones may be dissolved through medically supervised urine alkalinisation, but this requires correct diagnosis, prescribed treatment and monitoring. Calcium stones do not simply dissolve with lemon water, herbal products or “stone-removal” mixtures." },
+          { kind: "text", text: "Do not delay urgent assessment while trying a remedy. Unregulated products may interact with medicines, affect the liver or kidneys, or give false reassurance while obstruction continues." },
+          { kind: "text", text: "During acute severe pain, do not force excessive water in the hope of pushing out a blocked stone. Follow the clinician's hydration advice, especially if vomiting, kidney impairment, heart disease or another fluid restriction is present." },
+        ],
+      },
+      {
+        id: "prevention",
+        heading: "How can recurrent kidney stones be prevented?",
+        blocks: [
+          { kind: "text", text: "Prevention should be based on the stone type and the patient's risk factors. After the acute episode, the clinician may advise stone analysis, blood tests and, for selected recurrent or high-risk patients, a 24-hour urine assessment." },
+          { kind: "text", text: "General measures may include:" },
+          {
+            kind: "bullets",
+            items: [
+              "Drinking enough fluid to maintain an appropriate urine output, unless medically restricted",
+              "Reducing excess salt intake",
+              "Maintaining normal dietary calcium rather than eliminating calcium without advice",
+              "Avoiding excessive intake of animal protein where clinically relevant",
+              "Adjusting oxalate, purine or other dietary factors according to stone type",
+              "Achieving a healthy weight gradually",
+              "Treating recurrent urinary infection or metabolic conditions",
+              "Taking preventive medicine when prescribed",
+            ],
+          },
+          { kind: "text", text: "A universal “kidney-stone diet” can be misleading. The prevention plan for calcium oxalate, uric-acid, infection and cystine stones is not identical." },
+        ],
+      },
+      {
+        id: "choosing-doctor",
+        heading: "Choosing a kidney-stone doctor or hospital in Ranchi",
+        blocks: [
+          { kind: "text", text: "People often search for the “best urologist in Ranchi” or “best kidney-stone hospital in Jharkhand,” but a safe choice should be based on verifiable factors rather than rankings or advertisements. Useful questions include:" },
+          {
+            kind: "bullets",
+            items: [
+              "Is a qualified urologist available to assess the patient?",
+              "Can urine tests, kidney-function tests and appropriate imaging be arranged?",
+              "Is emergency assessment available for fever, severe pain, vomiting or reduced urine output?",
+              "Which stone procedures are genuinely operational at the hospital?",
+              "Is anaesthesia, inpatient monitoring and critical-care support available when required?",
+              "How will infection and obstruction be managed?",
+              "What happens if a required procedure or specialist service is not available onsite?",
+              "Will the patient receive written instructions for medicines, follow-up and stent removal?",
+              "Can the hospital provide a clear, itemised estimate after clinical evaluation?",
+            ],
+          },
+          { kind: "text", text: "Do not choose only on a promise such as “100% stone clearance,” “painless treatment,” “no risk” or a fixed package advertised before assessment." },
+        ],
+      },
+      {
+        id: "kidney-stones-at-hopewell",
+        heading: "Kidney-stone evaluation at Hopewell Hospital, Ranchi",
+        blocks: [
+          { kind: "text", text: "[Hopewell Hospital](/) can be contacted for clinical assessment and guidance for kidney-stone symptoms, led by [Dr. Arvind Kumar Bhagat](/doctors) in Urology. Depending on the treating clinician's advice, evaluation may include examination, urine and blood tests, [imaging](/services#diagnostics) and a treatment plan. Emergency assessment, monitoring and ICU care may be used when clinically indicated." },
+          { kind: "text", text: "If a required procedure, specialist or facility is not available onsite, the treating team may advise or coordinate referral or transfer according to the patient's condition." },
+          { kind: "text", text: "To discuss kidney-stone symptoms, [view Hopewell's doctors](/doctors), [book an appointment](/appointment) or [contact Hopewell Hospital](/contact). If severe pain occurs with fever, chills, repeated vomiting, confusion, reduced urine output or collapse, seek urgent medical care rather than waiting for a routine online response." },
+          { kind: "text", text: "Hopewell Hospital is located at New Hopewell Hospital, Hazari Baug Road, Tharpakna, Ranchi, Jharkhand 834001." },
+        ],
+      },
+      {
+        id: "final-answer",
+        heading: "Final answer: when do kidney stones need surgery?",
+        blocks: [
+          { kind: "text", text: "Some kidney stones pass naturally with appropriate observation and medical care, while others need a procedure because of infection, persistent obstruction, uncontrolled pain or worsening kidney function. Stone size alone does not decide treatment — a urologist should combine symptoms, examination, imaging and kidney function before recommending observation, medicine, drainage or stone removal." },
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Can every kidney stone pass naturally?", a: "No. Some stones pass with appropriate observation and medical care, while others remain stuck, cause obstruction, produce infection or require a procedure. Size, location, symptoms, kidney function and imaging findings guide the decision." },
+      { q: "What size kidney stone needs surgery?", a: "There is no single size that decides treatment for every person. Larger stones are generally less likely to pass, but a smaller stone may also need urgent treatment if it causes infection, persistent obstruction, uncontrolled pain or kidney impairment." },
+      { q: "Is kidney-stone pain always felt in the back?", a: "No. Pain may begin in the side or back and move towards the abdomen, groin or genital area. Symptoms can overlap with other abdominal, urinary or gynaecological conditions." },
+      { q: "Can kidney stones cause fever?", a: "A stone itself does not usually explain fever safely. Fever or chills with suspected obstruction may indicate infection and requires urgent medical assessment." },
+      { q: "Is blood in the urine normal with a kidney stone?", a: "Blood can occur when a stone irritates the urinary tract, but visible blood should be assessed because infection, tumours and other urinary conditions can also cause it." },
+      { q: "Is CT scan necessary for every kidney stone?", a: "No. CT provides detailed information but is selected according to the clinical situation. Ultrasound or other imaging may be more appropriate in some patients, including pregnancy and childhood." },
+      { q: "Can medicines dissolve kidney stones?", a: "Most stones do not dissolve with medicine. Selected uric-acid stones may respond to medically supervised urine alkalinisation. Medicines may also be used for pain, nausea, infection or to help selected ureteric stones pass." },
+      { q: "Will I always need a stent after stone surgery?", a: "No. Stent use depends on the procedure, swelling, infection, ureteric condition and the urologist's judgement. If placed, the patient should know when and how it will be removed." },
+      { q: "Can kidney stones return after treatment?", a: "Yes. Recurrence is possible. Stone analysis, adequate fluid intake, dietary changes and selected metabolic evaluation or medicines can reduce risk, but prevention should be personalised." },
+      { q: "Where can I seek kidney-stone evaluation in Ranchi?", a: "Patients can contact Hopewell Hospital through the appointment page. For severe symptoms, use urgent medical services rather than waiting for a routine appointment." },
+    ],
+    disclaimer:
+      "This article is for general education and does not diagnose kidney stones or replace examination by a qualified clinician. Severe pain, fever, chills, persistent vomiting, reduced urine output, confusion or collapse requires urgent medical assessment.",
+    references: [
+      { title: "NIDDK — Symptoms and Causes of Kidney Stones", href: "https://www.niddk.nih.gov/health-information/urologic-diseases/kidney-stones/symptoms-causes" },
+      { title: "NIDDK — Diagnosis of Kidney Stones", href: "https://www.niddk.nih.gov/health-information/urologic-diseases/kidney-stones/diagnosis" },
+      { title: "NIDDK — Treatment for Kidney Stones", href: "https://www.niddk.nih.gov/health-information/urologic-diseases/kidney-stones/treatment" },
+      { title: "NHS — Kidney stones", href: "https://www.nhs.uk/conditions/kidney-stones/" },
+    ],
+    relatedServices: [
+      { label: "Kidney Stone Treatment", href: "/services/urology/kidney-stone-treatment" },
+      { label: "CT Scan", href: "/services/diagnostics/ct-scan" },
+      { label: "Pathology Lab", href: "/services/diagnostics/pathology-lab" },
+      { label: "24×7 Emergency Medicine", href: "/services/emergencymedicine" },
+    ],
+  },
+
+  {
+    slug: "hernia-when-surgery-needed-ranchi",
+    title: "Hernia: When Does It Need Surgery and When Is It an Emergency?",
+    seoTitle: "Hernia Surgery in Ranchi: When Is It Needed?",
+    metaDescription:
+      "Learn when a hernia needs surgery, emergency warning signs, open versus laparoscopic repair and how to choose a hernia surgeon in Ranchi.",
+    category: "General, GI and Laparoscopic Surgery",
+    author: "Hopewell Hospital Editorial Team",
+    readingTime: "10 min read",
+    heroImage: "/hernia-surgery-ranchi-hopewell-hospital.webp",
+    heroImageAlt: "General surgeon examining an adult patient with a suspected abdominal-wall hernia in Ranchi",
+    excerpt:
+      "A hernia rarely repairs itself, but that does not mean every lump needs immediate surgery. Learn the warning signs that turn a hernia into an emergency.",
+    quickAnswer: [
+      "A hernia does not usually repair itself in an adult. Not every hernia requires immediate surgery, but every new or changing lump deserves medical assessment. The decision depends on the hernia type, symptoms, whether it can be gently reduced, the risk of obstruction or strangulation, the patient's health and the impact on everyday activities.",
+      "For people considering hernia surgery in Ranchi, the safest next step is a clinical examination by a qualified general or laparoscopic surgeon rather than choosing an operation from an advertisement or scan report alone.",
+    ],
+    sections: [
+      {
+        id: "when-needed",
+        heading: "Quick answer: when may hernia surgery be needed?",
+        blocks: [
+          { kind: "text", text: "Hernia repair may be advised when:" },
+          {
+            kind: "bullets",
+            items: [
+              "Pain, dragging or discomfort is persistent or increasing",
+              "The swelling is getting larger",
+              "Work, exercise, walking, coughing or daily activities are affected",
+              "The hernia repeatedly becomes difficult to reduce",
+              "The lump no longer goes back when lying down",
+              "Episodes suggest bowel obstruction",
+              "The hernia is femoral or another type with a higher risk of complications",
+              "An incisional or umbilical hernia is symptomatic or progressively enlarging",
+              "The surgeon believes waiting carries an unacceptable risk",
+              "The patient prefers planned repair after understanding the benefits, risks and alternatives",
+            ],
+          },
+          { kind: "text", text: "Emergency surgery may be necessary when bowel or other tissue becomes trapped and loses its blood supply. Sudden severe pain, a firm irreducible lump, vomiting, abdominal swelling, fever or skin colour change over the hernia requires urgent assessment." },
+        ],
+      },
+      {
+        id: "warning-signs",
+        heading: "Hernia warning signs that require urgent medical care",
+        blocks: [
+          { kind: "text", text: "Seek emergency medical assessment when a known or suspected hernia is accompanied by:" },
+          {
+            kind: "table",
+            rows: [
+              { left: "Sudden severe or rapidly worsening pain", right: "May indicate trapped or strangulated tissue" },
+              { left: "A lump that becomes firm, very tender or cannot be reduced", right: "May represent incarceration or obstruction" },
+              { left: "Nausea or repeated vomiting", right: "Can occur when bowel is obstructed" },
+              { left: "A swollen abdomen or inability to pass stool or gas", right: "May indicate intestinal obstruction" },
+              { left: "Red, purple, dark or unusually warm skin over the swelling", right: "May accompany compromised tissue or infection" },
+              { left: "Fever, chills, marked weakness or confusion", right: "May indicate serious illness or infection" },
+              { left: "A previously soft lump that suddenly becomes larger and painful", right: "Needs prompt examination for a complication" },
+            ],
+          },
+          { kind: "text", text: "Do not force a painful hernia back into the abdomen. Do not eat, drink or take someone else's medicine while delaying emergency assessment if obstruction or strangulation is possible." },
+          {
+            kind: "image",
+            src: "/hernia-emergency-warning-signs-ranchi.webp",
+            alt: "Hernia emergency warning signs including severe pain, an irreducible lump, vomiting and abdominal swelling",
+          },
+        ],
+      },
+      {
+        id: "what-is-hernia",
+        heading: "What is a hernia?",
+        blocks: [
+          { kind: "text", text: "The abdominal wall is made of layers of muscle and connective tissue. A weakness or opening can allow fat, bowel or another internal structure to protrude. The swelling may reduce when a person lies down or with gentle pressure, but it can reappear during coughing, lifting or straining." },
+          { kind: "text", text: "Hernias are not simply “muscle swelling.” A surgeon needs to confirm the diagnosis and determine what is protruding, where the weakness lies and whether urgent treatment is required." },
+        ],
+      },
+      {
+        id: "hernia-types",
+        heading: "Common types of hernia",
+        blocks: [
+          {
+            kind: "table",
+            rows: [
+              { left: "Inguinal hernia", right: "Groin, more commonly in men — may cause a groin lump, dragging sensation or pain with activity" },
+              { left: "Femoral hernia", right: "Upper inner thigh or lower groin — less common but can have a higher risk of trapping and needs prompt surgical assessment" },
+              { left: "Umbilical hernia", right: "At or near the navel — adult hernias may enlarge or become symptomatic and should be assessed individually" },
+              { left: "Epigastric hernia", right: "Upper midline of the abdomen — often contains fat but may still cause pain or enlargement" },
+              { left: "Incisional hernia", right: "Through or near a previous surgical scar — can develop months or years after an operation and may become complex" },
+              { left: "Recurrent hernia", right: "At the site of an earlier repair — requires review of the previous operation, anatomy and reasons for recurrence" },
+              { left: "Hiatus hernia", right: "Inside the body where the stomach moves through the diaphragm — usually causes reflux-type symptoms and is different from an external abdominal-wall lump" },
+            ],
+          },
+          { kind: "text", text: "This article focuses mainly on adult groin and abdominal-wall hernias. Hernias in babies and children follow different clinical pathways and should be assessed by an appropriately qualified paediatric surgical team." },
+        ],
+      },
+      {
+        id: "symptoms",
+        heading: "What symptoms can a hernia cause?",
+        blocks: [
+          { kind: "text", text: "Symptoms may include:" },
+          {
+            kind: "bullets",
+            items: [
+              "A visible or palpable lump in the groin, navel or abdominal wall",
+              "A swelling that becomes more obvious while standing, coughing or straining",
+              "Aching, burning, heaviness or a dragging sensation",
+              "Discomfort during lifting, exercise or prolonged standing",
+              "Pain while coughing, passing stool or urinating",
+              "A feeling of weakness or pressure in the affected area",
+              "Swelling extending towards the scrotum in some inguinal hernias",
+            ],
+          },
+          { kind: "text", text: "Not every groin or abdominal lump is a hernia. Enlarged lymph nodes, cysts, lipomas, muscle injuries, vascular conditions and other problems can appear similar. Examination matters before treatment is planned." },
+        ],
+      },
+      {
+        id: "diagnosis",
+        heading: "How is a hernia diagnosed?",
+        blocks: [
+          { kind: "text", text: "Many hernias can be diagnosed through history and physical examination. The surgeon may examine the patient while standing and lying down and may ask the patient to cough or strain gently." },
+          { kind: "text", text: "Imaging is not necessary for every obvious hernia. Ultrasound, CT or another scan may be advised when:" },
+          {
+            kind: "bullets",
+            items: [
+              "The diagnosis is uncertain",
+              "The swelling is not easily seen during examination",
+              "An incisional, recurrent or complex hernia is suspected",
+              "Another cause of pain or swelling must be excluded",
+              "Emergency complications are being assessed",
+              "The surgeon needs more anatomical information for planning",
+            ],
+          },
+          { kind: "text", text: "A scan should support clinical judgement rather than replace examination." },
+        ],
+      },
+      {
+        id: "heal-without-surgery",
+        heading: "Can a hernia heal without surgery?",
+        blocks: [
+          { kind: "text", text: "An adult abdominal-wall or groin hernia usually does not close permanently on its own. Medicines may relieve pain, constipation, cough or reflux, but they do not repair the opening in the abdominal wall." },
+          { kind: "text", text: "Watchful waiting may be appropriate for selected adults with an asymptomatic or minimally symptomatic reducible inguinal hernia, particularly when the risk of surgery currently outweighs the benefit. It should include education about warning signs and planned review rather than indefinite neglect." },
+          { kind: "text", text: "Watchful waiting is not suitable for everyone. Symptomatic hernias, femoral hernias, hernias that are difficult to reduce, and hernias with obstruction or strangulation need more urgent surgical consideration. Recommendations also differ for women, children, pregnancy and patients with major medical conditions." },
+        ],
+      },
+      {
+        id: "belts-trusses",
+        heading: "Do hernia belts or trusses cure a hernia?",
+        blocks: [
+          { kind: "text", text: "No. A belt or truss does not close the defect. It may provide temporary support for a selected patient who is not currently undergoing surgery, but it can fit poorly, cause skin problems, mask progression or give false reassurance." },
+          { kind: "text", text: "Do not use a tight belt over a painful or irreducible swelling. A device should be considered only after diagnosis and professional advice." },
+        ],
+      },
+      {
+        id: "planned-surgery",
+        heading: "When is planned hernia surgery usually considered?",
+        blocks: [
+          { kind: "text", text: "Planned repair allows time for evaluation, discussion of the surgical approach and improvement of modifiable risks. A surgeon may recommend elective repair when symptoms are affecting quality of life, the hernia is enlarging, complications are becoming more likely or observation no longer suits the patient." },
+          { kind: "text", text: "The assessment considers:" },
+          {
+            kind: "bullets",
+            items: [
+              "Hernia type, size and location",
+              "Whether it is reducible",
+              "Pain pattern and effect on daily activity",
+              "Previous abdominal operations or hernia repair",
+              "Obesity, smoking, diabetes, chronic cough or constipation",
+              "Heart, lung, kidney and other medical conditions",
+              "Medicines, including blood thinners",
+              "Occupation, lifting requirements and caregiving responsibilities",
+              "Patient preferences after informed counselling",
+            ],
+          },
+          { kind: "text", text: "Seeing a surgeon does not commit a patient to surgery. It creates an opportunity to confirm the diagnosis and compare observation with repair." },
+        ],
+      },
+      {
+        id: "open-vs-laparoscopic",
+        heading: "What is the difference between open and laparoscopic hernia repair?",
+        blocks: [
+          { kind: "text", text: "Hernia repair returns the protruding tissue to the correct position and strengthens the weak area. The operation may be open or laparoscopic, often called keyhole surgery." },
+          {
+            kind: "image",
+            src: "/open-vs-laparoscopic-hernia-repair.webp",
+            alt: "Patient-education comparison of open and laparoscopic hernia repair approaches",
+          },
+          {
+            kind: "table",
+            rows: [
+              { left: "Open repair", right: "The surgeon reaches the hernia through an incision over or near the swelling; may be suitable for many primary hernias, with anaesthesia and technique depending on the case" },
+              { left: "Laparoscopic repair", right: "The surgeon uses small abdominal incisions, a camera and instruments to repair the defect from inside; may be useful for selected bilateral, recurrent or other hernias and usually requires general anaesthesia and appropriate expertise" },
+            ],
+          },
+          { kind: "text", text: "Neither approach is automatically better for every person. The decision depends on the hernia type, whether it is on one or both sides, previous repair, surgical history, anaesthesia fitness, surgeon expertise, available equipment and patient priorities." },
+          { kind: "text", text: "Laparoscopic surgery should not be advertised as “no-cut surgery.” It uses small incisions and still carries risks, requires anaesthesia and needs recovery." },
+        ],
+      },
+      {
+        id: "mesh",
+        heading: "Is mesh always used in hernia surgery?",
+        blocks: [
+          { kind: "text", text: "Mesh is commonly used in many adult hernia repairs because it reinforces the weakened area and can reduce recurrence in suitable cases. However, “mesh repair” is not one identical operation. Mesh type, size, position and fixation vary, and selected circumstances may call for a tissue repair without mesh." },
+          { kind: "text", text: "The surgeon should explain:" },
+          {
+            kind: "bullets",
+            items: [
+              "Why mesh is or is not recommended",
+              "The proposed repair technique",
+              "Alternatives that are reasonable for the individual patient",
+              "Risks of infection, seroma, chronic pain and recurrence",
+              "How prior surgery or contamination affects the plan",
+              "Which questions or symptoms require follow-up",
+            ],
+          },
+          { kind: "text", text: "Do not market a mesh brand as proof of a superior result. Implant choice should follow clinical need, regulatory requirements and hospital procurement standards." },
+        ],
+      },
+      {
+        id: "risks",
+        heading: "What are the possible risks of hernia repair?",
+        blocks: [
+          { kind: "text", text: "Most patients recover without a major complication, but no operation is risk-free. Possible problems can include:" },
+          {
+            kind: "bullets",
+            items: [
+              "Bleeding or haematoma",
+              "Wound or mesh infection",
+              "Fluid collection or seroma",
+              "Temporary swelling or bruising",
+              "Urinary retention",
+              "Injury to bowel, blood vessels, nerves or nearby structures",
+              "Numbness or persistent pain",
+              "Blood clots or anaesthesia-related complications",
+              "Recurrence of the hernia",
+              "Need for another procedure",
+            ],
+          },
+          { kind: "text", text: "The likelihood and importance of each risk vary with the type of hernia, operation, urgency, patient health and previous surgery. Consent should address the patient's individual situation rather than use only a generic list." },
+        ],
+      },
+      {
+        id: "preparation",
+        heading: "How should a patient prepare for hernia surgery?",
+        blocks: [
+          { kind: "text", text: "Preparation may include blood tests, anaesthesia assessment and review of medical conditions. Patients may be advised to:" },
+          {
+            kind: "bullets",
+            items: [
+              "Stop smoking",
+              "Improve diabetes and blood-pressure control",
+              "Treat a persistent cough",
+              "Address constipation and straining",
+              "Work towards medically appropriate weight reduction",
+              "Review blood-thinning medicines with the treating clinician",
+              "Arrange help at home and transport after discharge",
+              "Follow fasting and admission instructions exactly",
+            ],
+          },
+          { kind: "text", text: "Never stop aspirin, anticoagulants or another prescribed medicine without instructions from the treating doctor." },
+        ],
+      },
+      {
+        id: "recovery",
+        heading: "What is recovery after hernia surgery like?",
+        blocks: [
+          { kind: "text", text: "Recovery depends on the hernia, type of repair, anaesthesia, patient health and the physical demands of work. Early walking is usually encouraged when medically safe. Pain relief, wound care and gradual return to activity should follow the treating team's plan." },
+          { kind: "text", text: "Patients should receive clear instructions about wound care and bathing, medicines and constipation prevention, lifting, driving, work and exercise, diet and hydration, follow-up appointments, and warning signs that need urgent review." },
+          { kind: "text", text: "Seek medical advice for fever, worsening pain, repeated vomiting, increasing abdominal swelling, inability to pass urine, persistent bleeding, wound discharge, breathlessness or a new painful lump. Avoid comparing recovery day by day with another patient because the operation and individual risks may differ." },
+        ],
+      },
+      {
+        id: "recurrence",
+        heading: "Can a hernia come back after surgery?",
+        blocks: [
+          { kind: "text", text: "Yes, recurrence is possible after any repair. Risk can be influenced by hernia type and size, tissue quality, previous operations, surgical technique, infection, smoking, obesity, poorly controlled diabetes, chronic cough, constipation and heavy strain during recovery." },
+          { kind: "text", text: "Patients can support recovery by following activity instructions, attending follow-up, avoiding tobacco, managing weight and treating conditions that repeatedly increase abdominal pressure. These measures reduce avoidable risk but cannot guarantee that a hernia will never recur." },
+        ],
+      },
+      {
+        id: "choosing-surgeon",
+        heading: "How should you choose a hernia surgeon or hospital in Ranchi",
+        blocks: [
+          { kind: "text", text: "People frequently search for the “best hernia surgeon in Ranchi,” but no surgeon or technique is best for every patient. A safer decision uses transparent and verifiable information. Ask:" },
+          {
+            kind: "bullets",
+            items: [
+              "Is the diagnosis and hernia type clearly explained?",
+              "Are observation and surgery both discussed when appropriate?",
+              "Why is open or laparoscopic repair recommended for this patient?",
+              "Is mesh planned, and what are the alternatives and risks?",
+              "Are anaesthesia, diagnostic and inpatient services available?",
+              "Is emergency surgical assessment available if the hernia becomes trapped?",
+              "What pain-control, infection-prevention and follow-up plan is used?",
+              "What activity restrictions are expected for the patient's actual work?",
+              "What is included in the written estimate?",
+              "Who should the patient contact if symptoms worsen after discharge?",
+            ],
+          },
+          { kind: "text", text: "Avoid choosing solely from a fixed price, “scarless,” “painless,” “permanent cure,” “100% success” or “same-day recovery” advertisement." },
+        ],
+      },
+      {
+        id: "hernia-at-hopewell",
+        heading: "Hernia consultation at Hopewell Hospital, Ranchi",
+        blocks: [
+          { kind: "text", text: "[Hopewell Hospital](/)'s service profile includes [General, GI and Laparoscopic Surgery](/services/surgeries/hernia-surgery), led by [Dr Shahbaz Alam Khan](/doctors). Patients with a suspected groin, umbilical, incisional or other abdominal-wall hernia can contact the hospital for clinical evaluation and treatment planning." },
+          { kind: "text", text: "The surgeon will determine whether observation, planned repair or urgent treatment is appropriate. To discuss a hernia, [view Hopewell's doctors](/doctors), [book a surgical consultation](/appointment) or [contact Hopewell Hospital](/contact)." },
+          { kind: "text", text: "If a hernia becomes suddenly painful, firm, irreducible or is associated with vomiting, abdominal swelling, fever, confusion or skin colour change, seek emergency medical care. Do not wait for a routine online appointment response." },
+          { kind: "text", text: "Hopewell Hospital is located at New Hopewell Hospital, Hazari Baug Road, Tharpakna, Ranchi, Jharkhand 834001." },
+        ],
+      },
+      {
+        id: "final-answer",
+        heading: "Final answer: when does a hernia need surgery?",
+        blocks: [
+          { kind: "text", text: "Not every hernia needs immediate surgery, but every new or changing lump deserves medical assessment because an adult hernia rarely closes on its own. Repair becomes more urgent when the hernia is enlarging, painful, difficult to reduce or affecting daily life, and it becomes an emergency when tissue becomes trapped — signalled by sudden severe pain, a firm irreducible lump, vomiting, abdominal swelling, fever or skin colour change." },
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Does every hernia need immediate surgery?", a: "No. Selected asymptomatic or minimally symptomatic reducible hernias may be observed with medical advice. Symptomatic, enlarging, femoral, irreducible or complicated hernias generally need more active surgical consideration." },
+      { q: "Can exercise make a hernia worse?", a: "Straining may make a bulge or discomfort more noticeable. Patients should avoid activities that clearly provoke pain until assessed. A clinician can advise safe movement and work restrictions based on the individual hernia." },
+      { q: "Can medicine cure a hernia?", a: "No medicine repairs an adult abdominal-wall defect. Medicines may treat associated pain, constipation, cough or reflux, but definitive repair of a groin or abdominal-wall hernia is surgical." },
+      { q: "What does a reducible hernia mean?", a: "A reducible hernia becomes smaller or goes back when lying down or with gentle pressure. A lump that was reducible but becomes painful, firm and irreducible requires urgent medical assessment." },
+      { q: "Is every painful groin lump a hernia?", a: "No. Lymph nodes, cysts, muscle injuries and vascular or other conditions can cause a groin lump. Examination and selected imaging help confirm the cause." },
+      { q: "Is laparoscopic hernia surgery better than open surgery?", a: "Not for every patient. Each approach has advantages and limitations. Hernia type, previous repair, both-side disease, anaesthesia fitness, surgeon experience and patient priorities influence the choice." },
+      { q: "Will mesh cause problems?", a: "Mesh is widely used and most patients do not develop a serious mesh complication. Infection, pain, fluid collection and recurrence can occur. The surgeon should explain why mesh is recommended and the alternatives for the individual case." },
+      { q: "How long will recovery take?", a: "Recovery varies by hernia, procedure, health and job demands. Many patients begin walking early, but return to driving, lifting, work and exercise should follow personalised instructions rather than a fixed internet timeline." },
+      { q: "Can a hernia return after surgery?", a: "Yes. Recurrence can occur even after an appropriate repair. Smoking, obesity, infection, diabetes, chronic cough, constipation, hernia complexity and previous surgery can affect risk." },
+      { q: "Where can I consult a hernia surgeon in Ranchi?", a: "Patients can use Hopewell's appointment page for a routine surgical consultation. Sudden severe symptoms require emergency assessment rather than waiting for an appointment." },
+    ],
+    disclaimer:
+      "This article provides general education and does not diagnose a hernia or replace examination by a qualified clinician. A suddenly painful or irreducible lump, vomiting, abdominal swelling, fever, skin discolouration, confusion or collapse requires urgent medical assessment.",
+    references: [
+      { title: "NIDDK — Inguinal Hernia", href: "https://www.niddk.nih.gov/health-information/digestive-diseases/inguinal-hernia" },
+      { title: "NHS — Hernia", href: "https://www.nhs.uk/conditions/hernia/" },
+      { title: "NHS — Inguinal hernia repair", href: "https://www.nhs.uk/conditions/hernia-repair/" },
+      { title: "American College of Surgeons — Adult Inguinal and Femoral Groin Hernia Repair", href: "https://www.facs.org/for-patients/the-day-of-your-surgery/groin-hernia-repair/" },
+    ],
+    relatedServices: [
+      { label: "Hernia Surgery", href: "/services/surgeries/hernia-surgery" },
+      { label: "GI Surgery", href: "/services/surgeries/gi-surgery" },
+      { label: "Gallbladder Surgery", href: "/services/surgeries/gallbladder-surgery" },
+      { label: "Appendix Surgery", href: "/services/surgeries/appendix-surgery" },
     ],
   },
 ];

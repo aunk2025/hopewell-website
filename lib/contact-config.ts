@@ -10,6 +10,11 @@
 // the sitemap to be rejected with "URL not allowed".
 export const SITE_URL = "https://hopewellgroupofhospital.in";
 
+// Shared with app/layout.tsx (site-wide Open Graph/Twitter default) and any
+// page (e.g. blog posts without their own hero image) that wants the same
+// fallback preview image, so no page ever shows a blank share card.
+export const DEFAULT_OG_IMAGE = "/hopewell%20logo2.png";
+
 // The 24×7 number already used site-wide (Navbar top bar, Footer).
 export const EMERGENCY_PHONE = "+919199666246";
 
