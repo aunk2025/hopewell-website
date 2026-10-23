@@ -2915,6 +2915,372 @@ export const blogPosts: BlogPost[] = [
       { label: "Appendix Surgery", href: "/services/surgeries/appendix-surgery" },
     ],
   },
+
+  {
+    slug: "general-laparoscopic-gi-surgery-ranchi",
+    title: "General, Laparoscopic & GI Surgery in Ranchi: A Complete Patient Guide",
+    seoTitle: "General, Laparoscopic & GI Surgery in Ranchi: Complete Patient Guide",
+    metaDescription:
+      "Learn about general, laparoscopic and GI surgery in Ranchi, including gallbladder, hernia, appendix and gastrointestinal procedures at Hopewell Hospital.",
+    category: "General, GI and Laparoscopic Surgery",
+    author: "Hopewell Hospital Editorial Team",
+    readingTime: "9 min read",
+    heroImage: "/general-laparoscopic-gi-surgery-ranchi-hopewell.webp",
+    heroImageAlt: "General, laparoscopic and gastrointestinal surgery patient guide in Ranchi",
+    excerpt:
+      "From gallbladder stones to hernia and appendicitis, understand what general, laparoscopic and GI surgery covers and what to expect before and after an operation.",
+    quickAnswer: [
+      "When you experience persistent abdominal pain, gallbladder stones, a hernia or another gastrointestinal problem, understanding your treatment options is an important first step. At Hopewell Hospital, Ranchi, the General, GI & Laparoscopic Surgery department focuses on evaluating and treating a range of abdominal and gastrointestinal conditions, with minimally invasive surgical approaches considered wherever clinically appropriate.",
+      "This guide explains common surgical conditions, the difference between open and laparoscopic procedures, how patients are evaluated, and what to expect before and after surgery.",
+    ],
+    sections: [
+      {
+        id: "what-is-general-surgery",
+        heading: "What is general surgery?",
+        blocks: [
+          { kind: "text", text: "General surgery is a medical specialty involving the diagnosis and surgical treatment of conditions affecting areas such as the abdomen, digestive tract, gallbladder, appendix, abdominal wall and soft tissues." },
+          { kind: "text", text: "A general surgeon may assess and treat conditions including:" },
+          {
+            kind: "bullets",
+            items: [
+              "Gallbladder stones and gallbladder inflammation",
+              "Inguinal, umbilical and incisional hernias",
+              "Appendicitis",
+              "Certain gastrointestinal disorders requiring surgery",
+              "Haemorrhoids (piles), anal fissures and fistulas",
+              "Selected abdominal lumps and soft-tissue conditions",
+            ],
+          },
+          { kind: "text", text: "Not every condition requires an operation. Treatment depends on symptoms, examination findings, investigations and the patient's overall health." },
+        ],
+      },
+      {
+        id: "what-is-laparoscopic-surgery",
+        heading: "What is laparoscopic surgery?",
+        blocks: [
+          { kind: "text", text: "Laparoscopic surgery, commonly called keyhole surgery, is a minimally invasive technique in which a surgeon operates through small incisions using a camera and specialised instruments." },
+          { kind: "text", text: "Compared with conventional open surgery, laparoscopic procedures may offer advantages for appropriately selected patients, including:" },
+          {
+            kind: "bullets",
+            items: [
+              "Smaller incisions",
+              "Less postoperative discomfort",
+              "Shorter hospital stays for certain procedures",
+              "Earlier return to routine activities",
+              "Reduced wound-related complications in some circumstances",
+            ],
+          },
+          { kind: "text", text: "However, laparoscopic surgery is not suitable for every patient. Previous abdominal operations, severe infection, complex disease and other clinical factors may influence the safest approach. Sometimes a laparoscopic procedure must be converted to open surgery for patient safety." },
+          {
+            kind: "image",
+            src: "/laparoscopic-surgery-camera-instruments-incisions.webp",
+            alt: "Illustration showing laparoscopic camera, surgical instruments and small abdominal incisions",
+          },
+        ],
+      },
+      {
+        id: "common-procedures",
+        heading: "Common general and laparoscopic procedures",
+        blocks: [
+          { kind: "subheading", text: "1. Gallbladder surgery" },
+          { kind: "text", text: "Gallstones can cause pain in the upper right abdomen, particularly after meals. Some patients also experience nausea or vomiting. When gallstones produce symptoms or complications, a surgeon may recommend laparoscopic cholecystectomy, an operation to remove the gallbladder. Patients with fever, jaundice or persistent severe pain need prompt medical assessment. Learn more about [gallbladder surgery in Ranchi](/services/surgeries/gallbladder-surgery)." },
+          { kind: "subheading", text: "2. Hernia surgery" },
+          { kind: "text", text: "A hernia occurs when tissue pushes through a weakened area of muscle or surrounding tissue. Common types include inguinal, umbilical and incisional hernias. Depending on the type and complexity, hernia repair may be performed using open or laparoscopic techniques, sometimes with surgical mesh. A painful, irreducible swelling, especially with vomiting, requires emergency assessment. Read more about [hernia surgery in Ranchi](/services/surgeries/hernia-surgery), including [when a hernia needs surgery and when it is an emergency](/blog/hernia-when-surgery-needed-ranchi)." },
+          { kind: "subheading", text: "3. Appendix surgery" },
+          { kind: "text", text: "Appendicitis is inflammation of the appendix and commonly causes abdominal pain that may move toward the lower right side. Treatment may involve surgery or, in selected circumstances, antibiotics under medical supervision. Suspected appendicitis requires timely clinical evaluation because complications can develop. Learn more about [appendix surgery in Ranchi](/services/surgeries/appendix-surgery)." },
+          { kind: "subheading", text: "4. Piles, fissure and fistula treatment" },
+          { kind: "text", text: "These conditions affect the anal region but differ in their causes and management. Piles are swollen vascular cushions, fissures are tears in the anal lining, and fistulas are abnormal tracts commonly associated with previous infection. Treatment ranges from medication and lifestyle changes to office procedures or surgery. Laser-based techniques may be suitable for selected conditions but are not automatically the best option for everyone. Learn more about [laser piles treatment](/services/surgeries/laser-piles-treatment), [fistula treatment](/services/surgeries/fistula-treatment) and [fissure treatment](/services/surgeries/fissure-treatment) in Ranchi." },
+          {
+            kind: "image",
+            src: "/general-surgery-conditions-overview-ranchi.webp",
+            alt: "Illustrated overview of gallstones, hernia, appendicitis and other general surgical conditions",
+          },
+        ],
+      },
+      {
+        id: "what-is-gi-surgery",
+        heading: "What is GI surgery?",
+        blocks: [
+          { kind: "text", text: "Gastrointestinal surgery involves surgical treatment of conditions affecting the digestive system. Depending on the condition, a GI surgeon may evaluate disorders involving the stomach, small intestine, large intestine, gallbladder and other abdominal organs. Treatment can range from relatively common operations to complex procedures requiring specialised expertise and facilities." },
+          { kind: "text", text: "Patients should discuss the proposed operation, surgeon's experience, expected benefits, risks and available alternatives before proceeding. Learn more about [GI surgery in Ranchi](/services/surgeries/gi-surgery)." },
+        ],
+      },
+      {
+        id: "diagnosis",
+        heading: "How is a surgical condition diagnosed?",
+        blocks: [
+          { kind: "text", text: "The diagnostic process generally begins with a detailed consultation. Your surgeon may recommend:" },
+          {
+            kind: "bullets",
+            items: [
+              "Clinical examination and medical history",
+              "Blood tests",
+              "Ultrasound",
+              "CT imaging when indicated",
+              "Endoscopy or other specialised investigations where appropriate",
+            ],
+          },
+          { kind: "text", text: "The choice of investigation depends on the suspected condition. Not every patient needs every test." },
+        ],
+      },
+      {
+        id: "before-surgery",
+        heading: "What happens before laparoscopic surgery?",
+        blocks: [
+          { kind: "text", text: "Before surgery, the treating team reviews the diagnosis, existing medical conditions, medications, anaesthesia considerations and relevant investigation results. Patients should disclose blood-thinning medication, allergies, previous operations and other significant health information." },
+          { kind: "text", text: "Fasting instructions and medication adjustments must be provided by the treating team. Patients should not independently discontinue prescribed medicines." },
+        ],
+      },
+      {
+        id: "recovery",
+        heading: "Recovery after laparoscopic surgery",
+        blocks: [
+          { kind: "text", text: "Recovery varies significantly according to the procedure, the patient's health and whether complications occur. Some patients undergoing uncomplicated laparoscopic procedures may be discharged within a day or two, while others require longer observation or treatment." },
+          { kind: "text", text: "Your surgical team will explain wound care, medication, diet, activity restrictions and follow-up appointments." },
+          { kind: "text", text: "Seek urgent medical attention for worsening abdominal pain, persistent vomiting, breathing difficulty, significant bleeding, high fever or other concerning postoperative symptoms." },
+        ],
+      },
+      {
+        id: "surgery-at-hopewell",
+        heading: "General, GI & Laparoscopic Surgery at Hopewell Hospital, Ranchi",
+        blocks: [
+          { kind: "text", text: "[Hopewell Hospital](/) provides a point of contact for patients seeking evaluation of general surgical and gastrointestinal conditions in Ranchi and surrounding areas of Jharkhand. [Dr Shahbaz Alam Khan](/doctors) is associated with the hospital's General, GI & Laparoscopic Surgery services." },
+          { kind: "text", text: "Patients considering surgery should arrange a consultation to understand their diagnosis, treatment alternatives, expected hospital stay and likely recovery. To discuss a surgical condition, [view Hopewell's doctors](/doctors), [book an appointment](/appointment) or [contact Hopewell Hospital](/contact)." },
+          { kind: "text", text: "Hopewell Hospital is located at New Hopewell Hospital, Hazari Baug Road, Tharpakna, Ranchi, Jharkhand 834001." },
+        ],
+      },
+      {
+        id: "final-answer",
+        heading: "Final answer",
+        blocks: [
+          { kind: "text", text: "General, laparoscopic and GI surgery covers a wide range of abdominal and gastrointestinal conditions, from gallstones and hernia to appendicitis and piles. Many of these can be treated using minimally invasive techniques in suitable patients, but the safest approach always depends on individual diagnosis, examination and investigation findings rather than the condition's name alone." },
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Is laparoscopic surgery better than open surgery?", a: "Laparoscopic surgery may provide recovery-related benefits for suitable patients, but the best approach depends on the condition, complexity and clinical circumstances." },
+      { q: "How much does laparoscopic surgery cost in Ranchi?", a: "The cost varies with the procedure, investigations, room category, anaesthesia, consumables, hospital stay and potential complications. A personalised estimate should be obtained after surgical assessment." },
+      { q: "How many days does a patient stay in hospital?", a: "Some uncomplicated procedures involve short stays, but complex operations or patients with additional medical needs may require longer admission." },
+      { q: "Can gallbladder stones be treated without surgery?", a: "Not all gallstones require treatment. Symptomatic stones and certain complications often lead to a recommendation for gallbladder removal. The decision depends on medical evaluation." },
+      { q: "Does health insurance cover laparoscopic surgery?", a: "Coverage depends on the policy, diagnosis, medical necessity, exclusions, waiting periods and insurer approval. Patients should confirm eligibility with the hospital's insurance or TPA team." },
+    ],
+    disclaimer:
+      "This article provides general patient education and does not replace an examination or advice from a qualified medical professional. Treatment decisions require consultation with the treating surgical team.",
+    references: [
+      { title: "NHS — Laparoscopy: Keyhole Surgery", href: "https://www.nhs.uk/tests-and-treatments/laparoscopy/" },
+      { title: "American College of Surgeons — Questions to Ask Before Having an Operation", href: "https://www.facs.org/for-patients/surgery-faq/10-questions/" },
+      { title: "NIDDK — Treatment for Gallstones", href: "https://www.niddk.nih.gov/health-information/digestive-diseases/gallstones/treatment" },
+      { title: "NHS — Hernia", href: "https://www.nhs.uk/conditions/hernia/" },
+    ],
+    relatedServices: [
+      { label: "GI Surgery", href: "/services/surgeries/gi-surgery" },
+      { label: "Gallbladder Surgery", href: "/services/surgeries/gallbladder-surgery" },
+      { label: "Hernia Surgery", href: "/services/surgeries/hernia-surgery" },
+      { label: "Appendix Surgery", href: "/services/surgeries/appendix-surgery" },
+    ],
+  },
+
+  {
+    slug: "how-to-choose-general-laparoscopic-surgeon-ranchi",
+    title: "How to Choose a General & Laparoscopic Surgeon in Ranchi: 9 Things Every Patient Should Check",
+    seoTitle: "General Surgeon in Ranchi: 9 Things to Check Before Choosing",
+    metaDescription:
+      "Looking for a general surgeon in Ranchi? Discover 9 important questions about qualifications, laparoscopic experience, hospital safety, costs and recovery.",
+    category: "General, GI and Laparoscopic Surgery",
+    author: "Hopewell Hospital Editorial Team",
+    readingTime: "9 min read",
+    heroImage: "/choosing-general-laparoscopic-surgeon-ranchi-hopewell.webp",
+    heroImageAlt: "Illustration of a general surgeon discussing treatment options with a patient in Ranchi",
+    excerpt:
+      "Online ratings and advertisements cannot tell you everything about a surgeon's suitability for your condition. Here are 9 things worth checking first.",
+    quickAnswer: [
+      "Looking for a general surgeon in Ranchi? Whether you have gallbladder stones, a hernia, appendix-related symptoms or another abdominal condition, choosing the right surgeon is an important decision.",
+      "A better approach than relying on online ratings or advertisements alone is to understand the surgeon's qualifications, relevant experience, proposed treatment, hospital facilities and postoperative care.",
+    ],
+    sections: [
+      {
+        id: "qualifications",
+        heading: "1. Check the surgeon's medical qualifications and registration",
+        blocks: [
+          { kind: "text", text: "Start by confirming that the doctor is appropriately qualified and registered to practise medicine. General surgeons in India commonly hold an MBBS followed by a postgraduate surgical qualification such as MS in General Surgery or an equivalent recognised qualification. Additional training and experience may be relevant for specialised laparoscopic and gastrointestinal procedures." },
+          { kind: "text", text: "Questions to ask:" },
+          {
+            kind: "bullets",
+            items: [
+              "What are the surgeon's recognised qualifications?",
+              "Is the surgeon registered with the relevant medical authority?",
+              "Does the surgeon have training and experience in my particular procedure?",
+            ],
+          },
+          { kind: "text", text: "A surgeon's qualifications are important, but they should be considered alongside experience and the complexity of your condition." },
+        ],
+      },
+      {
+        id: "experience",
+        heading: "2. Look for experience with your specific condition",
+        blocks: [
+          { kind: "text", text: "General surgery covers a wide range of conditions. Experience in one procedure does not automatically establish expertise in every other operation." },
+          { kind: "text", text: "For example, a patient with gallbladder stones may require a different assessment from someone with a recurrent hernia or complex gastrointestinal disease. Ask how frequently the surgeon manages cases similar to yours and whether additional specialist input may be required." },
+          { kind: "text", text: "The goal is to find a surgeon whose clinical experience matches your diagnosis." },
+          {
+            kind: "image",
+            src: "/general-laparoscopic-surgeon-checklist-ranchi.webp",
+            alt: "Illustrated checklist showing qualifications, surgical experience and hospital support when choosing a general surgeon",
+          },
+        ],
+      },
+      {
+        id: "open-vs-laparoscopic",
+        heading: "3. Understand the difference between open and laparoscopic surgery",
+        blocks: [
+          { kind: "text", text: "Laparoscopic surgery, also called keyhole surgery, involves operating through small incisions using a camera and specialised instruments. For selected procedures and patients, laparoscopic surgery may offer benefits such as smaller incisions, reduced postoperative discomfort and faster recovery." },
+          { kind: "text", text: "However, laparoscopic surgery is not automatically the safest or most appropriate option for every patient. Open surgery may be preferable for certain complex conditions, and conversion from laparoscopic to open surgery can sometimes be necessary for safety." },
+          { kind: "text", text: "Ask your surgeon:" },
+          {
+            kind: "bullets",
+            items: [
+              "Is laparoscopic surgery suitable for my diagnosis?",
+              "What are the benefits and limitations in my case?",
+              "What circumstances might require open surgery?",
+              "What are the alternatives to an operation?",
+            ],
+          },
+          { kind: "text", text: "A good consultation should explain the reasoning behind the recommendation." },
+          {
+            kind: "image",
+            src: "/laparoscopic-vs-open-surgery-comparison.webp",
+            alt: "Medical illustration comparing laparoscopic and open abdominal surgery, including incisions and recovery considerations",
+          },
+        ],
+      },
+      {
+        id: "hospital-support",
+        heading: "4. Evaluate the hospital's surgical and anaesthesia support",
+        blocks: [
+          { kind: "text", text: "The surgeon is only one part of the surgical care team. Safe surgical treatment also depends on appropriate operating theatre arrangements, anaesthesia services, trained nursing staff, sterilisation processes, postoperative monitoring and access to escalation or referral when required." },
+          { kind: "text", text: "Before admission, ask the hospital about the support needed for your particular operation. Patients with diabetes, heart disease, respiratory illness or other significant conditions may need additional preoperative assessment." },
+          { kind: "text", text: "The relevant question is not simply whether a hospital performs surgery, but whether it can safely manage your individual clinical requirements." },
+        ],
+      },
+      {
+        id: "clear-diagnosis",
+        heading: "5. Choose a surgeon who explains your diagnosis clearly",
+        blocks: [
+          { kind: "text", text: "During your consultation, you should understand what condition is suspected or confirmed, which investigations support the diagnosis and why a particular treatment is recommended." },
+          { kind: "text", text: "A meaningful surgical discussion should cover:" },
+          {
+            kind: "bullets",
+            items: [
+              "The diagnosis and available treatment options",
+              "Expected benefits of the proposed procedure",
+              "Material risks and possible complications",
+              "Anaesthesia and hospital stay",
+              "Recovery and follow-up requirements",
+              "What may happen if treatment is delayed or declined",
+            ],
+          },
+          { kind: "text", text: "Patients should feel comfortable asking questions and seeking clarification before providing informed consent." },
+        ],
+      },
+      {
+        id: "investigations",
+        heading: "6. Ask about investigations before surgery",
+        blocks: [
+          { kind: "text", text: "Different surgical conditions require different investigations. Depending on the diagnosis, a surgeon may recommend blood tests, ultrasound, CT imaging or other investigations. The purpose of testing should be clear. Not every patient needs the same investigation package." },
+          { kind: "text", text: "Ask which tests are necessary, what they are expected to establish and whether any previous reports can be used. If you are travelling to Ranchi from another part of Jharkhand, ask which existing reports to bring to avoid unnecessary repeat visits." },
+        ],
+      },
+      {
+        id: "recovery-followup",
+        heading: "7. Discuss hospital stay, recovery and follow-up",
+        blocks: [
+          { kind: "text", text: "Recovery is not identical for every operation or patient. An uncomplicated laparoscopic procedure may allow a relatively short hospital stay, whereas complex surgery or associated medical conditions may require longer monitoring." },
+          { kind: "text", text: "Before choosing a surgeon, clarify:" },
+          {
+            kind: "bullets",
+            items: [
+              "The likely length of hospitalisation",
+              "Expected pain management",
+              "Wound care and dietary instructions",
+              "When walking and routine activities can resume",
+              "Restrictions on lifting, driving and work",
+              "When the follow-up appointment will occur",
+              "Which symptoms require urgent medical attention",
+            ],
+          },
+          { kind: "text", text: "Patients travelling from outside Ranchi should also discuss whether follow-up can be coordinated with a local healthcare professional when appropriate." },
+        ],
+      },
+      {
+        id: "cost-estimate",
+        heading: "8. Request a clear surgical cost estimate",
+        blocks: [
+          { kind: "text", text: "Surgical expenses can vary according to the diagnosis, procedure, anaesthesia, consumables, room category, investigations, length of stay and complications. Ask for a written estimate wherever possible. It should explain what is included, what may be charged separately and which circumstances could change the final bill." },
+          { kind: "text", text: "If you plan to use health insurance, TPA or a government-supported scheme, confirm the hospital's current eligibility and authorisation process before admission." },
+          { kind: "text", text: "Avoid choosing a surgeon solely because the quoted package is the cheapest. Clinical suitability, safety and transparent communication are equally important." },
+        ],
+      },
+      {
+        id: "communication-continuity",
+        heading: "9. Assess communication and continuity of care",
+        blocks: [
+          { kind: "text", text: "A surgical patient's journey does not end when the operation is completed. Good continuity of care includes discharge instructions, medication counselling, follow-up planning and a clear contact pathway if complications are suspected." },
+          { kind: "text", text: "Ask who will review you after surgery, how you can raise postoperative concerns and what to do if an urgent problem occurs after discharge. This is particularly important for patients from other districts of Jharkhand." },
+        ],
+      },
+      {
+        id: "surgery-at-hopewell",
+        heading: "General & Laparoscopic Surgery at Hopewell Hospital, Ranchi",
+        blocks: [
+          { kind: "text", text: "Patients seeking evaluation for general surgical, abdominal or gastrointestinal conditions can contact [Hopewell Hospital](/) in Tharpakna, Ranchi. The hospital's [General, GI & Laparoscopic Surgery](/services/surgeries/gi-surgery) services are associated with [Dr Shahbaz Alam Khan](/doctors)." },
+          { kind: "text", text: "A surgical consultation can help determine the diagnosis, assess whether an operation is required, discuss the appropriate technique and explain the expected treatment pathway. Patients should confirm the availability of the relevant specialist, procedure and hospital support before planning admission. For a broader overview, read [the complete patient guide to general, laparoscopic and GI surgery](/blog/general-laparoscopic-gi-surgery-ranchi)." },
+          { kind: "text", text: "Hopewell Hospital is located at Hazari Baug Road, Tharpakna, Ranchi, Jharkhand 834001. To discuss a surgical condition, [view Hopewell's doctors](/doctors), [book an appointment](/appointment) or [contact Hopewell Hospital](/contact)." },
+        ],
+      },
+      {
+        id: "final-checklist",
+        heading: "Final checklist before choosing your surgeon",
+        blocks: [
+          { kind: "text", text: "Before making a decision, make sure you understand:" },
+          {
+            kind: "bullets",
+            items: [
+              "The surgeon's qualifications and relevant experience",
+              "Your diagnosis and available treatment options",
+              "Why the proposed procedure is recommended",
+              "The risks, benefits and alternatives",
+              "The hospital support required for your operation",
+              "The expected hospital stay and recovery",
+              "The estimated cost and insurance arrangements",
+              "The postoperative follow-up plan",
+              "How urgent concerns will be handled",
+            ],
+          },
+          { kind: "text", text: "Need a surgical consultation in Ranchi? [Contact Hopewell Hospital](/contact) to discuss appointment availability and the appropriate next steps." },
+        ],
+      },
+    ],
+    faqs: [
+      { q: "Who should consult a general surgeon?", a: "Patients may be referred to a general surgeon for conditions such as symptomatic gallstones, hernias, suspected appendicitis, certain abdominal lumps and other disorders that may require surgical assessment." },
+      { q: "How do I find a qualified general surgeon in Ranchi?", a: "Check the surgeon's recognised qualifications, medical registration, experience with your condition and the hospital's ability to provide appropriate perioperative care." },
+      { q: "Is a laparoscopic surgeon different from a general surgeon?", a: "A laparoscopic surgeon is a surgeon trained and experienced in minimally invasive techniques. Many general surgeons perform laparoscopic procedures, although the extent of their experience varies." },
+      { q: "Is laparoscopic surgery always better?", a: "No. It can offer benefits for suitable patients, but the safest approach depends on the diagnosis, disease severity, previous operations and other clinical factors." },
+      { q: "How much does general or laparoscopic surgery cost in Ranchi?", a: "Costs vary considerably by procedure, hospital, clinical complexity and length of stay. Obtain an individualised estimate after assessment." },
+      { q: "Should I get a second opinion before surgery?", a: "A second opinion can be helpful, particularly for elective or complex surgery, when treatment options are unclear or when you need more information to make a decision. Emergency conditions may require prompt treatment." },
+    ],
+    disclaimer:
+      "This article provides general patient education and does not replace individual medical advice. Sudden severe abdominal pain, persistent vomiting, fever with worsening pain or other alarming symptoms require prompt medical assessment.",
+    references: [
+      { title: "NHS — Laparoscopy: Keyhole Surgery", href: "https://www.nhs.uk/tests-and-treatments/laparoscopy/" },
+      { title: "American College of Surgeons — Questions to Ask Before Having an Operation", href: "https://www.facs.org/for-patients/surgery-faq/10-questions/" },
+    ],
+    relatedServices: [
+      { label: "GI Surgery", href: "/services/surgeries/gi-surgery" },
+      { label: "Gallbladder Surgery", href: "/services/surgeries/gallbladder-surgery" },
+      { label: "Hernia Surgery", href: "/services/surgeries/hernia-surgery" },
+      { label: "Appendix Surgery", href: "/services/surgeries/appendix-surgery" },
+    ],
+  },
 ];
 
 export function getBlogPost(slug: string) {

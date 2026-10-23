@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowUpRight, Search } from "lucide-react";
 import { geist } from "@/lib/fonts";
+import { sortByDepartment } from "@/lib/doctor-order";
 
 type Doctor = {
   id: number;
@@ -11,9 +12,6 @@ type Doctor = {
   qualifications: string;
   imageUrl: string;
 };
-
-/* Doctors whose names match these (in order) are pinned to the front of the list. */
-const FEATURED_NAMES = ["neha ali", "shahbaz alam", "md arif tauheed"];
 
 function initials(name: string) {
   return name
@@ -40,17 +38,7 @@ export default function Doctors() {
       .catch(() => setDoctors([]));
   }, []);
 
-  const ordered = useMemo(() => {
-    const rank = (d: Doctor) =>
-      FEATURED_NAMES.findIndex((n) => d.name.toLowerCase().includes(n));
-    return [...doctors].sort((a, b) => {
-      const ra = rank(a), rb = rank(b);
-      if (ra === -1 && rb === -1) return 0;
-      if (ra === -1) return 1;
-      if (rb === -1) return -1;
-      return ra - rb;
-    });
-  }, [doctors]);
+  const ordered = useMemo(() => sortByDepartment(doctors), [doctors]);
 
   const filtered = useMemo(() =>
     ordered.filter(d => `${d.name} ${d.specialty} ${d.qualifications}`.toLowerCase().includes(query.toLowerCase())),

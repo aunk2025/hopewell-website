@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Search, Star, GraduationCap, Clock } from "lucide-react";
+import { DEPARTMENTS, matchesDepartment, sortByDepartment } from "@/lib/doctor-order";
 
 type Doctor = {
   id: number;
@@ -15,16 +16,7 @@ type Doctor = {
   imageUrl: string;
 };
 
-const SPECIALTIES = [
-  "All",
-  "Cardiology",
-  "Cardiac Surgery",
-  "General Surgery",
-  "Critical Care",
-  "Orthopaedics",
-  "Neurology",
-  "Radiology",
-];
+const SPECIALTIES = ["All", ...DEPARTMENTS.map((d) => d.label)];
 
 function DoctorCard({ doc, onClick }: { doc: Doctor; onClick: () => void }) {
   const initials = doc.name
@@ -135,14 +127,14 @@ export default function DoctorsPageContent() {
   useEffect(() => {
     fetch("/api/doctors")
       .then((r) => (r.ok ? r.json() : { doctors: [] }))
-      .then(({ doctors }) => { setDoctors(doctors ?? []); setFiltered(doctors ?? []); })
+      .then(({ doctors }) => { const sorted = sortByDepartment((doctors ?? []) as Doctor[]); setDoctors(sorted); setFiltered(sorted); })
       .catch(() => { setDoctors([]); setFiltered([]); })
       .finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
     let list = doctors;
-    if (specialty !== "All") list = list.filter((d) => d.specialty === specialty);
+    if (specialty !== "All") list = list.filter((d) => matchesDepartment(d.specialty, specialty));
     if (search) list = list.filter((d) => d.name.toLowerCase().includes(search.toLowerCase()) || d.specialty.toLowerCase().includes(search.toLowerCase()));
     setFiltered(list);
   }, [specialty, search, doctors]);
