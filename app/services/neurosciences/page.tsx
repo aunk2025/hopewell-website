@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ChevronRight } from "lucide-react";
+import { buildStaticMetadata, buildSimpleJsonLd } from "@/lib/procedure-seo";
 
 const keyServices = [
   {
@@ -21,15 +22,23 @@ const keyServices = [
   },
 ];
 
-export const metadata = {
-  title: "Neurosciences | Hopewell Hospital Ranchi",
-  description:
-    "Comprehensive neurosciences care at Hopewell Hospital: stroke care, neurology, neurosurgery and advanced neuro-diagnostics.",
-};
+const TITLE = "Neurosciences";
+const DESCRIPTION =
+  "Comprehensive neurosciences care at Hopewell Hospital: stroke care, neurology, neurosurgery and advanced neuro-diagnostics.";
+const PATH = "/services/neurosciences";
+
+export const metadata = buildStaticMetadata(TITLE, DESCRIPTION, PATH);
 
 export default function NeurosciencesPage() {
+  const jsonLd = buildSimpleJsonLd(TITLE, DESCRIPTION, PATH);
+
   return (
     <main className="min-h-screen bg-[#faf5ef]">
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
 
       {/* Hero banner */}

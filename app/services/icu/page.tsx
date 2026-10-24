@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ChevronRight } from "lucide-react";
+import { buildStaticMetadata, buildSimpleJsonLd } from "@/lib/procedure-seo";
 
 const keyServices = [
   {
@@ -21,15 +22,23 @@ const keyServices = [
   },
 ];
 
-export const metadata = {
-  title: "ICU | Hopewell Hospital Ranchi",
-  description:
-    "Comprehensive critical care at Hopewell Hospital: 24x7 ICU monitoring, ventilator and organ support, and specialised intensive care for critically ill patients.",
-};
+const TITLE = "ICU";
+const DESCRIPTION =
+  "Comprehensive critical care at Hopewell Hospital: 24x7 ICU monitoring, ventilator and organ support, and specialised intensive care for critically ill patients.";
+const PATH = "/services/icu";
+
+export const metadata = buildStaticMetadata(TITLE, DESCRIPTION, PATH);
 
 export default function IcuPage() {
+  const jsonLd = buildSimpleJsonLd(TITLE, DESCRIPTION, PATH);
+
   return (
     <main className="min-h-screen bg-[#faf5ef]">
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
 
       {/* Hero banner */}

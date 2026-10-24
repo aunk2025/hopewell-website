@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import ProcedurePageTemplate from "@/components/services/ProcedurePageTemplate";
 import { getSpineProcedure, spineProcedures } from "@/lib/spine-procedures";
+import { buildProcedureMetadata } from "@/lib/procedure-seo";
 
 export function generateStaticParams() {
   return spineProcedures.map((p) => ({ procedure: p.slug }));
@@ -10,10 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ procedure
   const { procedure: slug } = await params;
   const procedure = getSpineProcedure(slug);
   if (!procedure) return { title: "Spine | Hopewell Hospital Ranchi" };
-  return {
-    title: procedure.seoTitle ?? `${procedure.title} | Hopewell Hospital Ranchi`,
-    description: procedure.metaDescription,
-  };
+  return buildProcedureMetadata(procedure, `/services/spine/${slug}`);
 }
 
 export default async function SpineProcedurePage({ params }: { params: Promise<{ procedure: string }> }) {
@@ -25,6 +23,7 @@ export default async function SpineProcedurePage({ params }: { params: Promise<{
     <ProcedurePageTemplate
       procedure={procedure}
       categoryHref="/services"
+      canonicalPath={`/services/spine/${slug}`}
       consultationLabel="Book Spine Consultation"
     />
   );

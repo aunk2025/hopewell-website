@@ -2,18 +2,55 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Phone, MessageCircle, Send, X } from "lucide-react";
+import { Phone, MessageCircle, Send, X, Mic } from "lucide-react";
 
 const PHONE_NUMBER = "+919199666246";
 const WHATSAPP_NUMBER = "919199666246";
 const WHATSAPP_MESSAGE = "Hi, I'd like to know more about Hopewell Hospital.";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
+type LanguageCode = "en" | "hi";
 
-const GREETING: ChatMessage = {
-  role: "assistant",
-  content: "Hi! I'm the Hopewell Hospital assistant. Ask me about our services, doctors, or how to book an appointment.",
+// speechLang is the BCP-47 tag the browser's speech-recognition engine
+// expects — distinct from the `language` field sent to the chatbot API.
+const LANGUAGES: { code: LanguageCode; label: string; speechLang: string }[] = [
+  { code: "en", label: "EN", speechLang: "en-IN" },
+  { code: "hi", label: "हिं", speechLang: "hi-IN" },
+];
+
+const UI_TEXT: Record<LanguageCode, {
+  title: string;
+  subtitle: string;
+  placeholder: string;
+  listening: string;
+  typing: string;
+  greeting: string;
+}> = {
+  en: {
+    title: "Hopewell Assistant",
+    subtitle: "Ask about services & doctors",
+    placeholder: "Type your question…",
+    listening: "Listening…",
+    typing: "Typing…",
+    greeting: "Hi! I'm the Hopewell Hospital assistant. Ask me about our services, doctors, or how to book an appointment.",
+  },
+  hi: {
+    title: "होपवेल सहायक",
+    subtitle: "सेवाओं और डॉक्टरों के बारे में पूछें",
+    placeholder: "अपना सवाल लिखें…",
+    listening: "सुन रहे हैं…",
+    typing: "लिख रहे हैं…",
+    greeting: "नमस्ते! मैं होपवेल हॉस्पिटल का सहायक हूँ। हमारी सेवाओं, डॉक्टरों या अपॉइंटमेंट बुक करने के बारे में पूछें।",
+  },
 };
+
+// Vendor-prefixed in most browsers that support it at all (Chrome/Edge/
+// Safari); unsupported entirely in Firefox, so the mic button only
+// renders once this is confirmed present on the client.
+function getSpeechRecognition(): any {
+  if (typeof window === "undefined") return null;
+  return (window as any).SpeechRecognition ?? (window as any).webkitSpeechRecognition ?? null;
+}
 
 function WhatsAppIcon() {
   return (
@@ -26,23 +63,85 @@ function WhatsAppIcon() {
 export default function ContactFAB() {
   const pathname = usePathname();
   const [chatOpen, setChatOpen] = useState(false);
-  const [messages, setMessages] = useState<ChatMessage[]>([GREETING]);
+  const [language, setLanguage] = useState<LanguageCode>("en");
+  const [messages, setMessages] = useState<ChatMessage[]>([{ role: "assistant", content: UI_TEXT.en.greeting }]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
+  const [listening, setListening] = useState(false);
+  const [speechSupported, setSpeechSupported] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
+  const recognitionRef = useRef<any>(null);
+  const t = UI_TEXT[language];
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, chatOpen]);
 
+  useEffect(() => {
+    setSpeechSupported(!!getSpeechRecognition());
+    return () => recognitionRef.current?.stop();
+  }, []);
+
   if (pathname?.startsWith("/admin")) return null;
+
+  // Switching language only resets the greeting while the conversation
+  // hasn't actually started yet — real history is left alone so a mid-chat
+  // switch doesn't erase what the visitor already said.
+  function changeLanguage(next: LanguageCode) {
+    setLanguage(next);
+    setMessages((m) => (m.length === 1 ? [{ role: "assistant", content: UI_TEXT[next].greeting }] : m));
+  }
+
+  function toggleListening() {
+    const SpeechRecognition = getSpeechRecognition();
+    if (!SpeechRecognition) return;
+    if (listening) {
+      recognitionRef.current?.stop();
+      return;
+    }
+    const recognition = new SpeechRecognition();
+    recognition.lang = LANGUAGES.find((l) => l.code === language)?.speechLang ?? "en-IN";
+    recognition.interimResults = true;
+    recognition.continuous = false;
+    recognition.onresult = (event: any) => {
+      const transcript = Array.from(event.results as any)
+        .map((r: any) => r[0].transcript)
+        .join("");
+      setInput(transcript);
+    };
+    recognition.onend = () => setListening(false);
+    recognition.onerror = (event: any) => {
+      setListening(false);
+      const reason = event?.error;
+      if (reason === "not-allowed" || reason === "service-not-allowed") {
+        setError("Microphone access was blocked. Please allow microphone permission in your browser and try again.");
+      } else if (reason === "no-speech") {
+        setError("No speech detected. Please try again.");
+      } else if (reason === "audio-capture") {
+        setError("No microphone was found on this device.");
+      } else if (reason === "network") {
+        setError("Voice input needs an internet connection to reach the browser's speech service.");
+      } else {
+        setError(`Voice input failed (${reason ?? "unknown error"}). Please try again or type your message.`);
+      }
+    };
+    try {
+      recognitionRef.current = recognition;
+      recognition.start();
+      setListening(true);
+    } catch {
+      setListening(false);
+      setError("Could not start voice input. Please try again.");
+    }
+  }
 
   async function send() {
     const text = input.trim();
     if (!text || sending) return;
     setError("");
     setInput("");
+    const isGreeting = (m: ChatMessage) => Object.values(UI_TEXT).some((u) => u.greeting === m.content);
     const next = [...messages, { role: "user" as const, content: text }];
     setMessages(next);
     setSending(true);
@@ -50,7 +149,7 @@ export default function ContactFAB() {
       const res = await fetch("/api/chatbot", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: next.filter((m) => m !== GREETING) }),
+        body: JSON.stringify({ messages: next.filter((m) => !isGreeting(m)), language }),
       });
       const json = await res.json();
       if (!res.ok) throw new Error(json.error ?? "Something went wrong");
@@ -71,10 +170,23 @@ export default function ContactFAB() {
               <img src="/hopewell%20logo2.png" alt="" className="h-6 w-6 object-contain" />
             </div>
             <div className="flex-1">
-              <div className="text-sm font-black">Hopewell Assistant</div>
-              <div className="text-[11px] text-white/50">Ask about services & doctors</div>
+              <div className="text-sm font-black">{t.title}</div>
+              <div className="text-[11px] text-white/50">{t.subtitle}</div>
             </div>
-            <button type="button" onClick={() => setChatOpen(false)} aria-label="Close chat" className="grid h-8 w-8 place-items-center rounded-full text-white/60 hover:bg-white/10 hover:text-white">
+            <div className="flex shrink-0 overflow-hidden rounded-full border border-white/20 text-[11px] font-bold">
+              {LANGUAGES.map((l) => (
+                <button
+                  key={l.code}
+                  type="button"
+                  onClick={() => changeLanguage(l.code)}
+                  aria-pressed={language === l.code}
+                  className={`px-2.5 py-1 transition ${language === l.code ? "bg-white text-ink" : "text-white/60 hover:text-white"}`}
+                >
+                  {l.label}
+                </button>
+              ))}
+            </div>
+            <button type="button" onClick={() => setChatOpen(false)} aria-label="Close chat" className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-white/60 hover:bg-white/10 hover:text-white">
               <X size={16} />
             </button>
           </div>
@@ -93,7 +205,7 @@ export default function ContactFAB() {
             ))}
             {sending && (
               <div className="flex justify-start">
-                <div className="rounded-2xl bg-slate-100 px-4 py-2.5 text-sm text-slate-400">Typing…</div>
+                <div className="rounded-2xl bg-slate-100 px-4 py-2.5 text-sm text-slate-400">{t.typing}</div>
               </div>
             )}
             {error && <p className="text-center text-xs text-red-500">{error}</p>}
@@ -107,9 +219,22 @@ export default function ContactFAB() {
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Type your question…"
+              placeholder={listening ? t.listening : t.placeholder}
               className="flex-1 rounded-full border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-teal-400"
             />
+            {speechSupported && (
+              <button
+                type="button"
+                onClick={toggleListening}
+                aria-pressed={listening}
+                aria-label={listening ? "Stop voice input" : "Start voice input"}
+                className={`grid h-10 w-10 shrink-0 place-items-center rounded-full transition ${
+                  listening ? "animate-pulse bg-red-500 text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200"
+                }`}
+              >
+                <Mic size={16} />
+              </button>
+            )}
             <button
               type="submit"
               disabled={sending || !input.trim()}

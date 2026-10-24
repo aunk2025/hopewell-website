@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import ProcedurePageTemplate from "@/components/services/ProcedurePageTemplate";
 import { getPaedsProcedure, paedsProcedures } from "@/lib/paeds-procedures";
+import { buildProcedureMetadata } from "@/lib/procedure-seo";
 
 export function generateStaticParams() {
   return paedsProcedures.map((p) => ({ procedure: p.slug }));
@@ -10,10 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ procedure
   const { procedure: slug } = await params;
   const procedure = getPaedsProcedure(slug);
   if (!procedure) return { title: "Paediatrics & Neonatology | Hopewell Hospital Ranchi" };
-  return {
-    title: procedure.seoTitle ?? `${procedure.title} | Hopewell Hospital Ranchi`,
-    description: procedure.metaDescription,
-  };
+  return buildProcedureMetadata(procedure, `/services/motherchild/${slug}`);
 }
 
 export default async function PaedsProcedurePage({ params }: { params: Promise<{ procedure: string }> }) {
@@ -25,6 +23,7 @@ export default async function PaedsProcedurePage({ params }: { params: Promise<{
     <ProcedurePageTemplate
       procedure={procedure}
       categoryHref="/services"
+      canonicalPath={`/services/motherchild/${slug}`}
       consultationLabel="Book Paediatric Consultation"
     />
   );

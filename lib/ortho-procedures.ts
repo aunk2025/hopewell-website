@@ -357,22 +357,22 @@ export const orthoProcedures: OrthoProcedure[] = [
     finalCta: { heading: "Have a fracture that may need surgery?", text: "Book an orthopaedic consultation with Dr. Ashish Paal to review your X-rays or CT and understand whether casting, fixation or another treatment is appropriate." },
   },
   {
-    slug: "sports-injury-treatment",
-    title: "Sports Injury Treatment in Ranchi",
-    metaDescription: "Learn about sports injury treatment in Ranchi at Hopewell Hospital, including acute and overuse injuries, diagnosis, physiotherapy, injections, arthroscopy, ligament and tendon repair, rehabilitation, return to sport, prevention, cost guidance and consultation with Dr. Ashish Paal.",
+    slug: "sports-medicine",
+    title: "Sports Medicine in Ranchi",
+    metaDescription: "Learn about sports medicine in Ranchi at Hopewell Hospital, including acute and overuse injuries, diagnosis, physiotherapy, injections, arthroscopy, ligament and tendon repair, rehabilitation, return to sport, prevention, cost guidance and consultation with Dr. Ashish Paal.",
     category: "Orthopaedics & Joint Replacement",
     eyebrow: "Sports Medicine & Rehabilitation",
-    heroTitle: "Sports Injury Treatment in Ranchi",
-    heroCopy: "Comprehensive care for acute and overuse sports injuries—from diagnosis and pain control to physiotherapy, arthroscopy, ligament or tendon repair and safe return to sport.",
+    heroTitle: "Sports Medicine in Ranchi",
+    heroCopy: "Comprehensive sports medicine care for acute and overuse sports injuries—from diagnosis and pain control to physiotherapy, arthroscopy, ligament or tendon repair and safe return to sport.",
     heroCardKicker: "From injury to return-to-play",
-    heroCardTitle: "Sports Injury Care at Hopewell",
+    heroCardTitle: "Sports Medicine at Hopewell",
     heroCardText: "Clinical assessment, imaging, conservative treatment, sports physiotherapy, arthroscopic surgery where required and milestone-based return-to-play planning.",
     doctorName: "Dr. Ashish Paal",
     doctorSpecialtyMini: "Orthopaedics, Arthroscopy & Sports Medicine",
     heroTags: ["Ligament injuries", "Muscle & tendon injuries", "Arthroscopy", "Return-to-sport rehab"],
-    facts: [{ label: "Care Type", value: "Sports Injury" }, { label: "Diagnosis", value: "Exam + Imaging" }, { label: "Treatment", value: "Non-Surgical / Surgical" }, { label: "Rehab", value: "Sport-Specific" }, { label: "Surgery*", value: "When Indicated" }, { label: "Return to Sport", value: "Criteria-Based" }],
+    facts: [{ label: "Care Type", value: "Sports Medicine" }, { label: "Diagnosis", value: "Exam + Imaging" }, { label: "Treatment", value: "Non-Surgical / Surgical" }, { label: "Rehab", value: "Sport-Specific" }, { label: "Surgery*", value: "When Indicated" }, { label: "Return to Sport", value: "Criteria-Based" }],
     sections: [
-    { id: "overview", kicker: "Overview", heading: "What is sports injury treatment?", blocks: [
+    { id: "overview", kicker: "Overview", heading: "What is sports medicine?", blocks: [
       { kind: "text", text: "Sports injury treatment focuses on injuries caused by training, competition or repetitive physical activity. The goal is not only to reduce pain but to restore strength, stability, movement quality and confidence so that the athlete can return safely to sport." }
     ] },
     { id: "injuries", kicker: "Common Sports Injuries", heading: "Injuries we commonly evaluate", blocks: [
@@ -406,13 +406,13 @@ export const orthoProcedures: OrthoProcedure[] = [
     { id: "risks", kicker: "Risks & Setbacks", heading: "Why some injuries take longer to recover", blocks: [
       { kind: "text", text: "Recovery can be delayed by returning too early, inadequate rehabilitation, poor movement control, repeated overload, smoking, poor sleep, nutritional issues or incomplete healing. Surgical procedures also carry risks such as infection, stiffness, failure of repair or re-injury." }
     ] },
-    { id: "cost", kicker: "Cost Guidance", heading: "Understanding sports injury treatment cost", blocks: [
+    { id: "cost", kicker: "Cost Guidance", heading: "Understanding sports medicine cost", blocks: [
       { kind: "cost", range: "Depends on Injury", note: "Cost varies according to consultations, imaging, physiotherapy, injections, braces, arthroscopy, implants, ligament or tendon repair and length of rehabilitation.", insuranceTitle: "Insurance / TPA / Ayushman", insuranceNote: "Coverage depends on the diagnosis, medical necessity, surgery or implant requirements, policy or scheme rules, empanelment and pre-authorisation." }
     ] },
-    { id: "why-hopewell", kicker: "Why Hopewell", heading: "Why choose Hopewell for sports injury treatment?", blocks: [
+    { id: "why-hopewell", kicker: "Why Hopewell", heading: "Why choose Hopewell for sports medicine?", blocks: [
       { kind: "grid", items: [{ title: "Sports medicine pathway", text: "Diagnosis, treatment and rehabilitation are coordinated around return to function." }, { title: "Arthroscopy capability", text: "Minimally invasive surgical options are available when structural repair is needed." }, { title: "Imaging-supported decisions", text: "MRI, X-ray and clinical findings guide treatment rather than symptoms alone." }, { title: "Rehabilitation integration", text: "Physiotherapy is built into the treatment plan from the start." }, { title: "Return-to-sport testing", text: "Clearance can be based on strength, movement and functional milestones." }, { title: "Injury prevention focus", text: "Patients are guided on reducing recurrence and improving performance safely." }] }
     ] },
-    { id: "doctor", kicker: "Doctor", heading: "Meet the sports injury specialist", blocks: [
+    { id: "doctor", kicker: "Doctor", heading: "Meet the sports medicine specialist", blocks: [
       { kind: "doctor", name: "Dr. Ashish Paal", specialty: "Orthopaedics, Arthroscopy & Sports Medicine • Hopewell Hospital, Ranchi", focus: "Clinical focus may include sports injuries, arthroscopy, ACL reconstruction, meniscus surgery, shoulder injuries and ligament or tendon repair." }
     ] },
     { id: "faq", kicker: "FAQs", heading: "Frequently asked questions", blocks: [

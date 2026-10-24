@@ -13,7 +13,13 @@ const bodySchema = z.object({
     )
     .min(1)
     .max(20),
+  language: z.enum(["en", "hi"]).default("en"),
 });
+
+const LANGUAGE_NAMES: Record<"en" | "hi", string> = {
+  en: "English",
+  hi: "Hindi",
+};
 
 export async function POST(req: NextRequest) {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -44,14 +50,28 @@ export async function POST(req: NextRequest) {
       parts: [{ text: m.content }],
     }));
 
-    const response = await ai.models.generateContent({
-      model: "gemini-3.6-flash",
-      contents,
-      config: {
-        systemInstruction: system,
-        maxOutputTokens: 1024,
-      },
-    });
+    const languageName = LANGUAGE_NAMES[parsed.data.language];
+    const systemInstruction = `${system}
+
+LANGUAGE
+The visitor has selected ${languageName} as their preferred language. Reply in ${languageName} (Devanagari script for Hindi), even if their message is typed in another script, unless they clearly switch to a different language themselves — then follow their lead.`;
+
+    const generationConfig = { systemInstruction, maxOutputTokens: 1024 };
+
+    // Gemini occasionally returns a transient 503 "high demand" error that
+    // clears up within a second or two — one quiet retry avoids surfacing
+    // that as a visible failure for what's really just a momentary blip.
+    let response;
+    try {
+      response = await ai.models.generateContent({ model: "gemini-3.6-flash", contents, config: generationConfig });
+    } catch (err) {
+      if (err instanceof ApiError && err.status === 503) {
+        await new Promise((r) => setTimeout(r, 1500));
+        response = await ai.models.generateContent({ model: "gemini-3.6-flash", contents, config: generationConfig });
+      } else {
+        throw err;
+      }
+    }
 
     return NextResponse.json({ reply: response.text ?? "" });
   } catch (err) {

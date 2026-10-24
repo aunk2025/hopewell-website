@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import ProcedurePageTemplate from "@/components/services/ProcedurePageTemplate";
 import { getProcedure, procedures } from "@/lib/ent-procedures";
 import { getEntTreatment, entTreatments } from "@/lib/ent-treatments";
+import { buildProcedureMetadata, buildLegacyProcedureMetadata, buildSimpleJsonLd } from "@/lib/procedure-seo";
 
 export function generateStaticParams() {
   const richSlugs = new Set(entTreatments.map((p) => p.slug));
@@ -17,15 +18,12 @@ export async function generateMetadata({ params }: { params: Promise<{ procedure
 
   const rich = getEntTreatment(slug);
   if (rich) {
-    return { title: rich.seoTitle ?? `${rich.title} | Hopewell Hospital Ranchi`, description: rich.metaDescription };
+    return buildProcedureMetadata(rich, `/services/ent/${slug}`);
   }
 
   const procedure = getProcedure(slug);
   if (!procedure) return { title: "ENT | Hopewell Hospital Ranchi" };
-  return {
-    title: `${procedure.name} | Hopewell Hospital Ranchi`,
-    description: procedure.overview,
-  };
+  return buildLegacyProcedureMetadata(procedure, `/services/ent/${slug}`);
 }
 
 export default async function EntProcedurePage({ params }: { params: Promise<{ procedure: string }> }) {
@@ -37,6 +35,7 @@ export default async function EntProcedurePage({ params }: { params: Promise<{ p
       <ProcedurePageTemplate
         procedure={rich}
         categoryHref="/services"
+        canonicalPath={`/services/ent/${slug}`}
         consultationLabel="Book ENT Consultation"
       />
     );
@@ -44,6 +43,8 @@ export default async function EntProcedurePage({ params }: { params: Promise<{ p
 
   const procedure = getProcedure(slug);
   if (!procedure) notFound();
+
+  const jsonLd = buildSimpleJsonLd(procedure.name, procedure.overview, `/services/ent/${slug}`);
 
   return (
     <main
@@ -57,6 +58,11 @@ export default async function EntProcedurePage({ params }: { params: Promise<{ p
           : undefined
       }
     >
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
 
       <section className="mx-auto max-w-4xl px-5 py-16 lg:px-8 lg:py-20">

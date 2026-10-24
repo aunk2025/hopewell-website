@@ -4,20 +4,35 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Block from "@/components/services/ProcedureBlocks";
 import type { ProcedurePage } from "@/lib/procedure-content";
+import { buildProcedureJsonLd } from "@/lib/procedure-seo";
 
 export default function ProcedurePageTemplate({
   procedure,
   categoryHref,
+  canonicalPath,
   consultationLabel = "Book Consultation",
 }: {
   procedure: ProcedurePage;
   categoryHref: string;
+  // Path used for canonical/OG URLs and JSON-LD (e.g.
+  // "/services/surgeries/gallbladder-surgery"). Optional only so this
+  // template doesn't hard-break for a caller that hasn't been updated yet;
+  // every current route passes it.
+  canonicalPath?: string;
   consultationLabel?: string;
 }) {
   const toc = procedure.sections.filter((s) => s.id);
+  const jsonLd = canonicalPath ? buildProcedureJsonLd(procedure, canonicalPath, procedure.category, categoryHref) : null;
 
   return (
     <main className="min-h-screen bg-[#faf5ef]">
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
       <Navbar />
 
       <div className="mx-auto max-w-7xl px-5 pt-6 text-sm text-slate-500 lg:px-8">

@@ -29,6 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/services",
     "/services/cardiac",
+    "/services/ct-scan",
     "/services/emergencymedicine",
     "/services/icu",
     "/services/neurosciences",

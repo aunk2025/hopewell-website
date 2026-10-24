@@ -12,6 +12,8 @@ import {
   Microscope,
   Ear,
   Waves,
+  ScanLine,
+  Droplet,
   ChevronDown,
   type LucideIcon,
 } from "lucide-react";
@@ -58,28 +60,6 @@ const services: Service[] = [
     bgColor: "rgba(12,168,173,.08)",
   },
   {
-    icon: Bone,
-    name: "Orthopaedics & Joint Replacement",
-    slug: "orthopaedics",
-    description:
-      "Comprehensive bone and joint care, from sports injuries and fractures to joint replacement and long-term mobility restoration.",
-    learnMore:
-      "Specialised care for bone, joint, ligament and musculoskeletal conditions—from everyday injuries to advanced reconstructive surgery. Services include knee and hip replacement, arthroscopy, ACL reconstruction, fracture surgery and sports injury treatment. Our approach combines accurate diagnosis, modern surgical techniques and structured rehabilitation to help patients return to mobility and independence.",
-    image: "/orthopaedicsnew.png",
-    imageScaleClass: "scale-[1.07] group-hover:scale-[1.12]",
-    items: [
-      { label: "Knee Replacement", href: "/services/orthopaedics/knee-replacement" },
-      { label: "Hip Replacement", href: "/services/orthopaedics/hip-replacement" },
-      { label: "Arthroscopy", href: "/services/orthopaedics/arthroscopy" },
-      { label: "ACL Reconstruction", href: "/services/orthopaedics/acl-reconstruction" },
-      { label: "Fracture Surgery", href: "/services/orthopaedics/fracture-surgery" },
-      { label: "Sports Injury Treatment", href: "/services/orthopaedics/sports-injury-treatment" },
-      { label: "Spine Procedures", href: "/services/orthopaedics/spine-surgery" },
-    ],
-    color: "#8b5cf6",
-    bgColor: "rgba(139,92,246,.08)",
-  },
-  {
     icon: Dna,
     name: "IVF, Gynaecology & Women's Health",
     slug: "ivf",
@@ -99,6 +79,81 @@ const services: Service[] = [
     ],
     color: "#ec4899",
     bgColor: "rgba(236,72,153,.08)",
+  },
+  {
+    icon: HeartPulse,
+    name: "General Medicine",
+    slug: "general-medicine",
+    description:
+      "Everyday medical care for common illnesses, chronic conditions and preventive health check-ups.",
+    learnMore:
+      "Comprehensive physician-led care for adult medical conditions, preventive healthcare and long-term disease management. Services include preventive health check-ups, chronic disease management, diabetes and hypertension care, fever and infection treatment, and infectious disease evaluation. The department focuses strongly on early diagnosis, prevention of complications and continuous management of lifestyle-related and infectious diseases.",
+    image: "/gem%20medicine.png",
+    imageScaleClass: "scale-[1.04] group-hover:scale-[1.09]",
+    items: [
+      { label: "Preventive Health Checkups", href: "/services/general-medicine/preventive-health-checkups" },
+      { label: "Chronic Disease Management", href: "/services/general-medicine/chronic-disease-management" },
+      { label: "Diabetes & Hypertension Care", href: "/services/general-medicine/diabetes-hypertension-care" },
+      { label: "Fever & Infection Care", href: "/services/general-medicine/fever-infection-care" },
+      { label: "Infectious Disease", href: "/services/general-medicine/infectious-disease" },
+    ],
+    color: "#ef4444",
+    bgColor: "rgba(239,68,68,.08)",
+  },
+  {
+    icon: Droplet,
+    name: "Diabetology",
+    slug: "diabetology",
+    description:
+      "Integrated diabetes and blood-sugar care to reduce long-term complications affecting the heart, kidneys and eyes.",
+    learnMore:
+      "Structured diabetes and blood-sugar management, including HbA1c monitoring, blood pressure control, kidney protection and cardiovascular risk reduction. Care is coordinated as part of Hopewell's General Medicine department to keep blood-sugar control linked with overall medical monitoring rather than treated in isolation.",
+    image: "/diabetology-diabetes-care-ranchi-hopewell-hospital.webp",
+    items: [
+      { label: "Diabetes & Hypertension Care", href: "/services/general-medicine/diabetes-hypertension-care" },
+    ],
+    color: "#d97706",
+    bgColor: "rgba(217,119,6,.08)",
+  },
+  {
+    icon: Bone,
+    name: "Orthopaedics & Joint Replacement",
+    slug: "orthopaedics",
+    description:
+      "Comprehensive bone and joint care, from sports injuries and fractures to joint replacement and long-term mobility restoration.",
+    learnMore:
+      "Specialised care for bone, joint, ligament and musculoskeletal conditions—from everyday injuries to advanced reconstructive surgery. Services include knee and hip replacement, arthroscopy, ACL reconstruction, fracture surgery and sports injury treatment. Our approach combines accurate diagnosis, modern surgical techniques and structured rehabilitation to help patients return to mobility and independence.",
+    image: "/orthopaedicsnew.png",
+    imageScaleClass: "scale-[1.07] group-hover:scale-[1.12]",
+    items: [
+      { label: "Knee Replacement", href: "/services/orthopaedics/knee-replacement" },
+      { label: "Hip Replacement", href: "/services/orthopaedics/hip-replacement" },
+      { label: "Arthroscopy", href: "/services/orthopaedics/arthroscopy" },
+      { label: "ACL Reconstruction", href: "/services/orthopaedics/acl-reconstruction" },
+      { label: "Fracture Surgery", href: "/services/orthopaedics/fracture-surgery" },
+      { label: "Sports Medicine", href: "/services/orthopaedics/sports-medicine" },
+      { label: "Spine Procedures", href: "/services/orthopaedics/spine-surgery" },
+    ],
+    color: "#8b5cf6",
+    bgColor: "rgba(139,92,246,.08)",
+  },
+  {
+    icon: Ear,
+    name: "ENT",
+    slug: "ent",
+    learnMore:
+      "Medical and surgical care for conditions affecting the ear, nose, throat, sinuses and related structures. Services include mastoidectomy, tympanoplasty, Functional Endoscopic Sinus Surgery (FESS), septoplasty, tonsillectomy and grommet insertion. Treatment focuses on improving hearing, breathing, sinus health and overall quality of life.",
+    image: "/ent%20new.png",
+    items: [
+      { label: "Tympanoplasty", href: "/services/ent/tympanoplasty" },
+      { label: "Functional Endoscopic Sinus Surgery (FESS)", href: "/services/ent/fess-sinus-surgery" },
+      { label: "Mastoidectomy", href: "/services/ent/mastoidectomy" },
+      { label: "Septoplasty", href: "/services/ent/septoplasty" },
+      { label: "Tonsillectomy", href: "/services/ent/tonsillectomy" },
+      { label: "Grommet Insertion (Myringotomy)", href: "/services/ent/grommet-insertion-myringotomy" },
+    ],
+    color: "#f59e0b",
+    bgColor: "rgba(245,158,11,.08)",
   },
   {
     icon: Baby,
@@ -126,14 +181,13 @@ const services: Service[] = [
     description:
       "Diagnosis and treatment of urinary tract and prostate conditions, from kidney stones to transplant evaluation.",
     learnMore:
-      "Comprehensive diagnosis and treatment of conditions affecting the kidneys, urinary tract, bladder and prostate. Services include kidney stone treatment, prostate surgery, urinary tract infection management and kidney transplant evaluation. Minimally invasive and endoscopic treatment options are considered wherever clinically appropriate.",
+      "Comprehensive diagnosis and treatment of conditions affecting the kidneys, urinary tract, bladder and prostate. Services include kidney stone treatment, prostate surgery and urinary tract infection management. Minimally invasive and endoscopic treatment options are considered wherever clinically appropriate.",
     image: "/urology%20new.png",
     imageScaleClass: "scale-[1.04] group-hover:scale-[1.09]",
     items: [
       { label: "Kidney Stone Treatment", href: "/services/urology/kidney-stone-treatment" },
       { label: "Prostate Surgery", href: "/services/urology/prostate-surgery" },
       { label: "Urinary Tract Infection Treatment", href: "/services/urology/urinary-tract-infection-treatment" },
-      { label: "Kidney Transplant Evaluation", href: "/services/urology/kidney-transplant-evaluation" },
     ],
     color: "#0ea5e9",
     bgColor: "rgba(14,165,233,.08)",
@@ -158,24 +212,6 @@ const services: Service[] = [
     bgColor: "rgba(8,145,178,.08)",
   },
   {
-    icon: Ear,
-    name: "ENT",
-    slug: "ent",
-    learnMore:
-      "Medical and surgical care for conditions affecting the ear, nose, throat, sinuses and related structures. Services include mastoidectomy, tympanoplasty, Functional Endoscopic Sinus Surgery (FESS), septoplasty, tonsillectomy and grommet insertion. Treatment focuses on improving hearing, breathing, sinus health and overall quality of life.",
-    image: "/ent%20new.png",
-    items: [
-      { label: "Tympanoplasty", href: "/services/ent/tympanoplasty" },
-      { label: "Functional Endoscopic Sinus Surgery (FESS)", href: "/services/ent/fess-sinus-surgery" },
-      { label: "Mastoidectomy", href: "/services/ent/mastoidectomy" },
-      { label: "Septoplasty", href: "/services/ent/septoplasty" },
-      { label: "Tonsillectomy", href: "/services/ent/tonsillectomy" },
-      { label: "Grommet Insertion (Myringotomy)", href: "/services/ent/grommet-insertion-myringotomy" },
-    ],
-    color: "#f59e0b",
-    bgColor: "rgba(245,158,11,.08)",
-  },
-  {
     icon: Bone,
     name: "Spine",
     slug: "spine",
@@ -195,39 +231,35 @@ const services: Service[] = [
     bgColor: "rgba(124,58,237,.08)",
   },
   {
-    icon: Microscope,
-    name: "Diagnostics",
-    slug: "diagnostics",
+    icon: ScanLine,
+    name: "CT Scan",
+    slug: "ct-scan",
+    description:
+      "Detailed cross-sectional imaging for accurate diagnosis, emergency evaluation and treatment planning.",
     learnMore:
-      "Integrated diagnostic services supporting faster and more accurate clinical decision-making across the hospital. The department includes CT Scan, Digital X-Ray and Pathology Laboratory, along with diagnostic support for preventive health check-ups. By bringing imaging, laboratory testing and specialist care together, patients can move more efficiently from investigation to diagnosis and treatment.",
-    image: "/diagnostics%20new.png",
-    imageScaleClass: "scale-[1.12] group-hover:scale-[1.18]",
+      "Computed Tomography (CT) combines X-rays with computer processing to create detailed cross-sectional images. It is especially useful when doctors need rapid and precise information about the brain, chest, abdomen, bones, blood vessels or injuries — including CT Brain, CT Chest, CT Abdomen & Pelvis, CT KUB, CT Angiography and trauma imaging.",
+    image: "/CT%20Scan%20In%20Ranchi.png",
+    imageScaleClass: "scale-[1.08] group-hover:scale-[1.13]",
     items: [
-      { label: "CT Scan", href: "/services/diagnostics/ct-scan" },
-      { label: "Pathology Lab", href: "/services/diagnostics/pathology-lab" },
-      { label: "Digital X-Ray", href: "/services/diagnostics/digital-xray" },
+      { label: "CT Scan in Ranchi — Details & Booking", href: "/services/ct-scan" },
     ],
     color: "#10b981",
     bgColor: "rgba(16,185,129,.08)",
   },
   {
-    icon: HeartPulse,
-    name: "General Medicine",
-    slug: "general-medicine",
-    description:
-      "Everyday medical care for common illnesses, chronic conditions and preventive health check-ups.",
+    icon: Microscope,
+    name: "Diagnostics",
+    slug: "diagnostics",
     learnMore:
-      "Comprehensive physician-led care for adult medical conditions, preventive healthcare and long-term disease management. Services include preventive health check-ups, chronic disease management, diabetes and hypertension care, and fever and infection treatment. The department focuses strongly on early diagnosis, prevention of complications and continuous management of lifestyle-related diseases.",
-    image: "/gem%20medicine.png",
-    imageScaleClass: "scale-[1.04] group-hover:scale-[1.09]",
+      "Integrated diagnostic services supporting faster and more accurate clinical decision-making across the hospital. The department includes Digital X-Ray and Pathology Laboratory, along with diagnostic support for preventive health check-ups. By bringing imaging, laboratory testing and specialist care together, patients can move more efficiently from investigation to diagnosis and treatment.",
+    image: "/diagnostics%20new.png",
+    imageScaleClass: "scale-[1.12] group-hover:scale-[1.18]",
     items: [
-      { label: "Preventive Health Checkups", href: "/services/general-medicine/preventive-health-checkups" },
-      { label: "Chronic Disease Management", href: "/services/general-medicine/chronic-disease-management" },
-      { label: "Diabetes & Hypertension Care", href: "/services/general-medicine/diabetes-hypertension-care" },
-      { label: "Fever & Infection Care", href: "/services/general-medicine/fever-infection-care" },
+      { label: "Pathology Lab", href: "/services/diagnostics/pathology-lab" },
+      { label: "Digital X-Ray", href: "/services/diagnostics/digital-xray" },
     ],
-    color: "#ef4444",
-    bgColor: "rgba(239,68,68,.08)",
+    color: "#10b981",
+    bgColor: "rgba(16,185,129,.08)",
   },
 ];
 

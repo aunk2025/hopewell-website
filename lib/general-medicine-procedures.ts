@@ -189,6 +189,56 @@ export const generalMedicineProcedures: GeneralMedicineProcedure[] = [
     ] }
     ],
     finalCta: { heading: "Need physician consultation or preventive care?", text: "Book a General Medicine consultation with Dr. MD Arif Tauheed at Hopewell Hospital, Ranchi." },
+  },
+  {
+    slug: "infectious-disease",
+    title: "Infectious Disease Care in Ranchi",
+    metaDescription: "Infectious disease evaluation in Ranchi at Hopewell Hospital including tuberculosis, hepatitis B & C, recurrent or resistant infections, prolonged fever workup, vaccination guidance and consultation with Dr. MD Arif Tauheed.",
+    category: "General Medicine",
+    eyebrow: "General Medicine",
+    heroTitle: "Infectious Disease Care in Ranchi",
+    heroCopy: "Physician-led evaluation and long-term management of infections that need more than a single course of treatment—including tuberculosis, hepatitis, recurrent infections and prolonged unexplained fever.",
+    heroCardKicker: "Hopewell Medicine Care",
+    heroCardTitle: "Infectious Disease Care at Hopewell",
+    heroCardText: "Structured evaluation, targeted testing, treatment or monitoring, and coordinated specialist referral when a condition needs care beyond General Medicine.",
+    doctorName: "Dr. MD Arif Tauheed",
+    doctorSpecialtyMini: "General Medicine & Preventive Healthcare",
+    heroTags: ["Tuberculosis", "Hepatitis B & C", "Recurrent infections", "Vaccination guidance"],
+    facts: [{ label: "Service", value: "Infectious Disease" }, { label: "Diagnosis", value: "Symptom + Test Based" }, { label: "Scope", value: "Evaluation + Referral" }, { label: "Monitoring", value: "Long Term When Needed" }, { label: "Antibiotics", value: "Only When Indicated" }, { label: "Vaccination", value: "Risk Based" }],
+    sections: [
+    { id: "overview", kicker: "Overview", heading: "What is infectious disease care?", blocks: [
+      { kind: "text", text: "Infectious disease care covers infections that need more structured evaluation than a single short illness—conditions that are recurrent, prolonged, drug-resistant or require ongoing monitoring. This is different from everyday walk-in fever care: the focus is on identifying the underlying cause, confirming the diagnosis and planning treatment or monitoring over time." },
+      { kind: "text", text: "Some conditions can be managed within General Medicine. Others, such as HIV care or drug-resistant tuberculosis, may need coordination with a specialist centre or a government treatment programme—this page explains evaluation and care coordination rather than claiming every advanced treatment is available onsite." }
+    ] },
+    { id: "conditions", kicker: "Conditions Evaluated", heading: "Infections commonly assessed", blocks: [
+      { kind: "grid", items: [{ title: "Tuberculosis", text: "Evaluation of suspected TB, with testing and treatment coordination, including referral to the national TB programme where appropriate." }, { title: "Hepatitis B & C", text: "Screening, interpretation of results and guidance on monitoring or specialist referral." }, { title: "Recurrent Infections", text: "Repeated urinary, respiratory, skin or other infections that need a cause-focused work-up." }, { title: "Prolonged Fever", text: "Fever lasting longer than expected for a simple viral illness, needing a structured diagnostic approach." }, { title: "Drug-Resistant Infections", text: "Infections that have not responded to standard antibiotics, requiring culture-guided treatment." }, { title: "Post-Infection Follow-Up", text: "Review after dengue, typhoid, COVID-19 or other infections with ongoing symptoms." }] }
+    ] },
+    { id: "when-to-seek", kicker: "When to Seek Evaluation", heading: "Signs that an infection needs closer assessment", blocks: [
+      { kind: "bullets", items: ["Fever lasting more than one to two weeks.", "Infections that keep returning despite treatment.", "Unexplained weight loss, night sweats or persistent cough.", "A positive hepatitis, HIV or other screening test.", "No clear improvement after a standard course of antibiotics.", "Known exposure to tuberculosis or another infectious illness.", "Travel-related illness that has not resolved."] }
+    ] },
+    { id: "diagnosis", kicker: "Diagnosis", heading: "How is the cause identified?", blocks: [
+      { kind: "text", text: "Evaluation starts with a detailed history—symptom duration, travel, exposure, previous treatment and response. Depending on the suspected condition, tests may include blood counts, inflammatory markers, cultures, specific antigen or antibody tests, chest imaging or other targeted investigations. Not every patient needs every test; the work-up is guided by the clinical picture." }
+    ] },
+    { id: "treatment", kicker: "Treatment & Monitoring", heading: "Treatment is matched to the diagnosis", blocks: [
+      { kind: "grid", items: [{ title: "Targeted Antibiotics", text: "Culture or test results guide treatment rather than repeating broad-spectrum antibiotics by default." }, { title: "Antiviral or Specific Therapy", text: "Used only for selected confirmed conditions, under appropriate monitoring." }, { title: "TB Programme Coordination", text: "Confirmed tuberculosis is coordinated with the national TB treatment programme as per protocol." }, { title: "Specialist Referral", text: "HIV, complex hepatitis or drug-resistant infections may be referred to an appropriate specialist or centre." }, { title: "Monitoring", text: "Periodic review and testing for conditions that need follow-up over weeks to months." }] }
+    ] },
+    { id: "prevention", kicker: "Prevention", heading: "Reducing infection risk", blocks: [
+      { kind: "bullets", items: ["Vaccination according to age, occupation and risk factors.", "Hand hygiene and safe food and water practices.", "Avoiding unnecessary or incomplete antibiotic courses.", "Screening when there is known exposure or risk.", "Prompt treatment of confirmed infections to reduce resistance and spread.", "Follow-up testing to confirm an infection has cleared when advised."] }
+    ] },
+    { id: "urgent", kicker: "Urgent Warning Signs", heading: "Seek urgent medical care for", blocks: [
+      { kind: "bullets", items: ["High fever with confusion or extreme drowsiness.", "Difficulty breathing.", "Low blood pressure, fainting or severe weakness.", "Coughing blood.", "Yellowing of the eyes or skin with fever.", "Signs of sepsis such as rapid heartbeat, low urine output or mottled skin."] }
+    ] },
+    { id: "cost", kicker: "Cost Guidance", heading: "Infectious disease evaluation cost", blocks: [
+      { kind: "cost", range: "Depends on Tests & Duration of Care", note: "Cost varies by consultation frequency, blood tests, cultures, imaging, medicines and whether specialist referral is required.", insuranceTitle: "Insurance / TPA / Ayushman", insuranceNote: "Outpatient evaluation coverage varies by policy. Some conditions, such as tuberculosis, are managed through government programmes at no direct treatment cost; eligibility should be confirmed separately." }
+    ] },
+    { id: "faq", kicker: "FAQs", heading: "Frequently asked questions", blocks: [
+      { kind: "faq", items: [{ q: "Is this the same as the fever clinic?", a: "No. Everyday short-duration fever is evaluated under General Medicine's fever and infection care. Infectious disease evaluation is for infections that are prolonged, recurrent, drug-resistant or need structured monitoring." }, { q: "Does Hopewell treat HIV or drug-resistant TB directly?", a: "Evaluation and initial assessment can be done here, but conditions such as HIV care or drug-resistant tuberculosis are coordinated with the appropriate specialist centre or government programme rather than claimed as an in-house speciality." }, { q: "I tested positive for hepatitis B or C on a routine check—what next?", a: "A positive screening test needs physician interpretation and further testing to understand severity and whether treatment or monitoring is required. Book a consultation rather than self-interpreting the result." }, { q: "Why did my fever need more tests than a normal viral fever?", a: "Fever lasting beyond the typical course of a viral illness, or fever without an obvious cause, needs a structured work-up to rule out treatable underlying infections." }] }
+    ] },
+    { id: "doctor", kicker: "Doctor", heading: "Meet the medicine specialist", blocks: [
+      { kind: "doctor", name: "Dr. MD Arif Tauheed", specialty: "General Medicine & Preventive Healthcare • Hopewell Hospital, Ranchi", focus: "" }
+    ] }
+    ],
+    finalCta: { heading: "Need physician consultation or preventive care?", text: "Book a General Medicine consultation with Dr. MD Arif Tauheed at Hopewell Hospital, Ranchi." },
   }
 ];
 

@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ChevronRight } from "lucide-react";
+import { buildStaticMetadata, buildSimpleJsonLd } from "@/lib/procedure-seo";
 
 const keyServices = [
   {
@@ -21,15 +22,23 @@ const keyServices = [
   },
 ];
 
-export const metadata = {
-  title: "Cardiac Sciences | Hopewell Hospital Ranchi",
-  description:
-    "Integrated cardiology, cardiac diagnostics, interventional procedures and cardiac surgery at Hopewell Hospital, backed by 24x7 critical cardiac support.",
-};
+const TITLE = "Cardiac Sciences";
+const DESCRIPTION =
+  "Integrated cardiology, cardiac diagnostics, interventional procedures and cardiac surgery at Hopewell Hospital, backed by 24x7 critical cardiac support.";
+const PATH = "/services/cardiac";
+
+export const metadata = buildStaticMetadata(TITLE, DESCRIPTION, PATH);
 
 export default function CardiacPage() {
+  const jsonLd = buildSimpleJsonLd(TITLE, DESCRIPTION, PATH);
+
   return (
     <main className="min-h-screen bg-[#faf5ef]">
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
 
       {/* Hero banner */}

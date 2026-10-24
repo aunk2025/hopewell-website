@@ -2566,7 +2566,7 @@ export const blogPosts: BlogPost[] = [
     ],
     relatedServices: [
       { label: "Kidney Stone Treatment", href: "/services/urology/kidney-stone-treatment" },
-      { label: "CT Scan", href: "/services/diagnostics/ct-scan" },
+      { label: "CT Scan", href: "/services/ct-scan" },
       { label: "Pathology Lab", href: "/services/diagnostics/pathology-lab" },
       { label: "24×7 Emergency Medicine", href: "/services/emergencymedicine" },
     ],

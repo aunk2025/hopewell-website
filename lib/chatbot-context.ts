@@ -12,6 +12,7 @@ import { procedures as entLegacy } from "@/lib/ent-procedures";
 import { orthoProcedures } from "@/lib/ortho-procedures";
 import { entTreatments } from "@/lib/ent-treatments";
 import { diagnosticsProcedures } from "@/lib/diagnostics-procedures";
+import { ctScanService } from "@/lib/ct-scan-content";
 import { generalMedicineProcedures } from "@/lib/general-medicine-procedures";
 import { ivfProcedures } from "@/lib/ivf-procedures";
 import { paedsProcedures } from "@/lib/paeds-procedures";
@@ -141,6 +142,7 @@ ${formatRich(spineProcedures, "/services/spine")}
 
 DIAGNOSTICS (/services/diagnostics)
 ${formatRich(diagnosticsProcedures, "/services/diagnostics")}
+- CT Scan: ${ctScanService.metaDescription} (details: /services/ct-scan)
 
 GENERAL MEDICINE (/services/general-medicine)
 ${formatRich(generalMedicineProcedures, "/services/general-medicine")}

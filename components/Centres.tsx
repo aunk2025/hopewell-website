@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Baby, Bone, ChevronRight, Dna, ScanHeart } from "lucide-react";
+import { ArrowUpRight, Bone, ChevronRight, Dna, HeartPulse, ScanHeart } from "lucide-react";
 import { geist } from "@/lib/fonts";
 
 const surgeryItems = [
@@ -23,7 +23,7 @@ const orthoItems = [
   "Arthroscopy",
   "ACL Reconstruction",
   "Fracture Surgery",
-  "Sports Injury Treatment",
+  "Sports Medicine",
   "Spine Procedures",
 ];
 
@@ -36,12 +36,12 @@ const ivfItems = [
   "High-Risk Pregnancy",
 ];
 
-const paediatricItems = ["Newborn Care", "NICU", "Child Immunization", "Paediatric Emergency"];
+const generalMedicineItems = ["Preventive Health Checkups", "Chronic Disease Management", "Diabetes & Hypertension Care", "Fever & Infection Care", "Infectious Disease"];
 
 const centres = [
   { icon: ScanHeart, name: "General, GI & Laparoscopic Surgery", text: "Precision-led general, laparoscopic and gastrointestinal surgery.", items: surgeryItems, stat: "Advanced OT", href: "/services#surgeries", image: "/GI%20surgery.png" },
   { icon: Dna, name: "IVF, Gynaecology & Women's Health", text: "Personalized fertility evaluation, gynaecological care and assisted reproduction.", items: ivfItems, stat: "Fertility care", href: "/services#ivf", image: "/ivfhome.png" },
-  { icon: Baby, name: "Paediatrics & Neonatology", text: "Sensitive newborn, infant and child care, including NICU support.", items: paediatricItems, stat: "Paediatric care", href: "/services#motherchild", image: "/paed%20nd%20neo%20new.png" },
+  { icon: HeartPulse, name: "General Medicine", text: "Everyday medical care for common illnesses, chronic conditions and preventive health check-ups.", items: generalMedicineItems, stat: "Preventive care", href: "/services#general-medicine", image: "/gem%20medicine.png" },
   { icon: Bone, name: "Orthopaedics & Joint Replacement", text: "Joint preservation, trauma care and advanced mobility restoration.", items: orthoItems, stat: "Mobility", href: "/services#orthopaedics", image: "/orthopaedicsnew.png" },
 ];
 

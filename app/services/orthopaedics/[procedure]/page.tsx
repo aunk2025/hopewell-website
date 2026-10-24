@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import ProcedurePageTemplate from "@/components/services/ProcedurePageTemplate";
 import { getProcedure, procedures } from "@/lib/orthopaedics-procedures";
 import { getOrthoProcedure, orthoProcedures } from "@/lib/ortho-procedures";
+import { buildProcedureMetadata, buildLegacyProcedureMetadata, buildSimpleJsonLd } from "@/lib/procedure-seo";
 
 export function generateStaticParams() {
   const richSlugs = new Set(orthoProcedures.map((p) => p.slug));
@@ -17,15 +18,12 @@ export async function generateMetadata({ params }: { params: Promise<{ procedure
 
   const rich = getOrthoProcedure(slug);
   if (rich) {
-    return { title: rich.seoTitle ?? `${rich.title} | Hopewell Hospital Ranchi`, description: rich.metaDescription };
+    return buildProcedureMetadata(rich, `/services/orthopaedics/${slug}`);
   }
 
   const procedure = getProcedure(slug);
   if (!procedure) return { title: "Orthopaedics | Hopewell Hospital Ranchi" };
-  return {
-    title: `${procedure.name} | Hopewell Hospital Ranchi`,
-    description: procedure.overview,
-  };
+  return buildLegacyProcedureMetadata(procedure, `/services/orthopaedics/${slug}`);
 }
 
 export default async function ProcedurePage({ params }: { params: Promise<{ procedure: string }> }) {
@@ -37,6 +35,7 @@ export default async function ProcedurePage({ params }: { params: Promise<{ proc
       <ProcedurePageTemplate
         procedure={rich}
         categoryHref="/services"
+        canonicalPath={`/services/orthopaedics/${slug}`}
         consultationLabel="Book Orthopaedic Consultation"
       />
     );
@@ -44,6 +43,8 @@ export default async function ProcedurePage({ params }: { params: Promise<{ proc
 
   const procedure = getProcedure(slug);
   if (!procedure) notFound();
+
+  const jsonLd = buildSimpleJsonLd(procedure.name, procedure.overview, `/services/orthopaedics/${slug}`);
 
   return (
     <main
@@ -57,6 +58,11 @@ export default async function ProcedurePage({ params }: { params: Promise<{ proc
           : undefined
       }
     >
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
 
       <section className="mx-auto max-w-4xl px-5 py-16 lg:px-8 lg:py-20">
