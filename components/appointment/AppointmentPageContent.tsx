@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { CalendarDays, Clock, User, Phone, Mail, FileText, CheckCircle, ChevronRight, ChevronLeft } from "lucide-react";
 import { format, addDays, isBefore, startOfDay } from "date-fns";
+import { appointmentDict, type Locale } from "@/lib/i18n";
 
 const schema = z.object({
   patientName:  z.string().min(2, "Name must be at least 2 characters"),
@@ -29,17 +30,18 @@ const TIME_SLOTS = [
   "2:00 PM", "2:30 PM",  "3:00 PM",  "3:30 PM",  "4:00 PM",  "4:30 PM",
 ];
 
-const STEPS = ["Doctor & Date", "Patient Details", "Confirm"];
-
-export default function AppointmentPageContent() {
+export default function AppointmentPageContent({ locale = "en" }: { locale?: Locale }) {
   return (
     <Suspense fallback={null}>
-      <AppointmentForm />
+      <AppointmentForm locale={locale} />
     </Suspense>
   );
 }
 
-function AppointmentForm() {
+function AppointmentForm({ locale }: { locale: Locale }) {
+  const t = appointmentDict[locale];
+  const STEPS = t.steps;
+  const altHref = locale === "en" ? "/hi/appointment" : "/appointment";
   const searchParams = useSearchParams();
   const specialtyFilter = searchParams.get("specialty");
 
@@ -94,14 +96,14 @@ function AppointmentForm() {
       setRefNumber(json.refNumber);
       setStep(3);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong");
+      setError(err instanceof Error ? err.message : t.genericError);
     } finally {
       setSubmitting(false);
     }
   }
 
   function onInvalid() {
-    setError("Please check the highlighted fields and try again.");
+    setError(t.invalidFieldsError);
     setStep(1);
   }
 
@@ -109,40 +111,39 @@ function AppointmentForm() {
   if (step === 3) {
     return (
       <main className="min-h-screen bg-[#faf5ef]">
-        <Navbar />
+        <Navbar locale={locale} altHref={altHref} />
         <div className="flex min-h-[70vh] items-center justify-center px-5">
           <div className="w-full max-w-md rounded-3xl border border-white/60 bg-white/80 p-10 text-center shadow-xl backdrop-blur-xl">
             <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-teal-100">
               <CheckCircle size={36} className="text-teal-600" />
             </div>
-            <h1 className="text-2xl font-black text-[#2a2119]">Appointment Booked!</h1>
-            <p className="mt-2 text-slate-500">Your booking reference number is:</p>
+            <h1 className="text-2xl font-black text-[#2a2119]">{t.appointmentBooked}</h1>
+            <p className="mt-2 text-slate-500">{t.refNumberText}</p>
             <div className="my-4 rounded-2xl bg-[#2a2119] px-6 py-3 text-2xl font-black tracking-widest text-teal-400">
               {refNumber}
             </div>
             <p className="text-sm text-slate-500">
-              A confirmation has been sent to <strong>{getValues("patientEmail")}</strong>.
-              Please arrive 15 minutes before your scheduled time.
+              {t.confirmationSentText(getValues("patientEmail"))}
             </p>
             <a href="/" className="mt-6 inline-block rounded-full bg-[#2a2119] px-8 py-3 font-bold text-white hover:-translate-y-0.5 transition">
-              Back to Home
+              {t.backToHome}
             </a>
           </div>
         </div>
-        <Footer />
+        <Footer locale={locale} />
       </main>
     );
   }
 
   return (
     <main className="min-h-screen bg-[#faf5ef]">
-      <Navbar />
+      <Navbar locale={locale} altHref={altHref} />
 
       {/* Hero */}
       <section className="bg-[#2a2119] py-16 text-white">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
-          <h1 className="text-4xl font-black sm:text-5xl">Book an Appointment</h1>
-          <p className="mt-3 text-white/60">Choose your doctor, date, and time in just a few steps.</p>
+          <h1 className="text-4xl font-black sm:text-5xl">{t.h1}</h1>
+          <p className="mt-3 text-white/60">{t.subtitle}</p>
         </div>
       </section>
 
@@ -166,10 +167,10 @@ function AppointmentForm() {
             <div className="space-y-6">
               {/* Doctor selection */}
               <div className="rounded-3xl border border-white/60 bg-white/80 p-6 backdrop-blur-xl">
-                <h2 className="mb-1 font-black text-[#2a2119]">Select Doctor (Optional)</h2>
+                <h2 className="mb-1 font-black text-[#2a2119]">{t.selectDoctor}</h2>
                 {specialtyFilter && (
                   <p className="mb-4 text-xs font-semibold text-teal-700">
-                    Showing {specialtyFilter} specialists
+                    {t.showingSpecialists(specialtyFilter)}
                   </p>
                 )}
                 <div className={`grid gap-3 sm:grid-cols-2 ${specialtyFilter ? "" : "mt-4"}`}>
@@ -178,8 +179,8 @@ function AppointmentForm() {
                     onClick={() => setValue("doctorId", undefined)}
                     className={`rounded-2xl border-2 p-4 text-left text-sm transition ${selectedDoctorId === undefined ? "border-teal-500 bg-teal-50" : "border-slate-200 bg-white hover:border-slate-300"}`}
                   >
-                    <div className="font-bold">Any Available Doctor</div>
-                    <div className="text-slate-500">We'll assign the best match</div>
+                    <div className="font-bold">{t.anyDoctor}</div>
+                    <div className="text-slate-500">{t.anyDoctorText}</div>
                   </button>
                   {visibleDoctors.map((d) => (
                     <button
@@ -198,7 +199,7 @@ function AppointmentForm() {
               {/* Date selection */}
               <div className="rounded-3xl border border-white/60 bg-white/80 p-6 backdrop-blur-xl">
                 <h2 className="mb-4 flex items-center gap-2 font-black text-[#2a2119]">
-                  <CalendarDays size={18} /> Select Date
+                  <CalendarDays size={18} /> {t.selectDate}
                 </h2>
                 <div className="grid grid-cols-4 gap-2 sm:grid-cols-6">
                   {availableDates.slice(0, 18).map((d) => (
@@ -221,7 +222,7 @@ function AppointmentForm() {
               {selectedDate && (
                 <div className="rounded-3xl border border-white/60 bg-white/80 p-6 backdrop-blur-xl">
                   <h2 className="mb-4 flex items-center gap-2 font-black text-[#2a2119]">
-                    <Clock size={18} /> Select Time
+                    <Clock size={18} /> {t.selectTime}
                   </h2>
                   <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
                     {TIME_SLOTS.map((t) => (
@@ -245,7 +246,7 @@ function AppointmentForm() {
                 disabled={!selectedDate || !selectedSlot}
                 className="flex w-full items-center justify-center gap-2 rounded-full bg-[#2a2119] py-4 font-bold text-white transition hover:-translate-y-0.5 disabled:opacity-40"
               >
-                Continue to Patient Details <ChevronRight size={18} />
+                {t.continueBtn} <ChevronRight size={18} />
               </button>
             </div>
           )}
@@ -254,12 +255,12 @@ function AppointmentForm() {
           {step === 1 && (
             <div className="space-y-6">
               <div className="rounded-3xl border border-white/60 bg-white/80 p-6 backdrop-blur-xl">
-                <h2 className="mb-5 font-black text-[#2a2119]">Patient Information</h2>
+                <h2 className="mb-5 font-black text-[#2a2119]">{t.patientInformation}</h2>
                 <div className="space-y-4">
                   {[
-                    { name: "patientName",  label: "Full Name",    icon: User,     type: "text",  placeholder: "Your full name" },
-                    { name: "patientPhone", label: "Phone Number", icon: Phone,    type: "tel",   placeholder: "+91 XXXXX XXXXX" },
-                    { name: "patientEmail", label: "Email Address",icon: Mail,     type: "email", placeholder: "you@example.com" },
+                    { name: "patientName",  label: t.fullName,     icon: User,     type: "text",  placeholder: t.fullNamePlaceholder },
+                    { name: "patientPhone", label: t.phoneNumber,  icon: Phone,    type: "tel",   placeholder: t.phonePlaceholder },
+                    { name: "patientEmail", label: t.emailAddress, icon: Mail,     type: "email", placeholder: t.emailPlaceholder },
                   ].map(({ name, label, icon: Icon, type, placeholder }) => (
                     <div key={name}>
                       <label className="mb-1.5 block text-sm font-semibold text-slate-700">{label}</label>
@@ -278,12 +279,12 @@ function AppointmentForm() {
                     </div>
                   ))}
                   <div>
-                    <label className="mb-1.5 block text-sm font-semibold text-slate-700">Reason for Visit</label>
+                    <label className="mb-1.5 block text-sm font-semibold text-slate-700">{t.reasonForVisit}</label>
                     <div className="relative">
                       <FileText size={15} className="absolute left-3.5 top-4 text-slate-400" />
                       <textarea
                         rows={3}
-                        placeholder="Brief description of your symptoms or reason…"
+                        placeholder={t.reasonPlaceholder}
                         {...register("reason")}
                         className="w-full rounded-xl border border-slate-200 py-3 pl-10 pr-4 text-sm outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-100"
                       />
@@ -294,7 +295,7 @@ function AppointmentForm() {
               </div>
               <div className="flex gap-3">
                 <button type="button" onClick={() => setStep(0)} className="flex flex-1 items-center justify-center gap-2 rounded-full border-2 border-slate-200 py-4 font-bold text-slate-600 transition hover:border-slate-300">
-                  <ChevronLeft size={18} /> Back
+                  <ChevronLeft size={18} /> {t.back}
                 </button>
                 <button
                   type="button"
@@ -304,7 +305,7 @@ function AppointmentForm() {
                   }}
                   className="flex flex-[2] items-center justify-center gap-2 rounded-full bg-[#2a2119] py-4 font-bold text-white transition hover:-translate-y-0.5"
                 >
-                  Review Booking <ChevronRight size={18} />
+                  {t.reviewBooking} <ChevronRight size={18} />
                 </button>
               </div>
             </div>
@@ -314,16 +315,16 @@ function AppointmentForm() {
           {step === 2 && (
             <div className="space-y-6">
               <div className="rounded-3xl border border-white/60 bg-white/80 p-6 backdrop-blur-xl">
-                <h2 className="mb-5 font-black text-[#2a2119]">Confirm Your Booking</h2>
+                <h2 className="mb-5 font-black text-[#2a2119]">{t.confirmBooking}</h2>
                 <dl className="space-y-3 text-sm">
                   {[
-                    ["Doctor",   selectedDoctor?.name ?? "Any Available Doctor"],
-                    ["Date",     selectedDate ? format(new Date(selectedDate), "EEEE, d MMMM yyyy") : ""],
-                    ["Time",     selectedSlot],
-                    ["Patient",  getValues("patientName")],
-                    ["Phone",    getValues("patientPhone")],
-                    ["Email",    getValues("patientEmail")],
-                    ["Reason",   getValues("reason")],
+                    [t.summaryLabels.doctor,  selectedDoctor?.name ?? t.anyDoctor],
+                    [t.summaryLabels.date,    selectedDate ? format(new Date(selectedDate), "EEEE, d MMMM yyyy") : ""],
+                    [t.summaryLabels.time,    selectedSlot],
+                    [t.summaryLabels.patient, getValues("patientName")],
+                    [t.summaryLabels.phone,   getValues("patientPhone")],
+                    [t.summaryLabels.email,   getValues("patientEmail")],
+                    [t.summaryLabels.reason,  getValues("reason")],
                   ].map(([k, v]) => (
                     <div key={k} className="flex items-start gap-3 rounded-xl bg-slate-50 px-4 py-2.5">
                       <dt className="w-16 shrink-0 font-bold text-slate-500">{k}</dt>
@@ -335,10 +336,10 @@ function AppointmentForm() {
               {error && <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-600">{error}</p>}
               <div className="flex gap-3">
                 <button type="button" onClick={() => setStep(1)} className="flex flex-1 items-center justify-center gap-2 rounded-full border-2 border-slate-200 py-4 font-bold text-slate-600">
-                  <ChevronLeft size={18} /> Back
+                  <ChevronLeft size={18} /> {t.back}
                 </button>
                 <button type="submit" disabled={submitting} className="flex flex-[2] items-center justify-center gap-2 rounded-full bg-teal-600 py-4 font-bold text-white transition hover:-translate-y-0.5 disabled:opacity-60">
-                  {submitting ? "Booking…" : "Confirm Appointment"}
+                  {submitting ? t.booking : t.confirmAppointment}
                   {!submitting && <CheckCircle size={18} />}
                 </button>
               </div>

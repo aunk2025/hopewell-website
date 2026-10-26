@@ -30,6 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/services",
     "/services/cardiac",
     "/services/ct-scan",
+    "/services/diabetology",
     "/services/emergencymedicine",
     "/services/icu",
     "/services/neurosciences",
@@ -39,6 +40,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/appointment",
     "/doctors",
     "/blog",
+    "/hi",
+    "/hi/contact",
+    "/hi/appointment",
   ];
 
   const procedureGroups: { basePath: string; slugs: string[] }[] = [

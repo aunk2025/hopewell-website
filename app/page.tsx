@@ -9,15 +9,18 @@ import Reviews from "@/components/Reviews";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Looking for Advanced Surgical Care in Ranchi? | Hopewell",
+  title: "Multispeciality Hospital in Ranchi | Hopewell Hospital",
   description:
-    "From laparoscopic and GI surgery to IVF, orthopaedics, urology, ENT, spine and diagnostics, discover specialist care under one roof at Hopewell Hospital Ranchi.",
+    "Hopewell Hospital is a 70 bed multispeciality hospital in Ranchi offering laparoscopic surgery, GI surgery, gynaecology, orthopaedics, critical care and diagnostics.",
+  alternates: {
+    languages: { "en-IN": "/", "hi-IN": "/hi" },
+  },
 };
 
 export default function Home() {
   return (
     <main className="min-h-screen overflow-hidden bg-[#faf5ef] text-ink">
-      <Navbar />
+      <Navbar altHref="/hi" />
       <Hero />
       <TrustRail />
       <Centres />

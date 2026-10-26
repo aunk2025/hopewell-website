@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Quote, Star } from "lucide-react";
+import { reviewsDict, type Locale } from "@/lib/i18n";
 
 type Review = { name: string; meta: string; text: string };
 
@@ -69,19 +70,20 @@ function initials(name: string) {
   return name.trim().split(/\s+/).map((n) => n[0]).join("").toUpperCase().slice(0, 2);
 }
 
-export default function Reviews() {
+export default function Reviews({ locale = "en" }: { locale?: Locale }) {
+  const t = reviewsDict[locale];
   const [showAll, setShowAll] = useState(false);
   const visible = showAll ? reviews : reviews.slice(0, VISIBLE_COUNT);
 
   return (
     <section className="mx-auto max-w-7xl px-5 py-28 lg:px-8">
       <div className="mx-auto max-w-2xl text-center">
-        <div className="section-kicker before:content-none">Patient Voices</div>
+        <div className="section-kicker before:content-none">{t.kicker}</div>
         <h2 className="text-balance mt-5 text-4xl font-black tracking-[-.045em] sm:text-5xl">
-          What our patients say.
+          {t.h2}
         </h2>
         <p className="mx-auto mt-6 max-w-md leading-7 text-slate-600">
-          Real reviews from patients and families cared for at Hopewell Hospital.
+          {t.subtitle}
         </p>
       </div>
 
@@ -120,7 +122,7 @@ export default function Reviews() {
             onClick={() => setShowAll(true)}
             className="rounded-full bg-slate-100 px-6 py-3 text-sm font-bold transition hover:bg-ink hover:text-white"
           >
-            Load more reviews
+            {t.loadMore}
           </button>
         </div>
       )}

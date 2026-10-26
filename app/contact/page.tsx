@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Need an Appointment or Hospital Help? | Hopewell Ranchi",
   description:
     "Book an appointment, find Hopewell Hospital, get directions or contact us for emergency, ambulance, TPA, insurance, corporate, career and other enquiries.",
+  alternates: {
+    languages: { "en-IN": "/contact", "hi-IN": "/hi/contact" },
+  },
 };
 
 export default function ContactPage() {
@@ -26,7 +29,7 @@ export default function ContactPage() {
 
   return (
     <main className="min-h-screen bg-[#faf5ef]">
-      <Navbar />
+      <Navbar altHref="/hi/contact" />
       <ContactPageContent />
       <Footer />
       <script

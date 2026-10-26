@@ -4,8 +4,11 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, HeartPulse, ShieldCheck, Sparkles } from "lucide-react";
 import Link from "next/link";
 import HeroVideo from "./HeroVideo";
+import { heroDict, type Locale } from "@/lib/i18n";
 
-export default function Hero() {
+export default function Hero({ locale = "en" }: { locale?: Locale }) {
+  const t = heroDict[locale];
+
   return (
     <section className="mesh relative isolate min-h-[820px] overflow-hidden">
       {/* Decorative ambient glows — sized with fixed rem offsets meant to
@@ -21,37 +24,29 @@ export default function Hero() {
         <motion.div initial={{ y: 26 }} animate={{ y: 0 }} transition={{ duration: .8 }}>
           <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-cyan/40 bg-white/70 px-4 py-2 text-xs font-bold uppercase tracking-[.18em] text-teal-800 backdrop-blur-xl">
             <Sparkles size={14} />
-            The Future of Care in Ranchi
+            {t.kicker}
           </div>
 
-          <h1 className="text-balance max-w-3xl text-5xl font-black leading-[.98] tracking-[-.055em] text-ink sm:text-6xl lg:text-7xl">
-            Human care.
-            <span className="block">
-              Engineered for tomorrow.
-            </span>
+          <h1 className="text-balance max-w-3xl text-3xl font-black leading-[1.05] tracking-[-.045em] text-ink sm:text-5xl lg:text-6xl">
+            {t.h1}
           </h1>
 
           <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-600">
-            A 70-bed Cardiac and Surgical Centre of Excellence combining advanced medicine,
-            intelligent coordination and deeply personal care.
+            {t.paragraph}
           </p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <Link href="/appointment" target="_blank" rel="noopener noreferrer" className="group flex items-center justify-center gap-3 rounded-full bg-ink px-7 py-4 font-bold text-white shadow-glass transition hover:-translate-y-1">
-              Book an Appointment
+              {t.bookAppointment}
               <ArrowUpRight className="transition group-hover:rotate-45" size={18} />
             </Link>
             <a href="#centres" className="glass flex items-center justify-center rounded-full px-7 py-4 font-bold text-ink transition hover:-translate-y-1">
-              Explore Centres of Excellence
+              {t.exploreCentres}
             </a>
           </div>
 
           <div className="mt-10 grid max-w-xl grid-cols-3 gap-3">
-            {[
-              ["24×7", "Emergency"],
-              ["70", "Advanced Beds"],
-              ["8+", "Specialty Centres"],
-            ].map(([value, label]) => (
+            {t.stats.map(([value, label]) => (
               <div key={label} className="glass rounded-2xl p-4 transition hover:-translate-y-1 hover:border-teal-300 hover:shadow-glow">
                 <div className="text-2xl font-black">{value}</div>
                 <div className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">{label}</div>
@@ -69,18 +64,20 @@ export default function Hero() {
           <HeroVideo />
 
           {/*
-           * Cardiac Command — sits above the globe on mobile; on the LEFT arc
-           * of the globe from lg upward, where left-[-115px] shifts it so
-           * exactly half (115px) hangs outside.
+           * Advanced Medicine card — sits above the globe on mobile; on the
+           * LEFT arc of the globe from lg upward. left-[-24px] keeps it
+           * clear of the text column's right edge (the gap-10 column gutter
+           * is 40px, so a 24px hang never reaches text content) regardless
+           * of how long the text column's own content runs.
            */}
-          <div className="glass floating absolute left-1/2 top-0 z-20 w-[230px] max-w-[calc(100vw-2.5rem)] -translate-x-1/2 -translate-y-1/2 rounded-3xl p-4 shadow-glass lg:left-[-115px] lg:top-[38%] lg:max-w-none lg:translate-x-0">
+          <div className="glass floating absolute left-1/2 top-4 z-20 w-[250px] max-w-[calc(100vw-2.5rem)] -translate-x-1/2 rounded-3xl p-4 shadow-glass lg:left-[-24px] lg:top-[38%] lg:-translate-y-1/2 lg:max-w-none lg:translate-x-0">
             <div className="flex items-center gap-3">
-              <div className="grid h-11 w-11 place-items-center rounded-2xl bg-cyan/20 text-teal-800">
+              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-cyan/20 text-teal-800">
                 <HeartPulse size={21} />
               </div>
               <div>
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-500">Cardiac Command</div>
-                <div className="mt-1 font-black">Connected Care</div>
+                <div className="text-xs font-bold uppercase tracking-wider text-slate-500">{t.cardTitle}</div>
+                <div className="mt-1 whitespace-nowrap font-black">{t.cardHeading}</div>
               </div>
             </div>
             <div className="mt-4 h-2 overflow-hidden rounded-full bg-slate-100">
@@ -95,11 +92,11 @@ export default function Hero() {
            */}
           <div className="dark-glass floating-slow absolute bottom-0 left-[42%] z-20 w-[250px] max-w-[calc(100vw-2.5rem)] -translate-x-1/2 translate-y-[100%] rounded-3xl p-5 text-white shadow-glass lg:left-auto lg:right-[-125px] lg:bottom-[9%] lg:max-w-none lg:translate-x-0 lg:translate-y-1/2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-[.16em] text-cyan">Patient Journey</span>
+              <span className="text-xs font-bold uppercase tracking-[.16em] text-cyan">{t.journeyKicker}</span>
               <ShieldCheck size={19} className="text-cyan" />
             </div>
-            <div className="mt-4 text-2xl font-black">One coordinated pathway</div>
-            <p className="mt-2 text-sm leading-6 text-white/65">From first enquiry to recovery and follow-up.</p>
+            <div className="mt-4 text-2xl font-black">{t.journeyHeading}</div>
+            <p className="mt-2 text-sm leading-6 text-white/65">{t.journeyText}</p>
           </div>
         </motion.div>
       </div>

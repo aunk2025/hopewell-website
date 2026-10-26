@@ -3,59 +3,27 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Bone, ChevronRight, Dna, HeartPulse, ScanHeart } from "lucide-react";
 import { geist } from "@/lib/fonts";
+import { centresDict, type Locale } from "@/lib/i18n";
 
-const surgeryItems = [
-  "Gallbladder Surgery",
-  "Hernia Surgery",
-  "Appendix Surgery",
-  "Laser Piles Treatment",
-  "Fistula Treatment",
-  "Fissure Treatment",
-  "ERCP",
-  "GI Surgery",
-  "Colorectal Surgery",
-  "Varicose Vein Treatment",
-];
+export default function Centres({ locale = "en" }: { locale?: Locale }) {
+  const t = centresDict[locale];
 
-const orthoItems = [
-  "Knee Replacement",
-  "Hip Replacement",
-  "Arthroscopy",
-  "ACL Reconstruction",
-  "Fracture Surgery",
-  "Sports Medicine",
-  "Spine Procedures",
-];
+  const centres = [
+    { icon: ScanHeart, ...t.items.surgery, href: "/services#surgeries", image: "/GI%20surgery.png" },
+    { icon: Dna, ...t.items.ivf, href: "/services#ivf", image: "/ivfhome.png" },
+    { icon: HeartPulse, ...t.items.generalMedicine, href: "/services#general-medicine", image: "/gem%20medicine.png" },
+    { icon: Bone, ...t.items.ortho, href: "/services#orthopaedics", image: "/orthopaedicsnew.png" },
+  ];
 
-const ivfItems = [
-  "IVF",
-  "Infertility Treatment",
-  "Laparoscopic Gynaecology",
-  "Hysterectomy",
-  "Fibroid Treatment",
-  "High-Risk Pregnancy",
-];
-
-const generalMedicineItems = ["Preventive Health Checkups", "Chronic Disease Management", "Diabetes & Hypertension Care", "Fever & Infection Care", "Infectious Disease"];
-
-const centres = [
-  { icon: ScanHeart, name: "General, GI & Laparoscopic Surgery", text: "Precision-led general, laparoscopic and gastrointestinal surgery.", items: surgeryItems, stat: "Advanced OT", href: "/services#surgeries", image: "/GI%20surgery.png" },
-  { icon: Dna, name: "IVF, Gynaecology & Women's Health", text: "Personalized fertility evaluation, gynaecological care and assisted reproduction.", items: ivfItems, stat: "Fertility care", href: "/services#ivf", image: "/ivfhome.png" },
-  { icon: HeartPulse, name: "General Medicine", text: "Everyday medical care for common illnesses, chronic conditions and preventive health check-ups.", items: generalMedicineItems, stat: "Preventive care", href: "/services#general-medicine", image: "/gem%20medicine.png" },
-  { icon: Bone, name: "Orthopaedics & Joint Replacement", text: "Joint preservation, trauma care and advanced mobility restoration.", items: orthoItems, stat: "Mobility", href: "/services#orthopaedics", image: "/orthopaedicsnew.png" },
-];
-
-export default function Centres() {
   return (
     <section id="centres" className="mx-auto max-w-7xl px-5 py-28 lg:px-8">
       <div className="mx-auto max-w-2xl text-center">
-        <div className="section-kicker before:content-none !text-base">Centres of Excellence</div>
+        <div className="section-kicker before:content-none !text-base">{t.kicker}</div>
         <h2 className={`${geist.className} text-balance mt-5 text-4xl font-black tracking-[-.045em] sm:text-5xl`}>
-          Specialized care, connected as one intelligent system.
+          {t.h2}
         </h2>
         <p className="mx-auto mt-6 max-w-md leading-7 text-slate-600">
-          Instead of making patients navigate departments, Hopewell connects expertise,
-          diagnostics, critical care and recovery around the patient.
+          {t.subtitle}
         </p>
       </div>
 
@@ -100,7 +68,7 @@ export default function Centres() {
                   <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-600">{centre.text}</p>
                 )}
                 <div className="mt-auto flex items-center justify-between pt-6">
-                  <span className="text-sm font-bold">Explore centre</span>
+                  <span className="text-sm font-bold">{t.exploreCentre}</span>
                   <span className="grid h-9 w-9 place-items-center rounded-full border border-slate-200 transition group-hover:rotate-45 group-hover:bg-ink group-hover:text-white">
                     <ArrowUpRight size={15} />
                   </span>
@@ -113,7 +81,7 @@ export default function Centres() {
 
       <div className="mt-10 text-center">
         <a href="/services" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-bold text-teal-800">
-          View all specialities <ArrowUpRight size={17} />
+          {t.viewAll} <ArrowUpRight size={17} />
         </a>
       </div>
     </section>

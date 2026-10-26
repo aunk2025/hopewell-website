@@ -1,4 +1,5 @@
 import { ArrowUpRight, Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
+import { footerDict, type Locale } from "@/lib/i18n";
 
 // Same number used by the WhatsApp chat button in components/ContactFAB.tsx.
 const WHATSAPP_NUMBER = "919199666246";
@@ -22,29 +23,31 @@ const socialLinks = [
   },
 ];
 
-const centres: { label: string; href?: string }[] = [
-  { label: "General, GI & Laparoscopic Surgery", href: "/services#surgeries" },
-  { label: "IVF, Gynaecology & Women's Health", href: "/services#ivf" },
-  { label: "Paediatrics & Neonatology", href: "/services#motherchild" },
-  { label: "Orthopaedics & Joint Replacement", href: "/services#orthopaedics" },
-  { label: "General Medicine", href: "/services#general-medicine" },
-  { label: "Urology", href: "/services#urology" },
-  { label: "Vascular Surgery", href: "/services#vascular-surgery" },
-  { label: "ENT", href: "/services#ent" },
-  { label: "Spine", href: "/services#spine" },
-  { label: "Diagnostics", href: "/services#diagnostics" },
-];
+export default function Footer({ locale = "en" }: { locale?: Locale }) {
+  const t = footerDict[locale];
 
-const explore = [
-  { label: "Doctors", href: "/doctors" },
-  { label: "Services", href: "/services" },
-  { label: "Health Packages", href: "/health-packages" },
-  { label: "Blogs", href: "/blog" },
-  { label: "Book Appointment", href: "/appointment" },
-  { label: "Contact Us", href: "/contact" },
-];
+  const centres: { label: string; href?: string }[] = [
+    { label: t.centres.surgery, href: "/services#surgeries" },
+    { label: t.centres.ivf, href: "/services#ivf" },
+    { label: t.centres.paediatrics, href: "/services#motherchild" },
+    { label: t.centres.orthopaedics, href: "/services#orthopaedics" },
+    { label: t.centres.generalMedicine, href: "/services#general-medicine" },
+    { label: t.centres.urology, href: "/services#urology" },
+    { label: t.centres.vascular, href: "/services#vascular-surgery" },
+    { label: t.centres.ent, href: "/services#ent" },
+    { label: t.centres.spine, href: "/services#spine" },
+    { label: t.centres.diagnostics, href: "/services#diagnostics" },
+  ];
 
-export default function Footer() {
+  const explore = [
+    { label: t.explore.doctors, href: "/doctors" },
+    { label: t.explore.services, href: "/services" },
+    { label: t.explore.healthPackages, href: "/health-packages" },
+    { label: t.explore.blogs, href: "/blog" },
+    { label: t.explore.bookAppointment, href: "/appointment" },
+    { label: t.explore.contactUs, href: "/contact" },
+  ];
+
   return (
     <footer className="bg-[#2a2119] text-white/70">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 md:grid-cols-2 lg:grid-cols-5 lg:px-8">
@@ -53,7 +56,7 @@ export default function Footer() {
             <img src="/hopewell%20logo2.png" alt="Hopewell Hospital" className="h-20 w-auto object-contain" />
           </a>
           <p className="mt-5 max-w-xs leading-7">
-            Advanced cardiac and surgical care designed around safety, coordination and compassion.
+            {t.tagline}
           </p>
           <div className="mt-6 flex gap-3">
             {socialLinks.map(({ label, href, icon: Icon }) => (
@@ -72,7 +75,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="font-black text-white">Explore</h3>
+          <h3 className="font-black text-white">{t.exploreHeading}</h3>
           <div className="mt-5 grid gap-3 text-sm">
             {explore.map(x =>
               <a href={x.href} key={x.label} className="transition hover:text-white">{x.label}</a>
@@ -81,7 +84,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="font-black text-white">Centres of Excellence</h3>
+          <h3 className="font-black text-white">{t.centresHeading}</h3>
           <div className="mt-5 grid gap-3 text-sm">
             {centres.map(c =>
               c.href ? (
@@ -94,19 +97,19 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="font-black text-white">Contact</h3>
+          <h3 className="font-black text-white">{t.contactHeading}</h3>
           <div className="mt-5 space-y-4 text-sm">
             <div className="flex gap-3"><MapPin size={18} className="shrink-0 text-cyan" /> New Hopewell Hospital, Hazari Baug Road, Tharpakna, Ranchi, Jharkhand 834001</div>
             <a href="tel:+919199666246" className="flex gap-3 transition hover:text-white"><Phone size={18} className="shrink-0 text-cyan" /> +91 91996 66246</a>
             <a href="mailto:hopewellranchi@gmail.com" className="flex gap-3 transition hover:text-white"><Mail size={18} className="shrink-0 text-cyan" /> hopewellranchi@gmail.com</a>
           </div>
           <a href="https://maps.google.com/?q=New+Hopewell+Hospital+Hazari+Baug+Road+Tharpakna+Ranchi" target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-cyan">
-            Get directions <ArrowUpRight size={15} />
+            {t.getDirections} <ArrowUpRight size={15} />
           </a>
         </div>
       </div>
       <div className="border-t border-white/10 px-5 py-5 text-center text-sm text-white">
-        © {new Date().getFullYear()} Hopewell Hospital, Ranchi. All rights reserved.
+        {t.copyright(new Date().getFullYear())}
       </div>
     </footer>
   );

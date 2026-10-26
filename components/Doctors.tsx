@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ArrowUpRight, Search } from "lucide-react";
 import { geist } from "@/lib/fonts";
 import { sortByDepartment } from "@/lib/doctor-order";
+import { doctorsDict, type Locale } from "@/lib/i18n";
 
 type Doctor = {
   id: number;
@@ -26,7 +27,8 @@ function initials(name: string) {
 
 const VISIBLE_COUNT = 3;
 
-export default function Doctors() {
+export default function Doctors({ locale = "en" }: { locale?: Locale }) {
+  const t = doctorsDict[locale];
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [query, setQuery] = useState("");
   const [showAll, setShowAll] = useState(false);
@@ -50,15 +52,15 @@ export default function Doctors() {
   return (
     <section className="mx-auto max-w-7xl px-5 py-28 lg:px-8">
       <div className="mx-auto max-w-2xl text-center">
-        <div className="section-kicker before:content-none !text-base">Find a Doctor</div>
+        <div className="section-kicker before:content-none !text-base">{t.kicker}</div>
         <h2 className={`${geist.className} text-balance mt-5 text-4xl font-black tracking-[-.045em] sm:text-5xl`}>
-          Expertise made easier to discover.
+          {t.h2}
         </h2>
       </div>
       <label className="glass mx-auto mt-8 flex max-w-[420px] items-center gap-3 rounded-full px-5 py-4">
         <Search size={19} className="text-slate-400" />
-        <span className="sr-only">Search doctors</span>
-        <input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search by doctor or speciality"
+        <span className="sr-only">{t.searchLabel}</span>
+        <input value={query} onChange={e => setQuery(e.target.value)} placeholder={t.searchPlaceholder}
           className={`${geist.className} w-full bg-transparent text-sm outline-none placeholder:text-slate-400`} />
       </label>
 
@@ -75,28 +77,28 @@ export default function Doctors() {
               )}
             </div>
             <span className="mt-4 flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-teal-700">
-              <span className="h-1.5 w-1.5 rounded-full bg-teal-500" /> Available
+              <span className="h-1.5 w-1.5 rounded-full bg-teal-500" /> {t.available}
             </span>
             <h3 className="mt-2 text-xl font-black">{doctor.name}</h3>
             <div className="mt-1 text-xs font-bold uppercase tracking-[.1em] text-slate-400">{doctor.specialty}</div>
             <p className="mt-2 text-sm text-slate-500">{doctor.qualifications}</p>
             <a href="/doctors" className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-slate-100 px-4 py-3 text-sm font-bold transition group-hover:bg-ink group-hover:text-white">
-              View Profile <ArrowUpRight size={16} />
+              {t.viewProfile} <ArrowUpRight size={16} />
             </a>
           </article>
         ))}
       </div>
       {doctors.length === 0 ? (
-        <p className="mt-8 text-slate-400">Loading doctors…</p>
+        <p className="mt-8 text-slate-400">{t.loading}</p>
       ) : filtered.length === 0 ? (
-        <p className="mt-8 text-slate-500">No matching doctor found.</p>
+        <p className="mt-8 text-slate-500">{t.noMatch}</p>
       ) : !showAll && filtered.length > VISIBLE_COUNT ? (
         <button
           type="button"
           onClick={() => setShowAll(true)}
           className="mx-auto mt-10 flex items-center gap-2 rounded-full bg-slate-100 px-6 py-3 text-sm font-bold transition hover:bg-ink hover:text-white"
         >
-          More Doctors <ArrowUpRight size={16} />
+          {t.moreDoctors} <ArrowUpRight size={16} />
         </button>
       ) : null}
     </section>

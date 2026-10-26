@@ -99,52 +99,6 @@ export const generalMedicineProcedures: GeneralMedicineProcedure[] = [
     finalCta: { heading: "Need physician consultation or preventive care?", text: "Book a General Medicine consultation with Dr. MD Arif Tauheed at Hopewell Hospital, Ranchi." },
   },
   {
-    slug: "diabetes-hypertension-care",
-    title: "Diabetes & Hypertension Care in Ranchi",
-    metaDescription: "Diabetes and hypertension care in Ranchi at Hopewell Hospital including HbA1c, blood pressure control, kidney and heart risk monitoring, lifestyle management and consultation with Dr. MD Arif Tauheed.",
-    category: "General Medicine",
-    eyebrow: "General Medicine",
-    heroTitle: "Diabetes & Hypertension Care in Ranchi",
-    heroCopy: "Integrated management of blood sugar and blood pressure to reduce the long-term risk of heart disease, stroke, kidney disease and other complications.",
-    heroCardKicker: "Hopewell Medicine Care",
-    heroCardTitle: "Metabolic & Blood Pressure Care",
-    heroCardText: "HbA1c monitoring, blood pressure control, kidney protection, cardiovascular risk reduction and lifestyle management.",
-    doctorName: "Dr. MD Arif Tauheed",
-    doctorSpecialtyMini: "General Medicine & Preventive Healthcare",
-    heroTags: ["HbA1c", "Blood pressure", "Kidney protection", "Heart risk"],
-    facts: [{ label: "Conditions", value: "Diabetes + Hypertension" }, { label: "Monitoring", value: "HbA1c / BP" }, { label: "Kidney", value: "Regular Review" }, { label: "Heart Risk", value: "Integrated" }, { label: "Lifestyle", value: "Essential" }, { label: "Follow-Up", value: "Long Term" }],
-    sections: [
-    { id: "overview", kicker: "Overview", heading: "Why manage diabetes and hypertension together?", blocks: [
-      { kind: "text", text: "Diabetes and high blood pressure commonly occur together and significantly increase the risk of heart disease, stroke, kidney disease and eye complications. Coordinated control of both conditions offers better long-term protection." }
-    ] },
-    { id: "symptoms", kicker: "Symptoms", heading: "Many patients have no symptoms", blocks: [
-      { kind: "twocol", boxes: [{ title: "Possible diabetes symptoms", items: ["Excess thirst.", "Frequent urination.", "Unexplained weight loss.", "Blurred vision.", "Slow-healing wounds."] }, { title: "Possible hypertension symptoms", items: ["Often no symptoms.", "Headache in some patients.", "Dizziness.", "Breathlessness when severe.", "Chest discomfort requiring urgent review."] }] }
-    ] },
-    { id: "diagnosis", kicker: "Diagnosis", heading: "How are diabetes and hypertension assessed?", blocks: [
-      { kind: "text", text: "Evaluation may include fasting or random blood sugar, HbA1c, blood pressure measurements, kidney tests, urine protein testing, lipid profile and additional cardiovascular assessment when indicated." }
-    ] },
-    { id: "treatment", kicker: "Treatment", heading: "Control numbers—and protect organs", blocks: [
-      { kind: "grid", items: [{ title: "Medicines", text: "Individualised blood pressure and glucose-lowering treatment." }, { title: "Weight Management", text: "Even modest weight reduction can improve both conditions." }, { title: "Diet", text: "Lower salt, balanced carbohydrates and adequate fibre." }, { title: "Exercise", text: "Regular activity improves cardiovascular and metabolic health." }, { title: "Kidney Protection", text: "Urine protein and kidney function should be monitored." }, { title: "Eye & Foot Review", text: "Diabetes-related complications should be screened periodically." }] }
-    ] },
-    { id: "targets", kicker: "Monitoring Targets", heading: "Targets must be individualised", blocks: [
-      { kind: "text", text: "Blood pressure and HbA1c goals differ according to age, kidney function, pregnancy, cardiovascular disease and risk of low blood sugar. The physician should define safe targets for each patient." }
-    ] },
-    { id: "urgent", kicker: "Urgent Warning Signs", heading: "Seek urgent medical care for", blocks: [
-      { kind: "bullets", items: ["Chest pain or severe breathlessness.", "New weakness, facial droop or speech difficulty.", "Very high blood pressure with severe headache or neurological symptoms.", "Severe low blood sugar with confusion or unconsciousness.", "Very high blood sugar with vomiting or dehydration."] }
-    ] },
-    { id: "cost", kicker: "Cost Guidance", heading: "Diabetes & hypertension care cost", blocks: [
-      { kind: "cost", range: "Depends on Tests & Follow-Up", note: "Cost varies by consultation, HbA1c, kidney tests, lipid profile, ECG and complication screening.", insuranceTitle: "Insurance / TPA", insuranceNote: "Outpatient monitoring coverage varies, while admissions for complications may be covered depending on policy." }
-    ] },
-    { id: "faq", kicker: "FAQs", heading: "Frequently asked questions", blocks: [
-      { kind: "faq", items: [{ q: "Can diabetes and hypertension be reversed?", a: "Some patients can greatly improve control through weight loss and lifestyle change, but long-term medical monitoring is still important." }, { q: "How often should HbA1c be checked?", a: "Frequency depends on control and treatment changes, often every few months when adjustment is needed." }, { q: "Why check kidneys if I feel fine?", a: "Both diabetes and hypertension can damage kidneys silently, so early screening is important." }] }
-    ] },
-    { id: "doctor", kicker: "Doctor", heading: "Meet the medicine specialist", blocks: [
-      { kind: "doctor", name: "Dr. MD Arif Tauheed", specialty: "General Medicine & Preventive Healthcare • Hopewell Hospital, Ranchi", focus: "" }
-    ] }
-    ],
-    finalCta: { heading: "Need physician consultation or preventive care?", text: "Book a General Medicine consultation with Dr. MD Arif Tauheed at Hopewell Hospital, Ranchi." },
-  },
-  {
     slug: "fever-infection-care",
     title: "Fever & Infection Care in Ranchi",
     metaDescription: "Fever and infection care in Ranchi at Hopewell Hospital including dengue, malaria, typhoid, respiratory and urinary infections, testing, treatment, warning signs and consultation with Dr. MD Arif Tauheed.",

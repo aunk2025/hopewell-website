@@ -28,6 +28,10 @@ type Service = {
   color: string;
   bgColor: string;
   image?: string;
+  // Override the image's alt/title text when it needs to say something
+  // more specific than the card's own name (falls back to `name`).
+  imageAlt?: string;
+  imageTitle?: string;
   imageScaleClass?: string;
   description?: string;
   learnMore: string;
@@ -87,13 +91,12 @@ const services: Service[] = [
     description:
       "Everyday medical care for common illnesses, chronic conditions and preventive health check-ups.",
     learnMore:
-      "Comprehensive physician-led care for adult medical conditions, preventive healthcare and long-term disease management. Services include preventive health check-ups, chronic disease management, diabetes and hypertension care, fever and infection treatment, and infectious disease evaluation. The department focuses strongly on early diagnosis, prevention of complications and continuous management of lifestyle-related and infectious diseases.",
+      "Comprehensive physician-led care for adult medical conditions, preventive healthcare and long-term disease management. Services include preventive health check-ups, chronic disease management, fever and infection treatment, and infectious disease evaluation. The department focuses strongly on early diagnosis, prevention of complications and continuous management of lifestyle-related and infectious diseases.",
     image: "/gem%20medicine.png",
     imageScaleClass: "scale-[1.04] group-hover:scale-[1.09]",
     items: [
       { label: "Preventive Health Checkups", href: "/services/general-medicine/preventive-health-checkups" },
       { label: "Chronic Disease Management", href: "/services/general-medicine/chronic-disease-management" },
-      { label: "Diabetes & Hypertension Care", href: "/services/general-medicine/diabetes-hypertension-care" },
       { label: "Fever & Infection Care", href: "/services/general-medicine/fever-infection-care" },
       { label: "Infectious Disease", href: "/services/general-medicine/infectious-disease" },
     ],
@@ -102,15 +105,17 @@ const services: Service[] = [
   },
   {
     icon: Droplet,
-    name: "Diabetology",
+    name: "Diabetology & Diabetes Care",
     slug: "diabetology",
     description:
       "Integrated diabetes and blood-sugar care to reduce long-term complications affecting the heart, kidneys and eyes.",
     learnMore:
       "Structured diabetes and blood-sugar management, including HbA1c monitoring, blood pressure control, kidney protection and cardiovascular risk reduction. Care is coordinated as part of Hopewell's General Medicine department to keep blood-sugar control linked with overall medical monitoring rather than treated in isolation.",
     image: "/diabetology-diabetes-care-ranchi-hopewell-hospital.webp",
+    imageAlt: "Diabetology icon featuring a blood glucose meter, pancreas and blood drop, representing diabetes care at Hopewell Hospital Ranchi",
+    imageTitle: "Diabetology & Diabetes Care in Ranchi | Hopewell Hospital",
     items: [
-      { label: "Diabetes & Hypertension Care", href: "/services/general-medicine/diabetes-hypertension-care" },
+      { label: "Diabetology & Diabetes Care in Ranchi — Details & Booking", href: "/services/diabetology" },
     ],
     color: "#d97706",
     bgColor: "rgba(217,119,6,.08)",
@@ -313,7 +318,8 @@ export default function ServicesGrid() {
                   {s.image ? (
                     <img
                       src={s.image}
-                      alt={s.name}
+                      alt={s.imageAlt ?? s.name}
+                      title={s.imageTitle}
                       className={`h-3/4 w-3/4 object-contain ${s.imageScaleClass ?? ""}`}
                     />
                   ) : (

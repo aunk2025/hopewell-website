@@ -4,30 +4,43 @@ import { useState } from "react";
 import { Menu, X, Phone, CalendarDays } from "lucide-react";
 
 import Link from "next/link";
+import { LANGUAGE_SWITCH, navDict, type Locale } from "@/lib/i18n";
 
-const links = [
-  { label: "Home",            href: "/" },
-  { label: "Doctors",         href: "/doctors" },
-  { label: "Services",        href: "/services" },
-  { label: "Health Packages", href: "/health-packages" },
-  { label: "Blogs",           href: "/blog" },
-  { label: "Contact",         href: "/contact" },
-];
-
-
-export default function Navbar() {
+export default function Navbar({ locale = "en", altHref }: { locale?: Locale; altHref?: string }) {
   const [open, setOpen] = useState(false);
+  const t = navDict[locale];
+
+  const links = [
+    { label: t.links.home, href: "/" },
+    { label: t.links.doctors, href: "/doctors" },
+    { label: t.links.services, href: "/services" },
+    { label: t.links.healthPackages, href: "/health-packages" },
+    { label: t.links.blogs, href: "/blog" },
+    { label: t.links.contact, href: "/contact" },
+  ];
 
   return (
     <>
-      <div className="bg-ink px-5 py-2 text-center text-xs font-medium tracking-wide text-white">
-        24×7 Emergency & Critical Care
-        <span className="mx-2 text-cyan">•</span>
-        Ranchi, Jharkhand
-        <span className="mx-2 text-cyan">•</span>
-        <a href="tel:+919199666246" className="underline decoration-cyan/60 underline-offset-4">
-          +91 91996 66246
-        </a>
+      <div className="flex items-center gap-3 bg-ink px-5 py-2 text-xs font-medium tracking-wide text-white lg:px-8">
+        <div className="flex-1 flex-wrap text-center">
+          {t.topBarEmergency}
+          <span className="mx-2 text-cyan">•</span>
+          {t.topBarLocation}
+          <span className="mx-2 text-cyan">•</span>
+          <a href="tel:+919199666246" className="underline decoration-cyan/60 underline-offset-4">
+            +91 91996 66246
+          </a>
+        </div>
+        {altHref && (
+          <Link
+            href={altHref}
+            className="flex shrink-0 items-center gap-1 rounded-full border border-white/30 px-2.5 py-0.5 text-[11px] font-bold"
+          >
+            <span className={locale === "en" ? "text-white" : "text-white/50"}>{LANGUAGE_SWITCH.en.label}</span>
+            <span className="text-white/30">|</span>
+            <span className={locale === "hi" ? "text-white" : "text-white/50"}>{LANGUAGE_SWITCH.hi.label}</span>
+          </Link>
+        )}
       </div>
 
       <header className="sticky top-0 z-50 border-b border-white/50 bg-white/70 backdrop-blur-2xl">
@@ -56,11 +69,11 @@ export default function Navbar() {
             </a>
             <Link href="/appointment" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5">
               <CalendarDays size={16} />
-              Book Appointment
+              {t.bookAppointment}
             </Link>
           </div>
 
-          <button type="button" onClick={() => setOpen(!open)} className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 lg:hidden" aria-label="Toggle navigation">
+          <button type="button" onClick={() => setOpen(!open)} className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 lg:hidden" aria-label={t.toggleNav}>
             {open ? <X /> : <Menu />}
           </button>
         </div>
@@ -79,7 +92,7 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
-              <Link href="/appointment" target="_blank" rel="noopener noreferrer" className="rounded-xl bg-ink px-4 py-3 text-center font-bold text-white">Book Appointment</Link>
+              <Link href="/appointment" target="_blank" rel="noopener noreferrer" className="rounded-xl bg-ink px-4 py-3 text-center font-bold text-white">{t.bookAppointment}</Link>
             </div>
           </div>
         )}

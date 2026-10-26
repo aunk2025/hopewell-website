@@ -13,6 +13,7 @@ import { orthoProcedures } from "@/lib/ortho-procedures";
 import { entTreatments } from "@/lib/ent-treatments";
 import { diagnosticsProcedures } from "@/lib/diagnostics-procedures";
 import { ctScanService } from "@/lib/ct-scan-content";
+import { diabetologyService } from "@/lib/diabetology-content";
 import { generalMedicineProcedures } from "@/lib/general-medicine-procedures";
 import { ivfProcedures } from "@/lib/ivf-procedures";
 import { paedsProcedures } from "@/lib/paeds-procedures";
@@ -146,6 +147,9 @@ ${formatRich(diagnosticsProcedures, "/services/diagnostics")}
 
 GENERAL MEDICINE (/services/general-medicine)
 ${formatRich(generalMedicineProcedures, "/services/general-medicine")}
+
+DIABETOLOGY (/services/diabetology)
+- ${diabetologyService.metaDescription} (details: /services/diabetology)
 
 CONTACT US (/contact)
 The Contact Us page routes enquiries by type. If a visitor asks about any of the following, point them to /contact:

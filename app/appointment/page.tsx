@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "Book an Appointment | Hopewell Hospital Ranchi",
   description:
     "Book an appointment with Hopewell Hospital's specialist doctors in Ranchi. Choose your doctor, preferred date and time, and get instant confirmation.",
+  alternates: {
+    languages: { "en-IN": "/appointment", "hi-IN": "/hi/appointment" },
+  },
 };
 
 export default function AppointmentPage() {
