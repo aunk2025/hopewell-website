@@ -94,8 +94,12 @@ export default function ContactFAB() {
   const [speechSupported, setSpeechSupported] = useState(false);
   const [ttsSupported, setTtsSupported] = useState(false);
   const [speechEnabled, setSpeechEnabled] = useState(true);
+  // Measured, not assumed: see the effect below for why this can't be a
+  // `vh`/`dvh` CSS calc.
+  const [panelMaxHeight, setPanelMaxHeight] = useState<number | null>(null);
   const endRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<any>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
   // Tracks whether the text currently in the input box came from dictation
   // (vs. the visitor typing) so a reply is only read aloud when the
   // question that prompted it was actually asked by voice.
@@ -105,6 +109,37 @@ export default function ContactFAB() {
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, chatOpen]);
+
+  // The chat panel pops up `bottom-full` above the fixed FAB stack, so the
+  // room available for it is "distance from the top of that stack up to
+  // the top of the screen". CSS `vh`/`dvh` keep proving unreliable for
+  // this across real devices — `vh` is the viewport as if a mobile
+  // browser's address bar were hidden (not the space actually visible
+  // while it's shown), and `dvh` still came up short on an Android Chrome
+  // variant with on-screen navigation, apparently not fully accounted for
+  // either. Measuring the actual rendered position of the fixed-positioned
+  // wrapper sidesteps both: `getBoundingClientRect()` reflects reality
+  // regardless of how any given browser's chrome affects viewport units.
+  useEffect(() => {
+    if (!chatOpen) return;
+    function updateMaxHeight() {
+      if (!wrapperRef.current) return;
+      const wrapperTop = wrapperRef.current.getBoundingClientRect().top;
+      // 12px = the panel's own mb-3 gap above the FAB stack; 16px = a
+      // small margin so the header never sits flush against the very top
+      // of the screen.
+      const available = wrapperTop - 12 - 16;
+      setPanelMaxHeight(Math.max(200, Math.min(480, available)));
+    }
+    updateMaxHeight();
+    const vv = window.visualViewport;
+    vv?.addEventListener("resize", updateMaxHeight);
+    window.addEventListener("resize", updateMaxHeight);
+    return () => {
+      vv?.removeEventListener("resize", updateMaxHeight);
+      window.removeEventListener("resize", updateMaxHeight);
+    };
+  }, [chatOpen]);
 
   useEffect(() => {
     setSpeechSupported(!!getSpeechRecognition());
@@ -222,20 +257,12 @@ export default function ContactFAB() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end gap-3">
-      {/*
-       * Height cap: the panel sits in a `bottom-full` popover above the
-       * fixed FAB stack (3 buttons × 56px + 2 gaps × 12px = 192px, plus
-       * the wrapper's own bottom-6 offset and this panel's mb-3 gap — 228px
-       * reserved below it). `70vh` alone doesn't account for that reserved
-       * space, so on a short viewport (e.g. ~600px tall) the panel was
-       * taller than the room actually available above the FAB stack, and
-       * its top — including the whole header — scrolled off above the
-       * browser viewport. Subtracting the reserved space (plus a small top
-       * margin) keeps the full header on-screen at any viewport height;
-       * `480px` still caps it on tall screens. */}
+    <div ref={wrapperRef} className="fixed bottom-6 right-6 z-[100] flex flex-col items-end gap-3">
       {chatOpen && (
-        <div className="absolute bottom-full right-0 mb-3 flex h-[min(480px,calc(100vh-250px))] w-[340px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-3xl border border-teal-700 bg-white shadow-2xl">
+        <div
+          className="absolute bottom-full right-0 mb-3 flex h-[min(480px,calc(100dvh-250px))] w-[340px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-3xl border border-teal-700 bg-white shadow-2xl"
+          style={panelMaxHeight !== null ? { height: panelMaxHeight } : undefined}
+        >
           <div className="flex items-center gap-1.5 bg-ink px-3.5 py-3.5 text-white sm:gap-2.5 sm:px-5 sm:py-4">
             <div className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white">
               <img src="/hopewell%20logo2.png" alt="" className="h-6 w-6 object-contain" />
