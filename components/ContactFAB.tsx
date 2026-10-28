@@ -223,15 +223,26 @@ export default function ContactFAB() {
 
   return (
     <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end gap-3">
+      {/*
+       * Height cap: the panel sits in a `bottom-full` popover above the
+       * fixed FAB stack (3 buttons × 56px + 2 gaps × 12px = 192px, plus
+       * the wrapper's own bottom-6 offset and this panel's mb-3 gap — 228px
+       * reserved below it). `70vh` alone doesn't account for that reserved
+       * space, so on a short viewport (e.g. ~600px tall) the panel was
+       * taller than the room actually available above the FAB stack, and
+       * its top — including the whole header — scrolled off above the
+       * browser viewport. Subtracting the reserved space (plus a small top
+       * margin) keeps the full header on-screen at any viewport height;
+       * `480px` still caps it on tall screens. */}
       {chatOpen && (
-        <div className="absolute bottom-full right-0 mb-3 flex h-[min(480px,70vh)] w-[340px] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-3xl border border-teal-700 bg-white shadow-2xl">
-          <div className="flex items-center gap-2.5 bg-ink px-5 py-4 text-white">
+        <div className="absolute bottom-full right-0 mb-3 flex h-[min(480px,calc(100vh-250px))] w-[340px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-3xl border border-teal-700 bg-white shadow-2xl">
+          <div className="flex items-center gap-1.5 bg-ink px-3.5 py-3.5 text-white sm:gap-2.5 sm:px-5 sm:py-4">
             <div className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white">
               <img src="/hopewell%20logo2.png" alt="" className="h-6 w-6 object-contain" />
             </div>
-            <div className="flex-1">
-              <div className="text-sm font-black">{t.title}</div>
-              <div className="text-[11px] text-white/50">{t.subtitle}</div>
+            <div className="min-w-0 flex-1">
+              <div className="truncate text-sm font-black">{t.title}</div>
+              <div className="truncate text-[11px] text-white/50">{t.subtitle}</div>
             </div>
             <div className="flex shrink-0 overflow-hidden rounded-full border border-white/20 text-[11px] font-bold">
               {LANGUAGES.map((l) => (
@@ -240,7 +251,7 @@ export default function ContactFAB() {
                   type="button"
                   onClick={() => changeLanguage(l.code)}
                   aria-pressed={language === l.code}
-                  className={`px-2.5 py-1 transition ${language === l.code ? "bg-white text-ink" : "text-white/60 hover:text-white"}`}
+                  className={`px-2 py-1 transition ${language === l.code ? "bg-white text-ink" : "text-white/60 hover:text-white"}`}
                 >
                   {l.label}
                 </button>
@@ -253,13 +264,13 @@ export default function ContactFAB() {
                 aria-pressed={speechEnabled}
                 aria-label={speechEnabled ? t.muteSpeech : t.unmuteSpeech}
                 title={speechEnabled ? t.muteSpeech : t.unmuteSpeech}
-                className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-white/60 hover:bg-white/10 hover:text-white"
+                className="grid h-7 w-7 shrink-0 place-items-center rounded-full text-white/60 hover:bg-white/10 hover:text-white sm:h-8 sm:w-8"
               >
-                {speechEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
+                {speechEnabled ? <Volume2 size={15} /> : <VolumeX size={15} />}
               </button>
             )}
-            <button type="button" onClick={() => setChatOpen(false)} aria-label="Close chat" className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-white/60 hover:bg-white/10 hover:text-white">
-              <X size={16} />
+            <button type="button" onClick={() => setChatOpen(false)} aria-label="Close chat" className="grid h-7 w-7 shrink-0 place-items-center rounded-full text-white/60 hover:bg-white/10 hover:text-white sm:h-8 sm:w-8">
+              <X size={15} />
             </button>
           </div>
 
