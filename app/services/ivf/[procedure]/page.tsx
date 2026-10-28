@@ -11,7 +11,14 @@ export async function generateMetadata({ params }: { params: Promise<{ procedure
   const { procedure: slug } = await params;
   const procedure = getIvfProcedure(slug);
   if (!procedure) return { title: "IVF, Gynaecology & Women's Health | Hopewell Hospital Ranchi" };
-  return buildProcedureMetadata(procedure, `/services/ivf/${slug}`);
+  const base = buildProcedureMetadata(procedure, `/services/ivf/${slug}`);
+  return {
+    ...base,
+    alternates: {
+      ...base.alternates,
+      languages: { "en-IN": `/services/ivf/${slug}`, "hi-IN": `/hi/services/ivf/${slug}` },
+    },
+  };
 }
 
 export default async function IvfProcedurePage({ params }: { params: Promise<{ procedure: string }> }) {
@@ -25,6 +32,7 @@ export default async function IvfProcedurePage({ params }: { params: Promise<{ p
       categoryHref="/services"
       canonicalPath={`/services/ivf/${slug}`}
       consultationLabel="Book Fertility Consultation"
+      altHref={`/hi/services/ivf/${slug}`}
     />
   );
 }

@@ -11,7 +11,14 @@ export async function generateMetadata({ params }: { params: Promise<{ procedure
   const { procedure: slug } = await params;
   const procedure = getVascularProcedure(slug);
   if (!procedure) return { title: "Vascular Surgery | Hopewell Hospital Ranchi" };
-  return buildProcedureMetadata(procedure, `/services/vascular-surgery/${slug}`);
+  const base = buildProcedureMetadata(procedure, `/services/vascular-surgery/${slug}`);
+  return {
+    ...base,
+    alternates: {
+      ...base.alternates,
+      languages: { "en-IN": `/services/vascular-surgery/${slug}`, "hi-IN": `/hi/services/vascular-surgery/${slug}` },
+    },
+  };
 }
 
 export default async function VascularProcedurePage({ params }: { params: Promise<{ procedure: string }> }) {
@@ -25,6 +32,7 @@ export default async function VascularProcedurePage({ params }: { params: Promis
       categoryHref="/services"
       canonicalPath={`/services/vascular-surgery/${slug}`}
       consultationLabel="Book Vascular Surgery Consultation"
+      altHref={`/hi/services/vascular-surgery/${slug}`}
     />
   );
 }

@@ -19,6 +19,20 @@ import { urologyProcedures } from "@/lib/urology-procedures";
 import { vascularProcedures } from "@/lib/vascular-procedures";
 import { blogPosts } from "@/lib/blog-content";
 
+// Hindi counterparts — only the "rich" procedures have a translated page
+// (the 11 legacy-only ortho/ENT slugs are intentionally not covered yet).
+import { orthoProceduresHi } from "@/lib/ortho-procedures-hi";
+import { entTreatmentsHi } from "@/lib/ent-treatments-hi";
+import { diagnosticsProceduresHi } from "@/lib/diagnostics-procedures-hi";
+import { generalMedicineProceduresHi } from "@/lib/general-medicine-procedures-hi";
+import { ivfProceduresHi } from "@/lib/ivf-procedures-hi";
+import { paedsProceduresHi } from "@/lib/paeds-procedures-hi";
+import { spineProceduresHi } from "@/lib/spine-procedures-hi";
+import { surgeryProceduresHi } from "@/lib/surgery-procedures-hi";
+import { urologyProceduresHi } from "@/lib/urology-procedures-hi";
+import { vascularProceduresHi } from "@/lib/vascular-procedures-hi";
+import { blogPostsHi } from "@/lib/blog-content-hi";
+
 function mergedSlugs(rich: { slug: string }[], legacy: { slug: string }[]) {
   const richSlugs = new Set(rich.map((p) => p.slug));
   return [...rich, ...legacy.filter((p) => !richSlugs.has(p.slug))].map((p) => p.slug);
@@ -34,15 +48,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/services/emergencymedicine",
     "/services/icu",
     "/services/neurosciences",
-    "/centres",
     "/health-packages",
     "/contact",
     "/appointment",
     "/doctors",
     "/blog",
     "/hi",
+    "/hi/services",
+    "/hi/health-packages",
+    "/hi/doctors",
+    "/hi/blog",
     "/hi/contact",
     "/hi/appointment",
+    "/hi/services/cardiac",
+    "/hi/services/ct-scan",
+    "/hi/services/diabetology",
+    "/hi/services/emergencymedicine",
+    "/hi/services/icu",
+    "/hi/services/neurosciences",
   ];
 
   const procedureGroups: { basePath: string; slugs: string[] }[] = [
@@ -57,6 +80,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { basePath: "/services/urology", slugs: urologyProcedures.map((p) => p.slug) },
     { basePath: "/services/vascular-surgery", slugs: vascularProcedures.map((p) => p.slug) },
     { basePath: "/blog", slugs: blogPosts.map((p) => p.slug) },
+
+    // Hindi — rich-only categories (no legacy ortho/ENT slugs here)
+    { basePath: "/hi/services/orthopaedics", slugs: orthoProceduresHi.map((p) => p.slug) },
+    { basePath: "/hi/services/ent", slugs: entTreatmentsHi.map((p) => p.slug) },
+    { basePath: "/hi/services/diagnostics", slugs: diagnosticsProceduresHi.map((p) => p.slug) },
+    { basePath: "/hi/services/general-medicine", slugs: generalMedicineProceduresHi.map((p) => p.slug) },
+    { basePath: "/hi/services/ivf", slugs: ivfProceduresHi.map((p) => p.slug) },
+    { basePath: "/hi/services/motherchild", slugs: paedsProceduresHi.map((p) => p.slug) },
+    { basePath: "/hi/services/spine", slugs: spineProceduresHi.map((p) => p.slug) },
+    { basePath: "/hi/services/surgeries", slugs: surgeryProceduresHi.map((p) => p.slug) },
+    { basePath: "/hi/services/urology", slugs: urologyProceduresHi.map((p) => p.slug) },
+    { basePath: "/hi/services/vascular-surgery", slugs: vascularProceduresHi.map((p) => p.slug) },
+    { basePath: "/hi/blog", slugs: blogPostsHi.map((p) => p.slug) },
   ];
 
   // No page here tracks a real "last updated" date, so `lastModified` is

@@ -2,14 +2,34 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactPageContent from "@/components/contact/ContactPageContent";
-import { EMERGENCY_PHONE, HOSPITAL_ADDRESS_PARTS, SITE_URL } from "@/lib/contact-config";
+import { EMERGENCY_PHONE, HOSPITAL_ADDRESS_PARTS, SITE_URL, DEFAULT_OG_IMAGE } from "@/lib/contact-config";
+
+const TITLE = "अपॉइंटमेंट या हॉस्पिटल सहायता चाहिए? | हॉपवेल रांची";
+const DESCRIPTION =
+  "अपॉइंटमेंट बुक करें, हॉपवेल हॉस्पिटल खोजें, दिशा-निर्देश प्राप्त करें या आपातकाल, एम्बुलेंस, टीपीए, बीमा, कॉर्पोरेट, करियर एवं अन्य पूछताछ के लिए हमसे संपर्क करें।";
+const URL = `${SITE_URL}/hi/contact`;
 
 export const metadata: Metadata = {
-  title: "अपॉइंटमेंट या हॉस्पिटल सहायता चाहिए? | हॉपवेल रांची",
-  description:
-    "अपॉइंटमेंट बुक करें, हॉपवेल हॉस्पिटल खोजें, दिशा-निर्देश प्राप्त करें या आपातकाल, एम्बुलेंस, टीपीए, बीमा, कॉर्पोरेट, करियर एवं अन्य पूछताछ के लिए हमसे संपर्क करें।",
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: {
+    canonical: URL,
     languages: { "en-IN": "/contact", "hi-IN": "/hi/contact" },
+  },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: URL,
+    siteName: "Hopewell Hospital",
+    type: "website",
+    locale: "hi_IN",
+    images: [{ url: DEFAULT_OG_IMAGE, alt: "Hopewell Hospital" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

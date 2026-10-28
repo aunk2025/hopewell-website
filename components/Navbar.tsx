@@ -10,13 +10,14 @@ export default function Navbar({ locale = "en", altHref }: { locale?: Locale; al
   const [open, setOpen] = useState(false);
   const t = navDict[locale];
 
+  const prefix = locale === "hi" ? "/hi" : "";
   const links = [
-    { label: t.links.home, href: "/" },
-    { label: t.links.doctors, href: "/doctors" },
-    { label: t.links.services, href: "/services" },
-    { label: t.links.healthPackages, href: "/health-packages" },
-    { label: t.links.blogs, href: "/blog" },
-    { label: t.links.contact, href: "/contact" },
+    { label: t.links.home, href: prefix || "/" },
+    { label: t.links.doctors, href: `${prefix}/doctors` },
+    { label: t.links.services, href: `${prefix}/services` },
+    { label: t.links.healthPackages, href: `${prefix}/health-packages` },
+    { label: t.links.blogs, href: `${prefix}/blog` },
+    { label: t.links.contact, href: `${prefix}/contact` },
   ];
 
   return (
@@ -45,7 +46,7 @@ export default function Navbar({ locale = "en", altHref }: { locale?: Locale; al
 
       <header className="sticky top-0 z-50 border-b border-white/50 bg-white/70 backdrop-blur-2xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-          <Link href="/" className="group flex items-center">
+          <Link href={prefix || "/"} className="group flex items-center">
             <img src="/hopewell%20logo2.png" alt="Hopewell Hospital" className="h-24 w-auto object-contain" />
           </Link>
 
@@ -67,7 +68,7 @@ export default function Navbar({ locale = "en", altHref }: { locale?: Locale; al
             <a href="tel:+919199666246" className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white">
               <Phone size={17} />
             </a>
-            <Link href="/appointment" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5">
+            <Link href={`${prefix}/appointment`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5">
               <CalendarDays size={16} />
               {t.bookAppointment}
             </Link>
@@ -92,7 +93,7 @@ export default function Navbar({ locale = "en", altHref }: { locale?: Locale; al
                   {link.label}
                 </Link>
               ))}
-              <Link href="/appointment" target="_blank" rel="noopener noreferrer" className="rounded-xl bg-ink px-4 py-3 text-center font-bold text-white">{t.bookAppointment}</Link>
+              <Link href={`${prefix}/appointment`} target="_blank" rel="noopener noreferrer" className="rounded-xl bg-ink px-4 py-3 text-center font-bold text-white">{t.bookAppointment}</Link>
             </div>
           </div>
         )}

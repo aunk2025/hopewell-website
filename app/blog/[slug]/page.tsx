@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import BlogPostTemplate from "@/components/blog/BlogPostTemplate";
 import { blogPosts, getBlogPost } from "@/lib/blog-content";
+import { getBlogPostHi } from "@/lib/blog-content-hi";
 import { SITE_URL, DEFAULT_OG_IMAGE } from "@/lib/contact-config";
 
 export function generateStaticParams() {
@@ -16,16 +17,23 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   // preview image at all — fall back to the site-wide default explicitly.
   const ogImage = post.heroImage ?? DEFAULT_OG_IMAGE;
   const ogAlt = post.heroImageAlt ?? post.title;
+  // Only claim a Hindi alternate when that translation actually exists —
+  // new posts land in English first and get a Hindi version separately.
+  const hasHindi = Boolean(getBlogPostHi(slug));
 
   return {
     title: post.seoTitle,
     description: post.metaDescription,
-    alternates: { canonical: `${SITE_URL}/blog/${post.slug}` },
+    alternates: {
+      canonical: `${SITE_URL}/blog/${post.slug}`,
+      ...(hasHindi && { languages: { "en-IN": `/blog/${post.slug}`, "hi-IN": `/hi/blog/${post.slug}` } }),
+    },
     openGraph: {
       title: post.seoTitle,
       description: post.metaDescription,
       url: `${SITE_URL}/blog/${post.slug}`,
       type: "article",
+      locale: "en_IN",
       images: [{ url: ogImage, alt: ogAlt }],
     },
     twitter: {
@@ -41,6 +49,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const { slug } = await params;
   const post = getBlogPost(slug);
   if (!post) notFound();
+  const hasHindi = Boolean(getBlogPostHi(slug));
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -79,7 +88,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <>
-      <BlogPostTemplate post={post} />
+      <BlogPostTemplate post={post} altHref={hasHindi ? `/hi/blog/${slug}` : undefined} />
       <script
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger

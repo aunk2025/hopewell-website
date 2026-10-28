@@ -7,12 +7,13 @@ import { centresDict, type Locale } from "@/lib/i18n";
 
 export default function Centres({ locale = "en" }: { locale?: Locale }) {
   const t = centresDict[locale];
+  const servicesPrefix = locale === "hi" ? "/hi/services" : "/services";
 
   const centres = [
-    { icon: ScanHeart, ...t.items.surgery, href: "/services#surgeries", image: "/GI%20surgery.png" },
-    { icon: Dna, ...t.items.ivf, href: "/services#ivf", image: "/ivfhome.png" },
-    { icon: HeartPulse, ...t.items.generalMedicine, href: "/services#general-medicine", image: "/gem%20medicine.png" },
-    { icon: Bone, ...t.items.ortho, href: "/services#orthopaedics", image: "/orthopaedicsnew.png" },
+    { icon: ScanHeart, ...t.items.surgery, href: `${servicesPrefix}#surgeries`, image: "/GI%20surgery.png" },
+    { icon: Dna, ...t.items.ivf, href: `${servicesPrefix}#ivf`, image: "/ivfhome.png" },
+    { icon: HeartPulse, ...t.items.generalMedicine, href: `${servicesPrefix}#general-medicine`, image: "/gem%20medicine.png" },
+    { icon: Bone, ...t.items.ortho, href: `${servicesPrefix}#orthopaedics`, image: "/orthopaedicsnew.png" },
   ];
 
   return (
@@ -80,7 +81,7 @@ export default function Centres({ locale = "en" }: { locale?: Locale }) {
       </div>
 
       <div className="mt-10 text-center">
-        <a href="/services" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-bold text-teal-800">
+        <a href={servicesPrefix} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-bold text-teal-800">
           {t.viewAll} <ArrowUpRight size={17} />
         </a>
       </div>

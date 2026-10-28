@@ -11,7 +11,14 @@ export async function generateMetadata({ params }: { params: Promise<{ procedure
   const { procedure: slug } = await params;
   const procedure = getSurgeryProcedure(slug);
   if (!procedure) return { title: "General, GI & Laparoscopic Surgery | Hopewell Hospital Ranchi" };
-  return buildProcedureMetadata(procedure, `/services/surgeries/${slug}`);
+  const base = buildProcedureMetadata(procedure, `/services/surgeries/${slug}`);
+  return {
+    ...base,
+    alternates: {
+      ...base.alternates,
+      languages: { "en-IN": `/services/surgeries/${slug}`, "hi-IN": `/hi/services/surgeries/${slug}` },
+    },
+  };
 }
 
 export default async function SurgeryProcedurePage({ params }: { params: Promise<{ procedure: string }> }) {
@@ -25,6 +32,7 @@ export default async function SurgeryProcedurePage({ params }: { params: Promise
       categoryHref="/services"
       canonicalPath={`/services/surgeries/${slug}`}
       consultationLabel="Book Surgical Consultation"
+      altHref={`/hi/services/surgeries/${slug}`}
     />
   );
 }

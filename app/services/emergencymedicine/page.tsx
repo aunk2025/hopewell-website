@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ChevronRight } from "lucide-react";
 import { buildStaticMetadata, buildSimpleJsonLd } from "@/lib/procedure-seo";
+import type { Metadata } from "next";
 
 const keyServices = [
   {
@@ -27,7 +28,14 @@ const DESCRIPTION =
   "24x7 emergency care at Hopewell Hospital: rapid trauma response, critical emergency management and seamless escalation to ICU and specialist care.";
 const PATH = "/services/emergencymedicine";
 
-export const metadata = buildStaticMetadata(TITLE, DESCRIPTION, PATH);
+const baseMetadata = buildStaticMetadata(TITLE, DESCRIPTION, PATH);
+export const metadata: Metadata = {
+  ...baseMetadata,
+  alternates: {
+    ...baseMetadata.alternates,
+    languages: { "en-IN": "/services/emergencymedicine", "hi-IN": "/hi/services/emergencymedicine" },
+  },
+};
 
 export default function EmergencyMedicinePage() {
   const jsonLd = buildSimpleJsonLd(TITLE, DESCRIPTION, PATH);
@@ -39,7 +47,7 @@ export default function EmergencyMedicinePage() {
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Navbar />
+      <Navbar altHref="/hi/services/emergencymedicine" />
 
       {/* Hero banner */}
       <section

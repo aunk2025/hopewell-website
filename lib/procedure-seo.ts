@@ -10,12 +10,21 @@ import { SITE_URL, DEFAULT_OG_IMAGE } from "./contact-config";
 
 const SITE_NAME = "Hopewell Hospital";
 
+// Every caller already has to pass the page's own path (for the canonical
+// URL), so the locale is derived from that /hi prefix instead of needing a
+// separate `locale` argument threaded through every one of the ~70 route
+// files that call these builders.
+function localeFromPath(path: string): "en" | "hi" {
+  return path === "/hi" || path.startsWith("/hi/") ? "hi" : "en";
+}
+
 /** Full ProcedurePage-shaped content (surgery, IVF, diagnostics, CT Scan, …). */
 export function buildProcedureMetadata(procedure: ProcedurePage, path: string): Metadata {
   const title = procedure.seoTitle ?? `${procedure.title} | Hopewell Hospital Ranchi`;
   const url = `${SITE_URL}${path}`;
   const image = procedure.heroImage ?? DEFAULT_OG_IMAGE;
   const imageAlt = procedure.heroImageCaption ?? procedure.title;
+  const locale = localeFromPath(path);
 
   return {
     title,
@@ -27,7 +36,7 @@ export function buildProcedureMetadata(procedure: ProcedurePage, path: string): 
       url,
       siteName: SITE_NAME,
       type: "website",
-      locale: "en_IN",
+      locale: locale === "hi" ? "hi_IN" : "en_IN",
       images: [{ url: image, alt: imageAlt }],
     },
     twitter: {
@@ -46,6 +55,7 @@ export function buildLegacyProcedureMetadata(
 ): Metadata {
   const title = `${procedure.name} | Hopewell Hospital Ranchi`;
   const url = `${SITE_URL}${path}`;
+  const locale = localeFromPath(path);
 
   return {
     title,
@@ -57,7 +67,7 @@ export function buildLegacyProcedureMetadata(
       url,
       siteName: SITE_NAME,
       type: "website",
-      locale: "en_IN",
+      locale: locale === "hi" ? "hi_IN" : "en_IN",
       images: [{ url: DEFAULT_OG_IMAGE, alt: SITE_NAME }],
     },
     twitter: {
@@ -72,6 +82,10 @@ export function buildLegacyProcedureMetadata(
 /** MedicalWebPage + BreadcrumbList + (when present) FAQPage for a rich ProcedurePage. */
 export function buildProcedureJsonLd(procedure: ProcedurePage, path: string, categoryLabel: string, categoryHref: string) {
   const url = `${SITE_URL}${path}`;
+  const locale = localeFromPath(path);
+  const homeHref = locale === "hi" ? `${SITE_URL}/hi` : SITE_URL;
+  const servicesLabel = locale === "hi" ? "सेवाएं" : "Services";
+  const servicesHref = locale === "hi" ? `${SITE_URL}/hi/services` : `${SITE_URL}/services`;
   const faqs = procedure.sections
     .flatMap((s) => s.blocks)
     .filter((b): b is Extract<typeof b, { kind: "faq" }> => b.kind === "faq")
@@ -89,8 +103,8 @@ export function buildProcedureJsonLd(procedure: ProcedurePage, path: string, cat
     {
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
-        { "@type": "ListItem", position: 2, name: "Services", item: `${SITE_URL}/services` },
+        { "@type": "ListItem", position: 1, name: locale === "hi" ? "होम" : "Home", item: homeHref },
+        { "@type": "ListItem", position: 2, name: servicesLabel, item: servicesHref },
         { "@type": "ListItem", position: 3, name: categoryLabel, item: `${SITE_URL}${categoryHref}` },
         { "@type": "ListItem", position: 4, name: procedure.title, item: url },
       ],
@@ -115,6 +129,7 @@ export function buildProcedureJsonLd(procedure: ProcedurePage, path: string, cat
 export function buildStaticMetadata(title: string, description: string, path: string): Metadata {
   const fullTitle = `${title} | Hopewell Hospital Ranchi`;
   const url = `${SITE_URL}${path}`;
+  const locale = localeFromPath(path);
 
   return {
     title: fullTitle,
@@ -126,7 +141,7 @@ export function buildStaticMetadata(title: string, description: string, path: st
       url,
       siteName: SITE_NAME,
       type: "website",
-      locale: "en_IN",
+      locale: locale === "hi" ? "hi_IN" : "en_IN",
       images: [{ url: DEFAULT_OG_IMAGE, alt: SITE_NAME }],
     },
     twitter: {
@@ -141,6 +156,10 @@ export function buildStaticMetadata(title: string, description: string, path: st
 /** Simpler MedicalWebPage + BreadcrumbList for legacy/hand-written pages with no FAQ data. */
 export function buildSimpleJsonLd(name: string, description: string, path: string) {
   const url = `${SITE_URL}${path}`;
+  const locale = localeFromPath(path);
+  const homeHref = locale === "hi" ? `${SITE_URL}/hi` : SITE_URL;
+  const servicesLabel = locale === "hi" ? "सेवाएं" : "Services";
+  const servicesHref = locale === "hi" ? `${SITE_URL}/hi/services` : `${SITE_URL}/services`;
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -154,8 +173,8 @@ export function buildSimpleJsonLd(name: string, description: string, path: strin
       {
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
-          { "@type": "ListItem", position: 2, name: "Services", item: `${SITE_URL}/services` },
+          { "@type": "ListItem", position: 1, name: locale === "hi" ? "होम" : "Home", item: homeHref },
+          { "@type": "ListItem", position: 2, name: servicesLabel, item: servicesHref },
           { "@type": "ListItem", position: 3, name, item: url },
         ],
       },

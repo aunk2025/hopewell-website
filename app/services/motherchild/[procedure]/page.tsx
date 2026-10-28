@@ -11,7 +11,14 @@ export async function generateMetadata({ params }: { params: Promise<{ procedure
   const { procedure: slug } = await params;
   const procedure = getPaedsProcedure(slug);
   if (!procedure) return { title: "Paediatrics & Neonatology | Hopewell Hospital Ranchi" };
-  return buildProcedureMetadata(procedure, `/services/motherchild/${slug}`);
+  const base = buildProcedureMetadata(procedure, `/services/motherchild/${slug}`);
+  return {
+    ...base,
+    alternates: {
+      ...base.alternates,
+      languages: { "en-IN": `/services/motherchild/${slug}`, "hi-IN": `/hi/services/motherchild/${slug}` },
+    },
+  };
 }
 
 export default async function PaedsProcedurePage({ params }: { params: Promise<{ procedure: string }> }) {
@@ -25,6 +32,7 @@ export default async function PaedsProcedurePage({ params }: { params: Promise<{
       categoryHref="/services"
       canonicalPath={`/services/motherchild/${slug}`}
       consultationLabel="Book Paediatric Consultation"
+      altHref={`/hi/services/motherchild/${slug}`}
     />
   );
 }

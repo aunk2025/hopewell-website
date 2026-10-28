@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Search, Star, GraduationCap, Clock } from "lucide-react";
 import { DEPARTMENTS, matchesDepartment, sortByDepartment } from "@/lib/doctor-order";
+import { doctorsPageDict, type Locale } from "@/lib/i18n";
 
 type Doctor = {
   id: number;
@@ -16,9 +17,11 @@ type Doctor = {
   imageUrl: string;
 };
 
+// Filter values stay the English department labels (matchesDepartment keys
+// off these) — only the displayed chip text is translated.
 const SPECIALTIES = ["All", ...DEPARTMENTS.map((d) => d.label)];
 
-function DoctorCard({ doc, onClick }: { doc: Doctor; onClick: () => void }) {
+function DoctorCard({ doc, onClick, t }: { doc: Doctor; onClick: () => void; t: typeof doctorsPageDict["en"] }) {
   const initials = doc.name
     .split(" ")
     .map((n) => n[0])
@@ -53,7 +56,7 @@ function DoctorCard({ doc, onClick }: { doc: Doctor; onClick: () => void }) {
       <p className="line-clamp-2 text-sm leading-6 text-slate-600">{doc.bio}</p>
       <div className="mt-4 flex flex-wrap gap-3 text-xs text-slate-500">
         <span className="flex items-center gap-1">
-          <Clock size={11} /> {doc.experience}+ yrs
+          <Clock size={11} /> {t.yearsShort(doc.experience)}
         </span>
         <span className="flex items-center gap-1">
           <GraduationCap size={11} /> {doc.qualifications.split(",")[0]}
@@ -63,7 +66,7 @@ function DoctorCard({ doc, onClick }: { doc: Doctor; onClick: () => void }) {
   );
 }
 
-function DoctorModal({ doc, onClose }: { doc: Doctor; onClose: () => void }) {
+function DoctorModal({ doc, onClose, t, appointmentHref }: { doc: Doctor; onClose: () => void; t: typeof doctorsPageDict["en"]; appointmentHref: string }) {
   const initials = doc.name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2);
   return (
     <div
@@ -96,27 +99,29 @@ function DoctorModal({ doc, onClose }: { doc: Doctor; onClose: () => void }) {
         </div>
         <div className="mt-5 flex gap-4">
           <div className="flex items-center gap-1.5 rounded-xl bg-teal-50 px-3 py-2 text-sm font-semibold text-teal-700">
-            <Clock size={14} /> {doc.experience}+ Years Experience
+            <Clock size={14} /> {t.yearsExperienceFull(doc.experience)}
           </div>
           <div className="flex items-center gap-1.5 rounded-xl bg-amber-50 px-3 py-2 text-sm font-semibold text-amber-700">
-            <Star size={14} fill="currentColor" /> Expert Specialist
+            <Star size={14} fill="currentColor" /> {t.expertSpecialist}
           </div>
         </div>
         <p className="mt-5 text-sm leading-7 text-slate-600">{doc.bio}</p>
         <a
-          href="/appointment"
+          href={appointmentHref}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#2a2119] py-3.5 text-sm font-bold text-white transition hover:bg-teal-900"
         >
-          Book Appointment with Dr. {doc.name.split(" ").pop()}
+          {t.bookAppointmentWithDr(doc.name.split(" ").pop() ?? doc.name)}
         </a>
       </div>
     </div>
   );
 }
 
-export default function DoctorsPageContent() {
+export default function DoctorsPageContent({ locale = "en", altHref }: { locale?: Locale; altHref?: string }) {
+  const t = doctorsPageDict[locale];
+  const appointmentHref = locale === "hi" ? "/hi/appointment" : "/appointment";
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [filtered, setFiltered] = useState<Doctor[]>([]);
   const [specialty, setSpecialty] = useState("All");
@@ -141,16 +146,16 @@ export default function DoctorsPageContent() {
 
   return (
     <main className="min-h-screen bg-[#faf5ef]">
-      <Navbar />
+      <Navbar locale={locale} altHref={altHref} />
 
       {/* Hero */}
       <section className="relative overflow-hidden bg-[#2a2119] py-20 text-white">
         <div className="absolute inset-0 bg-gradient-to-br from-teal-900/30 via-transparent to-sky-900/20" />
         <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-          <p className="mb-4 text-xs font-bold uppercase tracking-widest text-teal-400">Meet Our Team</p>
-          <h1 className="text-5xl font-black leading-tight sm:text-6xl">Our Specialists</h1>
+          <p className="mb-4 text-xs font-bold uppercase tracking-widest text-teal-400">{t.kicker}</p>
+          <h1 className="text-5xl font-black leading-tight sm:text-6xl">{t.h1}</h1>
           <p className="mt-4 max-w-xl text-lg text-white/60 leading-8">
-            Internationally trained, locally committed — our doctors bring global expertise to Ranchi.
+            {t.heroText}
           </p>
         </div>
       </section>
@@ -162,7 +167,7 @@ export default function DoctorsPageContent() {
             <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
-              placeholder="Search doctors by name or specialty…"
+              placeholder={t.searchPlaceholder}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full rounded-full border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-100"
@@ -175,7 +180,7 @@ export default function DoctorsPageContent() {
                 onClick={() => setSpecialty(s)}
                 className={`rounded-full px-4 py-2 text-xs font-bold transition ${specialty === s ? "bg-[#2a2119] text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"}`}
               >
-                {s}
+                {s === "All" ? t.all : t.departmentLabels[s] ?? s}
               </button>
             ))}
           </div>
@@ -192,21 +197,21 @@ export default function DoctorsPageContent() {
           </div>
         ) : filtered.length === 0 ? (
           <div className="py-20 text-center text-slate-400">
-            <p className="text-lg font-semibold">No doctors found.</p>
-            <p className="mt-1 text-sm">Try a different filter or search term.</p>
+            <p className="text-lg font-semibold">{t.noDoctorsFound}</p>
+            <p className="mt-1 text-sm">{t.tryDifferentFilter}</p>
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((doc) => (
-              <DoctorCard key={doc.id} doc={doc} onClick={() => setSelected(doc)} />
+              <DoctorCard key={doc.id} doc={doc} onClick={() => setSelected(doc)} t={t} />
             ))}
           </div>
         )}
       </section>
 
-      {selected && <DoctorModal doc={selected} onClose={() => setSelected(null)} />}
+      {selected && <DoctorModal doc={selected} onClose={() => setSelected(null)} t={t} appointmentHref={appointmentHref} />}
 
-      <Footer />
+      <Footer locale={locale} />
     </main>
   );
 }

@@ -5,17 +5,35 @@ import Footer from "@/components/Footer";
 import Block from "@/components/blog/BlogBlocks";
 import type { BlogPost } from "@/lib/blog-content";
 import { getRelatedPosts } from "@/lib/blog-content";
+import { blogChromeDict, type Locale } from "@/lib/i18n";
 
-export default function BlogPostTemplate({ post }: { post: BlogPost }) {
-  const related = getRelatedPosts(post.slug);
+export default function BlogPostTemplate({
+  post,
+  locale = "en",
+  altHref,
+  blogIndexHref = "/blog",
+  relatedPosts,
+}: {
+  post: BlogPost;
+  locale?: Locale;
+  altHref?: string;
+  // Where the breadcrumb "Blog" link points — /hi/blog on the Hindi route.
+  blogIndexHref?: string;
+  // Related-article cards (slug/title/category), pre-resolved by the
+  // caller so a Hindi page can link to Hindi related posts when available.
+  relatedPosts?: { slug: string; title: string; category: string }[];
+}) {
+  const t = blogChromeDict[locale];
+  const appointmentHref = locale === "hi" ? "/hi/appointment" : "/appointment";
+  const related = relatedPosts ?? getRelatedPosts(post.slug);
 
   return (
     <main className="min-h-screen bg-[#faf5ef]">
-      <Navbar />
+      <Navbar locale={locale} altHref={altHref} />
 
       <div className="mx-auto max-w-7xl px-5 pt-6 text-sm text-slate-500 lg:px-8">
-        <Link href="/blog" className="hover:text-ink">
-          Blog
+        <Link href={blogIndexHref} className="hover:text-ink">
+          {t.breadcrumbBlog}
         </Link>
         <span className="mx-2">/</span>
         <span className="text-ink">{post.title}</span>
@@ -44,7 +62,7 @@ export default function BlogPostTemplate({ post }: { post: BlogPost }) {
         <div className="mt-6 grid gap-3 rounded-[1.5rem] border border-teal-700 bg-white p-6 shadow-sm sm:p-8">
           {post.quickAnswer.map((p, i) => (
             <p key={i} className="leading-7 text-slate-700">
-              {i === 0 && <span className="font-black text-ink">Quick answer: </span>}
+              {i === 0 && <span className="font-black text-ink">{t.quickAnswerLabel}</span>}
               {p}
             </p>
           ))}
@@ -54,14 +72,14 @@ export default function BlogPostTemplate({ post }: { post: BlogPost }) {
           <div className="flex items-center gap-2 text-sm text-slate-600">
             <Stethoscope size={16} className="text-teal-700" />
             <span>
-              <span className="font-bold text-ink">Author:</span> {post.author}
+              <span className="font-bold text-ink">{t.authorLabel}</span> {post.author}
             </span>
           </div>
           {post.reviewer && (
             <div className="flex items-center gap-2 text-sm text-slate-600">
               <BadgeCheck size={16} className="text-teal-700" />
               <span>
-                <span className="font-bold text-ink">Medical reviewer:</span> {post.reviewer}
+                <span className="font-bold text-ink">{t.reviewerLabel}</span> {post.reviewer}
               </span>
             </div>
           )}
@@ -72,7 +90,7 @@ export default function BlogPostTemplate({ post }: { post: BlogPost }) {
       <section className="mx-auto max-w-7xl px-5 pb-10 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[260px_1fr] lg:items-start">
           <aside className="hidden rounded-[1.5rem] border border-teal-700 bg-white p-5 shadow-sm lg:sticky lg:top-28 lg:block">
-            <h4 className="mb-3 text-xs font-bold uppercase tracking-widest text-slate-400">On this page</h4>
+            <h4 className="mb-3 text-xs font-bold uppercase tracking-widest text-slate-400">{t.onThisPage}</h4>
             <nav className="grid max-h-[60vh] gap-1 overflow-y-auto pr-1">
               {post.sections.map((s) => (
                 <a
@@ -84,7 +102,7 @@ export default function BlogPostTemplate({ post }: { post: BlogPost }) {
                 </a>
               ))}
               <a href="#faqs" className="rounded-lg px-2.5 py-1.5 text-sm text-slate-600 transition hover:bg-teal-50 hover:text-ink">
-                FAQs
+                {t.faqsNavLabel}
               </a>
             </nav>
           </aside>
@@ -103,31 +121,31 @@ export default function BlogPostTemplate({ post }: { post: BlogPost }) {
 
             {/* CTA */}
             <div className="rounded-[1.5rem] bg-ink p-8 text-white sm:p-10">
-              <h2 className="text-2xl font-black">Have questions about this condition?</h2>
+              <h2 className="text-2xl font-black">{t.ctaHeading}</h2>
               <p className="mt-2 max-w-xl leading-7 text-white/70">
-                Speak with the Hopewell Hospital team for a personalised assessment and treatment plan.
+                {t.ctaText}
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <a
-                  href="/appointment"
+                  href={appointmentHref}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-full bg-white px-6 py-3.5 text-sm font-bold text-ink transition hover:-translate-y-0.5"
                 >
-                  Book Appointment
+                  {t.bookAppointment}
                 </a>
                 <a
                   href="tel:+919199666246"
                   className="rounded-full border border-white/30 px-6 py-3.5 text-sm font-bold text-white transition hover:-translate-y-0.5"
                 >
-                  Call Hopewell Hospital
+                  {t.callHospital}
                 </a>
               </div>
             </div>
 
             {/* FAQs */}
             <div id="faqs" className="scroll-mt-28 rounded-[1.5rem] border border-teal-700 bg-white p-6 shadow-sm sm:p-8">
-              <h2 className="mb-4 text-xl font-black text-ink sm:text-2xl">Frequently asked questions</h2>
+              <h2 className="mb-4 text-xl font-black text-ink sm:text-2xl">{t.faqHeading}</h2>
               <div className="grid gap-5">
                 {post.faqs.map((faq, i) => (
                   <div key={i}>
@@ -142,14 +160,14 @@ export default function BlogPostTemplate({ post }: { post: BlogPost }) {
             <div className="flex gap-3 rounded-[1.5rem] border border-teal-700/40 bg-teal-50/40 p-6">
               <ShieldAlert size={20} className="mt-0.5 shrink-0 text-teal-700" />
               <div>
-                <h3 className="text-sm font-black text-ink">Medical disclaimer</h3>
+                <h3 className="text-sm font-black text-ink">{t.disclaimerHeading}</h3>
                 <p className="mt-1.5 text-sm leading-6 text-slate-600">{post.disclaimer}</p>
               </div>
             </div>
 
             {/* References */}
             <div className="rounded-[1.5rem] border border-teal-700 bg-white p-6 shadow-sm sm:p-8">
-              <h3 className="mb-3 text-sm font-black uppercase tracking-widest text-slate-400">References</h3>
+              <h3 className="mb-3 text-sm font-black uppercase tracking-widest text-slate-400">{t.referencesHeading}</h3>
               <ul className="grid gap-2">
                 {post.references.map((ref) => (
                   <li key={ref.href} className="text-sm">
@@ -164,7 +182,7 @@ export default function BlogPostTemplate({ post }: { post: BlogPost }) {
             {/* Related services */}
             {post.relatedServices.length > 0 && (
               <div>
-                <h3 className="mb-3 text-sm font-black uppercase tracking-widest text-slate-400">Related services</h3>
+                <h3 className="mb-3 text-sm font-black uppercase tracking-widest text-slate-400">{t.relatedServicesHeading}</h3>
                 <div className="flex flex-wrap gap-2">
                   {post.relatedServices.map((s) => (
                     <Link
@@ -182,12 +200,12 @@ export default function BlogPostTemplate({ post }: { post: BlogPost }) {
             {/* Related articles */}
             {related.length > 0 && (
               <div>
-                <h3 className="mb-3 text-sm font-black uppercase tracking-widest text-slate-400">Related articles</h3>
+                <h3 className="mb-3 text-sm font-black uppercase tracking-widest text-slate-400">{t.relatedArticlesHeading}</h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   {related.map((r) => (
                     <Link
                       key={r.slug}
-                      href={`/blog/${r.slug}`}
+                      href={`${blogIndexHref}/${r.slug}`}
                       className="rounded-2xl border border-teal-700 bg-white p-5 shadow-sm transition hover:-translate-y-0.5"
                     >
                       <div className="section-kicker mb-2 before:content-none">{r.category}</div>
@@ -201,7 +219,7 @@ export default function BlogPostTemplate({ post }: { post: BlogPost }) {
         </div>
       </section>
 
-      <Footer />
+      <Footer locale={locale} />
     </main>
   );
 }

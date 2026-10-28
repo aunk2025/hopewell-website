@@ -8,6 +8,7 @@ import { heroDict, type Locale } from "@/lib/i18n";
 
 export default function Hero({ locale = "en" }: { locale?: Locale }) {
   const t = heroDict[locale];
+  const appointmentHref = locale === "hi" ? "/hi/appointment" : "/appointment";
 
   return (
     <section className="mesh relative isolate min-h-[820px] overflow-hidden">
@@ -36,7 +37,7 @@ export default function Hero({ locale = "en" }: { locale?: Locale }) {
           </p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Link href="/appointment" target="_blank" rel="noopener noreferrer" className="group flex items-center justify-center gap-3 rounded-full bg-ink px-7 py-4 font-bold text-white shadow-glass transition hover:-translate-y-1">
+            <Link href={appointmentHref} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-center gap-3 rounded-full bg-ink px-7 py-4 font-bold text-white shadow-glass transition hover:-translate-y-1">
               {t.bookAppointment}
               <ArrowUpRight className="transition group-hover:rotate-45" size={18} />
             </Link>

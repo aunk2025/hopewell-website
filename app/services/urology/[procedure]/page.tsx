@@ -11,7 +11,14 @@ export async function generateMetadata({ params }: { params: Promise<{ procedure
   const { procedure: slug } = await params;
   const procedure = getUrologyProcedure(slug);
   if (!procedure) return { title: "Urology | Hopewell Hospital Ranchi" };
-  return buildProcedureMetadata(procedure, `/services/urology/${slug}`);
+  const base = buildProcedureMetadata(procedure, `/services/urology/${slug}`);
+  return {
+    ...base,
+    alternates: {
+      ...base.alternates,
+      languages: { "en-IN": `/services/urology/${slug}`, "hi-IN": `/hi/services/urology/${slug}` },
+    },
+  };
 }
 
 export default async function UrologyProcedurePage({ params }: { params: Promise<{ procedure: string }> }) {
@@ -25,6 +32,7 @@ export default async function UrologyProcedurePage({ params }: { params: Promise
       categoryHref="/services"
       canonicalPath={`/services/urology/${slug}`}
       consultationLabel="Book Urology Consultation"
+      altHref={`/hi/services/urology/${slug}`}
     />
   );
 }

@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ChevronRight } from "lucide-react";
 import { buildStaticMetadata, buildSimpleJsonLd } from "@/lib/procedure-seo";
+import type { Metadata } from "next";
 
 const keyServices = [
   {
@@ -27,7 +28,14 @@ const DESCRIPTION =
   "Comprehensive neurosciences care at Hopewell Hospital: stroke care, neurology, neurosurgery and advanced neuro-diagnostics.";
 const PATH = "/services/neurosciences";
 
-export const metadata = buildStaticMetadata(TITLE, DESCRIPTION, PATH);
+const baseMetadata = buildStaticMetadata(TITLE, DESCRIPTION, PATH);
+export const metadata: Metadata = {
+  ...baseMetadata,
+  alternates: {
+    ...baseMetadata.alternates,
+    languages: { "en-IN": "/services/neurosciences", "hi-IN": "/hi/services/neurosciences" },
+  },
+};
 
 export default function NeurosciencesPage() {
   const jsonLd = buildSimpleJsonLd(TITLE, DESCRIPTION, PATH);
@@ -39,7 +47,7 @@ export default function NeurosciencesPage() {
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Navbar />
+      <Navbar altHref="/hi/services/neurosciences" />
 
       {/* Hero banner */}
       <section

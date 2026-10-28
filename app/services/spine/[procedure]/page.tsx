@@ -11,7 +11,14 @@ export async function generateMetadata({ params }: { params: Promise<{ procedure
   const { procedure: slug } = await params;
   const procedure = getSpineProcedure(slug);
   if (!procedure) return { title: "Spine | Hopewell Hospital Ranchi" };
-  return buildProcedureMetadata(procedure, `/services/spine/${slug}`);
+  const base = buildProcedureMetadata(procedure, `/services/spine/${slug}`);
+  return {
+    ...base,
+    alternates: {
+      ...base.alternates,
+      languages: { "en-IN": `/services/spine/${slug}`, "hi-IN": `/hi/services/spine/${slug}` },
+    },
+  };
 }
 
 export default async function SpineProcedurePage({ params }: { params: Promise<{ procedure: string }> }) {
@@ -25,6 +32,7 @@ export default async function SpineProcedurePage({ params }: { params: Promise<{
       categoryHref="/services"
       canonicalPath={`/services/spine/${slug}`}
       consultationLabel="Book Spine Consultation"
+      altHref={`/hi/services/spine/${slug}`}
     />
   );
 }

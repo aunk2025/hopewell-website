@@ -2,8 +2,12 @@ import Link from "next/link";
 import { ChevronRight, AlertTriangle, IndianRupee, ShieldCheck } from "lucide-react";
 import SurgeryFaq from "@/components/services/SurgeryFaq";
 import type { ContentBlock } from "@/lib/procedure-content";
+import { procedureBlockDict, type Locale } from "@/lib/i18n";
 
-export default function ProcedureBlock({ block }: { block: ContentBlock }) {
+export default function ProcedureBlock({ block, locale = "en" }: { block: ContentBlock; locale?: Locale }) {
+  const t = procedureBlockDict[locale];
+  const appointmentHref = locale === "hi" ? "/hi/appointment" : "/appointment";
+
   switch (block.kind) {
     case "text":
       return <p className="leading-7 text-slate-600">{block.text}</p>;
@@ -85,19 +89,19 @@ export default function ProcedureBlock({ block }: { block: ContentBlock }) {
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="rounded-2xl border border-teal-700 bg-white p-6 shadow-sm">
             <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-slate-400">
-              <IndianRupee size={13} /> Indicative treatment range
+              <IndianRupee size={13} /> {t.indicativeTreatmentRange}
             </div>
             <div className="mt-2 text-2xl font-black text-ink">
-              {block.range || "Shared after clinical evaluation"}
+              {block.range || t.sharedAfterEvaluation}
             </div>
             <p className="mt-2 text-sm leading-6 text-slate-600">{block.note}</p>
             <a
-              href="/appointment"
+              href={appointmentHref}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-teal-700"
             >
-              Get exact estimate <ChevronRight size={14} />
+              {t.getExactEstimate} <ChevronRight size={14} />
             </a>
           </div>
           <div className="rounded-2xl border border-teal-700/30 bg-teal-50/40 p-6">
@@ -129,12 +133,12 @@ export default function ProcedureBlock({ block }: { block: ContentBlock }) {
             <p className="mt-2 text-sm leading-6 text-slate-600">{block.focus}</p>
           </div>
           <a
-            href="/appointment"
+            href={appointmentHref}
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0 rounded-full bg-ink px-5 py-3 text-sm font-bold text-white transition hover:bg-teal-900"
           >
-            Book Appointment
+            {t.bookAppointment}
           </a>
         </div>
       );

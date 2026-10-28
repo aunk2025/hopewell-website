@@ -11,7 +11,14 @@ export async function generateMetadata({ params }: { params: Promise<{ procedure
   const { procedure: slug } = await params;
   const procedure = getGeneralMedicineProcedure(slug);
   if (!procedure) return { title: "General Medicine | Hopewell Hospital Ranchi" };
-  return buildProcedureMetadata(procedure, `/services/general-medicine/${slug}`);
+  const base = buildProcedureMetadata(procedure, `/services/general-medicine/${slug}`);
+  return {
+    ...base,
+    alternates: {
+      ...base.alternates,
+      languages: { "en-IN": `/services/general-medicine/${slug}`, "hi-IN": `/hi/services/general-medicine/${slug}` },
+    },
+  };
 }
 
 export default async function GeneralMedicineProcedurePage({ params }: { params: Promise<{ procedure: string }> }) {
@@ -25,6 +32,7 @@ export default async function GeneralMedicineProcedurePage({ params }: { params:
       categoryHref="/services"
       canonicalPath={`/services/general-medicine/${slug}`}
       consultationLabel="Book General Medicine Consultation"
+      altHref={`/hi/services/general-medicine/${slug}`}
     />
   );
 }

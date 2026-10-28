@@ -39,6 +39,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        {/* The root layout has no access to the current path without
+            opting the whole site into dynamic (per-request) rendering —
+            every /services/* and /blog/* page is statically generated via
+            generateStaticParams, so that trade-off isn't worth it just for
+            this attribute. hreflang (already correct, see lib/procedure-seo.ts
+            and each page's `alternates.languages`) is the signal search
+            engines actually rely on for language targeting; this script
+            corrects `lang` for browsers/screen readers immediately on
+            load, before paint, with no effect on static generation. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              'document.documentElement.lang = (location.pathname === "/hi" || location.pathname.startsWith("/hi/")) ? "hi" : "en";',
+          }}
+        />
         {children}
         <ContactFAB />
       </body>

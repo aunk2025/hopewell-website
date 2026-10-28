@@ -25,34 +25,35 @@ const socialLinks = [
 
 export default function Footer({ locale = "en" }: { locale?: Locale }) {
   const t = footerDict[locale];
+  const prefix = locale === "hi" ? "/hi" : "";
 
   const centres: { label: string; href?: string }[] = [
-    { label: t.centres.surgery, href: "/services#surgeries" },
-    { label: t.centres.ivf, href: "/services#ivf" },
-    { label: t.centres.paediatrics, href: "/services#motherchild" },
-    { label: t.centres.orthopaedics, href: "/services#orthopaedics" },
-    { label: t.centres.generalMedicine, href: "/services#general-medicine" },
-    { label: t.centres.urology, href: "/services#urology" },
-    { label: t.centres.vascular, href: "/services#vascular-surgery" },
-    { label: t.centres.ent, href: "/services#ent" },
-    { label: t.centres.spine, href: "/services#spine" },
-    { label: t.centres.diagnostics, href: "/services#diagnostics" },
+    { label: t.centres.surgery, href: `${prefix}/services#surgeries` },
+    { label: t.centres.ivf, href: `${prefix}/services#ivf` },
+    { label: t.centres.paediatrics, href: `${prefix}/services#motherchild` },
+    { label: t.centres.orthopaedics, href: `${prefix}/services#orthopaedics` },
+    { label: t.centres.generalMedicine, href: `${prefix}/services#general-medicine` },
+    { label: t.centres.urology, href: `${prefix}/services#urology` },
+    { label: t.centres.vascular, href: `${prefix}/services#vascular-surgery` },
+    { label: t.centres.ent, href: `${prefix}/services#ent` },
+    { label: t.centres.spine, href: `${prefix}/services#spine` },
+    { label: t.centres.diagnostics, href: `${prefix}/services#diagnostics` },
   ];
 
   const explore = [
-    { label: t.explore.doctors, href: "/doctors" },
-    { label: t.explore.services, href: "/services" },
-    { label: t.explore.healthPackages, href: "/health-packages" },
-    { label: t.explore.blogs, href: "/blog" },
-    { label: t.explore.bookAppointment, href: "/appointment" },
-    { label: t.explore.contactUs, href: "/contact" },
+    { label: t.explore.doctors, href: `${prefix}/doctors` },
+    { label: t.explore.services, href: `${prefix}/services` },
+    { label: t.explore.healthPackages, href: `${prefix}/health-packages` },
+    { label: t.explore.blogs, href: `${prefix}/blog` },
+    { label: t.explore.bookAppointment, href: `${prefix}/appointment` },
+    { label: t.explore.contactUs, href: `${prefix}/contact` },
   ];
 
   return (
     <footer className="bg-[#2a2119] text-white/70">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 md:grid-cols-2 lg:grid-cols-5 lg:px-8">
         <div className="lg:col-span-2">
-          <a href="/" className="inline-flex items-center rounded-2xl bg-white/95 px-4 py-3 shadow-glow">
+          <a href={prefix || "/"} className="inline-flex items-center rounded-2xl bg-white/95 px-4 py-3 shadow-glow">
             <img src="/hopewell%20logo2.png" alt="Hopewell Hospital" className="h-20 w-auto object-contain" />
           </a>
           <p className="mt-5 max-w-xs leading-7">

@@ -1,18 +1,43 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CheckCircle2, IndianRupee } from "lucide-react";
 import { HEALTH_PACKAGES } from "@/lib/health-packages";
+import { SITE_URL, DEFAULT_OG_IMAGE } from "@/lib/contact-config";
 
-export const metadata = {
-  title: "Health Packages | Hopewell Hospital Ranchi",
-  description:
-    "Preventive health checkup packages at Hopewell Hospital, Ranchi, covering general wellness, cardiac, women's health, senior care and diabetes screening.",
+const TITLE = "Health Packages | Hopewell Hospital Ranchi";
+const DESCRIPTION =
+  "Preventive health checkup packages at Hopewell Hospital, Ranchi, covering general wellness, cardiac, women's health, senior care and diabetes screening.";
+const URL = `${SITE_URL}/health-packages`;
+
+export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: {
+    canonical: URL,
+    languages: { "en-IN": "/health-packages", "hi-IN": "/hi/health-packages" },
+  },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: URL,
+    siteName: "Hopewell Hospital",
+    type: "website",
+    locale: "en_IN",
+    images: [{ url: DEFAULT_OG_IMAGE, alt: "Hopewell Hospital" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [DEFAULT_OG_IMAGE],
+  },
 };
 
 export default function HealthPackagesPage() {
   return (
     <main className="min-h-screen bg-[#faf5ef]">
-      <Navbar />
+      <Navbar altHref="/hi/health-packages" />
 
       {/* Hero banner */}
       <section className="relative flex h-64 flex-col items-center justify-center bg-[#2a2119] px-5 text-center sm:h-80">

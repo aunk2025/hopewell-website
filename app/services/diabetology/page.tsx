@@ -2,7 +2,14 @@ import ProcedurePageTemplate from "@/components/services/ProcedurePageTemplate";
 import { diabetologyService } from "@/lib/diabetology-content";
 import { buildProcedureMetadata } from "@/lib/procedure-seo";
 
-export const metadata = buildProcedureMetadata(diabetologyService, "/services/diabetology");
+const base = buildProcedureMetadata(diabetologyService, "/services/diabetology");
+export const metadata = {
+  ...base,
+  alternates: {
+    ...base.alternates,
+    languages: { "en-IN": "/services/diabetology", "hi-IN": "/hi/services/diabetology" },
+  },
+};
 
 export default function DiabetologyPage() {
   return (
@@ -11,6 +18,7 @@ export default function DiabetologyPage() {
       categoryHref="/services"
       canonicalPath="/services/diabetology"
       consultationLabel="Book Diabetology Consultation"
+      altHref="/hi/services/diabetology"
     />
   );
 }

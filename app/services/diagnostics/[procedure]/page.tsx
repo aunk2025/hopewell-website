@@ -11,7 +11,14 @@ export async function generateMetadata({ params }: { params: Promise<{ procedure
   const { procedure: slug } = await params;
   const procedure = getDiagnosticsProcedure(slug);
   if (!procedure) return { title: "Diagnostics | Hopewell Hospital Ranchi" };
-  return buildProcedureMetadata(procedure, `/services/diagnostics/${slug}`);
+  const base = buildProcedureMetadata(procedure, `/services/diagnostics/${slug}`);
+  return {
+    ...base,
+    alternates: {
+      ...base.alternates,
+      languages: { "en-IN": `/services/diagnostics/${slug}`, "hi-IN": `/hi/services/diagnostics/${slug}` },
+    },
+  };
 }
 
 export default async function DiagnosticsProcedurePage({ params }: { params: Promise<{ procedure: string }> }) {
@@ -25,6 +32,7 @@ export default async function DiagnosticsProcedurePage({ params }: { params: Pro
       categoryHref="/services"
       canonicalPath={`/services/diagnostics/${slug}`}
       consultationLabel="Book This Test"
+      altHref={`/hi/services/diagnostics/${slug}`}
     />
   );
 }

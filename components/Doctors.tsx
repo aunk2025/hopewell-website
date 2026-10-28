@@ -29,6 +29,7 @@ const VISIBLE_COUNT = 3;
 
 export default function Doctors({ locale = "en" }: { locale?: Locale }) {
   const t = doctorsDict[locale];
+  const doctorsHref = locale === "hi" ? "/hi/doctors" : "/doctors";
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [query, setQuery] = useState("");
   const [showAll, setShowAll] = useState(false);
@@ -82,7 +83,7 @@ export default function Doctors({ locale = "en" }: { locale?: Locale }) {
             <h3 className="mt-2 text-xl font-black">{doctor.name}</h3>
             <div className="mt-1 text-xs font-bold uppercase tracking-[.1em] text-slate-400">{doctor.specialty}</div>
             <p className="mt-2 text-sm text-slate-500">{doctor.qualifications}</p>
-            <a href="/doctors" className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-slate-100 px-4 py-3 text-sm font-bold transition group-hover:bg-ink group-hover:text-white">
+            <a href={doctorsHref} className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-slate-100 px-4 py-3 text-sm font-bold transition group-hover:bg-ink group-hover:text-white">
               {t.viewProfile} <ArrowUpRight size={16} />
             </a>
           </article>

@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ChevronRight } from "lucide-react";
 import { buildStaticMetadata, buildSimpleJsonLd } from "@/lib/procedure-seo";
+import type { Metadata } from "next";
 
 const keyServices = [
   {
@@ -27,7 +28,14 @@ const DESCRIPTION =
   "Comprehensive critical care at Hopewell Hospital: 24x7 ICU monitoring, ventilator and organ support, and specialised intensive care for critically ill patients.";
 const PATH = "/services/icu";
 
-export const metadata = buildStaticMetadata(TITLE, DESCRIPTION, PATH);
+const baseMetadata = buildStaticMetadata(TITLE, DESCRIPTION, PATH);
+export const metadata: Metadata = {
+  ...baseMetadata,
+  alternates: {
+    ...baseMetadata.alternates,
+    languages: { "en-IN": "/services/icu", "hi-IN": "/hi/services/icu" },
+  },
+};
 
 export default function IcuPage() {
   const jsonLd = buildSimpleJsonLd(TITLE, DESCRIPTION, PATH);
@@ -39,7 +47,7 @@ export default function IcuPage() {
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Navbar />
+      <Navbar altHref="/hi/services/icu" />
 
       {/* Hero banner */}
       <section

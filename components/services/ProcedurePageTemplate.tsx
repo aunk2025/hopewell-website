@@ -5,12 +5,15 @@ import Footer from "@/components/Footer";
 import Block from "@/components/services/ProcedureBlocks";
 import type { ProcedurePage } from "@/lib/procedure-content";
 import { buildProcedureJsonLd } from "@/lib/procedure-seo";
+import { procedureChromeDict, type Locale } from "@/lib/i18n";
 
 export default function ProcedurePageTemplate({
   procedure,
   categoryHref,
   canonicalPath,
-  consultationLabel = "Book Consultation",
+  consultationLabel,
+  locale = "en",
+  altHref,
 }: {
   procedure: ProcedurePage;
   categoryHref: string;
@@ -20,7 +23,12 @@ export default function ProcedurePageTemplate({
   // every current route passes it.
   canonicalPath?: string;
   consultationLabel?: string;
+  locale?: Locale;
+  altHref?: string;
 }) {
+  const t = procedureChromeDict[locale];
+  const appointmentHref = locale === "hi" ? "/hi/appointment" : "/appointment";
+  const servicesHref = locale === "hi" ? "/hi/services" : "/services";
   const toc = procedure.sections.filter((s) => s.id);
   const jsonLd = canonicalPath ? buildProcedureJsonLd(procedure, canonicalPath, procedure.category, categoryHref) : null;
 
@@ -33,11 +41,11 @@ export default function ProcedurePageTemplate({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       )}
-      <Navbar />
+      <Navbar locale={locale} altHref={altHref} />
 
       <div className="mx-auto max-w-7xl px-5 pt-6 text-sm text-slate-500 lg:px-8">
-        <Link href="/services" className="hover:text-ink">
-          Services
+        <Link href={servicesHref} className="hover:text-ink">
+          {t.breadcrumbServices}
         </Link>
         <span className="mx-2">/</span>
         <Link href={categoryHref} className="hover:text-ink">
@@ -58,18 +66,18 @@ export default function ProcedurePageTemplate({
             <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">{procedure.heroCopy}</p>
             <div className="mt-7 flex flex-wrap gap-3">
               <a
-                href="/appointment"
+                href={appointmentHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-full bg-ink px-6 py-3.5 text-sm font-bold text-white transition hover:-translate-y-0.5"
               >
-                {consultationLabel}
+                {consultationLabel ?? t.bookConsultation}
               </a>
               <a
                 href="#cost"
                 className="rounded-full border border-teal-700 bg-white px-6 py-3.5 text-sm font-bold text-ink transition hover:-translate-y-0.5"
               >
-                Get Cost Estimate
+                {t.getCostEstimate}
               </a>
             </div>
           </div>
@@ -138,7 +146,7 @@ export default function ProcedurePageTemplate({
       <section className="mx-auto max-w-7xl px-5 py-10 lg:px-8 lg:py-14">
         <div className="grid gap-8 lg:grid-cols-[260px_1fr] lg:items-start">
           <aside className="hidden rounded-[1.5rem] border border-teal-700 bg-white p-5 shadow-sm lg:sticky lg:top-28 lg:block">
-            <h4 className="mb-3 text-xs font-bold uppercase tracking-widest text-slate-400">On this page</h4>
+            <h4 className="mb-3 text-xs font-bold uppercase tracking-widest text-slate-400">{t.onThisPage}</h4>
             <nav className="grid gap-1">
               {toc.map((s) => (
                 <a
@@ -163,7 +171,7 @@ export default function ProcedurePageTemplate({
                 <h2 className="mb-4 text-xl font-black text-ink sm:text-2xl">{s.heading}</h2>
                 <div className="grid gap-4">
                   {s.blocks.map((block, bi) => (
-                    <Block key={bi} block={block} />
+                    <Block key={bi} block={block} locale={locale} />
                   ))}
                 </div>
               </div>
@@ -174,31 +182,30 @@ export default function ProcedurePageTemplate({
               <p className="mt-2 max-w-xl leading-7 text-white/70">{procedure.finalCta.text}</p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <a
-                  href="/appointment"
+                  href={appointmentHref}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-full bg-white px-6 py-3.5 text-sm font-bold text-ink transition hover:-translate-y-0.5"
                 >
-                  Book Appointment
+                  {t.bookAppointment}
                 </a>
                 <a
                   href="tel:+919199666246"
                   className="rounded-full border border-white/30 px-6 py-3.5 text-sm font-bold text-white transition hover:-translate-y-0.5"
                 >
-                  Call Hospital
+                  {t.callHospital}
                 </a>
               </div>
             </div>
 
             <p className="text-xs leading-6 text-slate-400">
-              *Procedure time, hospital stay and recovery are indicative and vary by individual clinical
-              condition. This page is for patient education and does not replace medical consultation.
+              {t.footnote}
             </p>
           </div>
         </div>
       </section>
 
-      <Footer />
+      <Footer locale={locale} />
     </main>
   );
 }

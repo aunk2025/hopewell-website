@@ -93,6 +93,7 @@ const DEFAULT_VALUES: Partial<FormValues> = {
 
 export default function ContactPageContent({ locale = "en" }: { locale?: Locale }) {
   const t = contactDict[locale];
+  const appointmentHref = locale === "hi" ? "/hi/appointment" : "/appointment";
   const formSectionRef = useRef<HTMLDivElement>(null);
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
@@ -161,7 +162,7 @@ export default function ContactPageContent({ locale = "en" }: { locale?: Locale 
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
-                  href="/appointment"
+                  href={appointmentHref}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-full bg-white px-6 py-3.5 text-sm font-bold text-ink transition hover:-translate-y-0.5"

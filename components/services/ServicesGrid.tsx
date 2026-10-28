@@ -17,6 +17,7 @@ import {
   ChevronDown,
   type LucideIcon,
 } from "lucide-react";
+import { servicesListingDict, type Locale } from "@/lib/i18n";
 
 type ServiceItem = string | { label: string; href: string };
 
@@ -268,8 +269,19 @@ const services: Service[] = [
   },
 ];
 
-export default function ServicesGrid() {
+export default function ServicesGrid({ locale = "en" }: { locale?: Locale }) {
   const [expanded, setExpanded] = useState<Set<number>>(new Set());
+  const t = servicesListingDict[locale];
+
+  const localizedServices = services.map((s, i) => {
+    const copy = t.services[i];
+    const items: ServiceItem[] = s.items.map((item, j) => {
+      const href = typeof item === "string" ? undefined : item.href;
+      const label = copy.items[j] ?? (typeof item === "string" ? item : item.label);
+      return href ? { label, href } : label;
+    });
+    return { ...s, name: copy.name, description: copy.description, learnMore: copy.learnMore, items };
+  });
 
   const toggle = (index: number) => {
     setExpanded((prev) => {
@@ -283,17 +295,17 @@ export default function ServicesGrid() {
   return (
     <section className="mx-auto max-w-7xl px-5 pb-24 lg:px-8">
       <div className="mx-auto max-w-2xl text-center">
-        <div className="section-kicker mb-4 before:content-none">Centres of Excellence</div>
+        <div className="section-kicker mb-4 before:content-none">{t.kicker}</div>
         <h2 className="mb-3 text-4xl font-black tracking-[-.03em] text-ink">
-          Specialised care, close to home.
+          {t.h2}
         </h2>
         <p className="mx-auto mb-12 max-w-xl text-slate-500">
-          Simple, premium care across every major speciality, built around the patient.
+          {t.subtitle}
         </p>
       </div>
 
       <div className="flex flex-col gap-16 lg:gap-20">
-        {services.map((s, index) => {
+        {localizedServices.map((s, index) => {
           const Icon = s.icon;
           const reverse = index % 2 === 1;
           const isOpen = expanded.has(index);
@@ -368,7 +380,7 @@ export default function ServicesGrid() {
                   className="mt-6 inline-flex items-center gap-1 text-sm font-bold uppercase tracking-wide"
                   style={{ color: s.color }}
                 >
-                  {isOpen ? "Show less" : "Learn more"}
+                  {isOpen ? t.showLess : t.learnMoreLabel}
                   <ChevronDown size={15} className={`transition-transform ${isOpen ? "rotate-180" : ""}`} />
                 </button>
 

@@ -18,7 +18,14 @@ export async function generateMetadata({ params }: { params: Promise<{ procedure
 
   const rich = getOrthoProcedure(slug);
   if (rich) {
-    return buildProcedureMetadata(rich, `/services/orthopaedics/${slug}`);
+    const base = buildProcedureMetadata(rich, `/services/orthopaedics/${slug}`);
+    return {
+      ...base,
+      alternates: {
+        ...base.alternates,
+        languages: { "en-IN": `/services/orthopaedics/${slug}`, "hi-IN": `/hi/services/orthopaedics/${slug}` },
+      },
+    };
   }
 
   const procedure = getProcedure(slug);
@@ -37,6 +44,7 @@ export default async function ProcedurePage({ params }: { params: Promise<{ proc
         categoryHref="/services"
         canonicalPath={`/services/orthopaedics/${slug}`}
         consultationLabel="Book Orthopaedic Consultation"
+        altHref={`/hi/services/orthopaedics/${slug}`}
       />
     );
   }

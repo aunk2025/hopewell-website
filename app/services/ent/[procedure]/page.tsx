@@ -18,7 +18,14 @@ export async function generateMetadata({ params }: { params: Promise<{ procedure
 
   const rich = getEntTreatment(slug);
   if (rich) {
-    return buildProcedureMetadata(rich, `/services/ent/${slug}`);
+    const base = buildProcedureMetadata(rich, `/services/ent/${slug}`);
+    return {
+      ...base,
+      alternates: {
+        ...base.alternates,
+        languages: { "en-IN": `/services/ent/${slug}`, "hi-IN": `/hi/services/ent/${slug}` },
+      },
+    };
   }
 
   const procedure = getProcedure(slug);
@@ -37,6 +44,7 @@ export default async function EntProcedurePage({ params }: { params: Promise<{ p
         categoryHref="/services"
         canonicalPath={`/services/ent/${slug}`}
         consultationLabel="Book ENT Consultation"
+        altHref={`/hi/services/ent/${slug}`}
       />
     );
   }
