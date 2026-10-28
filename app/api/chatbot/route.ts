@@ -21,6 +21,20 @@ const LANGUAGE_NAMES: Record<"en" | "hi", string> = {
   hi: "Hindi",
 };
 
+// The system prompt tells the model never to use Markdown (the chat
+// widget only renders plain text), but LLMs occasionally slip and emit
+// [label](url) anyway — most often with the path as both the label and
+// the target, e.g. "[/appointment](/appointment)". This is a backstop so
+// a slip never reaches the widget as literal brackets/duplicated text.
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, label, url) => (label === url ? url : `${label} (${url})`))
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/__([^_]+)__/g, "$1")
+    .replace(/\*([^*]+)\*/g, "$1")
+    .replace(/_([^_]+)_/g, "$1");
+}
+
 export async function POST(req: NextRequest) {
   const apiKey = process.env.GEMINI_API_KEY;
   // Treat an unset OR still-placeholder key as "not configured" — a bare
@@ -73,7 +87,7 @@ The visitor has selected ${languageName} as their preferred language. Reply in $
       }
     }
 
-    return NextResponse.json({ reply: response.text ?? "" });
+    return NextResponse.json({ reply: stripMarkdown(response.text ?? "") });
   } catch (err) {
     if (err instanceof ApiError) {
       console.error("Chatbot error (Gemini API):", err.status, err.message);

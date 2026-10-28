@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Phone, MessageCircle, Send, X, Mic } from "lucide-react";
+import { Phone, MessageCircle, Send, X, Mic, Volume2, VolumeX } from "lucide-react";
 
 const PHONE_NUMBER = "+919199666246";
 const WHATSAPP_NUMBER = "919199666246";
@@ -25,6 +25,8 @@ const UI_TEXT: Record<LanguageCode, {
   listening: string;
   typing: string;
   greeting: string;
+  muteSpeech: string;
+  unmuteSpeech: string;
 }> = {
   en: {
     title: "Hopewell Assistant",
@@ -33,6 +35,8 @@ const UI_TEXT: Record<LanguageCode, {
     listening: "Listening…",
     typing: "Typing…",
     greeting: "Hi! I'm the Hopewell Hospital assistant. Ask me about our services, doctors, or how to book an appointment.",
+    muteSpeech: "Mute spoken replies",
+    unmuteSpeech: "Unmute spoken replies",
   },
   hi: {
     title: "होपवेल सहायक",
@@ -41,6 +45,8 @@ const UI_TEXT: Record<LanguageCode, {
     listening: "सुन रहे हैं…",
     typing: "लिख रहे हैं…",
     greeting: "नमस्ते! मैं होपवेल हॉस्पिटल का सहायक हूँ। हमारी सेवाओं, डॉक्टरों या अपॉइंटमेंट बुक करने के बारे में पूछें।",
+    muteSpeech: "बोलकर जवाब देना बंद करें",
+    unmuteSpeech: "बोलकर जवाब देना शुरू करें",
   },
 };
 
@@ -50,6 +56,22 @@ const UI_TEXT: Record<LanguageCode, {
 function getSpeechRecognition(): any {
   if (typeof window === "undefined") return null;
   return (window as any).SpeechRecognition ?? (window as any).webkitSpeechRecognition ?? null;
+}
+
+// Browser speech synthesis reads a long digit run as a quantity — e.g.
+// "+91 91996 66246" comes out as some number of lakhs and thousands —
+// instead of a phone number. Spacing every digit out forces it to read
+// each one individually instead. Only digit runs of phone-number length
+// (10+ digits) are touched, so ordinary numbers in a reply (bed counts,
+// percentages, "24x7", pin codes) are still read naturally.
+function makeNumbersSpeakable(text: string): string {
+  return text.replace(/\+?\d[\d\s-]{6,}\d/g, (match) => {
+    const digitCount = (match.match(/\d/g) || []).length;
+    if (digitCount < 10) return match;
+    const hasPlus = match.trimStart().startsWith("+");
+    const digits = match.replace(/\D/g, "");
+    return (hasPlus ? "+ " : "") + digits.split("").join(" ");
+  });
 }
 
 function WhatsAppIcon() {
@@ -70,8 +92,14 @@ export default function ContactFAB() {
   const [error, setError] = useState("");
   const [listening, setListening] = useState(false);
   const [speechSupported, setSpeechSupported] = useState(false);
+  const [ttsSupported, setTtsSupported] = useState(false);
+  const [speechEnabled, setSpeechEnabled] = useState(true);
   const endRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<any>(null);
+  // Tracks whether the text currently in the input box came from dictation
+  // (vs. the visitor typing) so a reply is only read aloud when the
+  // question that prompted it was actually asked by voice.
+  const lastInputWasVoiceRef = useRef(false);
   const t = UI_TEXT[language];
 
   useEffect(() => {
@@ -80,10 +108,28 @@ export default function ContactFAB() {
 
   useEffect(() => {
     setSpeechSupported(!!getSpeechRecognition());
-    return () => recognitionRef.current?.stop();
+    setTtsSupported(typeof window !== "undefined" && "speechSynthesis" in window);
+    return () => {
+      recognitionRef.current?.stop();
+      if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel();
+    };
   }, []);
 
+  // Stop any reply still being read aloud once the chat is closed or
+  // spoken replies are muted mid-utterance.
+  useEffect(() => {
+    if ((!chatOpen || !speechEnabled) && ttsSupported) window.speechSynthesis.cancel();
+  }, [chatOpen, speechEnabled, ttsSupported]);
+
   if (pathname?.startsWith("/admin")) return null;
+
+  function speak(text: string) {
+    if (!ttsSupported || !speechEnabled) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(makeNumbersSpeakable(text));
+    utterance.lang = LANGUAGES.find((l) => l.code === language)?.speechLang ?? "en-IN";
+    window.speechSynthesis.speak(utterance);
+  }
 
   // Switching language only resets the greeting while the conversation
   // hasn't actually started yet — real history is left alone so a mid-chat
@@ -104,13 +150,24 @@ export default function ContactFAB() {
     recognition.lang = LANGUAGES.find((l) => l.code === language)?.speechLang ?? "en-IN";
     recognition.interimResults = true;
     recognition.continuous = false;
+    // Local to this listening session (not component state) so `onend`
+    // always sees the latest dictated text without a stale-closure risk.
+    let finalTranscript = "";
     recognition.onresult = (event: any) => {
       const transcript = Array.from(event.results as any)
         .map((r: any) => r[0].transcript)
         .join("");
       setInput(transcript);
+      finalTranscript = transcript;
+      lastInputWasVoiceRef.current = true;
     };
-    recognition.onend = () => setListening(false);
+    // Speech recognition stops itself once it detects the visitor has
+    // finished speaking — send the question automatically at that point
+    // instead of making them tap Send after dictating.
+    recognition.onend = () => {
+      setListening(false);
+      if (finalTranscript.trim()) send(finalTranscript);
+    };
     recognition.onerror = (event: any) => {
       setListening(false);
       const reason = event?.error;
@@ -136,9 +193,11 @@ export default function ContactFAB() {
     }
   }
 
-  async function send() {
-    const text = input.trim();
+  async function send(overrideText?: string) {
+    const text = (overrideText ?? input).trim();
     if (!text || sending) return;
+    const askedByVoice = lastInputWasVoiceRef.current;
+    lastInputWasVoiceRef.current = false;
     setError("");
     setInput("");
     const isGreeting = (m: ChatMessage) => Object.values(UI_TEXT).some((u) => u.greeting === m.content);
@@ -154,6 +213,7 @@ export default function ContactFAB() {
       const json = await res.json();
       if (!res.ok) throw new Error(json.error ?? "Something went wrong");
       setMessages((m) => [...m, { role: "assistant", content: json.reply }]);
+      if (askedByVoice) speak(json.reply);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
@@ -186,6 +246,18 @@ export default function ContactFAB() {
                 </button>
               ))}
             </div>
+            {ttsSupported && (
+              <button
+                type="button"
+                onClick={() => setSpeechEnabled((v) => !v)}
+                aria-pressed={speechEnabled}
+                aria-label={speechEnabled ? t.muteSpeech : t.unmuteSpeech}
+                title={speechEnabled ? t.muteSpeech : t.unmuteSpeech}
+                className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-white/60 hover:bg-white/10 hover:text-white"
+              >
+                {speechEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
+              </button>
+            )}
             <button type="button" onClick={() => setChatOpen(false)} aria-label="Close chat" className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-white/60 hover:bg-white/10 hover:text-white">
               <X size={16} />
             </button>
@@ -218,7 +290,7 @@ export default function ContactFAB() {
           >
             <input
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={(e) => { setInput(e.target.value); lastInputWasVoiceRef.current = false; }}
               placeholder={listening ? t.listening : t.placeholder}
               className="flex-1 rounded-full border border-slate-200 px-4 py-2.5 text-sm outline-none focus:border-teal-400"
             />
