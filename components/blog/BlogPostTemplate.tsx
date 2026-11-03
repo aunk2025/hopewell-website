@@ -2,9 +2,10 @@ import Link from "next/link";
 import { BadgeCheck, Clock, ShieldAlert, Stethoscope } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Breadcrumbs from "@/components/blog/Breadcrumbs";
 import Block from "@/components/blog/BlogBlocks";
 import type { BlogPost } from "@/lib/blog-content";
-import { getRelatedPosts } from "@/lib/blog-content";
+import { SPECIALITY_BY_SLUG, SPECIALITY_LABELS, specialityHref, getRelatedPostsBySpeciality } from "@/lib/blog-specialities";
 import { blogChromeDict, type Locale } from "@/lib/i18n";
 
 export default function BlogPostTemplate({
@@ -25,19 +26,39 @@ export default function BlogPostTemplate({
 }) {
   const t = blogChromeDict[locale];
   const appointmentHref = locale === "hi" ? "/hi/appointment" : "/appointment";
-  const related = relatedPosts ?? getRelatedPosts(post.slug);
+  // Hindi pages always pass relatedPosts explicitly (via getRelatedPostsHi),
+  // so this speciality-aware default only applies to English articles.
+  const related = relatedPosts ?? getRelatedPostsBySpeciality(post.slug);
+
+  // The Health Library's category pages only exist for the English site so
+  // far, so the extra breadcrumb level is English-only; Hindi keeps its
+  // existing two-level trail.
+  const specialityKey = SPECIALITY_BY_SLUG[post.slug];
+  const breadcrumbItems =
+    locale === "en" && specialityKey
+      ? [
+          { label: "Home", href: "/" },
+          { label: "Health Library", href: "/blog" },
+          { label: SPECIALITY_LABELS[specialityKey].en, href: specialityHref(specialityKey) },
+          { label: post.title },
+        ]
+      : null;
 
   return (
     <main className="min-h-screen bg-[#faf5ef]">
       <Navbar locale={locale} altHref={altHref} />
 
-      <div className="mx-auto max-w-7xl px-5 pt-6 text-sm text-slate-500 lg:px-8">
-        <Link href={blogIndexHref} className="hover:text-ink">
-          {t.breadcrumbBlog}
-        </Link>
-        <span className="mx-2">/</span>
-        <span className="text-ink">{post.title}</span>
-      </div>
+      {breadcrumbItems ? (
+        <Breadcrumbs items={breadcrumbItems} />
+      ) : (
+        <div className="mx-auto max-w-7xl px-5 pt-6 text-sm text-slate-500 lg:px-8">
+          <Link href={blogIndexHref} className="hover:text-ink">
+            {t.breadcrumbBlog}
+          </Link>
+          <span className="mx-2">/</span>
+          <span className="text-ink">{post.title}</span>
+        </div>
+      )}
 
       {/* Hero */}
       <section className="mx-auto max-w-4xl px-5 py-10 lg:px-8 lg:py-14">

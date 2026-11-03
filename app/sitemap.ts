@@ -18,6 +18,7 @@ import { surgeryProcedures } from "@/lib/surgery-procedures";
 import { urologyProcedures } from "@/lib/urology-procedures";
 import { vascularProcedures } from "@/lib/vascular-procedures";
 import { blogPosts } from "@/lib/blog-content";
+import { LIVE_SPECIALITY_ORDER, specialityHref } from "@/lib/blog-specialities";
 
 // Hindi counterparts — only the "rich" procedures have a translated page
 // (the 11 legacy-only ortho/ENT slugs are intentionally not covered yet).
@@ -53,6 +54,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/appointment",
     "/doctors",
     "/blog",
+    ...LIVE_SPECIALITY_ORDER.map((key) => specialityHref(key)),
     "/hi",
     "/hi/services",
     "/hi/health-packages",

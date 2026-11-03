@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import BlogPostTemplate from "@/components/blog/BlogPostTemplate";
 import { blogPosts, getBlogPost } from "@/lib/blog-content";
 import { getBlogPostHi } from "@/lib/blog-content-hi";
+import { SPECIALITY_BY_SLUG, SPECIALITY_LABELS, specialityHref } from "@/lib/blog-specialities";
 import { SITE_URL, DEFAULT_OG_IMAGE } from "@/lib/contact-config";
 
 export function generateStaticParams() {
@@ -50,6 +51,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const post = getBlogPost(slug);
   if (!post) notFound();
   const hasHindi = Boolean(getBlogPostHi(slug));
+  const specialityKey = SPECIALITY_BY_SLUG[post.slug];
+  const categoryLabel = SPECIALITY_LABELS[specialityKey].en;
+  const categoryUrl = `${SITE_URL}${specialityHref(specialityKey)}`;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -71,8 +75,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
-          { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/blog` },
-          { "@type": "ListItem", position: 3, name: post.title, item: `${SITE_URL}/blog/${post.slug}` },
+          { "@type": "ListItem", position: 2, name: "Health Library", item: `${SITE_URL}/blog` },
+          { "@type": "ListItem", position: 3, name: categoryLabel, item: categoryUrl },
+          { "@type": "ListItem", position: 4, name: post.title, item: `${SITE_URL}/blog/${post.slug}` },
         ],
       },
       {
