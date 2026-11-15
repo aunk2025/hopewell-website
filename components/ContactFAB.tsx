@@ -93,6 +93,40 @@ function makeNumbersSpeakable(text: string): string {
   });
 }
 
+// A reply mentions in-site paths as plain text, e.g. "at /services/
+// orthopaedics" — read verbatim that comes out as "slash services slash
+// orthopaedics". Dropping the slashes lets it just say the words.
+function makeLinksSpeakable(text: string): string {
+  return text.replace(/\/[a-z0-9-]+(?:\/[a-z0-9-]+)*/gi, (match) => match.split("/").filter(Boolean).join(" "));
+}
+
+// iOS Safari has a long-standing bug where a single long
+// SpeechSynthesisUtterance silently drops most of its text and plays only
+// scattered fragments — most noticeable on real hardware, not in
+// simulators. Breaking the reply into short, sentence-sized chunks and
+// queuing each as its own utterance works around it: the Web Speech API
+// plays consecutive speak() calls back to back on its own, and short
+// utterances don't trigger the bug the way one long one does.
+function splitIntoSpeechChunks(text: string): string[] {
+  const sentences = text
+    .replace(/\s+/g, " ")
+    .split(/(?<=[.!?।])\s+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const chunks: string[] = [];
+  let current = "";
+  for (const sentence of sentences) {
+    if (current && (current + " " + sentence).length > 180) {
+      chunks.push(current);
+      current = sentence;
+    } else {
+      current = current ? `${current} ${sentence}` : sentence;
+    }
+  }
+  if (current) chunks.push(current);
+  return chunks;
+}
+
 function WhatsAppIcon() {
   return (
     <svg viewBox="0 0 32 32" width="24" height="24" fill="currentColor" aria-hidden="true">
@@ -199,7 +233,6 @@ export default function ContactFAB() {
   function speak(text: string, langCode: LanguageCode) {
     if (!ttsSupported || !speechEnabled) return;
     window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(makeNumbersSpeakable(text));
     const preferredLang = LANGUAGES.find((l) => l.code === langCode)?.speechLang ?? "en-IN";
     // Many phones don't have the exact "en-IN"/"hi-IN" regional voice pack
     // installed — only a plain "en-US" or whatever the device's own
@@ -212,13 +245,14 @@ export default function ContactFAB() {
       voices.find((v) => v.lang === preferredLang) ??
       voices.find((v) => v.lang.toLowerCase().startsWith(langCode)) ??
       undefined;
-    if (voice) {
-      utterance.voice = voice;
-      utterance.lang = voice.lang;
-    } else {
-      utterance.lang = preferredLang;
+    const resolvedLang = voice?.lang ?? preferredLang;
+    const cleaned = makeLinksSpeakable(makeNumbersSpeakable(text));
+    for (const chunk of splitIntoSpeechChunks(cleaned)) {
+      const utterance = new SpeechSynthesisUtterance(chunk);
+      utterance.lang = resolvedLang;
+      if (voice) utterance.voice = voice;
+      window.speechSynthesis.speak(utterance);
     }
-    window.speechSynthesis.speak(utterance);
   }
 
   // Switching language only resets the greeting while the conversation
@@ -236,51 +270,65 @@ export default function ContactFAB() {
       recognitionRef.current?.stop();
       return;
     }
-    const recognition = new SpeechRecognition();
-    recognition.lang = LANGUAGES.find((l) => l.code === language)?.speechLang ?? "en-IN";
-    recognition.interimResults = true;
-    recognition.continuous = false;
-    // Local to this listening session (not component state) so `onend`
-    // always sees the latest dictated text without a stale-closure risk.
-    let finalTranscript = "";
-    recognition.onresult = (event: any) => {
-      const transcript = Array.from(event.results as any)
-        .map((r: any) => r[0].transcript)
-        .join("");
-      setInput(transcript);
-      finalTranscript = transcript;
-      lastInputWasVoiceRef.current = true;
-    };
-    // Speech recognition stops itself once it detects the visitor has
-    // finished speaking — send the question automatically at that point
-    // instead of making them tap Send after dictating.
-    recognition.onend = () => {
-      setListening(false);
-      if (finalTranscript.trim()) send(finalTranscript);
-    };
-    recognition.onerror = (event: any) => {
-      setListening(false);
-      const reason = event?.error;
-      if (reason === "not-allowed" || reason === "service-not-allowed") {
-        setError("Microphone access was blocked. Please allow microphone permission in your browser and try again.");
-      } else if (reason === "no-speech") {
-        setError("No speech detected. Please try again.");
-      } else if (reason === "audio-capture") {
-        setError("No microphone was found on this device.");
-      } else if (reason === "network") {
-        setError("Voice input needs an internet connection to reach the browser's speech service.");
-      } else {
-        setError(`Voice input failed (${reason ?? "unknown error"}). Please try again or type your message.`);
+    // A second voice turn right after the previous reply was read aloud
+    // can silently fail to capture any audio on iOS — recognition.start()
+    // returns normally, "Listening…" shows, but no result (and no error)
+    // ever arrives — because iOS hasn't switched its shared audio session
+    // from "playback" (the TTS reply) back to "recording" yet, and a
+    // previous recognition instance may not have fully released it either.
+    // Cancelling any pending speech, aborting the previous session, and
+    // giving iOS a brief moment before asking for the mic again clears
+    // that up.
+    if (ttsSupported) window.speechSynthesis.cancel();
+    recognitionRef.current?.abort();
+    setListening(true);
+
+    setTimeout(() => {
+      const recognition = new SpeechRecognition();
+      recognition.lang = LANGUAGES.find((l) => l.code === language)?.speechLang ?? "en-IN";
+      recognition.interimResults = true;
+      recognition.continuous = false;
+      // Local to this listening session (not component state) so `onend`
+      // always sees the latest dictated text without a stale-closure risk.
+      let finalTranscript = "";
+      recognition.onresult = (event: any) => {
+        const transcript = Array.from(event.results as any)
+          .map((r: any) => r[0].transcript)
+          .join("");
+        setInput(transcript);
+        finalTranscript = transcript;
+        lastInputWasVoiceRef.current = true;
+      };
+      // Speech recognition stops itself once it detects the visitor has
+      // finished speaking — send the question automatically at that point
+      // instead of making them tap Send after dictating.
+      recognition.onend = () => {
+        setListening(false);
+        if (finalTranscript.trim()) send(finalTranscript);
+      };
+      recognition.onerror = (event: any) => {
+        setListening(false);
+        const reason = event?.error;
+        if (reason === "not-allowed" || reason === "service-not-allowed") {
+          setError("Microphone access was blocked. Please allow microphone permission in your browser and try again.");
+        } else if (reason === "no-speech") {
+          setError("No speech detected. Please try again.");
+        } else if (reason === "audio-capture") {
+          setError("No microphone was found on this device.");
+        } else if (reason === "network") {
+          setError("Voice input needs an internet connection to reach the browser's speech service.");
+        } else {
+          setError(`Voice input failed (${reason ?? "unknown error"}). Please try again or type your message.`);
+        }
+      };
+      try {
+        recognitionRef.current = recognition;
+        recognition.start();
+      } catch {
+        setListening(false);
+        setError("Could not start voice input. Please try again.");
       }
-    };
-    try {
-      recognitionRef.current = recognition;
-      recognition.start();
-      setListening(true);
-    } catch {
-      setListening(false);
-      setError("Could not start voice input. Please try again.");
-    }
+    }, 200);
   }
 
   async function send(overrideText?: string) {
@@ -327,6 +375,19 @@ export default function ContactFAB() {
             <div className="min-w-0 flex-1">
               <div className="truncate text-sm font-black">{t.title}</div>
               <div className="truncate text-[11px] text-white/50">{t.subtitle}</div>
+            </div>
+            <div className="flex shrink-0 overflow-hidden rounded-full border border-white/20 text-[11px] font-bold">
+              {LANGUAGES.map((l) => (
+                <button
+                  key={l.code}
+                  type="button"
+                  onClick={() => changeLanguage(l.code)}
+                  aria-pressed={language === l.code}
+                  className={`px-2 py-1 transition ${language === l.code ? "bg-white text-ink" : "text-white/60 hover:text-white"}`}
+                >
+                  {l.label}
+                </button>
+              ))}
             </div>
             {ttsSupported && (
               <button
