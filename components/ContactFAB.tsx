@@ -181,6 +181,16 @@ export default function ContactFAB() {
       recognitionRef.current?.stop();
       return;
     }
+    // iOS Safari and Android Chrome only allow speechSynthesis.speak() to
+    // play if it's been "unlocked" by a call made synchronously inside a
+    // direct user gesture at least once on the page — otherwise a later
+    // speak() from an async callback (like the reply arriving after this
+    // mic recognition ends) is silently ignored. This tap is that gesture.
+    if (ttsSupported) {
+      const unlock = new SpeechSynthesisUtterance(" ");
+      unlock.volume = 0;
+      window.speechSynthesis.speak(unlock);
+    }
     const recognition = new SpeechRecognition();
     recognition.lang = LANGUAGES.find((l) => l.code === language)?.speechLang ?? "en-IN";
     recognition.interimResults = true;
