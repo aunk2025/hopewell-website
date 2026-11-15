@@ -75,6 +75,14 @@ function detectLanguage(text: string): LanguageCode {
   return /[ऀ-ॿ]/.test(text) ? "hi" : "en";
 }
 
+// Best-effort guess for the very first voice message of a session, before
+// there's any transcript yet for detectLanguage to read — see the comment
+// on the `language` state for why this guess matters. Never runs during
+// SSR (no `navigator`), only once the chat panel mounts client-side.
+function guessInitialLanguage(): LanguageCode {
+  return typeof navigator !== "undefined" && navigator.language?.toLowerCase().startsWith("hi") ? "hi" : "en";
+}
+
 function makeNumbersSpeakable(text: string): string {
   return text.replace(/\+?\d[\d\s-]{6,}\d/g, (match) => {
     const digitCount = (match.match(/\d/g) || []).length;
@@ -96,8 +104,10 @@ function WhatsAppIcon() {
 export default function ContactFAB() {
   const pathname = usePathname();
   const [chatOpen, setChatOpen] = useState(false);
-  const [language, setLanguage] = useState<LanguageCode>("en");
-  const [messages, setMessages] = useState<ChatMessage[]>([{ role: "assistant", content: UI_TEXT.en.greeting }]);
+  const [language, setLanguage] = useState<LanguageCode>(guessInitialLanguage);
+  const [messages, setMessages] = useState<ChatMessage[]>(() => [
+    { role: "assistant", content: UI_TEXT[guessInitialLanguage()].greeting },
+  ]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
@@ -317,19 +327,6 @@ export default function ContactFAB() {
             <div className="min-w-0 flex-1">
               <div className="truncate text-sm font-black">{t.title}</div>
               <div className="truncate text-[11px] text-white/50">{t.subtitle}</div>
-            </div>
-            <div className="flex shrink-0 overflow-hidden rounded-full border border-white/20 text-[11px] font-bold">
-              {LANGUAGES.map((l) => (
-                <button
-                  key={l.code}
-                  type="button"
-                  onClick={() => changeLanguage(l.code)}
-                  aria-pressed={language === l.code}
-                  className={`px-2 py-1 transition ${language === l.code ? "bg-white text-ink" : "text-white/60 hover:text-white"}`}
-                >
-                  {l.label}
-                </button>
-              ))}
             </div>
             {ttsSupported && (
               <button
