@@ -64,6 +64,17 @@ function getSpeechRecognition(): any {
 // each one individually instead. Only digit runs of phone-number length
 // (10+ digits) are touched, so ordinary numbers in a reply (bed counts,
 // percentages, "24x7", pin codes) are still read naturally.
+// Auto-detects Hindi vs English from the message itself (Devanagari script
+// vs Latin) so the reply — and the voice it's spoken in — follows what the
+// visitor actually said, instead of requiring them to flip the EN/हिं
+// toggle before speaking. This only recognises Hindi written in Devanagari;
+// Hindi spoken while the recognizer is set to English still transcribes as
+// Romanized/English text, which is a limitation of the browser's speech
+// recognition itself, not of this detection step.
+function detectLanguage(text: string): LanguageCode {
+  return /[ऀ-ॿ]/.test(text) ? "hi" : "en";
+}
+
 function makeNumbersSpeakable(text: string): string {
   return text.replace(/\+?\d[\d\s-]{6,}\d/g, (match) => {
     const digitCount = (match.match(/\d/g) || []).length;
@@ -104,6 +115,11 @@ export default function ContactFAB() {
   // (vs. the visitor typing) so a reply is only read aloud when the
   // question that prompted it was actually asked by voice.
   const lastInputWasVoiceRef = useRef(false);
+  // Populated from speechSynthesis.getVoices(), which starts empty and
+  // fills in asynchronously (via the voiceschanged event) — reading it
+  // too early, before any voices have loaded, is how `speak()` ends up
+  // with nothing to pick from.
+  const voicesRef = useRef<SpeechSynthesisVoice[]>([]);
   const t = UI_TEXT[language];
 
   useEffect(() => {
@@ -143,10 +159,22 @@ export default function ContactFAB() {
 
   useEffect(() => {
     setSpeechSupported(!!getSpeechRecognition());
-    setTtsSupported(typeof window !== "undefined" && "speechSynthesis" in window);
+    const hasTts = typeof window !== "undefined" && "speechSynthesis" in window;
+    setTtsSupported(hasTts);
+    if (hasTts) {
+      const loadVoices = () => {
+        voicesRef.current = window.speechSynthesis.getVoices();
+      };
+      loadVoices();
+      window.speechSynthesis.addEventListener("voiceschanged", loadVoices);
+      return () => {
+        recognitionRef.current?.stop();
+        window.speechSynthesis.removeEventListener("voiceschanged", loadVoices);
+        window.speechSynthesis.cancel();
+      };
+    }
     return () => {
       recognitionRef.current?.stop();
-      if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel();
     };
   }, []);
 
@@ -158,11 +186,28 @@ export default function ContactFAB() {
 
   if (pathname?.startsWith("/admin")) return null;
 
-  function speak(text: string) {
+  function speak(text: string, langCode: LanguageCode) {
     if (!ttsSupported || !speechEnabled) return;
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(makeNumbersSpeakable(text));
-    utterance.lang = LANGUAGES.find((l) => l.code === language)?.speechLang ?? "en-IN";
+    const preferredLang = LANGUAGES.find((l) => l.code === langCode)?.speechLang ?? "en-IN";
+    // Many phones don't have the exact "en-IN"/"hi-IN" regional voice pack
+    // installed — only a plain "en-US" or whatever the device's own
+    // language is set to. Both iOS Safari and Android Chrome stay
+    // completely silent (no error) if utterance.lang names a locale with
+    // no installed voice, so pick the closest real match instead of
+    // assuming the exact tag exists.
+    const voices = voicesRef.current.length ? voicesRef.current : window.speechSynthesis.getVoices();
+    const voice =
+      voices.find((v) => v.lang === preferredLang) ??
+      voices.find((v) => v.lang.toLowerCase().startsWith(langCode)) ??
+      undefined;
+    if (voice) {
+      utterance.voice = voice;
+      utterance.lang = voice.lang;
+    } else {
+      utterance.lang = preferredLang;
+    }
     window.speechSynthesis.speak(utterance);
   }
 
@@ -180,16 +225,6 @@ export default function ContactFAB() {
     if (listening) {
       recognitionRef.current?.stop();
       return;
-    }
-    // iOS Safari and Android Chrome only allow speechSynthesis.speak() to
-    // play if it's been "unlocked" by a call made synchronously inside a
-    // direct user gesture at least once on the page — otherwise a later
-    // speak() from an async callback (like the reply arriving after this
-    // mic recognition ends) is silently ignored. This tap is that gesture.
-    if (ttsSupported) {
-      const unlock = new SpeechSynthesisUtterance(" ");
-      unlock.volume = 0;
-      window.speechSynthesis.speak(unlock);
     }
     const recognition = new SpeechRecognition();
     recognition.lang = LANGUAGES.find((l) => l.code === language)?.speechLang ?? "en-IN";
@@ -243,6 +278,8 @@ export default function ContactFAB() {
     if (!text || sending) return;
     const askedByVoice = lastInputWasVoiceRef.current;
     lastInputWasVoiceRef.current = false;
+    const detectedLanguage = detectLanguage(text);
+    if (detectedLanguage !== language) changeLanguage(detectedLanguage);
     setError("");
     setInput("");
     const isGreeting = (m: ChatMessage) => Object.values(UI_TEXT).some((u) => u.greeting === m.content);
@@ -253,12 +290,12 @@ export default function ContactFAB() {
       const res = await fetch("/api/chatbot", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: next.filter((m) => !isGreeting(m)), language }),
+        body: JSON.stringify({ messages: next.filter((m) => !isGreeting(m)), language: detectedLanguage }),
       });
       const json = await res.json();
       if (!res.ok) throw new Error(json.error ?? "Something went wrong");
       setMessages((m) => [...m, { role: "assistant", content: json.reply }]);
-      if (askedByVoice) speak(json.reply);
+      if (askedByVoice) speak(json.reply, detectedLanguage);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
@@ -379,7 +416,24 @@ export default function ContactFAB() {
 
       <button
         type="button"
-        onClick={() => setChatOpen((v) => !v)}
+        onClick={() => {
+          // iOS Safari and Android Chrome only allow speechSynthesis.speak()
+          // to play if it's been "unlocked" by a call made synchronously
+          // inside a direct user gesture at least once on the page —
+          // otherwise a later speak() from an async callback (like a
+          // chatbot reply arriving after a fetch) is silently ignored. This
+          // tap opening the chat is that gesture; it's kept separate from
+          // the mic button because firing it right before
+          // recognition.start() made iOS abort voice input outright
+          // (claiming the audio-output session collided with acquiring the
+          // microphone for speech recognition).
+          if (!chatOpen && ttsSupported) {
+            const unlock = new SpeechSynthesisUtterance(" ");
+            unlock.volume = 0;
+            window.speechSynthesis.speak(unlock);
+          }
+          setChatOpen((v) => !v);
+        }}
         aria-label={chatOpen ? "Close chat" : "Open chat"}
         className="grid h-14 w-14 place-items-center rounded-full bg-ink text-white shadow-glass transition hover:-translate-y-1 hover:shadow-xl"
       >
