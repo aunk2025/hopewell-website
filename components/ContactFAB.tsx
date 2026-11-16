@@ -281,13 +281,18 @@ export default function ContactFAB() {
     // that up.
     if (ttsSupported) window.speechSynthesis.cancel();
     recognitionRef.current?.abort();
-    setListening(true);
 
     setTimeout(() => {
       const recognition = new SpeechRecognition();
       recognition.lang = LANGUAGES.find((l) => l.code === language)?.speechLang ?? "en-IN";
       recognition.interimResults = true;
       recognition.continuous = false;
+      // Only show "Listening…" once the engine actually confirms it has
+      // started capturing — showing it right on tap (before the delay
+      // above resolves) let visitors start speaking before the mic was
+      // really live, clipping the start of what they said and garbling
+      // the transcript.
+      recognition.onstart = () => setListening(true);
       // Local to this listening session (not component state) so `onend`
       // always sees the latest dictated text without a stale-closure risk.
       let finalTranscript = "";
@@ -353,7 +358,7 @@ export default function ContactFAB() {
       const json = await res.json();
       if (!res.ok) throw new Error(json.error ?? "Something went wrong");
       setMessages((m) => [...m, { role: "assistant", content: json.reply }]);
-      if (askedByVoice) speak(json.reply, detectedLanguage);
+      if (askedByVoice) speak(json.voiceReply ?? json.reply, detectedLanguage);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
