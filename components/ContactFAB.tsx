@@ -18,6 +18,27 @@ const LANGUAGES: { code: LanguageCode; label: string; speechLang: string }[] = [
   { code: "hi", label: "हिं", speechLang: "hi-IN" },
 ];
 
+// Tappable shortcuts for common questions, shown above the input — tapping
+// one sends its `query` through the normal chat flow exactly as if the
+// visitor had typed and submitted it themselves, so it still gets a real
+// Gemini-backed answer rather than a canned one.
+const CHIPS: Record<LanguageCode, { label: string; query: string }[]> = {
+  en: [
+    { label: "Doctors", query: "Can you show me the list of doctors?" },
+    { label: "Services", query: "What services do you offer?" },
+    { label: "Book Appointment", query: "How do I book an appointment?" },
+    { label: "Health Packages", query: "What health checkup packages do you have?" },
+    { label: "Contact Us", query: "How can I contact the hospital?" },
+  ],
+  hi: [
+    { label: "डॉक्टर", query: "डॉक्टरों की सूची दिखाएं।" },
+    { label: "सेवाएं", query: "आप कौन सी सेवाएं प्रदान करते हैं?" },
+    { label: "अपॉइंटमेंट बुक करें", query: "मैं अपॉइंटमेंट कैसे बुक करूं?" },
+    { label: "हेल्थ पैकेज", query: "आपके पास कौन से हेल्थ चेकअप पैकेज हैं?" },
+    { label: "संपर्क करें", query: "मैं हॉस्पिटल से कैसे संपर्क करूं?" },
+  ],
+};
+
 const UI_TEXT: Record<LanguageCode, {
   title: string;
   subtitle: string;
@@ -430,6 +451,20 @@ export default function ContactFAB() {
             )}
             {error && <p className="text-center text-xs text-red-500">{error}</p>}
             <div ref={endRef} />
+          </div>
+
+          <div className="flex gap-1.5 overflow-x-auto border-t border-slate-100 px-3 py-2 [scrollbar-width:none]">
+            {CHIPS[language].map((chip) => (
+              <button
+                key={chip.label}
+                type="button"
+                onClick={() => send(chip.query)}
+                disabled={sending}
+                className="shrink-0 whitespace-nowrap rounded-full border border-teal-600 px-3 py-1 text-xs font-semibold text-teal-700 transition hover:bg-teal-50 disabled:opacity-40"
+              >
+                {chip.label}
+              </button>
+            ))}
           </div>
 
           <form

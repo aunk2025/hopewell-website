@@ -65,9 +65,13 @@ function mergeSection(rich: ProcedurePage[], legacy: { slug: string; name: strin
 }
 
 /** Builds a system prompt describing Hopewell Hospital's real site content,
- *  so the chatbot only answers from what's actually on the website. */
-export async function buildSiteContext(): Promise<string> {
+ *  so the chatbot only answers from what's actually on the website.
+ *  Also returns the real doctor names on their own, so a caller can check
+ *  a generated reply doesn't name a doctor who isn't actually on staff —
+ *  cheaper models occasionally invent one. */
+export async function buildSiteContext(): Promise<{ system: string; doctorNames: string[] }> {
   let doctorLines = "Doctor list is temporarily unavailable.";
+  let doctorNames: string[] = [];
   try {
     const doctors = await prisma.doctor.findMany({
       where: { available: true },
@@ -76,6 +80,7 @@ export async function buildSiteContext(): Promise<string> {
     doctorLines = doctors
       .map((d) => `- ${d.name.trim()} — ${d.specialty} (${d.qualifications}, ${d.experience}+ yrs experience)`)
       .join("\n");
+    doctorNames = doctors.map((d) => d.name.trim());
   } catch {
     // DB unreachable; fall back to the generic line above rather than failing the whole chat.
   }
@@ -88,7 +93,7 @@ export async function buildSiteContext(): Promise<string> {
 
   const enquiryTypeLines = ENQUIRY_TYPES.map((t) => `- ${t}`).join("\n");
 
-  return `You are the official website assistant for Hopewell Hospital, Ranchi (Jharkhand, India). Answer visitor questions ONLY using the information below, which reflects the hospital's actual website content. Be warm, concise and helpful.
+  const system = `You are the official website assistant for Hopewell Hospital, Ranchi (Jharkhand, India). Answer visitor questions ONLY using the information below, which reflects the hospital's actual website content. Be warm, concise and helpful.
 
 Hard rules:
 - Never diagnose, prescribe or give medical advice. For any symptom, diagnosis or treatment question, say you can't provide medical advice and direct them to book an appointment or call the hospital.
@@ -156,4 +161,6 @@ CONTACT US (/contact)
 The Contact Us page routes enquiries by type. If a visitor asks about any of the following, point them to /contact:
 ${enquiryTypeLines}
 `;
+
+  return { system, doctorNames };
 }
